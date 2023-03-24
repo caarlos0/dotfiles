@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eopipefail
+if test -n "$SSH_TTY"; then
+	nc localhost 2225
+elif test "$(uname)" = Darwin; then
+	pbpaste
+else
+	xsel --clipboard --output
+fi
+

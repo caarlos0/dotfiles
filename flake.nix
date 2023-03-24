@@ -2,39 +2,31 @@
   description = "Home Manager configuration of Carlos Becker";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-	# neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, home-manager, ... }:
     let
-      system = "aarc64-darwin";
+      system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
-	  # overlays = [
-   #        inputs.neovim-nightly-overlay.overlay
-   #      ];
     in {
-      homeConfigurations.carlos = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-		# configuration = { pkgs, ... }:
-  #           {
-  #             nixpkgs.overlays = overlays;
-  #           };
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [
-		./home.nix
-		];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-      };
+      homeConfigurations."carlos@supernova" =
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./home.nix
+            ./dev.nix
+            ./git.nix
+            ./shell.nix
+            ./ssh.nix
+            ./bins.nix
+            ./darwin.nix
+          ];
+        };
     };
 }

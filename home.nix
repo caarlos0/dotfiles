@@ -1,6 +1,4 @@
-{ config, pkgs, ... }:
-
-{
+{ config, pkgs, ... }: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "carlos";
@@ -15,13 +13,35 @@
   # release notes.
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
-
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    pkgs.goreleaser
-    pkgs.htop
-    pkgs.cargo
+  home.packages = with pkgs; [
+    htop
+    jq
+    terraform
+    hugo
+    ripgrep
+    cosign
+    fd
+    exa
+    age
+    ffmpeg
+    fzf
+    gum
+    glow
+    gh
+    kubectl
+    nmap
+    yamllint
+    # helm
+    # sevenzip
+
+    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+
+    # gui apps
+    # vlc
+
+    # pkgs.wezterm
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -67,12 +87,44 @@
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
     EDITOR = "nvim";
-    LC_ALL="en_US.UTF-8";
-    LC_CTYPE="en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+    LC_CTYPE = "en_US.UTF-8";
   };
 
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-  programs.neovim.enable = true;
-}
+  programs = {
+    home-manager.enable = true;
+    wezterm = {
+      enable = true;
+      extraConfig = builtins.readFile config/wezterm.lua;
+    };
 
+    tmux = {
+      enable = true;
+      extraConfig = builtins.readFile config/tmux.conf;
+      plugins = with pkgs; [
+        tmuxPlugins.sensible
+        tmuxPlugins.yank
+        tmuxPlugins.resurrect
+        tmuxPlugins.continuum
+      ];
+    };
+  };
+
+  xdg.configFile."yamllint/config" = {
+    source = config.lib.file.mkOutOfStoreSymlink ./config/yamllint.yml;
+  };
+
+  # xdg.configFile."wezterm/wezterm.lua" = {
+  #   source = config.lib.file.mkOutOfStoreSymlink ./config/wezterm.lua;
+  # };
+  #
+  # xdg.configFile.nvim = {
+  #   source = config.lib.file.mkOutOfStoreSymlink ./config/neovim;
+  #   recursive = true;
+
+  # };
+
+  # imports = [] ++ (optionals isLinux [./linux.nix]);
+  # imports = [] ++ (optionals isDarwin [./darwin.nix]);
+}
