@@ -1,3 +1,4 @@
+set -U fish_greeting
 set -x GPG_TTY (tty)
 fish_add_path -a $GOPATH/bin /usr/local/go/bin $HOME/.cargo/bin
 

@@ -1,27 +1,21 @@
 { config, pkgs, ... }: {
-  home.packages = with pkgs.fishPlugins; [ foreign-env autopair-fish ];
   programs.fish = {
     enable = true;
-    plugins = [{
-      name = "fzf";
-      src = pkgs.fetchFromGitHub {
-        owner = "jethrokuan";
-        repo = "fzf";
-        rev = "main";
-        sha256 = "28QW/WTLckR4lEfHv6dSotwkAKpNJFCShxmKFGQQ1Ew=";
-      };
-    }
-    # {
-    #   name = "catppuccin";
-    #   src = pkgs.fetchFromGitHub {
-    #     owner = "catppuccin";
-    #     repo = "fish";
-    #     rev = "b90966686068b5ebc9f80e5b90fdf8c02ee7a0ba";
-    #     sha256 = "";
-    #   };
-    # }
-      ];
     shellInit = builtins.readFile config/fish/init.fish;
+    plugins = [
+      {
+        name = "foreign-env";
+        src = pkgs.fishPlugins.foreign-env.src;
+      }
+      {
+        name = "autopair";
+        src = pkgs.fishPlugins.autopair-fish.src;
+      }
+      {
+        name = "fzf";
+        src = pkgs.fishPlugins.fzf-fish.src;
+      }
+    ];
     shellAliases = {
       # docker
       d = "docker";
