@@ -164,7 +164,7 @@ null_ls.setup({
     -- null_ls.builtins.code_actions.gitsigns,
     null_ls.builtins.formatting.fish_indent,
     -- null_ls.builtins.formatting.shfmt,
-    null_ls.builtins.formatting.alejandra,
+    null_ls.builtins.formatting.nixfmt,
   },
   capabilities = capabilities,
   on_attach = on_attach,
