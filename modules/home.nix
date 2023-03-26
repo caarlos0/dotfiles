@@ -96,18 +96,7 @@
     home-manager.enable = true;
     wezterm = {
       enable = true;
-      extraConfig = builtins.readFile config/wezterm.lua;
-    };
-
-    tmux = {
-      enable = true;
-      extraConfig = builtins.readFile config/tmux.conf;
-      plugins = with pkgs; [
-        tmuxPlugins.sensible
-        tmuxPlugins.yank
-        tmuxPlugins.resurrect
-        tmuxPlugins.continuum
-      ];
+      extraConfig = builtins.readFile ../config/wezterm.lua; # TODO: improve
     };
   };
 

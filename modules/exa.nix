@@ -1,6 +1,7 @@
 { ... }: {
   programs.exa = {
     enable = true;
+    enableAliases = true;
     # config = {
     #   aliases = {
     #     l = "exa -lh --icons";

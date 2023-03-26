@@ -16,7 +16,7 @@
         forwardAgent = true;
         extraOptions = {
           RequestTTY = "true";
-          RemoteCommand = "~/.dotfiles/bin/tmux-new"; # TODO: change
+          RemoteCommand = "~/.bin/tmux-new"; # TODO: change
         };
       };
       "aur.archlinux.org" = { identityFile = "~/.ssh/aur"; };

@@ -19,13 +19,14 @@
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
-            ./home.nix
-            ./dev.nix
-            ./git.nix
-            ./shell.nix
-            ./ssh.nix
-            ./bins.nix
-            ./darwin.nix
+            ./modules/home.nix
+            ./modules/tmux/default.nix
+            ./modules/dev.nix
+            ./modules/git.nix
+            ./modules/shell.nix
+            ./modules/ssh.nix
+            ./modules/bins.nix
+            ./modules/darwin.nix
           ];
         };
     };
