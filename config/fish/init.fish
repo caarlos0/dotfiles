@@ -1,6 +1,6 @@
 set -U fish_greeting
 set -x GPG_TTY (tty)
-fish_add_path -a $GOPATH/bin /usr/local/go/bin $HOME/.cargo/bin
+fish_add_path -a $HOME/.bin $GOPATH/bin /usr/local/go/bin $HOME/.cargo/bin
 
 function __trap_exit_tmux
     test -z "$NVIM_LISTEN_ADDRESS" || exit
