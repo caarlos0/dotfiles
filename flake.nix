@@ -25,7 +25,7 @@
             ./modules/git.nix
             ./modules/shell.nix
             ./modules/ssh.nix
-            ./modules/bins.nix
+            ./modules/bins/default.nix
             ./modules/darwin.nix
           ];
         };
