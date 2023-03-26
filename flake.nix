@@ -21,7 +21,7 @@
           modules = [
             ./modules/home.nix
             ./modules/tmux/default.nix
-            ./modules/dev.nix
+            ./modules/dev/default.nix
             ./modules/git.nix
             ./modules/shell.nix
             ./modules/ssh.nix

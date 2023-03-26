@@ -1,10 +1,15 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   programs.neovim = {
     enable = true;
     # package = pkgs.neovim-nightly;
     # install needed binaries here
     # plugins = with pkgs.vimPlugins; [
     # ];
+  };
+
+  xdg.configFile."nvim" = {
+    source = config.lib.file.mkOutOfStoreSymlink ./neovim;
+    recursive = true;
   };
 
   home.sessionVariables = { GOPATH = "~/Developer/Go"; };
@@ -16,14 +21,28 @@
     nil
     nixfmt
 
+    # lua
+    sumneko-lua-language-server
+
     # go
     go
     goreleaser
     gofumpt
     gopls
+    golangci-lint
+    golangci-lint-langserver
 
     # rust
     cargo
+    rust-analyzer
+
+    # terraform
+    tflint
+    terraform-ls
+
+    # toml
+    taplo
+
   ];
 
   editorconfig = {
