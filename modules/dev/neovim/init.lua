@@ -19,5 +19,6 @@ require("lazy").setup("plugins", {
     enabled = true,
     notify = true,
     frequency = 86400,
+    lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
   },
 })

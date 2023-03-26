@@ -1,9 +1,9 @@
 { config, pkgs, ... }: {
   programs.neovim = {
     enable = true;
-    defaultEditor=true;
-    vimAlias=true;
-    vimdiffAlias=true;
+    defaultEditor = true;
+    vimAlias = true;
+    vimdiffAlias = true;
     # package = pkgs.neovim-nightly;
     # install needed binaries here
     # plugins = with pkgs.vimPlugins; [
