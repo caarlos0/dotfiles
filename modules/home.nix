@@ -1,13 +1,13 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   home.username = "carlos";
   home.homeDirectory = "/Users/carlos";
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
   home.packages = with pkgs; [
     age
+    comma
     cosign
     curl
-    comma
     fd
     fzf
     gh
@@ -32,6 +32,7 @@
     stern
     terminal-notifier
     terraform
+    timer
     tldr
     vegeta
 
@@ -42,7 +43,6 @@
     # jsonfmt
     # markscribe
     # svu
-    # timer
 
     # gui apps
     # 1password-gui
@@ -71,12 +71,6 @@
     # vlc
     # whatsapp-beta
     # zoom
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
