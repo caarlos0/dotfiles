@@ -15,6 +15,12 @@
     recursive = true;
   };
 
+  xdg.configFile."yamllint/config".text = ''
+    extends: relaxed
+    rules:
+      line-length: disable
+  '';
+
   home.sessionVariables = { GOPATH = "$HOME/Developer/Go"; };
 
   home.packages = with pkgs; [
@@ -46,6 +52,9 @@
 
     # toml
     taplo
+
+    # yaml
+    yamllint
   ];
 
   editorconfig = {

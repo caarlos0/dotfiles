@@ -33,7 +33,6 @@
     terraform
     tldr
     vegeta
-    yamllint
 
     # TODO:
     # rar # unfree
@@ -107,12 +106,6 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-  xdg.configFile."yamllint/config".text = ''
-    extends: relaxed
-    rules:
-      line-length: disable
-  '';
 
   # imports = [] ++ (optionals isLinux [./linux.nix]);
   # imports = [ ] ++ (optionals isDarwin [ ./darwin.nix ]);
