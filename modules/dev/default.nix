@@ -15,7 +15,7 @@
     recursive = true;
   };
 
-  home.sessionVariables = { GOPATH = "~/Developer/Go"; };
+  home.sessionVariables = { GOPATH = "$HOME/Developer/Go"; };
 
   home.packages = with pkgs; [
     tree-sitter

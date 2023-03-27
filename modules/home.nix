@@ -102,7 +102,7 @@
   home.sessionVariables = {
     LC_ALL = "en_US.UTF-8";
     LC_CTYPE = "en_US.UTF-8";
-    PROJECTS = "~/Developer";
+    PROJECTS = "$HOME/Developer";
   };
 
   # Let Home Manager install and manage itself.

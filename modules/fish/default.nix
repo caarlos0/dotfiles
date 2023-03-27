@@ -4,10 +4,6 @@
     shellInit = builtins.readFile ./init.fish;
     plugins = [
       {
-        name = "foreign-env";
-        src = pkgs.fishPlugins.foreign-env.src;
-      }
-      {
         name = "autopair";
         src = pkgs.fishPlugins.autopair-fish.src;
       }
