@@ -1,4 +1,12 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+let
+  # TODO: open an issue for this... the package should be installing it.
+  gotaskCompletion = pkgs.fetchurl {
+    url =
+      "https://raw.githubusercontent.com/go-task/task/master/completion/fish/task.fish";
+    sha256 = "lrocX9WakEoXb+TDjCG3b0MIBQHYtOuBvukYG+LanVc=";
+  };
+in {
   programs.fish = {
     enable = true;
     shellInit = builtins.readFile ./init.fish;
@@ -136,4 +144,6 @@
   xdg.configFile."fish/functions/pubkey.fish" = {
     source = config.lib.file.mkOutOfStoreSymlink ./functions/pubkey.fish;
   };
+
+  xdg.configFile."fish/completions/task.fish" = { source = gotaskCompletion; };
 }
