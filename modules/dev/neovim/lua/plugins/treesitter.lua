@@ -95,22 +95,25 @@ return {
               ["]f"] = "@function.inner",
               ["]p"] = "@parameter.inner",
               ["]c"] = "@class.inner",
+              ["]a"] = "@parameter.inner",
             },
             goto_next_end = {
               ["]F"] = "@function.inner",
               ["]P"] = "@parameter.inner",
               ["]C"] = "@class.inner",
+              ["]A"] = "@parameter.inner",
             },
             goto_previous_start = {
               ["[f"] = "@function.inner",
               ["[p"] = "@parameter.inner",
               ["[c"] = "@class.inner",
+              ["[a"] = "@parameter.outer",
             },
             goto_previous_end = {
               ["[F"] = "@function.inner",
               ["[P"] = "@parameter.inner",
               ["[C"] = "@class.inner",
-            },
+              ["[A"] = "@parameter.outer",
           },
           select = {
             enable = true,
