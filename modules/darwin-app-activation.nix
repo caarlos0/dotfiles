@@ -1,6 +1,8 @@
 # courtesy of https://github.com/kamalmarhubi/dotfiles-nix/blob/f8f5ad4f899b07beb881e4391bd60425f6ae2de0/darwin.nix
-{ config, inputs, lib, pkgs, system, ... }:
-let mkalias = inputs.mkAlias.outputs.apps.${system}.default.program;
+{ config, inputs, lib, pkgs, ... }:
+let
+  system = "aarch64-darwin";
+  mkalias = inputs.mkAlias.outputs.apps.${system}.default.program;
 in {
   disabledModules = [ "targets/darwin/linkapps.nix" ];
   # Add a custom mkalias based thing cribbed from:

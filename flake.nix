@@ -20,49 +20,45 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, nix-index-database, ... }@inputs:
-    let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      homeConfigurations."carlos@supernova" =
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs system; };
-          modules = [
-            ./modules/darwin-app-activation.nix
-            ./modules/darwin.nix
-            ./modules/home.nix
-            ./modules/wezterm/default.nix
-            ./modules/tmux/default.nix
-            ./modules/dev/default.nix
-            ./modules/gpg.nix
-            ./modules/git.nix
-            ./modules/shell.nix
-            ./modules/ssh.nix
-            ./modules/bins/default.nix
-            ./modules/charm.nix
-            # ./modules/yubikey.nix
-            nix-index-database.hmModules.nix-index
-          ];
-        };
-      homeConfigurations."carlos@darkstar" =
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs system; };
-          modules = [
-            ./modules/home.nix
-            ./modules/wezterm/default.nix
-            ./modules/tmux/default.nix
-            ./modules/dev/default.nix
-            ./modules/gpg.nix
-            ./modules/git.nix
-            ./modules/shell.nix
-            ./modules/ssh.nix
-            ./modules/bins/default.nix
-            ./modules/charm.nix
-            nix-index-database.hmModules.nix-index
-          ];
-        };
-    };
+  outputs = { nixpkgs, home-manager, nix-index-database, ... }@inputs: {
+    homeConfigurations."carlos@supernova" =
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [
+          ./modules/darwin-app-activation.nix
+          ./modules/darwin.nix
+          ./modules/home.nix
+          ./modules/wezterm/default.nix
+          ./modules/tmux/default.nix
+          ./modules/dev/default.nix
+          ./modules/gpg.nix
+          ./modules/git.nix
+          ./modules/shell.nix
+          ./modules/ssh.nix
+          ./modules/bins/default.nix
+          ./modules/charm.nix
+          # ./modules/yubikey.nix
+          nix-index-database.hmModules.nix-index
+        ];
+      };
+    homeConfigurations."carlos@darkstar" =
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [
+          ./modules/home.nix
+          ./modules/wezterm/default.nix
+          ./modules/tmux/default.nix
+          ./modules/dev/default.nix
+          ./modules/gpg.nix
+          ./modules/git.nix
+          ./modules/shell.nix
+          ./modules/ssh.nix
+          ./modules/bins/default.nix
+          ./modules/charm.nix
+          nix-index-database.hmModules.nix-index
+        ];
+      };
+  };
 }
