@@ -21,7 +21,8 @@
   };
 
   outputs = { nixpkgs, home-manager, nix-index-database, ... }@inputs: {
-    homeConfigurations."carlos@supernova" =
+	  homeConfigurations = {
+    "carlos@supernova" =
       home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
         extraSpecialArgs = { inherit inputs; };
@@ -42,7 +43,8 @@
           nix-index-database.hmModules.nix-index
         ];
       };
-    homeConfigurations."carlos@darkstar" =
+
+    "carlos@darkstar" =
       home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
@@ -60,5 +62,6 @@
           nix-index-database.hmModules.nix-index
         ];
       };
+		  };
   };
 }

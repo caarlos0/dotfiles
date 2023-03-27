@@ -1,6 +1,12 @@
 { pkgs, ... }: {
   home.username = "carlos";
-  home.homeDirectory = "/Users/carlos";
+  home.homeDirectory =
+            (
+              if pkgs.stdenv.isDarwin
+              then "/Users/"
+              else "/home/"
+            )
+            + "carlos";
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
   home.packages = with pkgs; [
@@ -30,7 +36,6 @@
     sqlite
     sshpass
     stern
-    terminal-notifier
     terraform
     timer
     tldr

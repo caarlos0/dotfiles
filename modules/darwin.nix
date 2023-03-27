@@ -1,4 +1,6 @@
-{ ... }: {
+{ pkgs,... }: {
+
+home.packages = [pkgs.terminal-notifier ];
   launchd.agents = {
     pbcopy = {
       enable = true;
