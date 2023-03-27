@@ -56,10 +56,9 @@
     vegeta
     wishlist
     yamllint
-    yubikey-agent
-    yubikey-manager
 
     # TODO:
+    # rar # unfree
     # fork-cleaner
     # jsonschema
     # jsonfmt
@@ -67,24 +66,15 @@
     # svu
     # timer
 
-    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-
     # gui apps
-    # vlc
-
-    #     1password
+    # 1password-gui
     # airflow
-    # alacritty
-    # amethyst
     # blackhole-2ch
     # cleanshot
     # dash5
     # deckset
     # discord
-    # firefox
     # font-jetbrains-mono-nerd-font
-    # font-sf-mono
-    # font-sf-mono-for-powerline
     # google-chrome
     # iina
     # imageoptim
@@ -92,10 +82,7 @@
     # kitty
     # ledger-live
     # monodraw
-    # ngrok
-    # notion
     # postico
-    # rar
     # rectangle
     # sensei
     # signal
@@ -105,13 +92,9 @@
     # telegram
     # vlc
     # whatsapp-beta
-    # yubico-yubikey-manager
     # zoom
 
-    # pkgs.wezterm
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

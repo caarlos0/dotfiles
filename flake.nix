@@ -31,10 +31,12 @@
             ./modules/wezterm/default.nix
             ./modules/tmux/default.nix
             ./modules/dev/default.nix
+            ./modules/gpg.nix
             ./modules/git.nix
             ./modules/shell.nix
             ./modules/ssh.nix
             ./modules/bins/default.nix
+            # ./modules/yubikey.nix
           ];
         };
     };
