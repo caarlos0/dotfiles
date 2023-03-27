@@ -72,8 +72,6 @@
     # whatsapp-beta
     # zoom
 
-    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -86,6 +84,9 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+
+    # fonts
+    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
   # You can also manage environment variables but you will have to manually
