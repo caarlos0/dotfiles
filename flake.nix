@@ -13,9 +13,14 @@
       url = "github:cdmistman/mkAlias";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, home-manager, nix-index-database, ... }@inputs:
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -38,6 +43,7 @@
             ./modules/bins/default.nix
             ./modules/charm.nix
             # ./modules/yubikey.nix
+            nix-index-database.hmModules.nix-index
           ];
         };
     };

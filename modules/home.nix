@@ -7,6 +7,7 @@
     age
     cosign
     curl
+    comma
     fd
     fzf
     gh
