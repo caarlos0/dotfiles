@@ -114,6 +114,7 @@ return {
               ["[P"] = "@parameter.inner",
               ["[C"] = "@class.inner",
               ["[A"] = "@parameter.outer",
+            },
           },
           select = {
             enable = true,
