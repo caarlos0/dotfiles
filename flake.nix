@@ -36,6 +36,7 @@
             ./modules/shell.nix
             ./modules/ssh.nix
             ./modules/bins/default.nix
+            ./modules/charm.nix
             # ./modules/yubikey.nix
           ];
         };

@@ -26,6 +26,7 @@
 
     # lua
     sumneko-lua-language-server
+    stylua
 
     # go
     go
