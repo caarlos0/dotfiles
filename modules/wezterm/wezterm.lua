@@ -1,5 +1,4 @@
 local mux = wezterm.mux
-
 local monolisa = wezterm.font_with_fallback({
   "Monolisa",
   "JetBrains Mono",

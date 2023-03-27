@@ -16,30 +16,97 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    htop
-    jq
-    terraform
-    hugo
-    ripgrep
-    cosign
-    fd
-    exa
     age
+    cosign
+    curl
+    fd
     ffmpeg
     fzf
-    gum
-    glow
     gh
+    gitty
+    glow
+    go-task
+    gum
+    htmltest
+    htop
+    httpstat
+    hugo
+    hyperfine
+    inetutils
+    jq
     kubectl
+    kubectx
+    kubernetes-helm
+    melt
+    moreutils
     nmap
+    nodejs
+    p7zip
+    pinentry
+    ripgrep
+    sqlite
+    sshpass
+    stern
+    stylua
+    tasktimer
+    terminal-notifier
+    terraform
+    tldr
+    tz
+    vegeta
+    wishlist
     yamllint
-    # helm
-    # sevenzip
+    yubikey-agent
+    yubikey-manager
+
+    # TODO:
+    # fork-cleaner
+    # jsonschema
+    # jsonfmt
+    # markscribe
+    # svu
+    # timer
 
     (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
     # gui apps
     # vlc
+
+    #     1password
+    # airflow
+    # alacritty
+    # amethyst
+    # blackhole-2ch
+    # cleanshot
+    # dash5
+    # deckset
+    # discord
+    # firefox
+    # font-jetbrains-mono-nerd-font
+    # font-sf-mono
+    # font-sf-mono-for-powerline
+    # google-chrome
+    # iina
+    # imageoptim
+    # keybase
+    # kitty
+    # ledger-live
+    # monodraw
+    # ngrok
+    # notion
+    # postico
+    # rar
+    # rectangle
+    # sensei
+    # signal
+    # slack
+    # soulver
+    # subtitles
+    # telegram
+    # vlc
+    # whatsapp-beta
+    # yubico-yubikey-manager
+    # zoom
 
     # pkgs.wezterm
     # # Adds the 'hello' command to your environment. It prints a friendly
@@ -92,28 +159,12 @@
   };
 
   # Let Home Manager install and manage itself.
-  programs = {
-    home-manager.enable = true;
-    wezterm = {
-      enable = true;
-      extraConfig = builtins.readFile ../config/wezterm.lua; # TODO: improve
-    };
-  };
+  programs.home-manager.enable = true;
 
   xdg.configFile."yamllint/config" = {
     source = config.lib.file.mkOutOfStoreSymlink ./config/yamllint.yml;
   };
 
-  # xdg.configFile."wezterm/wezterm.lua" = {
-  #   source = config.lib.file.mkOutOfStoreSymlink ./config/wezterm.lua;
-  # };
-  #
-  # xdg.configFile.nvim = {
-  #   source = config.lib.file.mkOutOfStoreSymlink ./config/neovim;
-  #   recursive = true;
-
-  # };
-
   # imports = [] ++ (optionals isLinux [./linux.nix]);
-  # imports = [] ++ (optionals isDarwin [./darwin.nix]);
+  # imports = [ ] ++ (optionals isDarwin [ ./darwin.nix ]);
 }
