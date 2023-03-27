@@ -1,5 +1,4 @@
 set -U fish_greeting
-set -x GPG_TTY (tty) # TODO: maybe not needed
 set -x NIXPKGS_ALLOW_UNFREE 1
 
 fish_add_path -a $HOME/.nix-profile/bin /nix/var/nix/profiles/default/bin $HOME/.bin $GOPATH/bin /usr/local/go/bin $HOME/.cargo/bin
