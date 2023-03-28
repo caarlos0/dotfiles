@@ -1,15 +1,13 @@
-{ config, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   programs.ssh = {
     enable = true;
     includes = [ "~/.ssh/config.local" ];
     serverAliveInterval = 60;
     matchBlocks = {
-      "*" = {
-        identityFile = "~/.ssh/id_ed25519";
-        extraOptions = {
-          UseKeyChain = (if pkgs.stdenv.isDarwin then "yes" else "no");
-        };
-      };
+      "*" = lib.mkMerge [
+        { identityFile = "~/.ssh/id_ed25519"; }
+        (if pkgs.stdenv.isDarwin then { UseKeyChain = "yes"; } else { })
+      ];
       "localhost" = {
         extraOptions = {
           UserKnownHostsFile = "/dev/null";
