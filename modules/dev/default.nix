@@ -20,7 +20,6 @@ in {
     # package = pkgs.neovim-nightly;
     # install needed binaries here
     plugins = with pkgs.vimPlugins; [
-
       # ui
       catppuccin-nvim
       nvim-web-devicons
@@ -87,6 +86,7 @@ in {
           diff
           dockerfile
           fish
+          git_config
           git_rebase
           gitattributes
           gitcommit
@@ -107,6 +107,7 @@ in {
           markdown
           markdown_inline
           nix
+          python
           query
           regex
           rust
