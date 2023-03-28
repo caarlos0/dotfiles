@@ -4,10 +4,13 @@
     includes = [ "~/.ssh/config.local" ];
     serverAliveInterval = 60;
     matchBlocks = {
-      "*" = lib.mkMerge [
-        { identityFile = "~/.ssh/id_ed25519"; }
-        (if pkgs.stdenv.isDarwin then { UseKeyChain = "yes"; } else { })
-      ];
+      "*" = {
+        identityFile = "~/.ssh/id_ed25519";
+        extraOptions = lib.mkMerge [
+          { }
+          (if pkgs.stdenv.isDarwin then { UseKeyChain = "yes"; } else { })
+        ];
+      };
       "localhost" = {
         extraOptions = {
           UserKnownHostsFile = "/dev/null";
