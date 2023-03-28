@@ -79,15 +79,54 @@ in {
       neodev-nvim
       nvim-surround
       comment-nvim
-      nvim-treesitter
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
+        with plugins; [
+          bash
+          cpp
+          css
+          diff
+          dockerfile
+          fish
+          git_rebase
+          gitattributes
+          gitcommit
+          gitignore
+          go
+          gomod
+          gowork
+          graphql
+          hcl
+          help
+          html
+          http
+          javascript
+          jq
+          json
+          lua
+          make
+          markdown
+          markdown_inline
+          nix
+          query
+          regex
+          rust
+          scss
+          sql
+          terraform
+          toml
+          vhs
+          vim
+          yaml
+          zig
+        ]))
       nvim-treesitter-textobjects
       nvim-treesitter-context
-      (fromGitHub "simrat39" "inlay-hints.nvim"
-        "006b0898f5d3874e8e528352103733142e705834"
-        "cDWx08N+NhN5Voxh8f7RGzerbAYB5FHE6TpD4/o/MIQ=")
       (fromGitHub "RRethy" "nvim-treesitter-endwise"
         "0cf4601c330cf724769a2394df555a57d5fd3f34"
         "Pns+3gLlwhrojKQWN+zOFxOmgRkG3vTPGoLX90Sg+oo=")
+      (fromGitHub "simrat39" "inlay-hints.nvim"
+        "006b0898f5d3874e8e528352103733142e705834"
+        "cDWx08N+NhN5Voxh8f7RGzerbAYB5FHE6TpD4/o/MIQ=")
 
       # TODO: "JellyApple102/easyread.nvim",
     ];
@@ -95,7 +134,7 @@ in {
 
   xdg.configFile."nvim" = {
     source = config.lib.file.mkOutOfStoreSymlink ./neovim;
-#    recursive = true;
+    #    recursive = true;
   };
 
   xdg.configFile."yamllint/config".text = ''

@@ -96,7 +96,6 @@ lspconfig.yamlls.setup({
 })
 
 lspconfig.nil_ls.setup({
-  cmd = { "/Users/carlos/.nix-profile/bin/nil" },
   capabilities = capabilities,
   on_attach = on_attach,
 })
