@@ -149,35 +149,47 @@ in {
   home.packages = with pkgs; [
     tree-sitter
 
+    # bash
+    nodePackages.bash-language-server
+
     # nix
-    nil
+    nil # lsp
     nixfmt
 
     # lua
-    sumneko-lua-language-server
+    sumneko-lua-language-server # lsp
     stylua
+
+    # c
+    clang-tools # lsp (clangd)
 
     # go
     go
     goreleaser
     gofumpt
-    gopls
+    gopls # lsp
     golangci-lint
-    golangci-lint-langserver
+    golangci-lint-langserver # lsp
 
     # rust
     cargo
-    rust-analyzer
+    rust-analyzer # lsp
 
     # terraform
     tflint
-    terraform-ls
+    terraform-ls # lsp
 
     # toml
-    taplo
+    taplo # lsp
 
     # yaml
     yamllint
+
+    # english
+    ltex-ls # lsp
+
+    # docker
+    docker-ls # lsp
   ];
 
   editorconfig = {
