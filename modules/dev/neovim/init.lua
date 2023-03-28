@@ -1,24 +1,58 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
 require("user.options")
 require("user.keymaps")
 require("user.autocommands")
-require("lazy").setup("plugins", {
-  checker = {
-    enabled = true,
-    notify = true,
-    frequency = 86400,
-    lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
+
+--
+-- UI
+--
+require("user.colorscheme")
+require("nvim-web-devicons").setup()
+require("user.notify")
+require("user.bufferline")
+require("user.lualine")
+require("user.autosession")
+
+--
+-- BASIC
+--
+require("user.indent")
+require("gitsigns").setup()
+require("todo-comments").setup({
+  highlight = {
+    keyword = "bg",
   },
 })
+require("dressing").setup({})
+require("fidget").setup({
+  text = { spinner = "dots_pulse" },
+})
+require("user.test")
+require("user.harpoon")
+require("user.telescope")
+require("user.fugitive")
+require("user.undotree")
+require("which-key").setup()
+require("user.tree")
+require("user.bufremove")
+require("auto-hlsearch").setup()
+if os.getenv("SSH_CLIENT") ~= nil then
+  require("user.osc52")
+end
+
+--
+-- CODING
+--
+require("neodev").setup({})
+require("luasnip").setup({
+  -- see: https://github.com/L3MON4D3/LuaSnip/issues/525
+  region_check_events = "InsertEnter",
+  delete_check_events = "InsertLeave",
+})
+require("luasnip.loaders.from_vscode").lazy_load()
+require("nvim-autopairs").setup({ check_ts = true })
+require("nvim-ts-autotag").setup({ enable = true })
+require("user.lsp")
+require("user.cmp")
+require("nvim-surround").setup()
+require("Comment").setup()
+require("user.treesitter")

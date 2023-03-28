@@ -20,10 +20,9 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, nix-index-database, ... }@inputs: {
-	  homeConfigurations = {
-    "carlos@supernova" =
-      home-manager.lib.homeManagerConfiguration {
+  outputs = { home-manager, nix-index-database, ... }@inputs: {
+    homeConfigurations = {
+      "carlos@supernova" = home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
         extraSpecialArgs = { inherit inputs; };
         modules = [
@@ -44,8 +43,7 @@
         ];
       };
 
-    "carlos@darkstar" =
-      home-manager.lib.homeManagerConfiguration {
+      "carlos@darkstar" = home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [
@@ -62,6 +60,6 @@
           nix-index-database.hmModules.nix-index
         ];
       };
-		  };
+    };
   };
 }

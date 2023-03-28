@@ -3,6 +3,15 @@ local inlay_hints = require("inlay-hints")
 local autocmds = require("lsp_autocommands")
 local keymaps = require("lsp_keymaps")
 
+require("symbols-outline").setup({
+  width = 25,
+})
+vim.keymap.set("n", "<leader>smb", vim.cmd.SymbolsOutline, {
+  noremap = true,
+  silent = true,
+  desc = "Symbols Outline",
+})
+
 inlay_hints.setup({
   renderer = "inlay-hints/render/eol",
   -- https://github.com/simrat39/inlay-hints.nvim/issues/3
@@ -20,10 +29,10 @@ inlay_hints.setup({
   },
 })
 
-require("mason").setup({})
-require("mason-lspconfig").setup({
-  automatic_installation = true,
-})
+-- require("mason").setup({})
+-- require("mason-lspconfig").setup({
+--   automatic_installation = true,
+-- })
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -60,6 +69,16 @@ lspconfig.gopls.setup({
   },
   flags = {
     debounce_text_changes = 150,
+  },
+})
+
+lspconfig.ltex.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    ltex = {
+      language = "en-US",
+    },
   },
 })
 

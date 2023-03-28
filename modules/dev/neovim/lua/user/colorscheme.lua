@@ -23,7 +23,7 @@ require("catppuccin").setup({
       colored_indent_levels = true,
     },
     markdown = true,
-    mason = true,
+    -- mason = true,
     native_lsp = {
       enabled = true,
     },

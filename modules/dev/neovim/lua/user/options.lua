@@ -22,7 +22,7 @@ local options = {
   swapfile = false,
   backup = false,
   undofile = true,
-  undodir = os.getenv("HOME") .. "/.local/share/nvim/undodir",
+  undodir = vim.fn.stdpath("data") .. "undodir",
   hlsearch = false,
   ignorecase = true,
   incsearch = true,
@@ -63,4 +63,5 @@ iabbrev carlos0 caarlos0
 iabbrev descriptoin description
 iabbrev fucn func
 iabbrev sicne since
+iabbrev emtpy empty
 ]])
