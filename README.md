@@ -55,3 +55,12 @@ fish
 which fish | sudo tee -a /etc/shells
 chsh -s (which fish)
 ```
+
+# TODO
+
+- [ ] postgres module
+- [ ] set-defaults
+- [ ] maybe move most of the functions to bin?
+- [ ] yubikey
+- [ ] code of conduct, license, etc
+- [ ] better organize ./modules/dev/

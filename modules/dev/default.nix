@@ -160,6 +160,7 @@ in {
     gopls # lsp
     golangci-lint
     golangci-lint-langserver # lsp
+    delve
 
     # rust
     cargo
