@@ -27,9 +27,7 @@ in {
       nvim-notify
       bufferline-nvim
       lualine-nvim
-      (fromGitHub "rmagatti" "auto-session"
-        "1d3dd70a2d48e0f3441128eb4fb0b437a0bf2cc4"
-        "Hv6pteuZNvwNLh4dCkwF1pY8YSs02lmP2oq8RuwqK/M=")
+      auto-session
 
       # basics
       indent-blankline-nvim
@@ -49,13 +47,11 @@ in {
       vim-speeddating
       telescope-nvim
       telescope-github-nvim
+      nvim-osc52
       (fromGitHub "echasnovski" "mini.indentscope" "v0.7.0"
         "C6nD0764FwyCcFw7K0GJ6p6PwEOkkry5NenYl8FhjFc=")
       (fromGitHub "echasnovski" "mini.bufremove" "v0.7.0"
         "jpp3B/jVWIa+lVq3vVsA5gn99T/jkm7kwmXjs3BcZ2k=")
-      (fromGitHub "ojroques" "nvim-osc52"
-        "47ce7ee2396fa3ee4fb6b0e0ef14ba06f9c9bd31"
-        "SQpwiA+dyTRXBq0YtUZ4nkYKglyChIyQeWopD73qznQ=")
       (fromGitHub "asiryk" "auto-hlsearch.nvim" "1.1.0"
         "AitkdtKoKNAURrEZuQU/VRLj71qDlI4zwL+vzXUJzew=")
 
@@ -122,12 +118,10 @@ in {
         ]))
       nvim-treesitter-textobjects
       nvim-treesitter-context
+      lsp-inlayhints-nvim
       (fromGitHub "RRethy" "nvim-treesitter-endwise"
         "0cf4601c330cf724769a2394df555a57d5fd3f34"
         "Pns+3gLlwhrojKQWN+zOFxOmgRkG3vTPGoLX90Sg+oo=")
-      (fromGitHub "simrat39" "inlay-hints.nvim"
-        "006b0898f5d3874e8e528352103733142e705834"
-        "cDWx08N+NhN5Voxh8f7RGzerbAYB5FHE6TpD4/o/MIQ=")
 
       # TODO: "JellyApple102/easyread.nvim",
     ];

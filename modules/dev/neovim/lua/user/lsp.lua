@@ -1,5 +1,5 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local inlay_hints = require("inlay-hints")
+local inlay_hints = require("lsp-inlayhints")
 local autocmds = require("lsp_autocommands")
 local keymaps = require("lsp_keymaps")
 
@@ -12,27 +12,7 @@ vim.keymap.set("n", "<leader>smb", vim.cmd.SymbolsOutline, {
   desc = "Symbols Outline",
 })
 
-inlay_hints.setup({
-  renderer = "inlay-hints/render/eol",
-  -- https://github.com/simrat39/inlay-hints.nvim/issues/3
-  eol = {
-    parameter = {
-      format = function(hints)
-        return string.format(" <- (%s)", hints):gsub(":", "")
-      end,
-    },
-    type = {
-      format = function(hints)
-        return string.format(" » (%s)", hints):gsub(":", "")
-      end,
-    },
-  },
-})
-
--- require("mason").setup({})
--- require("mason-lspconfig").setup({
---   automatic_installation = true,
--- })
+inlay_hints.setup({})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
