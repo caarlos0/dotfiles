@@ -5,4 +5,7 @@
     yubikey-manager
     # yubico-yubikey-manager
   ];
+
+  # TODO: path?
+  home.sessionVariables = { SSH_AUTH_SOCK = "/tmp/yubikey-agent.sock"; };
 }
