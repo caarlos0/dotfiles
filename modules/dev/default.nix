@@ -126,7 +126,6 @@ in {
 
   xdg.configFile."nvim" = {
     source = config.lib.file.mkOutOfStoreSymlink ./neovim;
-    #    recursive = true;
   };
 
   xdg.configFile."yamllint/config".text = ''

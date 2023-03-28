@@ -1,11 +1,15 @@
-{ ... }: {
+{ config, pkgs, ... }: {
   programs.ssh = {
     enable = true;
     includes = [ "~/.ssh/config.local" ];
     serverAliveInterval = 60;
-    # identityFile = "~/.ssh/id_ed25519";
-    # extraOptions = { UseKeyChain = "true"; }; TODO: darwin
     matchBlocks = {
+      "*" = {
+        identityFile = "~/.ssh/id_ed25519";
+        extraOptions = {
+          UseKeyChain = (if pkgs.stdenv.isDarwin then "yes" else "");
+        };
+      };
       "localhost" = {
         extraOptions = {
           UserKnownHostsFile = "/dev/null";
@@ -14,6 +18,18 @@
       };
       "dev" = {
         forwardAgent = true;
+        remoteForwards = [
+          {
+            bind.port = 2224;
+            host.address = "127.0.0.1";
+            host.port = 2224;
+          }
+          {
+            bind.port = 2225;
+            host.address = "127.0.0.1";
+            host.port = 2225;
+          }
+        ];
         extraOptions = {
           RequestTTY = "true";
           RemoteCommand = "~/.bin/tmux-new"; # TODO: change
@@ -30,4 +46,6 @@
       };
     };
   };
+
+  home.file.".ssh/rc".source = config.lib.file.mkOutOfStoreSymlink ./rc;
 }

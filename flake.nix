@@ -35,7 +35,7 @@
           ./modules/gpg.nix
           ./modules/git.nix
           ./modules/shell.nix
-          ./modules/ssh.nix
+          ./modules/ssh/default.nix
           ./modules/bins/default.nix
           ./modules/charm.nix
           # ./modules/yubikey.nix
@@ -54,7 +54,7 @@
           ./modules/gpg.nix
           ./modules/git.nix
           ./modules/shell.nix
-          ./modules/ssh.nix
+          ./modules/ssh/default.nix
           ./modules/bins/default.nix
           ./modules/charm.nix
           nix-index-database.hmModules.nix-index
