@@ -7,7 +7,7 @@
       "*" = {
         identityFile = "~/.ssh/id_ed25519";
         extraOptions = {
-          UseKeyChain = (if pkgs.stdenv.isDarwin then "yes" else "");
+          UseKeyChain = (if pkgs.stdenv.isDarwin then "yes" else "no");
         };
       };
       "localhost" = {
