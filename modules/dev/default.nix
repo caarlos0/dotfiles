@@ -48,10 +48,7 @@ in {
       telescope-nvim
       telescope-github-nvim
       nvim-osc52
-      (fromGitHub "echasnovski" "mini.indentscope" "v0.7.0"
-        "C6nD0764FwyCcFw7K0GJ6p6PwEOkkry5NenYl8FhjFc=")
-      (fromGitHub "echasnovski" "mini.bufremove" "v0.7.0"
-        "jpp3B/jVWIa+lVq3vVsA5gn99T/jkm7kwmXjs3BcZ2k=")
+      mini-nvim
       (fromGitHub "asiryk" "auto-hlsearch.nvim" "1.1.0"
         "AitkdtKoKNAURrEZuQU/VRLj71qDlI4zwL+vzXUJzew=")
 
