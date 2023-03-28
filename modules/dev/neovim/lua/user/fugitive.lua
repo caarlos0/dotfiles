@@ -10,8 +10,15 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
       vim.cmd.Git("push")
     end, {
       buffer = vim.api.nvim_get_current_buf(),
-      remap = false,
+      noremap = true,
+      silent = true,
       desc = "Git push",
     })
   end,
+})
+
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git, {
+  noremap = true,
+  silent = true,
+  desc = "Open Git",
 })
