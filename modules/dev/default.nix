@@ -68,6 +68,7 @@ in {
       cmp-nvim-lsp-signature-help
       luasnip
       cmp_luasnip
+      friendly-snippets
       neodev-nvim
       nvim-surround
       comment-nvim
