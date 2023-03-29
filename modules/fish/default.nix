@@ -101,8 +101,8 @@
     source = config.lib.file.mkOutOfStoreSymlink ./functions/docker-cp.fish;
   };
 
-  xdg.configFile."fish/functions/gotestcovpkgs.fish" = {
-    source = config.lib.file.mkOutOfStoreSymlink ./functions/gotestcovpkgs.fish;
+  xdg.configFile."fish/functions/gotestcovpkg.fish" = {
+    source = config.lib.file.mkOutOfStoreSymlink ./functions/gotestcovpkg.fish;
   };
 
   xdg.configFile."fish/functions/gpr.fish" = {
