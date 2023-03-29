@@ -65,4 +65,5 @@ return {
   -- general config
   clean_exit_codes = { 130 },
   automatically_reload_config = true,
+  check_for_updates = false,
 }
