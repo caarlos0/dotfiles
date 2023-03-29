@@ -56,6 +56,14 @@ which fish | sudo tee -a /etc/shells
 chsh -s (which fish)
 ```
 
+# Update packages
+
+```bash
+nix-channel --update
+```
+
+And run the `switch` command again.
+
 # TODO
 
 - [ ] postgres module
@@ -64,3 +72,4 @@ chsh -s (which fish)
 - [ ] yubikey
 - [ ] code of conduct, license, etc
 - [ ] better organize ./modules/dev/
+
