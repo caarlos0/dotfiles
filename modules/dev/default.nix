@@ -47,6 +47,10 @@ in {
       vim-speeddating
       telescope-nvim
       telescope-github-nvim
+      sqlite-lua
+      (fromGitHub "prochri" "telescope-all-recent.nvim"
+        "f26fad245d5a468fe7fd0b494fc983f707f2c4f3"
+        "xzYPDyJH0BLYDoyZSrt1F+NajyQC7F2YJd+JWDzfZi8=")
       nvim-osc52
       mini-nvim
       (fromGitHub "asiryk" "auto-hlsearch.nvim" "1.1.0"

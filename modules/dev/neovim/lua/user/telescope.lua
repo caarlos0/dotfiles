@@ -20,6 +20,8 @@ telescope.setup({
 telescope.load_extension("gh")
 telescope.load_extension("harpoon")
 
+require("telescope-all-recent").setup({})
+
 local opts = { noremap = true, silent = true }
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<C-p>", function()
