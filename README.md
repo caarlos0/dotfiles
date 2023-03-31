@@ -59,7 +59,7 @@ chsh -s (which fish)
 # Update packages
 
 ```bash
-nix-channel --update
+nix flake update
 ```
 
 And run the `switch` command again.
