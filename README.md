@@ -66,10 +66,10 @@ And run the `switch` command again.
 
 # TODO
 
-- [ ] postgres module
+- [x] postgres module
 - [ ] set-defaults
 - [ ] maybe move most of the functions to bin?
 - [ ] yubikey
-- [ ] code of conduct, license, etc
+- [x] code of conduct, license, etc
 - [ ] better organize ./modules/dev/
 

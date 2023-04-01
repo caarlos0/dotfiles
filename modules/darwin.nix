@@ -1,6 +1,6 @@
-{ pkgs,... }: {
+{ pkgs, ... }: {
 
-home.packages = [pkgs.terminal-notifier ];
+  home.packages = [ pkgs.terminal-notifier ];
   launchd.agents = {
     pbcopy = {
       enable = true;
@@ -41,4 +41,10 @@ home.packages = [pkgs.terminal-notifier ];
       };
     };
   };
+
+  programs.fish.shellInit = ''
+      if test -e "/Applications/Postgres.app"
+    	fish_add_path -a /Applications/Postgres.app/Contents/Versions/latest/bin/
+      end
+  '';
 }
