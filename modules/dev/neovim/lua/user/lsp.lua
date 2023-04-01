@@ -135,12 +135,7 @@ lspconfig.rust_analyzer.setup({
   on_attach = on_attach,
 })
 
-lspconfig.prosemd_lsp.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-lspconfig.taplo.setup({
+lspconfig.taplo.etup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
