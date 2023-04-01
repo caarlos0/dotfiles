@@ -181,9 +181,6 @@ in {
     # yaml
     yamllint
 
-    # english
-    ltex-ls # lsp
-
     # docker
     docker-ls # lsp
   ];
