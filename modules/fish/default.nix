@@ -2,6 +2,7 @@
   programs.fish = {
     enable = true;
     shellInit = builtins.readFile ./init.fish;
+    interactiveShellInit = builtins.readFile ./init-interactive.fish;
     plugins = [
       {
         name = "autopair";
