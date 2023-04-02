@@ -1,6 +1,5 @@
-{ ... }: {
-  programs.wezterm = {
-    enable = true;
-    extraConfig = builtins.readFile ./wezterm.lua;
+{ config, ... }: {
+  xdg.configFile."wezterm/wezterm.lua" = {
+    source = config.lib.file.mkOutOfStoreSymlink ./wezterm.lua;
   };
 }

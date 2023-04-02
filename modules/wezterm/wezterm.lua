@@ -1,3 +1,6 @@
+local wezterm = require("wezterm")
+wezterm.add_to_config_reload_watch_list(wezterm.config_dir)
+
 local mux = wezterm.mux
 local monolisa = wezterm.font_with_fallback({
   "Monolisa",
@@ -65,5 +68,5 @@ return {
   -- general config
   clean_exit_codes = { 130 },
   automatically_reload_config = true,
-  check_for_updates = false,
+  -- check_for_updates = false,
 }
