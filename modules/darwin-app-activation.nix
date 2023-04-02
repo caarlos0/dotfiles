@@ -19,6 +19,14 @@ in {
         paths = config.home.packages;
         pathsToLink = "/Applications";
       };
-    in lib.hm.dag.entryAfter [ "linkGeneration" ]
-    "	echo \"Linking Home Manager applications...\" 2>&1\n\n	app_path=\"$HOME/Applications/Home Manager Apps\"\n	tmp_path=\"$(mktemp -dt \"home-manager-applications.XXXXXXXXXX\")\" || exit 1\n\n	${pkgs.fd}/bin/fd \\\n		-t l -d 1 . ${apps}/Applications \\\n		-x $DRY_RUN_CMD ${mkalias} -L {} \"$tmp_path/{/}\"\n\n	$DRY_RUN_CMD rm -rf \"$app_path\"\n	$DRY_RUN_CMD mv \"$tmp_path\" \"$app_path\"\n");
+    in lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+      app_path="$HOME/Applications/Home Manager Apps"
+      echo "Linking Home Manager applications..." 2>&1
+      tmp_path="$(mktemp -dt "home-manager-applications.XXXXXXXXXX")" || exit 1
+      ${pkgs.fd}/bin/fd \
+          -t l -d 1 . ${apps}/Applications \
+          -x $DRY_RUN_CMD ${mkalias} -L {} "$tmp_path/{/}"
+      $DRY_RUN_CMD rm -rf "$app_path"
+      $DRY_RUN_CMD mv "$tmp_path" "$app_path"
+    '');
 }
