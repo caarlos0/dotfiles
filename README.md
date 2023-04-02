@@ -53,7 +53,7 @@ Home-manager will not change your default shell, so you need to do it yourself.
 ```bash
 fish
 which fish | sudo tee -a /etc/shells
-chsh -s (which fish)
+chsh -s $(which fish)
 ```
 
 # Update packages
