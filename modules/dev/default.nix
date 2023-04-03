@@ -184,12 +184,14 @@ in {
 
     # yaml
     yamllint
+    nodePackages.yaml-language-server
 
     # docker
     docker-ls # lsp
 
     # others
-    proselint
+    nodePackages.grammarly-languageserver
+    # nur.repos.caarlos0.prosemd-lsp
   ];
 
   editorconfig = {
