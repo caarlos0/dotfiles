@@ -1,0 +1,13 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    vars:
+      TAG:
+        sh: 'date +%Y.%m.%d'
+    cmds:
+      - 'git tag -m {{.TAG}} {{.TAG}}'
+      - 'git push --tags'
+      - 'goreleaser release --clean'
