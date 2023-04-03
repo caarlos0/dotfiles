@@ -34,14 +34,17 @@
     timer
     tldr
     vegeta
+    wget
+
+    # From NUR
+    nur.repos.caarlos0.svu
+    nur.repos.caarlos0.fork-cleaner
+    nur.repos.caarlos0.jsonfmt
 
     # TODO:
     # rar # unfree
-    # fork-cleaner
     # jsonschema
-    # jsonfmt
     # markscribe
-    # svu
 
     # gui apps
     # 1password-gui

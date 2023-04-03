@@ -160,7 +160,7 @@ in {
 
     # go
     go
-    goreleaser
+    nur.repos.caarlos0.goreleaser-pro
     gofumpt
     gopls # lsp
     golangci-lint
