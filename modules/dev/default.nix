@@ -146,6 +146,8 @@ in {
 
     # bash
     nodePackages.bash-language-server
+    shfmt
+    shellcheck
 
     # nix
     nil # lsp
@@ -170,6 +172,8 @@ in {
     # rust
     cargo
     rust-analyzer # lsp
+    rustc
+    rustfmt
 
     # terraform
     tflint
@@ -183,6 +187,9 @@ in {
 
     # docker
     docker-ls # lsp
+
+    # others
+    proselint
   ];
 
   editorconfig = {
