@@ -64,6 +64,13 @@ nix flake update
 
 And run the `switch` command again.
 
+
+# Clean up
+
+```bash
+nix-collect-garbage
+```
+
 # TODO
 
 - [x] postgres module
