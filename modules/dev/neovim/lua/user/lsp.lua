@@ -65,11 +65,6 @@ lspconfig.yamlls.setup({
   },
 })
 
-lspconfig.grammarly.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
 lspconfig.nil_ls.setup({
   capabilities = capabilities,
   on_attach = on_attach,

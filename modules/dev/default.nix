@@ -190,7 +190,6 @@ in {
     docker-ls # lsp
 
     # others
-    # nodePackages.grammarly-languageserver
     # nur.repos.caarlos0.prosemd-lsp
   ];
 
