@@ -10,6 +10,6 @@ function gotestcovpkg -d "go test cover the given pkg and open report on cocovsh
         -coverpkg=$argv[1] \
         -covermode=atomic \
         -coverprofile=coverage.txt \
-        $argv[1]
+        $argv
     and GOCOVSH_THEME=mocha gocovsh --profile coverage.txt
 end
