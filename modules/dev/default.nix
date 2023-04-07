@@ -94,7 +94,6 @@ in {
           gowork
           graphql
           hcl
-          help
           html
           http
           javascript
