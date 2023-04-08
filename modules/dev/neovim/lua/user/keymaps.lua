@@ -28,10 +28,10 @@ keymap("n", "]q", ":cnext<CR>zz", opts)
 -- keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Resize with arrows
--- keymap("n", "<C-Up>", ":resize +2<CR>", opts)
--- keymap("n", "<C-Down>", ":resize -2<CR>", opts)
--- keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
--- keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+keymap("n", "<A-Up>", ":resize +2<CR>", opts)
+keymap("n", "<A-Down>", ":resize -2<CR>", opts)
+keymap("n", "<A-Left>", ":vertical resize -2<CR>", opts)
+keymap("n", "<A-Right>", ":vertical resize +2<CR>", opts)
 
 -- buffer nav
 keymap("n", "<S-l>", ":bnext<CR>", opts)
