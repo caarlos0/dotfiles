@@ -17,8 +17,7 @@ in {
     defaultEditor = true;
     vimAlias = true;
     vimdiffAlias = true;
-    # package = pkgs.neovim-nightly;
-    # install needed binaries here
+    package = pkgs.neovim-nightly;
     plugins = with pkgs.vimPlugins; [
       # ui
       catppuccin-nvim
