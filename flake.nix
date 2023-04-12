@@ -21,27 +21,33 @@
 
     nur.url = "github:nix-community/NUR";
     caarlos0-nur.url = "github:caarlos0/nur";
+
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { nur, caarlos0-nur, home-manager, nix-index-database, ... }@inputs:
+  outputs = { nur, caarlos0-nur, neovim-nightly, home-manager
+    , nix-index-database, ... }@inputs:
     let
-      overlays = final: prev: {
-        nur = import nur {
-          nurpkgs = prev;
-          pkgs = prev;
-          repoOverrides = { caarlos0 = import caarlos0-nur { pkgs = prev; }; };
-        };
-        # ... your other overlays
-      };
+      overlays = [
+        (final: prev: {
+          nur = import nur {
+            nurpkgs = prev;
+            pkgs = prev;
+            repoOverrides = {
+              caarlos0 = import caarlos0-nur { pkgs = prev; };
+            };
+          };
+        })
+        (import neovim-nightly)
+      ];
+
     in {
       homeConfigurations = {
         "carlos@supernova" = home-manager.lib.homeManagerConfiguration {
           pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
           extraSpecialArgs = { inherit inputs; };
           modules = [
-            ({ config, ... }: {
-              config = { nixpkgs.overlays = [ overlays ]; };
-            })
+            ({ config, ... }: { config = { nixpkgs.overlays = overlays; }; })
             ./modules/darwin-app-activation.nix
             ./modules/darwin.nix
             ./modules/home.nix
@@ -63,9 +69,7 @@
           pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs; };
           modules = [
-            ({ config, ... }: {
-              config = { nixpkgs.overlays = [ overlays ]; };
-            })
+            ({ config, ... }: { config = { nixpkgs.overlays = overlays; }; })
             ./modules/home.nix
             ./modules/wezterm/default.nix
             ./modules/tmux/default.nix

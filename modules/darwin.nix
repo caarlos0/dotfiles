@@ -54,6 +54,8 @@
       if test -e "/Applications/WezTerm.app"
     	fish_add_path -a /Applications/Wezterm.app/Contents/MacOS/
       end
+
+      fish_add_path -a /opt/homebrew/bin/
   '';
 
   launchd.agents.discord-applemusic-rich-presence = {

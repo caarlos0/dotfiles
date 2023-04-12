@@ -18,6 +18,37 @@
         "type": "github"
       }
     },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673956053,
+        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -59,6 +90,50 @@
         "type": "github"
       }
     },
+    "neovim-flake": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "neovim-nightly",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "contrib",
+        "lastModified": 1681264248,
+        "narHash": "sha256-4wzkYVyZmXBKgBmn1hENZgpufvBl51aP+ZuKLYfJ3rQ=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "e23c6ebed7a6dcc878a64690bbd7252c18591d54",
+        "type": "github"
+      },
+      "original": {
+        "dir": "contrib",
+        "owner": "neovim",
+        "repo": "neovim",
+        "type": "github"
+      }
+    },
+    "neovim-nightly": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "neovim-flake": "neovim-flake",
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1681287215,
+        "narHash": "sha256-o6XN6uu/ToFpPfpNa4uGaHBQc1vqDF63S/GMzp0zrCs=",
+        "owner": "nix-community",
+        "repo": "neovim-nightly-overlay",
+        "rev": "0486ad18e85147980707b3e847bcf24b1acd0aef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "neovim-nightly-overlay",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -97,11 +172,27 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1681126633,
-        "narHash": "sha256-evQ3Ct/yJDSHej16Hiq+JfxRjgm9FXu/2LBxsyorGdE=",
+        "lastModified": 1681215634,
+        "narHash": "sha256-dI0SsSWb7ksK3OtTCf61vdlBhok838aIpwQ2EUM+jhY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "db24d86dd8a4769c50d6b7295e81aa280cd93f35",
+        "rev": "5a156c2e89c1eca09b40bcdcee86760e0e4d79a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1681217261,
+        "narHash": "sha256-RbxCHWN3Vhyv/WEsXcJlDwF7bpvZ9NxDjfSouQxXEKo=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "3fb8eedc450286d5092e4953118212fa21091b3b",
         "type": "github"
       },
       "original": {
@@ -113,11 +204,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1681264374,
-        "narHash": "sha256-Ke7XtNA2nw44LzLPZ6FEpSrPWmYgHXQQZ11eE8DiOnA=",
+        "lastModified": 1681304433,
+        "narHash": "sha256-2Q2S8bZ6q9PCH7f/+P0e/eJbP7rcXXm4icxD38D0PLQ=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "1946ee504232d311b123363892fd053f625e57ba",
+        "rev": "656c719f30abacb72dc391248e26625abf55b86f",
         "type": "github"
       },
       "original": {
@@ -131,8 +222,9 @@
         "caarlos0-nur": "caarlos0-nur",
         "home-manager": "home-manager",
         "mkAlias": "mkAlias",
+        "neovim-nightly": "neovim-nightly",
         "nix-index-database": "nix-index-database",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "nur": "nur"
       }
     },
