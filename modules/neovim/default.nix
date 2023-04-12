@@ -44,7 +44,6 @@ in {
       vim-eunuch
       vim-sleuth
       vim-speeddating
-      splitjoin-vim
       telescope-nvim
       telescope-github-nvim
       sqlite-lua
