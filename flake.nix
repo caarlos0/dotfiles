@@ -53,6 +53,7 @@
             ./modules/home.nix
             ./modules/wezterm/default.nix
             ./modules/tmux/default.nix
+            ./modules/neovim/default.nix
             ./modules/dev/default.nix
             ./modules/gpg.nix
             ./modules/git.nix
@@ -73,6 +74,7 @@
             ./modules/home.nix
             ./modules/wezterm/default.nix
             ./modules/tmux/default.nix
+            ./modules/neovim/default.nix
             ./modules/dev/default.nix
             ./modules/gpg.nix
             ./modules/git.nix

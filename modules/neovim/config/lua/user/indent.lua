@@ -13,3 +13,5 @@ indent.setup({
   },
   options = { try_as_border = true },
 })
+
+require("mini.splitjoin").setup()
