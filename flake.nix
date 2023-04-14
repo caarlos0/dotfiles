@@ -22,11 +22,12 @@
     nur.url = "github:nix-community/NUR";
     caarlos0-nur.url = "github:caarlos0/nur";
 
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    # neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { nur, caarlos0-nur, neovim-nightly, home-manager
-    , nix-index-database, ... }@inputs:
+  outputs = { nur, caarlos0-nur,
+    # neovim-nightly,
+    home-manager, nix-index-database, ... }@inputs:
     let
       overlays = [
         (final: prev: {
@@ -38,7 +39,7 @@
             };
           };
         })
-        (import neovim-nightly)
+        # (import neovim-nightly)
       ];
 
     in {
