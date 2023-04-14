@@ -1,14 +1,19 @@
-local colors = require("catppuccin.palettes").get_palette()
 require("catppuccin").setup({
   flavour = "mocha",
   color_overrides = {
     mocha = {
       base = "#000000",
+      mantle = "#000000",
+      crust = "#000000",
     },
   },
-  custom_highlights = {
-    Comment = { fg = colors.overlay1 },
-    LineNr = { fg = colors.overlay1 },
+  highlight_overrides = {
+    mocha = function(C)
+      return {
+        TabLineSel = { bg = C.pink },
+        TelescopeBorder = { link = "FloatBorder" },
+      }
+    end,
   },
   integrations = {
     cmp = true,
@@ -33,6 +38,7 @@ require("catppuccin").setup({
     nvimtree = true,
     symbols_outline = true,
     telescope = true,
+    harpoon = true,
     treesitter = true,
     treesitter_context = true,
     which_key = true,

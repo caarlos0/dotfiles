@@ -26,14 +26,14 @@ in {
       nvim-notify
       bufferline-nvim
       lualine-nvim
-      auto-session
+      dressing-nvim
+      fidget-nvim
 
       # basics
+      auto-session
       indent-blankline-nvim
       gitsigns-nvim
       todo-comments-nvim
-      dressing-nvim
-      fidget-nvim
       vim-test
       harpoon
       vim-fugitive
