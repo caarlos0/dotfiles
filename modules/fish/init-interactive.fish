@@ -10,4 +10,4 @@ end
 
 trap __trap_exit_tmux EXIT
 
-set -a fish_complete_path $HOME/.nix-profile/share/fish/vendor_completions.d
+set -p fish_complete_path $HOME/.nix-profile/share/fish/vendor_completions.d/
