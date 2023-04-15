@@ -7,5 +7,5 @@ if test $# -gt 0; then
         openssl x509 -inform pem -noout -text
 else
 	echo "first argument need to be a domain" >&2
-	return 1
+	exit 1
 fi
