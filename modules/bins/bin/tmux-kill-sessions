@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Kills all sessions but the current one... good old regular cleanup.
 test "$(tmux list-sessions | wc -l)" -gt 1 && \
 	tmux list-sessions |
