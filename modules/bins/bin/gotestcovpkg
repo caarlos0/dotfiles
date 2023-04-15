@@ -1,0 +1,19 @@
+#!/bin/sh
+# go test cover the given pkg and open report on cocovsh
+set -e
+
+if test $# -gt 0; then
+	# shellcheck disable=SC2086
+    go test \
+        -v \
+        -failfast \
+        -race \
+        -coverpkg="$1" \
+        -covermode=atomic \
+        -coverprofile=coverage.txt \
+        $*
+    GOCOVSH_THEME=mocha gocovsh --profile coverage.txt
+else
+	echo "first arg must be a package, e.g. ./..."
+	exit 1
+fi

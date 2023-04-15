@@ -1,0 +1,7 @@
+#!/bin/sh
+# git switch to branch with fzf
+set -e
+git for-each-ref --sort=-committerdate --format='%(refname:short) (%(committerdate:relative))' refs/heads |
+	fzf --prompt " " |
+	awk '{ print $1 }' |
+	xargs git switch

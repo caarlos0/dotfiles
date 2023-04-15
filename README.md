@@ -75,8 +75,8 @@ nix-collect-garbage
 
 - [x] postgres module
 - [ ] set-defaults
-- [ ] maybe move most of the functions to bin?
+- [x] maybe move most of the functions to bin?
 - [ ] yubikey
 - [x] code of conduct, license, etc
-- [ ] better organize ./modules/dev/
+- [x] better organize ./modules/dev/
 
