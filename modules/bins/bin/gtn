@@ -1,0 +1,6 @@
+#!/bin/sh
+# create the next semantic tag and push
+set -e
+
+next="$(svu n --force-patch-increment)"
+git tag -m "$next" "$next" && svu c

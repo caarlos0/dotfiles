@@ -1,0 +1,4 @@
+#!/bin/sh
+# print my external ip
+set -e
+curl -w '%{stdout}\n' ifconfig.me

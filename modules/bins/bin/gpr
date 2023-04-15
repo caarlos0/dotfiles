@@ -1,0 +1,8 @@
+#!/bin/sh
+# git push and fill the pull request with commit info
+set -e
+
+title="$(gum input --prompt 'Title:' --value="$(git show --no-patch --format=%s)")"
+body="$(gum write --prompt 'Body:' --value="$(git show --no-patch --format=%b | git interpret-trailers --if-exists replace --trailer Signed-off-by --trim-empty)")"
+git push origin HEAD
+and gh pr create -a "@me" -d -t "$title" -b "$body"

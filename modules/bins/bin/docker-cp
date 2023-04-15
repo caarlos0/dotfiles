@@ -1,0 +1,6 @@
+#!/bin/sh
+# Pull, retag and push a docker image
+set -e
+docker pull "$1"
+docker tag "$1" "$2"
+docker push "$2"

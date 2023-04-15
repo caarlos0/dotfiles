@@ -1,2 +1,3 @@
-#!/usr/bin/env fish
-gh pr checkout $argv
+#!/bin/sh
+set -e
+gh pr checkout "$1"
