@@ -1,3 +1,13 @@
-{ config, ... }: {
-  home.file.".bin" = { source = config.lib.file.mkOutOfStoreSymlink ./bin; };
+{ pkgs, ... }: {
+  home.packages = [
+    (pkgs.stdenv.mkDerivation {
+      name = "caarlos0-bins";
+      version = "unstable";
+      src = ./bin;
+      installPhase = ''
+        mkdir -p $out/bin
+        cp * $out/bin
+      '';
+    })
+  ];
 }
