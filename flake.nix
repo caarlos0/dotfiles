@@ -22,6 +22,11 @@
     nur.url = "github:nix-community/NUR";
     caarlos0-nur.url = "github:caarlos0/nur";
 
+    # darwin = {
+    #   url = "github:lnl7/nix-darwin";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
     # neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
