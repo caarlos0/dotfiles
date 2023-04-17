@@ -10,7 +10,6 @@
     cosign
     curl
     fd
-    gh
     go-task
     htmltest
     htop

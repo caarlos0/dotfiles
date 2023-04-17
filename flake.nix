@@ -63,6 +63,7 @@
             ./modules/dev/default.nix
             ./modules/gpg.nix
             ./modules/git.nix
+            ./modules/gh.nix
             ./modules/shell.nix
             ./modules/ssh/default.nix
             ./modules/bins/default.nix
@@ -84,6 +85,7 @@
             ./modules/dev/default.nix
             ./modules/gpg.nix
             ./modules/git.nix
+            ./modules/gh.nix
             ./modules/shell.nix
             ./modules/ssh/default.nix
             ./modules/bins/default.nix
