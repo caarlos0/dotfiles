@@ -1,6 +1,6 @@
 require("indent_blankline").setup({
   char = "│",
-  filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
+  filetype_exclude = { "help", "alpha", "dashboard" },
   show_trailing_blankline_indent = false,
   show_current_context = false,
 })
