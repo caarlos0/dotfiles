@@ -22,7 +22,6 @@
     extraConfig = {
       core = {
         editor = "nvim";
-        excludesfile = "~/.gitignore";
         compression = -1;
         autocrlf = "input";
         whitespace = "trailing-space,space-before-tab";
@@ -78,7 +77,7 @@
       ".settings"
       ".ruby-version"
       ".vscode/"
-      ".session.vim"
+      "Session.vim"
       "dump.rdb"
       "main.tfvars"
       "coverage.out"
