@@ -68,6 +68,7 @@
             ./modules/ssh/default.nix
             ./modules/bins/default.nix
             ./modules/charm.nix
+            ./modules/hammerspoon/default.nix
             # ./modules/yubikey.nix
             nix-index-database.hmModules.nix-index
           ];
