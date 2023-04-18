@@ -11,9 +11,7 @@ require("user.notify")
 require("user.bufferline")
 require("user.lualine")
 require("mini.starter").setup()
-require("mini.sessions").setup({
-  file = ".session.vim",
-})
+require("mini.sessions").setup()
 
 --
 -- BASIC
