@@ -10,7 +10,10 @@ require("nvim-web-devicons").setup()
 require("user.notify")
 require("user.bufferline")
 require("user.lualine")
-require("user.autosession")
+require("mini.starter").setup()
+require("mini.sessions").setup({
+  file = ".session.vim",
+})
 
 --
 -- BASIC
@@ -49,10 +52,10 @@ require("luasnip").setup({
   delete_check_events = "InsertLeave",
 })
 require("luasnip.loaders.from_vscode").lazy_load()
-require("nvim-autopairs").setup({ check_ts = true })
+require("mini.pairs").setup()
+require("mini.surround").setup()
+require("mini.comment").setup()
 require("nvim-ts-autotag").setup({ enable = true })
 require("user.lsp")
 require("user.cmp")
-require("nvim-surround").setup()
-require("Comment").setup()
 require("user.treesitter")

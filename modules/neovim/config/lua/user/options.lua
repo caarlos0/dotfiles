@@ -41,6 +41,7 @@ local options = {
   grepprg = "rg --vimgrep --smart-case --follow",
   background = "dark",
   termguicolors = true,
+  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal",
 }
 
 vim.opt.shortmess:append("c")
