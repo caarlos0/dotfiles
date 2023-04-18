@@ -20,6 +20,7 @@
       lt = "log --tags --decorate --simplify-by-decoration --oneline";
     };
     extraConfig = {
+      lfs = { enable = true; };
       core = {
         editor = "nvim";
         compression = -1;
