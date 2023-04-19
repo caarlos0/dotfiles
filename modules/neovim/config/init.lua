@@ -50,10 +50,10 @@ require("luasnip").setup({
   delete_check_events = "InsertLeave",
 })
 require("luasnip.loaders.from_vscode").lazy_load()
-require("mini.pairs").setup()
-require("mini.surround").setup()
-require("mini.comment").setup()
+require("nvim-autopairs").setup({ check_ts = true })
 require("nvim-ts-autotag").setup({ enable = true })
 require("user.lsp")
 require("user.cmp")
+require("nvim-surround").setup()
+require("Comment").setup()
 require("user.treesitter")

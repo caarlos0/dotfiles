@@ -64,6 +64,7 @@ in {
       cmp-cmdline
       cmp-emoji
       cmp-calc
+      nvim-autopairs
       nvim-ts-autotag
       cmp-nvim-lsp
       cmp-nvim-lsp-signature-help
@@ -71,6 +72,8 @@ in {
       cmp_luasnip
       friendly-snippets
       neodev-nvim
+      nvim-surround
+      comment-nvim
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
         with plugins; [
           bash
