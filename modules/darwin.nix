@@ -1,10 +1,4 @@
 { lib, config, pkgs, ... }: {
-
-  home.packages = with pkgs; [
-    terminal-notifier
-    nur.repos.caarlos0.discord-applemusic-rich-presence
-  ];
-
   launchd.agents = {
     pbcopy = {
       enable = true;
@@ -44,6 +38,21 @@
         };
       };
     };
+    discord-applemusic-rich-presence = {
+      enable = true;
+      config = {
+        ProgramArguments = [
+          "${lib.getExe
+          pkgs.nur.repos.caarlos0.discord-applemusic-rich-presence}"
+        ];
+        KeepAlive = true;
+        RunAtLoad = true;
+        StandardErrorPath =
+          "${config.xdg.cacheHome}/discord-applemusic-rich-presence.log";
+        StandardOutPath =
+          "${config.xdg.cacheHome}/discord-applemusic-rich-presence.log";
+      };
+    };
   };
 
   programs.fish.shellInit = ''
@@ -57,19 +66,4 @@
 
       fish_add_path -a /opt/homebrew/bin/
   '';
-
-  launchd.agents.discord-applemusic-rich-presence = {
-    enable = true;
-    config = {
-      ProgramArguments = [
-        "${lib.getExe pkgs.nur.repos.caarlos0.discord-applemusic-rich-presence}"
-      ];
-      KeepAlive = true;
-      RunAtLoad = true;
-      StandardErrorPath =
-        "${config.xdg.cacheHome}/discord-applemusic-rich-presence.log";
-      StandardOutPath =
-        "${config.xdg.cacheHome}/discord-applemusic-rich-presence.log";
-    };
-  };
 }
