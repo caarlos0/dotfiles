@@ -57,10 +57,14 @@
             ./modules/darwin-app-activation.nix
             ./modules/darwin.nix
             ./modules/home.nix
+            ./modules/pkgs.nix
+            ./modules/editorconfig.nix
+            ./modules/yamllint.nix
+            ./modules/go.nix
+            ./modules/fzf.nix
             ./modules/wezterm/default.nix
             ./modules/tmux/default.nix
             ./modules/neovim/default.nix
-            ./modules/dev/default.nix
             ./modules/gpg.nix
             ./modules/git.nix
             ./modules/gh.nix
@@ -80,10 +84,14 @@
           modules = [
             ({ config, ... }: { config = { nixpkgs.overlays = overlays; }; })
             ./modules/home.nix
+            ./modules/pkgs.nix
+            ./modules/editorconfig.nix
+            ./modules/yamllint.nix
+            ./modules/go.nix
+            ./modules/fzf.nix
             ./modules/wezterm/default.nix
             ./modules/tmux/default.nix
             ./modules/neovim/default.nix
-            ./modules/dev/default.nix
             ./modules/gpg.nix
             ./modules/git.nix
             ./modules/gh.nix
