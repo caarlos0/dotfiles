@@ -18,8 +18,10 @@
       kubectx
       kubernetes-helm
       moreutils
+      neofetch
       nmap
       nodejs
+      onefetch
       p7zip
       ripgrep
       sqlite
@@ -70,7 +72,7 @@
       tflint
       tree-sitter
       yamllint
-    ] ++ (lib.optionals isDarwin [
+    ] ++ (lib.optionals pkgs.stdenv.isDarwin [
       terminal-notifier
       nur.repos.caarlos0.discord-applemusic-rich-presence
     ]);
