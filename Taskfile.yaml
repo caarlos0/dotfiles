@@ -3,7 +3,7 @@
 version: '3'
 
 tasks:
-  default:
+  release:
     vars:
       TAG:
         sh: 'date +%Y.%m.%d'
@@ -11,3 +11,9 @@ tasks:
       - 'git tag -m {{.TAG}} {{.TAG}}'
       - 'git push --tags'
       - 'goreleaser release --clean'
+  apply:
+    vars:
+      HOSTNAME:
+        sh: hostname
+    cmds:
+      - home-manager switch --flake '.#carlos@{{.HOSTNAME}}'
