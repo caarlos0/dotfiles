@@ -78,8 +78,9 @@ keymap("i", ".", ".<c-g>u", opts)
 keymap("i", "!", "!<c-g>u", opts)
 keymap("i", "?", "?<c-g>u", opts)
 
--- alias quick jk to esc
+-- alias quick jk/kj to esc
 keymap("i", "jk", "<ESC>", opts)
+keymap("i", "kj", "<ESC>", opts)
 
 -- Visual --
 -- Stay in indent mode
