@@ -34,10 +34,11 @@
       wget
 
       # From NUR
-      nur.repos.caarlos0.svu
       nur.repos.caarlos0.fork-cleaner
-      nur.repos.caarlos0.jsonfmt
+      nur.repos.caarlos0.gocovsh
       nur.repos.caarlos0.goreleaser-pro
+      nur.repos.caarlos0.jsonfmt
+      nur.repos.caarlos0.svu
 
       # TODO:
       # rar # unfree
