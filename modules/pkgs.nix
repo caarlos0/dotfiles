@@ -76,5 +76,5 @@
     ] ++ (lib.optionals pkgs.stdenv.isDarwin [
       terminal-notifier
       nur.repos.caarlos0.discord-applemusic-rich-presence
-    ]);
+    ]) ++ (lib.optionals pkgs.stdenv.isLinux [ podman ]);
 }
