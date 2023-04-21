@@ -15,8 +15,8 @@
     ];
     shellAliases = {
       # docker
-      docker = "podman";
-      d = "podman";
+      d = "docker";
+      dp = "podman";
 
       # git
       g = "git";
