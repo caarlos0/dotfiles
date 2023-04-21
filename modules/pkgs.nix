@@ -18,6 +18,7 @@
       kubectx
       kubernetes-helm
       moreutils
+      ncdu
       neofetch
       nmap
       nodejs
