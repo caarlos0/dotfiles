@@ -2,6 +2,10 @@
 
 version: '3'
 
+vars:
+  HOSTNAME:
+    sh: "hostname | sed 's/\\.local//'"
+
 tasks:
   release:
     vars:
@@ -12,8 +16,13 @@ tasks:
       - 'git push --tags'
       - 'goreleaser release --clean'
   apply:
-    vars:
-      HOSTNAME:
-        sh: "hostname | sed 's/\\.local//'"
     cmds:
       - home-manager switch --flake '.#carlos@{{.HOSTNAME}}'
+      - task: apply_darwin
+  apply_darwin:
+    internal: true
+    status:
+      - "test $(uname -s) = Darwin"
+    cmds:
+      - nix build ./\#darwinConfigurations.{{ .HOSTNAME }}.system
+      - ./result/sw/bin/darwin-rebuild switch --flake .

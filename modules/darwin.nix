@@ -1,4 +1,13 @@
 { lib, config, pkgs, ... }: {
+  targets.darwin.defaults = {
+    "com.apple.Safari.SandboxBroker".ShowDevelop = true;
+    "com.apple.Safari".AutoFillPasswords = false;
+    "com.apple.Safari".IncludeDevelopMenu = true;
+    "com.apple.Safari".ShowOverlayStatusBar = true;
+    "com.apple.Safari".AutoOpenSafeDownloads = false;
+    "com.apple.Safari".AutoFillCreditCardData = false;
+  };
+
   launchd.agents = {
     pbcopy = {
       enable = true;
