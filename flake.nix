@@ -22,17 +22,17 @@
     nur.url = "github:nix-community/NUR";
     caarlos0-nur.url = "github:caarlos0/nur";
 
-    # darwin = {
-    #   url = "github:lnl7/nix-darwin";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = { nur, caarlos0-nur,
     # neovim-nightly,
-    home-manager, nix-index-database, ... }@inputs:
+    darwin, home-manager, nix-index-database, ... }@inputs:
     let
       overlays = [
         (final: prev: {
@@ -48,6 +48,10 @@
       ];
 
     in {
+      darwinConfigurations."supernova" = darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        modules = [ ./modules/darwin/configuration.nix ];
+      };
       homeConfigurations = {
         "carlos@supernova" = home-manager.lib.homeManagerConfiguration {
           pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
