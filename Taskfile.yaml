@@ -22,7 +22,7 @@ tasks:
   apply_darwin:
     internal: true
     status:
-      - "test $(uname -s) = Darwin"
+      - "test $(uname -s) -ne Darwin"
     cmds:
       - nix build ./\#darwinConfigurations.{{ .HOSTNAME }}.system
       - ./result/sw/bin/darwin-rebuild switch --flake .
