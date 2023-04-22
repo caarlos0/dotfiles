@@ -1,10 +1,11 @@
 { pkgs, ... }: {
   services = { nix-daemon = { enable = true; }; };
   nix.package = pkgs.nix;
+
   homebrew = {
+    enable = true;
     casks = [
       "1password"
-      "airflow"
       "airflow"
       "blackhole-2ch"
       "cleanshot"
