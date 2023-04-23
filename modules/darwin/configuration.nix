@@ -48,6 +48,7 @@
         expose-group-by-app = true;
         launchanim = false;
         mineffect = "scale";
+        mru-spaces = false;
       };
       NSGlobalDomain = {
         ApplePressAndHoldEnabled = false;
@@ -65,13 +66,41 @@
       };
       finder = {
         FXPreferredViewStyle = "Nlsv";
-        # ShowExternalHardDrivesOnDesktop = false;
-        # ShowRemovableMediaOnDesktop = false;
         _FXShowPosixPathInTitle = true;
         FXEnableExtensionChangeWarning = false;
         AppleShowAllFiles = true;
         ShowStatusBar = true;
         ShowPathbar = true;
+      };
+      CustomUserPreferences = {
+        "com.apple.NetworkBrowser" = { "BrowseAllInterfaces" = true; };
+        # "WebAutomaticTextReplacementEnabled" = true;
+        "com.apple.screensaver" = {
+          "askForPassword" = true;
+          "askForPasswordDelay" = 0;
+        };
+        "com.apple.trackpad" = { "scaling" = 2; };
+        "com.apple.mouse" = { "scaling" = 2.5; };
+        "com.apple.desktopservices" = { "DSDontWriteNetworkStores" = false; };
+        "com.apple.LaunchServices" = { "LSQuarantine" = true; };
+        "com.apple.finder" = {
+          "ShowExternalHardDrivesOnDesktop" = false;
+          "ShowRemovableMediaOnDesktop" = false;
+          "WarnOnEmptyTrash" = false;
+        };
+        "NSGlobalDomain" = {
+          "NSNavPanelExpandedStateForSaveMode" = true;
+          "NSTableViewDefaultSizeMode" = 1;
+          "WebKitDeveloperExtras" = true;
+        };
+        "com.apple.ImageCapture" = { "disableHotPlug" = true; };
+        "com.apple.Safari" = {
+          "IncludeInternalDebugMenu" = true;
+          "IncludeDevelopMenu" = true;
+          "WebKitDeveloperExtrasEnabledPreferenceKey" = true;
+          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" =
+            true;
+        };
       };
     };
   };
