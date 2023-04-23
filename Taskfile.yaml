@@ -18,9 +18,7 @@ tasks:
   apply:
     cmds:
       - home-manager switch --flake '.#carlos@{{.HOSTNAME}}'
-      - task: apply_darwin
   apply_darwin:
-    internal: true
     status:
       - "test $(uname -s) -ne Darwin"
     cmds:
