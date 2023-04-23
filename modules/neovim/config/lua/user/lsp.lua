@@ -25,10 +25,35 @@ end
 local lspconfig = require("lspconfig")
 lspconfig.gopls.setup({
   capabilities = capabilities,
-  on_attach = on_attach,
+  on_attach = function(client, bufnr)
+    -- workaround for gopls not supporting semanticTokensProvider
+    -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+    if not client.server_capabilities.semanticTokensProvider then
+      local semanticTokens = client.config.capabilities.textDocument.semanticTokens
+      client.server_capabilities.semanticTokensProvider = {
+        full = true,
+        legend = {
+          tokenTypes = semanticTokens.tokenTypes,
+          tokenModifiers = semanticTokens.tokenModifiers,
+        },
+        range = true,
+      }
+    end
+    on_attach(client, bufnr)
+  end,
   settings = {
     gopls = {
       gofumpt = true,
+      codelenses = {
+        gc_details = false,
+        generate = true,
+        regenerate_cgo = true,
+        run_govulncheck = true,
+        test = true,
+        tidy = true,
+        upgrade_dependency = true,
+        vendor = true,
+      },
       hints = {
         assignVariableTypes = true,
         compositeLiteralFields = true,
@@ -40,11 +65,16 @@ lspconfig.gopls.setup({
       },
       analyses = {
         -- fieldalignment = true,
-        staticcheck = true,
+        nilness = true,
+        unusedparams = true,
+        unusedwrite = true,
+        useany = true,
       },
-      codelenses = {
-        run_govulncheck = true,
-      },
+      usePlaceholders = true,
+      completeUnimported = true,
+      staticcheck = true,
+      directoryFilters = { "-.git", "-node_modules" },
+      semanticTokens = true,
     },
   },
   flags = {
