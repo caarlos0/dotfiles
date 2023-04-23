@@ -122,6 +122,13 @@ in {
         "0cf4601c330cf724769a2394df555a57d5fd3f34"
         "Pns+3gLlwhrojKQWN+zOFxOmgRkG3vTPGoLX90Sg+oo=")
 
+      # debug
+      nvim-dap
+      nvim-dap-ui
+      nvim-dap-go
+      telescope-dap-nvim
+      nvim-dap-virtual-text
+
       # TODO: "JellyApple102/easyread.nvim",
     ];
   };
