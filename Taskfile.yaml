@@ -15,6 +15,9 @@ tasks:
       - 'git tag -m {{.TAG}} {{.TAG}}'
       - 'git push --tags'
       - 'goreleaser release --clean'
+  update:
+    cmds:
+      - nix flake update
   apply:
     cmds:
       - home-manager switch --flake '.#carlos@{{.HOSTNAME}}'
@@ -22,5 +25,5 @@ tasks:
     status:
       - "test $(uname -s) -ne Darwin"
     cmds:
-      - nix build ./\#darwinConfigurations.{{ .HOSTNAME }}.system
+      - nix build './#darwinConfigurations.{{ .HOSTNAME }}.system'
       - ./result/sw/bin/darwin-rebuild switch --flake .
