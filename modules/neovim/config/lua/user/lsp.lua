@@ -70,7 +70,7 @@ lspconfig.gopls.setup({
         unusedwrite = true,
         useany = true,
       },
-      usePlaceholders = true,
+      -- usePlaceholders = true,
       completeUnimported = true,
       staticcheck = true,
       directoryFilters = { "-.git", "-node_modules" },
