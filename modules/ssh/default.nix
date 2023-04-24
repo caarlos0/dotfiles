@@ -30,6 +30,11 @@
             host.address = "127.0.0.1";
             host.port = 2225;
           }
+          {
+            bind.port = 2226;
+            host.address = "127.0.0.1";
+            host.port = 2226;
+          }
         ];
         extraOptions = {
           RequestTTY = "true";

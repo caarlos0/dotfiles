@@ -47,6 +47,18 @@
         };
       };
     };
+    xdg-open = {
+      enable = true;
+      config = {
+        Label = "localhost.xdg-open";
+        ProgramArguments =
+          [ "${pkgs.nur.repos.caarlos0.xdg-open-svc}/bin/xdg-open-svc" ];
+        KeepAlive = true;
+        RunAtLoad = true;
+        StandardErrorPath = "${config.xdg.cacheHome}/xdg-open-svc.log";
+        StandardOutPath = "${config.xdg.cacheHome}/xdg-open-svc.log";
+      };
+    };
     discord-applemusic-rich-presence = {
       enable = true;
       config = {

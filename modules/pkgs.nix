@@ -40,6 +40,7 @@
       nur.repos.caarlos0.goreleaser-pro
       nur.repos.caarlos0.jsonfmt
       nur.repos.caarlos0.svu
+      nur.repos.caarlos0.xdg-open-svc
 
       # TODO:
       # rar # unfree
