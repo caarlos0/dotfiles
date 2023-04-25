@@ -1,5 +1,0 @@
-#!/bin/sh
-# create a new dir and cd into it
-set -e
-mkdir -p "$1"
-cd "$1"
