@@ -6,23 +6,23 @@
 # Stole and modified from: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/bin/tmux-sessionizer
 
 function search
-	find "$PROJECTS" -maxdepth 1 -type d |
-		while read p
-			zoxide query -l -s "$p/"
-		end |
-		sed "s;$PROJECTS/;;" |	# removes the ~/Developer/ prefix
-		grep -v "$PROJECTS" |	# removes the ~/Developer folder itself
-		grep "/" |				# removes entries without subfolders
-		sort -rnk1 |			# sort by score
-		uniq |					# dedup
-		awk '{print $2}' |		# do not actually print the score
-		fzf --no-sort --prompt "﬿ " --preview "cat $PROJECTS/{}/README.md"
+    find "$PROJECTS" -maxdepth 1 -type d |
+        while read p
+            zoxide query -l -s "$p/"
+        end |
+        sed "s;$PROJECTS/;;" | # removes the ~/Developer/ prefix
+        grep -v "$PROJECTS" | # removes the ~/Developer folder itself
+        grep / | # removes entries without subfolders
+        sort -rnk1 | # sort by score
+        uniq | # dedup
+        awk '{print $2}' | # do not actually print the score
+        fzf --no-sort --prompt "﬿ " --preview "cat $PROJECTS/{}/README.md"
 end
 
 if test (count $argv) -eq 1
-	set selected "$argv[1]"
+    set selected "$argv[1]"
 else
-	set selected $(search)
+    set selected $(search)
 end
 
 if test -z $selected
@@ -37,8 +37,11 @@ if test -z "$TMUX" && test -z "$tmux_running"
     exit 0
 end
 
-if ! tmux has-session -t="$selected_name" 2> /dev/null
+if ! tmux has-session -t="$selected_name" 2>/dev/null
     tmux new-session -ds "$selected_name" -c "$PROJECTS/$selected"
 end
 
 tmux switch-client -t "$selected_name"
+
+# increase frecency
+tmux display-popup -E "cd $selected; exit"
