@@ -21,6 +21,7 @@
       ncdu
       neofetch
       nmap
+      netcat-gnu
       nodejs
       onefetch
       p7zip
