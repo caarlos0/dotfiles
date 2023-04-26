@@ -86,14 +86,8 @@
       ".luarc.json"
       "*.log"
     ];
-    difftastic = {
-      enable = true;
-      background = "dark";
-      color = "auto";
-      display = "side-by-side";
-    };
     delta = {
-      enable = false;
+      enable = true;
       options = {
         navigate = true;
         line-numbers = true;
