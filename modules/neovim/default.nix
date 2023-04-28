@@ -46,9 +46,8 @@ in {
       telescope-nvim
       telescope-github-nvim
       sqlite-lua
-      (fromGitHub "prochri" "telescope-all-recent.nvim"
-        "f26fad245d5a468fe7fd0b494fc983f707f2c4f3"
-        "xzYPDyJH0BLYDoyZSrt1F+NajyQC7F2YJd+JWDzfZi8=")
+      (fromGitHub "prochri" "telescope-all-recent.nvim" "main"
+        "/15GQwA4Xf5et1T0BEBPXMSbtIz5aTqr2SvHlP1SOEs=")
       nvim-osc52
       mini-nvim
       (fromGitHub "asiryk" "auto-hlsearch.nvim" "1.1.0"
@@ -121,6 +120,8 @@ in {
       (fromGitHub "RRethy" "nvim-treesitter-endwise"
         "0cf4601c330cf724769a2394df555a57d5fd3f34"
         "Pns+3gLlwhrojKQWN+zOFxOmgRkG3vTPGoLX90Sg+oo=")
+      (fromGitHub "rgroli" "other.nvim" "main"
+        "df/L8ZOdjkviE6WRRe7uon82hlUb+yYDdtiN3pJ5OBs=")
 
       # debug
       nvim-dap
