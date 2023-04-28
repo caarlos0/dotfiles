@@ -3,6 +3,7 @@ wezterm.add_to_config_reload_watch_list(wezterm.config_dir)
 
 local mux = wezterm.mux
 local monolisa = wezterm.font_with_fallback({
+  "CaskaydiaCove NFM",
   "Monolisa",
   "JetBrains Mono",
   "SF Mono",
@@ -29,7 +30,7 @@ return {
 
   -- fonts
   font = monolisa,
-  font_size = 13.0,
+  font_size = 14.0,
   harfbuzz_features = {
     "zero=1",
     "ss01=1",
