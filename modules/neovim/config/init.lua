@@ -39,6 +39,7 @@ require("auto-hlsearch").setup()
 if os.getenv("SSH_CLIENT") ~= nil then
   require("user.osc52")
 end
+require("nvim-lastplace").setup()
 
 --
 -- CODING

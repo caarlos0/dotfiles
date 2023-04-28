@@ -52,6 +52,7 @@ in {
       mini-nvim
       (fromGitHub "asiryk" "auto-hlsearch.nvim" "1.1.0"
         "AitkdtKoKNAURrEZuQU/VRLj71qDlI4zwL+vzXUJzew=")
+      nvim-lastplace
 
       # coding
       symbols-outline-nvim
