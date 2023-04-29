@@ -27,6 +27,7 @@ require("nvim-treesitter.configs").setup({
   auto_install = false,
   textobjects = {
     enable = true,
+    lookahead = true,
     swap = {
       enable = true,
       swap_next = {
@@ -40,27 +41,23 @@ require("nvim-treesitter.configs").setup({
       enable = true,
       set_jumps = true,
       goto_next_start = {
-        ["]f"] = "@function.inner",
-        ["]p"] = "@parameter.inner",
-        ["]c"] = "@class.inner",
-        ["]a"] = "@parameter.inner",
+        ["]f"] = "@function.outer",
+        ["]c"] = "@class.outer",
+        ["]a"] = "@parameter.outer",
       },
       goto_next_end = {
-        ["]F"] = "@function.inner",
-        ["]P"] = "@parameter.inner",
-        ["]C"] = "@class.inner",
-        ["]A"] = "@parameter.inner",
+        ["]F"] = "@function.outer",
+        ["]C"] = "@class.outer",
+        ["]A"] = "@parameter.outer",
       },
       goto_previous_start = {
-        ["[f"] = "@function.inner",
-        ["[p"] = "@parameter.inner",
-        ["[c"] = "@class.inner",
+        ["[f"] = "@function.outer",
+        ["[c"] = "@class.outer",
         ["[a"] = "@parameter.outer",
       },
       goto_previous_end = {
-        ["[F"] = "@function.inner",
-        ["[P"] = "@parameter.inner",
-        ["[C"] = "@class.inner",
+        ["[F"] = "@function.outer",
+        ["[C"] = "@class.outer",
         ["[A"] = "@parameter.outer",
       },
     },
