@@ -49,7 +49,7 @@
       # markscribe
 
       # fonts
-      (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "CascadiaCode" ]; })
+      (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
       # treesitter, lsps, etc
       cargo

@@ -3,10 +3,9 @@ wezterm.add_to_config_reload_watch_list(wezterm.config_dir)
 
 local mux = wezterm.mux
 local monolisa = wezterm.font_with_fallback({
-  "CaskaydiaCove NFM",
+  "Berkeley Mono",
   "Monolisa",
   "JetBrains Mono",
-  "SF Mono",
 })
 
 wezterm.on("gui-startup", function()
