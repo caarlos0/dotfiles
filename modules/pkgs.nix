@@ -20,8 +20,8 @@
       moreutils
       ncdu
       neofetch
-      nmap
       netcat-gnu
+      nmap
       nodejs
       onefetch
       p7zip
@@ -29,6 +29,7 @@
       sqlite
       sshpass
       stern
+      syft
       terraform
       timer
       tldr
