@@ -7,6 +7,7 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -31,14 +32,30 @@ cmp.setup({
     keyword_length = 3,
   },
   mapping = cmp.mapping.preset.insert({
-    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-d>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete({}),
     ["<C-e>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     }),
+    ["<Up>"] = cmp.mapping.select_prev_item(cmp_select_opts),
+    ["<Down>"] = cmp.mapping.select_next_item(cmp_select_opts),
+    ["<C-p>"] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_prev_item(cmp_select_opts)
+      else
+        cmp.complete()
+      end
+    end),
+    ["<C-n>"] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_next_item(cmp_select_opts)
+      else
+        cmp.complete()
+      end
+    end),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -86,7 +103,10 @@ cmp.setup({
       priority = 50,
     },
   }, {
-    { name = "buffer" },
+    {
+      name = "buffer",
+      keyword_length = 5,
+    },
     { name = "path" },
     { name = "emoji" },
     { name = "calc" },
