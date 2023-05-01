@@ -62,34 +62,3 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.b.miniindentscope_disable = true
   end,
 })
-
--- Jump to the " mark when reading a buffer
--- It will search mark " which contains the cursor position when last
--- exiting the buffer and set the cursor position to that location.
--- aka vim-lastplace
-local last_place_ignore_filetype = {
-  "gitcommit",
-  "gitrebase",
-  "fugitive",
-}
-local last_place_ignore_buftype = {
-  "quickfix",
-  "nofile",
-  "help",
-}
-vim.api.nvim_create_autocmd("BufEnter", {
-  callback = function()
-    if
-      vim.tbl_contains(last_place_ignore_filetype, vim.bo.filetype)
-      or vim.tbl_contains(last_place_ignore_buftype, vim.bo.buftype)
-    then
-      return
-    end
-    local mark = vim.api.nvim_buf_get_mark(0, '"')
-    local lcount = vim.api.nvim_buf_line_count(0)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
-    end
-  end,
-  group = vim.api.nvim_create_augroup("OpenInLastPosition", { clear = true }),
-})
