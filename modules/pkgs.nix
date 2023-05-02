@@ -33,6 +33,7 @@
       terraform
       timer
       tldr
+      upx
       vegeta
       wget
 
