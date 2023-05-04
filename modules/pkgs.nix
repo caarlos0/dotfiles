@@ -6,6 +6,7 @@
       cosign
       curl
       fd
+      ffmpeg
       go-task
       htmltest
       htop
