@@ -67,6 +67,7 @@
       nixfmt
       nodePackages.bash-language-server
       nodePackages.yaml-language-server
+      nodePackages.typescript-language-server
       rust-analyzer
       rustc
       rustfmt
