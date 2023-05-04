@@ -1,5 +1,6 @@
 { pkgs, lib, ... }: {
   home.packages = with pkgs;
+    with pkgs.nodePackages_latest;
     [
       age
       comma
@@ -24,6 +25,7 @@
       netcat-gnu
       nmap
       nodejs
+      yarn
       onefetch
       p7zip
       ripgrep
@@ -65,9 +67,9 @@
       gopls
       nil # nix lsp
       nixfmt
-      nodePackages.bash-language-server
-      nodePackages.yaml-language-server
-      nodePackages.typescript-language-server
+      bash-language-server
+      yaml-language-server
+      typescript-language-server
       rust-analyzer
       rustc
       rustfmt
