@@ -55,6 +55,12 @@ return {
   window_close_confirmation = "NeverPrompt",
   window_decorations = "RESIZE",
   adjust_window_size_when_changing_font_size = false,
+  window_padding = {
+    left = 0,
+    right = 0,
+    top = 0,
+    bottom = 0,
+  },
 
   -- bell
   audible_bell = "Disabled",
@@ -69,4 +75,15 @@ return {
   clean_exit_codes = { 130 },
   automatically_reload_config = true,
   -- check_for_updates = false,
+
+  keys = {
+    -- disables command palette
+    {
+      key = "P",
+      mods = "CTRL|SHIFT",
+      action = wezterm.action_callback(function(window, pane)
+        window:perform_action(wezterm.action.SendKey({ key = "p", mods = "CRTL|CTRL" }), pane)
+      end),
+    },
+  },
 }
