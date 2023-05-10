@@ -19,6 +19,7 @@
           SuccessfulExit = false;
         };
         ProcessType = "Background";
+        EnvironmentVariables = { "LC_CTYPE" = "UTF-8"; };
         inetdCompatibility = { Wait = false; };
         Sockets = {
           Listener = {
@@ -39,6 +40,7 @@
         };
         ProcessType = "Background";
         inetdCompatibility = { Wait = false; };
+        EnvironmentVariables = { "LC_CTYPE" = "UTF-8"; };
         Sockets = {
           Listener = {
             SockServiceName = "2225";
