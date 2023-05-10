@@ -9,6 +9,7 @@
       fd
       ffmpeg
       go-task
+      graphviz
       htmltest
       htop
       httpstat
