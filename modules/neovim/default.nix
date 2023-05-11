@@ -43,15 +43,15 @@ in {
       vim-eunuch
       vim-sleuth
       vim-speeddating
+      auto-session
       telescope-nvim
       telescope-github-nvim
       sqlite-lua
       (fromGitHub "prochri" "telescope-all-recent.nvim" "main"
         "/15GQwA4Xf5et1T0BEBPXMSbtIz5aTqr2SvHlP1SOEs=")
       nvim-osc52
-      mini-nvim
-      (fromGitHub "asiryk" "auto-hlsearch.nvim" "1.1.0"
-        "AitkdtKoKNAURrEZuQU/VRLj71qDlI4zwL+vzXUJzew=")
+      auto-hlsearch-nvim
+      bufdelete-nvim
 
       # coding
       symbols-outline-nvim
@@ -118,9 +118,7 @@ in {
       nvim-treesitter-textobjects
       nvim-treesitter-context
       lsp-inlayhints-nvim
-      (fromGitHub "RRethy" "nvim-treesitter-endwise"
-        "0cf4601c330cf724769a2394df555a57d5fd3f34"
-        "Pns+3gLlwhrojKQWN+zOFxOmgRkG3vTPGoLX90Sg+oo=")
+      nvim-treesitter-endwise
       (fromGitHub "rgroli" "other.nvim" "main"
         "df/L8ZOdjkviE6WRRe7uon82hlUb+yYDdtiN3pJ5OBs=")
 
@@ -130,8 +128,6 @@ in {
       nvim-dap-go
       telescope-dap-nvim
       nvim-dap-virtual-text
-
-      # TODO: "JellyApple102/easyread.nvim",
     ];
   };
 

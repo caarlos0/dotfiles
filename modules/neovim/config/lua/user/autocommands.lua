@@ -55,14 +55,6 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
   end,
 })
 
--- disable mini.indentscope inside some things
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "help", "NvimTree" },
-  callback = function()
-    vim.b.miniindentscope_disable = true
-  end,
-})
-
 -- Open help window in a vertical split to the right.
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = vim.api.nvim_create_augroup("help_window_right", {}),

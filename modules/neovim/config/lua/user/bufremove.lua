@@ -1,6 +1,6 @@
-require("mini.bufremove").setup({})
+local bd = require("bufdelete")
 vim.keymap.set("n", "<leader>q", function()
-  require("mini.bufremove").delete(0, true)
+  bd.bufdelete(0, true)
 end, {
   noremap = true,
   silent = true,
