@@ -1,20 +1,6 @@
 #!/bin/sh
-# git push and fill the pull request with commit info
+# git push and open github pr creation page
 set -e
 
-default_title="$(git show --no-patch --format=%s)"
-default_body="$(git show --no-patch --format=%b | git interpret-trailers --if-exists replace --trailer Signed-off-by --trim-empty)"
-
-title="$(gum input \
-			--header 'Title:' \
-			--width 80 \
-			--value="$default_title" \
-		)"
-body="$(gum write \
-			--header 'Body:' \
-			--width 80 \
-			--value="$default_body" \
-		)"
-
 git push origin HEAD && \
-	gh pr create -a "@me" -d -t "$title" -b "$body"
+	gh pr create -w
