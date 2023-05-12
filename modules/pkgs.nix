@@ -26,7 +26,6 @@
       netcat-gnu
       nmap
       nodejs
-      yarn
       onefetch
       p7zip
       ripgrep
@@ -40,6 +39,7 @@
       upx
       vegeta
       wget
+      yarn
 
       # From NUR
       nur.repos.caarlos0.fork-cleaner
@@ -49,15 +49,11 @@
       nur.repos.caarlos0.svu
       nur.repos.caarlos0.xdg-open-svc
 
-      # TODO:
-      # rar # unfree
-      # jsonschema
-      # markscribe
-
       # fonts
       (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
       # treesitter, lsps, etc
+      bash-language-server
       cargo
       clang-tools # clangd lsp
       delve
@@ -66,11 +62,9 @@
       golangci-lint
       golangci-lint-langserver
       gopls
+      marksman # markdown lsp
       nil # nix lsp
       nixfmt
-      bash-language-server
-      yaml-language-server
-      typescript-language-server
       rust-analyzer
       rustc
       rustfmt
@@ -82,9 +76,11 @@
       terraform-ls
       tflint
       tree-sitter
+      typescript-language-server
+      yaml-language-server
       yamllint
     ] ++ (lib.optionals pkgs.stdenv.isDarwin [
-      terminal-notifier
       nur.repos.caarlos0.discord-applemusic-rich-presence
-    ]) ++ (lib.optionals pkgs.stdenv.isLinux [ podman docker docker-compose ]);
+      terminal-notifier
+    ]) ++ (lib.optionals pkgs.stdenv.isLinux [ docker docker-compose podman ]);
 }
