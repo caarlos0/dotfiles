@@ -1,55 +1,49 @@
-local options = {
-  compatible = false,
-  -- clipboard = "unnamedplus",
-  hidden = true,
-  updatetime = 1000, -- faster update times, default 4000
-  mouse = "a",
-  inccommand = "split",
-  splitbelow = true,
-  splitright = true,
-  wrap = false,
-  textwidth = 0,
-  expandtab = true,
-  smartindent = true,
-  shiftwidth = 2,
-  softtabstop = 4,
-  tabstop = 4,
-  signcolumn = "yes",
-  scrolloff = 10,
-  sidescrolloff = 10,
-  number = true,
-  relativenumber = true,
-  swapfile = false,
-  backup = false,
-  undofile = true,
-  undodir = vim.fn.stdpath("data") .. "undodir",
-  hlsearch = false,
-  ignorecase = true,
-  incsearch = true,
-  ruler = true,
-  wildmenu = true,
-  autoread = true,
-  completeopt = { "menu", "menuone", "noselect" },
-  colorcolumn = "80",
-  backspace = { "indent", "eol", "start" },
-  spell = true,
-  spelllang = { "en_us" },
-  laststatus = 3,
-  cursorline = true,
-  list = false,
-  listchars = "eol:↲,tab:» ,trail:·,extends:<,precedes:>,conceal:┊,nbsp:␣",
-  grepprg = "rg --vimgrep --smart-case --follow",
-  background = "dark",
-  termguicolors = true,
-  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal",
-}
+vim.opt.compatible = false
+-- vim.opt.clipboard = "unnamedplus"
+vim.opt.hidden = true
+vim.opt.updatetime = 1000 -- faster update times, default 4000
+vim.opt.mouse = "a"
+vim.opt.inccommand = "split"
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.wrap = false
+vim.opt.textwidth = 0
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 4
+vim.opt.tabstop = 4
+vim.opt.signcolumn = "yes"
+vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 10
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath("data") .. "undodir"
+vim.opt.hlsearch = false
+vim.opt.ignorecase = true
+vim.opt.incsearch = true
+vim.opt.ruler = true
+vim.opt.wildmenu = true
+vim.opt.autoread = true
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.colorcolumn = "80"
+vim.opt.backspace = { "indent", "eol", "start" }
+vim.opt.spell = true
+vim.opt.spelllang = { "en_us" }
+vim.opt.laststatus = 3
+vim.opt.cursorline = true
+vim.opt.list = false
+vim.opt.listchars = "eol:↲,tab:» ,trail:·,extends:<,precedes:>,conceal:┊,nbsp:␣"
+vim.opt.grepprg = "rg --vimgrep --smart-case --follow"
+vim.opt.background = "dark"
+vim.opt.termguicolors = true
+vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 
 vim.opt.shortmess:append("c")
 -- vim.opt.nrformats:append("alpha") -- most of the time I dont want this
-
-for k, v in pairs(options) do
-  vim.opt[k] = v
-end
 
 vim.filetype.add({
   extension = {
