@@ -35,9 +35,6 @@ require("which-key").setup()
 require("user.tree")
 require("user.bufremove")
 require("auto-hlsearch").setup()
-if os.getenv("SSH_CLIENT") ~= nil then
-  require("user.osc52")
-end
 
 --
 -- CODING

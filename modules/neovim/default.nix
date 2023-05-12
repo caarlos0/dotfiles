@@ -49,7 +49,6 @@ in {
       sqlite-lua
       (fromGitHub "prochri" "telescope-all-recent.nvim" "main"
         "/15GQwA4Xf5et1T0BEBPXMSbtIz5aTqr2SvHlP1SOEs=")
-      nvim-osc52
       auto-hlsearch-nvim
       bufdelete-nvim
 
