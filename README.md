@@ -32,18 +32,14 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
 # Applying
 
-
-## macOS
-
 ```bash
-home-manager switch --flake '.#carlos@supernova'
+task apply
 ```
 
-
-## Linux
+On macOS, you may also:
 
 ```bash
-home-manager switch --flake '.#carlos@darkstar'
+task apply_darwin
 ```
 
 ## On both
@@ -59,7 +55,7 @@ chsh -s (which fish)
 # Update packages
 
 ```bash
-nix flake update
+task update
 ```
 
 And run the `switch` command again.
