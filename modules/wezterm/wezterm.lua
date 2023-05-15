@@ -2,11 +2,6 @@ local wezterm = require("wezterm")
 wezterm.add_to_config_reload_watch_list(wezterm.config_dir)
 
 local mux = wezterm.mux
-local monolisa = wezterm.font_with_fallback({
-  "Berkeley Mono",
-  "Monolisa",
-  "JetBrains Mono",
-})
 
 wezterm.on("gui-startup", function()
   local _, _, window = mux.spawn_window({})
@@ -28,8 +23,9 @@ return {
   enable_scroll_bar = false,
 
   -- fonts
-  font = monolisa,
+  font = wezterm.font("Berkeley Mono"),
   font_size = 14.0,
+  use_cap_height_to_scale_fallback_fonts = true,
   harfbuzz_features = {
     "zero=1",
     "ss01=1",
