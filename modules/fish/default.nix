@@ -83,6 +83,12 @@
 
       # tmux
       ta = "tmux-new";
+
+      # mods
+      gcai =
+        "git --no-pager diff | mods 'write a commit message for this patch. use semantic commits' >.git/gcai; git commit -a -F .git/gcai -e";
+      code-review =
+        "git --no-pager diff | mods -f 'write a code review for this patch. suggest improvements' | glow -p -";
     };
   };
 
