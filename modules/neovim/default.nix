@@ -36,7 +36,6 @@ in {
       vim-test
       harpoon
       vim-fugitive
-      undotree
       which-key-nvim
       vim-abolish
       vim-repeat
