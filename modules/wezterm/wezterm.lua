@@ -24,7 +24,7 @@ return {
 
   -- fonts
   font = wezterm.font("Berkeley Mono"),
-  font_size = 14.0,
+  font_size = 16.0,
   use_cap_height_to_scale_fallback_fonts = true,
   harfbuzz_features = {
     "zero=1",
