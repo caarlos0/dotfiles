@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ config, ... }: {
   programs.ssh = {
     enable = true;
     includes = [ "~/.ssh/config.local" ];
@@ -6,10 +6,10 @@
     matchBlocks = {
       "*" = {
         identityFile = "~/.ssh/id_ed25519";
-        extraOptions = lib.mkMerge [
-          { }
-          (if pkgs.stdenv.isDarwin then { UseKeyChain = "yes"; } else { })
-        ];
+        extraOptions = {
+          IgnoreUnknown = "UseKeychain";
+          UseKeyChain = "yes";
+        };
       };
       "localhost" = {
         extraOptions = {
