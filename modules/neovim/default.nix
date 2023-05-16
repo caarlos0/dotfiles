@@ -45,9 +45,6 @@ in {
       auto-session
       telescope-nvim
       telescope-github-nvim
-      sqlite-lua
-      (fromGitHub "prochri" "telescope-all-recent.nvim" "main"
-        "/15GQwA4Xf5et1T0BEBPXMSbtIz5aTqr2SvHlP1SOEs=")
       auto-hlsearch-nvim
       bufdelete-nvim
 
