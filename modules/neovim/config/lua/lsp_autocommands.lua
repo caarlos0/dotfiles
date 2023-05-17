@@ -63,7 +63,12 @@ M.on_attach = function(client, bufnr)
   -- If the organizeImports codeAction runs for lua files, depending on
   -- where the cursor is, it'll reorder the args and break stuff.
   -- This took me way too long to figure out.
-  if client.server_capabilities.codeActionProvider and vim.bo.filetype ~= "lua" and client.name ~= "null-ls" then
+  if
+    client.server_capabilities.codeActionProvider
+    and vim.bo.filetype ~= "lua"
+    and client.name ~= "null-ls"
+    and client.name ~= "marksman"
+  then
     vim.api.nvim_create_autocmd({ "BufWritePre" }, {
       buffer = bufnr,
       callback = function()
