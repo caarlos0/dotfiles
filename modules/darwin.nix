@@ -14,6 +14,7 @@
       config = {
         Label = "localhost.pbcopy";
         ProgramArguments = [ "/usr/bin/pbcopy" ];
+        RunAtLoad = true;
         KeepAlive = {
           Crashed = true;
           SuccessfulExit = false;
@@ -34,6 +35,7 @@
       config = {
         Label = "localhost.pbpaste";
         ProgramArguments = [ "/usr/bin/pbpaste" ];
+        RunAtLoad = true;
         KeepAlive = {
           Crashed = true;
           SuccessfulExit = false;
