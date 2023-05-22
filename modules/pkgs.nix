@@ -8,6 +8,7 @@
       curl
       fd
       ffmpeg
+      git-lfs
       go-task
       graphviz
       htmltest
