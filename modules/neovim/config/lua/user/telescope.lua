@@ -2,6 +2,10 @@ local telescope = require("telescope")
 
 telescope.setup({
   defaults = {
+    prompt_prefix = "   ",
+    selection_caret = " ❯ ",
+    entry_prefix = "   ",
+    multi_icon = "+ ",
     vimgrep_arguments = {
       "rg",
       "--color=never",
@@ -13,7 +17,6 @@ telescope.setup({
       "--hidden",
       "--glob=!.git",
     },
-    prompt_prefix = "   ",
   },
 })
 
