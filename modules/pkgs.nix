@@ -8,6 +8,7 @@
       curl
       fd
       ffmpeg
+      git-lfs
       go-task
       graphviz
       htmltest
@@ -44,10 +45,10 @@
       # From NUR
       nur.repos.caarlos0.fork-cleaner
       nur.repos.caarlos0.gocovsh
-      nur.repos.caarlos0.goreleaser-pro
       nur.repos.caarlos0.jsonfmt
       nur.repos.caarlos0.svu
       nur.repos.caarlos0.xdg-open-svc
+      nur.repos.goreleaser.goreleaser-pro
 
       # fonts
       (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })

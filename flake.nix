@@ -21,6 +21,7 @@
 
     nur.url = "github:nix-community/NUR";
     caarlos0-nur.url = "github:caarlos0/nur";
+    goreleaser-nur.url = "github:goreleaser/nur";
 
     darwin = {
       url = "github:lnl7/nix-darwin";
@@ -30,7 +31,7 @@
     # neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { nur, caarlos0-nur,
+  outputs = { nur, caarlos0-nur, goreleaser-nur,
     # neovim-nightly,
     darwin, home-manager, nix-index-database, ... }@inputs:
     let
@@ -41,6 +42,7 @@
             pkgs = prev;
             repoOverrides = {
               caarlos0 = import caarlos0-nur { pkgs = prev; };
+              goreleaser = import goreleaser-nur { pkgs = prev; };
             };
           };
         })
