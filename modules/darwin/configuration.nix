@@ -28,7 +28,7 @@
       "subtitles"
       "telegram"
       "wezterm"
-      "whatsapp-beta"
+      "whatsapp"
       "yubico-yubikey-manager"
       "zoom"
     ];
