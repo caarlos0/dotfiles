@@ -5,11 +5,19 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1684816751,
         "narHash": "sha256-tQ8O8oWFxDlqIxQwmmiG7l+loMEgRmqqjDeuUJa7kEQ=",
         "owner": "caarlos0",
         "repo": "nur",
         "rev": "983c83e360302e05d547926b4c388c7e08711575",
+=======
+        "lastModified": 1684929416,
+        "narHash": "sha256-HRaq5cZPZbAlv1gkZeaOXjxWFu26lh+Dq0mCnRSbpMI=",
+        "owner": "caarlos0",
+        "repo": "nur",
+        "rev": "c4a25faa5bc55ba49b0f1dc037615d104d471e8b",
+>>>>>>> a653b9e (chore(nix): update)
         "type": "github"
       },
       "original": {
@@ -43,11 +51,19 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1684806811,
         "narHash": "sha256-UVkIlTajNmZZcFFlN0hOCPhVeMsglJEkLC2aGypYkK8=",
         "owner": "goreleaser",
         "repo": "nur",
         "rev": "519cc8f3833478d2b317ddb5173755b0666fb532",
+=======
+        "lastModified": 1684860532,
+        "narHash": "sha256-cheCYPZ/uRTfMb7sBTDRjoE/rc6uz1LRWol99VsWxcs=",
+        "owner": "goreleaser",
+        "repo": "nur",
+        "rev": "8ce4522416ed6bbd93440c25b8465c5061192d49",
+>>>>>>> a653b9e (chore(nix): update)
         "type": "github"
       },
       "original": {
@@ -166,11 +182,19 @@
     },
     "nur": {
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1684846653,
         "narHash": "sha256-kedtrV1IHoiRjFsb7P3f44n44bgzZN8evP1EVyXmsB8=",
         "owner": "nix-community",
         "repo": "NUR",
         "rev": "08683b44189f6d5e67531d3383563f8357903cdb",
+=======
+        "lastModified": 1684921791,
+        "narHash": "sha256-H0zNiMCtAUnRHyo06OaCpZEoP95WlEKVp+hpELTJXw0=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "9cacf444463dc574f0e9f6c0bc748f939b34a958",
+>>>>>>> a653b9e (chore(nix): update)
         "type": "github"
       },
       "original": {
