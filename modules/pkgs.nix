@@ -51,7 +51,8 @@
       nur.repos.goreleaser.goreleaser-pro
 
       # fonts
-      (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      # using berkeley mono now, and wezterm already comes with jetbrains mono.
+      # (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
       # treesitter, lsps, etc
       bash-language-server
