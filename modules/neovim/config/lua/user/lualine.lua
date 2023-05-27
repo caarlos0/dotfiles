@@ -8,11 +8,6 @@ require("lualine").setup({
     lualine_c = {
       "%=",
       {
-        "filetype",
-        icon_only = true,
-        icon = { align = "right" },
-      },
-      {
         "filename",
         file_status = false,
         path = 1,
