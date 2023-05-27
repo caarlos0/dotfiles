@@ -17,6 +17,7 @@
       "iina"
       "imageoptim"
       "keybase"
+      "keyboard-maestro"
       "ledger-live"
       "monodraw"
       "notion"
