@@ -25,6 +25,7 @@ Other than that, more of the same...
 
 1. Install nix and home-manager.
 1. Enable some experimental features:
+
 ```bash
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
@@ -60,7 +61,6 @@ task update
 
 And run the `switch` command again.
 
-
 # Clean up
 
 ```bash
@@ -75,4 +75,3 @@ nix-collect-garbage
 - [ ] yubikey
 - [x] code of conduct, license, etc
 - [x] better organize ./modules/dev/
-

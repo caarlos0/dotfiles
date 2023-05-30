@@ -67,6 +67,7 @@
       marksman # markdown lsp
       nil # nix lsp
       nixfmt
+      prettier
       rust-analyzer
       rustc
       rustfmt
