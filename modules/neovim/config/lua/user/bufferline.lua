@@ -3,6 +3,7 @@ require("bufferline").setup({
   options = {
     diagnostics = "nvim_lsp",
     tab_size = 22,
+    modified_icon = "",
     show_close_icon = false,
     offsets = {
       {
