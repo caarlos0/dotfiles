@@ -1,11 +1,11 @@
 builds:
-- skip: true
+  - skip: true
 changelog:
   sort: asc
   use: github
-  divider: '---'
+  divider: "---"
   groups:
-    - title: 'nix'
+    - title: "nix"
       regexp: "^.*\\(nix\\):+.*$"
       order: 200
       groups:
@@ -17,9 +17,9 @@ changelog:
           order: 200
         - title: other
           order: 9999
-    - title: 'editor'
-      regexp: "^.*\\(n?vim\\):+.*$"
-      order: 200
+    - title: "darwin"
+      regexp: "^.*\\((darwin|macos)\\):+.*$"
+      order: 201
       groups:
         - title: improvements
           regexp: "^feat.*$"
@@ -29,7 +29,43 @@ changelog:
           order: 200
         - title: other
           order: 9999
-    - title: 'tmux'
+    - title: "linux"
+      regexp: "^.*\\((linux|nixos)\\):+.*$"
+      order: 202
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: "packages"
+      regexp: "^.*\\(pkg\\):+.*$"
+      order: 203
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: "editor"
+      regexp: "^.*\\(n?vim\\):+.*$"
+      order: 240
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: "tmux"
       regexp: "^.*\\(tmux\\):+.*$"
       order: 250
       groups:
@@ -41,8 +77,8 @@ changelog:
           order: 200
         - title: other
           order: 9999
-    - title: 'system'
-      regexp: "^.*\\((system|fish|fzf|macos|ssh)\\):+.*$"
+    - title: "system"
+      regexp: "^.*\\((system|fish|fzf|ssh|core)\\):+.*$"
       order: 100
       groups:
         - title: improvements
@@ -53,7 +89,7 @@ changelog:
           order: 200
         - title: other
           order: 9999
-    - title: 'git'
+    - title: "git"
       regexp: "^.*\\((git|gh)\\):+.*$"
       order: 300
       groups:
@@ -65,7 +101,7 @@ changelog:
           order: 200
         - title: other
           order: 9999
-    - title: 'terminals'
+    - title: "terminals"
       regexp: "^.*\\((kitty|wezterm|alacritty)\\):+.*$"
       order: 400
       groups:
