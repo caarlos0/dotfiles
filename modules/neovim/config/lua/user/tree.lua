@@ -1,7 +1,10 @@
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  disable_netrw = false,
+  hijack_netrw = true,
+})
 
 vim.keymap.set("n", "<leader>tv", "<cmd>NvimTreeToggle<cr>", {
   noremap = true,
   silent = true,
-  desc = "nvim-tree",
+  desc = "Toggle nvim-tree",
 })
