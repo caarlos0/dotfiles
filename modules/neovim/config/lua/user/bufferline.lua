@@ -12,5 +12,12 @@ require("bufferline").setup({
         separator = true,
       },
     },
+    custom_areas = {
+      left = function()
+        return {
+          { text = "    " },
+        }
+      end,
+    },
   },
 })
