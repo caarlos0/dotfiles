@@ -3,6 +3,7 @@ require("bufferline").setup({
   options = {
     diagnostics = "nvim_lsp",
     tab_size = 22,
+    show_close_icon = false,
     offsets = {
       {
         filetype = "NvimTree",
