@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }: {
+{ config, pkgs, ... }: {
   targets.darwin.defaults = {
     "com.apple.Safari.SandboxBroker".ShowDevelop = true;
     "com.apple.Safari".AutoFillPasswords = false;
@@ -61,21 +61,6 @@
         RunAtLoad = true;
         StandardErrorPath = "${config.xdg.cacheHome}/xdg-open-svc.log";
         StandardOutPath = "${config.xdg.cacheHome}/xdg-open-svc.log";
-      };
-    };
-    discord-applemusic-rich-presence = {
-      enable = true;
-      config = {
-        ProgramArguments = [
-          "${lib.getExe
-          pkgs.nur.repos.caarlos0.discord-applemusic-rich-presence}"
-        ];
-        KeepAlive = true;
-        RunAtLoad = true;
-        StandardErrorPath =
-          "${config.xdg.cacheHome}/discord-applemusic-rich-presence.log";
-        StandardOutPath =
-          "${config.xdg.cacheHome}/discord-applemusic-rich-presence.log";
       };
     };
   };

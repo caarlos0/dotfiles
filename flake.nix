@@ -58,6 +58,7 @@
         "carlos@supernova" = home-manager.lib.homeManagerConfiguration {
           pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
           extraSpecialArgs = { inherit inputs; };
+          sharedModules = [ inputs.caarlos0-nur.homeManagerModules.default ];
           modules = [
             ({ config, ... }: { config = { nixpkgs.overlays = overlays; }; })
             ./modules/darwin-app-activation.nix
