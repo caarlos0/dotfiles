@@ -31,9 +31,9 @@
     # neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { nur, caarlos0-nur, goreleaser-nur,
-    # neovim-nightly,
-    darwin, home-manager, nix-index-database, ... }@inputs:
+  # neovim-nightly,
+  outputs = { nur, caarlos0-nur, goreleaser-nur, darwin, home-manager
+    , nix-index-database, ... }@inputs:
     let
       overlays = [
         (final: prev: {
@@ -58,11 +58,9 @@
         "carlos@supernova" = home-manager.lib.homeManagerConfiguration {
           pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
           extraSpecialArgs = { inherit inputs; };
-          sharedModules = [ inputs.caarlos0-nur.homeManagerModules.default ];
           modules = [
             ({ config, ... }: { config = { nixpkgs.overlays = overlays; }; })
             ./modules/darwin-app-activation.nix
-            ./modules/darwin.nix
             ./modules/home.nix
             ./modules/pkgs.nix
             ./modules/editorconfig.nix
@@ -80,6 +78,8 @@
             ./modules/bins/default.nix
             ./modules/charm.nix
             ./modules/hammerspoon/default.nix
+            inputs.caarlos0-nur.homeManagerModules.default
+            ./modules/darwin.nix
             # ./modules/yubikey.nix
             nix-index-database.hmModules.nix-index
           ];

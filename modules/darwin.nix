@@ -8,6 +8,8 @@
     "com.apple.Safari".AutoFillCreditCardData = false;
   };
 
+  services = { discord-applemusic-rich-presence.enable = true; };
+
   launchd.agents = {
     pbcopy = {
       enable = true;

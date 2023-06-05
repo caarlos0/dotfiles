@@ -1,8 +1,5 @@
 { pkgs, ... }: {
-  services = {
-    nix-daemon = { enable = true; };
-    discord-applemusic-rich-presence = { enable = true; };
-  };
+  services = { nix-daemon = { enable = true; }; };
   nix.package = pkgs.nix;
 
   homebrew = {
