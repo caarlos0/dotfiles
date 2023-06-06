@@ -12,7 +12,6 @@
       go-task
       graphviz
       htmltest
-      htop
       httpstat
       hugo
       hyperfine
