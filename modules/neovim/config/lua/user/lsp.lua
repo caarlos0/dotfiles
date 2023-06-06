@@ -2,7 +2,6 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local inlay_hints = require("lsp-inlayhints")
 local autocmds = require("lsp_autocommands")
 local keymaps = require("lsp_keymaps")
-local util = require("lspconfig/util")
 
 require("symbols-outline").setup({
   width = 25,
@@ -25,8 +24,6 @@ end
 
 local lspconfig = require("lspconfig")
 lspconfig.gopls.setup({
-  filetypes = { "go", "gomod" },
-  root_dir = util.root_pattern("go.work", "go.mod", ".git"),
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     -- workaround for gopls not supporting semanticTokensProvider
@@ -128,10 +125,10 @@ lspconfig.bashls.setup({
   on_attach = on_attach,
 })
 
-lspconfig.golangci_lint_ls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
+-- lspconfig.golangci_lint_ls.setup({
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
 
 lspconfig.terraformls.setup({
   capabilities = capabilities,
