@@ -32,7 +32,7 @@ end, {
   desc = "Test latest",
 })
 
-vim.keymap.set("n", "<leader>tts", function()
+vim.keymap.set("n", "<leader>ttu", function()
   neotest.summary.toggle()
 end, {
   noremap = true,
