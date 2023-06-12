@@ -76,6 +76,8 @@ vim.diagnostic.config({
 
 neotest.setup({
   adapters = {
+    require("neotest-jest"),
+    require("neotest-rust"),
     require("neotest-go")({
       experimental = {
         test_table = true,

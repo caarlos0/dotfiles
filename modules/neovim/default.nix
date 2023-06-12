@@ -35,6 +35,8 @@ in {
       todo-comments-nvim
       neotest
       neotest-go
+      neotest-rust
+      neotest-jest
       harpoon
       vim-fugitive
       vim-abolish
