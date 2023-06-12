@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ ... }: {
   targets.darwin.defaults = {
     "com.apple.Safari.SandboxBroker".ShowDevelop = true;
     "com.apple.Safari".AutoFillPasswords = false;
@@ -8,7 +8,10 @@
     "com.apple.Safari".AutoFillCreditCardData = false;
   };
 
-  services = { discord-applemusic-rich-presence.enable = true; };
+  services = {
+    discord-applemusic-rich-presence.enable = true;
+    xdg-open-svc.enable = true;
+  };
 
   launchd.agents = {
     pbcopy = {
@@ -51,18 +54,6 @@
             SockNodeName = "127.0.0.1";
           };
         };
-      };
-    };
-    xdg-open = {
-      enable = true;
-      config = {
-        Label = "localhost.xdg-open";
-        ProgramArguments =
-          [ "${pkgs.nur.repos.caarlos0.xdg-open-svc}/bin/xdg-open-svc" ];
-        KeepAlive = true;
-        RunAtLoad = true;
-        StandardErrorPath = "${config.xdg.cacheHome}/xdg-open-svc.log";
-        StandardOutPath = "${config.xdg.cacheHome}/xdg-open-svc.log";
       };
     };
   };

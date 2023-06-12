@@ -21,16 +21,19 @@
         forwardAgent = true;
         remoteForwards = [
           {
+            # pbcopy
             bind.port = 2224;
             host.address = "127.0.0.1";
             host.port = 2224;
           }
           {
+            # pbpaste
             bind.port = 2225;
             host.address = "127.0.0.1";
             host.port = 2225;
           }
           {
+            # xdg-open-svc
             bind.port = 2226;
             host.address = "127.0.0.1";
             host.port = 2226;

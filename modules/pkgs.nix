@@ -46,7 +46,6 @@
       nur.repos.caarlos0.gocovsh
       nur.repos.caarlos0.jsonfmt
       nur.repos.caarlos0.svu
-      nur.repos.caarlos0.xdg-open-svc
       nur.repos.goreleaser.goreleaser-pro
 
       # fonts
