@@ -24,12 +24,12 @@
       highlight_threads = 1;
     } // (with config.lib.htop;
       leftMeters [ (bar "AllCPUs2") (bar "Memory") (bar "Swap") ])
-      // (with config.lib.htop;
-        rightMeters [
-          (text "Tasks")
-          (text "LoadAverage")
-          (text "Uptime")
-          (text "Systemd")
-        ]);
+    // (with config.lib.htop;
+      rightMeters [
+        (text "Tasks")
+        (text "LoadAverage")
+        (text "Uptime")
+        (text "Systemd")
+      ]);
   };
 }

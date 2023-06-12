@@ -64,7 +64,7 @@
       gopls
       marksman # markdown lsp
       nil # nix lsp
-      nixfmt
+      nixpkgs-fmt
       prettier
       rust-analyzer
       rustc

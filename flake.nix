@@ -32,8 +32,15 @@
   };
 
   # neovim-nightly,
-  outputs = { nur, caarlos0-nur, goreleaser-nur, darwin, home-manager
-    , nix-index-database, ... }@inputs:
+  outputs =
+    { nur
+    , caarlos0-nur
+    , goreleaser-nur
+    , darwin
+    , home-manager
+    , nix-index-database
+    , ...
+    }@inputs:
     let
       overlays = [
         (final: prev: {
@@ -49,7 +56,8 @@
         # (import neovim-nightly)
       ];
 
-    in {
+    in
+    {
       darwinConfigurations."supernova" = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [ ./modules/darwin/configuration.nix ];

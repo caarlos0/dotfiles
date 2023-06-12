@@ -11,7 +11,8 @@ let
         sha256 = hash;
       };
     };
-in {
+in
+{
   programs.neovim = {
     enable = true;
     defaultEditor = true;

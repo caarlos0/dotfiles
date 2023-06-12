@@ -2,7 +2,8 @@
 let
   homeDirectory = (if pkgs.stdenv.isDarwin then "/Users/" else "/home/")
     + "carlos";
-in {
+in
+{
   programs.direnv = {
     enable = true;
     config = {
