@@ -1,14 +1,17 @@
+# yaml-language-server: $schema=https://dlvhdr.github.io/gh-dash/configuration/gh-dash/schema.json
 prSections:
   - title: My Pull Requests
-    filters: is:open author:@me
+    filters: is:open author:@me -author:app/dependabot
   - title: Needs My Review
-    filters: is:open review-requested:@me
+    filters: is:open review-requested:@me -author:app/dependabot
   - title: Charm
-    filters: is:open user:charmbracelet
+    filters: is:open user:charmbracelet -author:app/dependabot
   - title: GoReleaser
-    filters: is:open user:goreleaser
+    filters: is:open user:goreleaser -author:app/dependabot
   - title: caarlos0
-    filters: is:open user:caarlos0
+    filters: is:open user:caarlos0 -author:app/dependabot
+  - title: Dependabot
+    filters: is:pr is:open user:goreleaser user:charmbracelet user:caarlos0 author:app/dependabot
 issuesSections:
   - title: My Issues
     filters: is:open author:@me
@@ -28,8 +31,18 @@ defaults:
   issuesLimit: 50
   view: prs
 repoPaths:
-  caarlos0/*: ~/Developer/caarlos0
-  goreleaser/*: ~/Developer/goreleaser
-  charmbracelet/*: ~/Developer/charmbracelet
+  caarlos0/*: ~/Developer/caarlos0/*
+  goreleaser/*: ~/Developer/goreleaser/*
+  charmbracelet/*: ~/Developer/charmbracelet/*
 pager:
   diff: delta
+keybindings:
+  prs:
+    - key: N
+      command: >
+        gh pr comment --repo {{.RepoName}} {{.PrNumber}} --body "@dependabot rebase"
+    - key: M
+      command: >
+        gh pr review --repo {{.RepoName}} {{.PrNumber}} --approve &&
+        gh pr comment --repo {{.RepoName}} {{.PrNumber}} --body "@dependabot rebase" &&
+        gh pr comment --repo {{.RepoName}} {{.PrNumber}} --body "@dependabot squash and merge"
