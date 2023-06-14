@@ -6,7 +6,7 @@ switch $argv[1]
         echo 
     case atop htop top
         echo 
-    case bash fish zsh
+    case bash fish zsh sh ash
         echo 
     case bat cat
         echo 
@@ -24,7 +24,7 @@ switch $argv[1]
         echo פּ
     case elixir mix
         echo 
-    case gh
+    case gh gh-dash
         echo 
     case git lazygit tig
         echo 
