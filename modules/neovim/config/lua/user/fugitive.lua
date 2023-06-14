@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end, "Git push tracking origin")
 
     keymap("<leader>o", function()
-      vim.cmd.Git("ppr")
+      vim.cmd.Git("pr")
     end, "Git push & open browser in PR view")
   end,
 })
