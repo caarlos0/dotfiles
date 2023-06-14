@@ -1,18 +1,35 @@
 prSections:
-- title: My Pull Requests
-  filters: is:open author:@me
-- title: Needs My Review
-  filters: is:open review-requested:@me
+  - title: My Pull Requests
+    filters: is:open author:@me
+  - title: Needs My Review
+    filters: is:open review-requested:@me
+  - title: Charm
+    filters: is:open user:charmbracelet
+  - title: GoReleaser
+    filters: is:open user:goreleaser
+  - title: caarlos0
+    filters: is:open user:caarlos0
 issuesSections:
-- title: My Issues
-  filters: is:open author:@me
-- title: Assigned
-  filters: is:open assignee:@me
+  - title: My Issues
+    filters: is:open author:@me
+  - title: Assigned
+    filters: is:open assignee:@me
+  - title: Charm
+    filters: is:open user:charmbracelet
+  - title: GoReleaser
+    filters: is:open user:goreleaser
+  - title: caarlos0
+    filters: is:open user:caarlos0
 defaults:
   preview:
     open: true
-    width: 50
-  prsLimit: 20
-  issuesLimit: 20
+    width: 80
+  prsLimit: 50
+  issuesLimit: 50
   view: prs
-
+repoPaths:
+  caarlos0/*: ~/Developer/caarlos0
+  goreleaser/*: ~/Developer/goreleaser
+  charmbracelet/*: ~/Developer/charmbracelet
+pager:
+  diff: delta
