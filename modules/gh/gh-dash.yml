@@ -10,8 +10,12 @@ prSections:
     filters: is:open user:goreleaser -author:app/dependabot
   - title: caarlos0
     filters: is:open user:caarlos0 -author:app/dependabot
-  - title: Dependabot
-    filters: is:pr is:open user:goreleaser user:charmbracelet user:caarlos0 author:app/dependabot
+  - title: Charm [bots]
+    filters: is:pr is:open user:charmbracelet author:app/dependabot
+  - title: caarlos0 [bots]
+    filters: is:pr is:open user:caarlos0 author:app/dependabot
+  - title: GoReleaser [bots]
+    filters: is:pr is:open user:goreleaser author:app/dependabot
 issuesSections:
   - title: My Issues
     filters: is:open author:@me
@@ -25,11 +29,22 @@ issuesSections:
     filters: is:open user:caarlos0
 defaults:
   preview:
-    open: true
+    open: false
     width: 80
-  prsLimit: 50
-  issuesLimit: 50
+  prsLimit: 25
+  issuesLimit: 25
   view: prs
+  layout:
+    prs:
+      repo:
+        grow: true
+        width: 25
+        hidden: false
+    issues:
+      repo:
+        grow: true
+        width: 25
+        hidden: false
 repoPaths:
   caarlos0/*: ~/Developer/caarlos0/*
   goreleaser/*: ~/Developer/goreleaser/*
