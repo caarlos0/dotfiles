@@ -44,5 +44,4 @@ keybindings:
     - key: M
       command: >
         gh pr review --repo {{.RepoName}} {{.PrNumber}} --approve &&
-        gh pr comment --repo {{.RepoName}} {{.PrNumber}} --body "@dependabot rebase" &&
         gh pr comment --repo {{.RepoName}} {{.PrNumber}} --body "@dependabot squash and merge"
