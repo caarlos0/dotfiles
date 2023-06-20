@@ -1,19 +1,19 @@
 # yaml-language-server: $schema=https://dlvhdr.github.io/gh-dash/configuration/gh-dash/schema.json
 prSections:
   - title: My Pull Requests
-    filters: is:open author:@me -author:app/dependabot
+    filters: is:open author:@me
   - title: Needs My Review
     filters: is:open review-requested:@me -author:app/dependabot
   - title: Charm
     filters: is:open user:charmbracelet -author:app/dependabot
-  - title: GoReleaser
-    filters: is:open user:goreleaser -author:app/dependabot
-  - title: caarlos0
-    filters: is:open user:caarlos0 -author:app/dependabot
   - title: Charm [bots]
     filters: is:pr is:open user:charmbracelet author:app/dependabot
+  - title: caarlos0
+    filters: is:open user:caarlos0 -author:app/dependabot
   - title: caarlos0 [bots]
     filters: is:pr is:open user:caarlos0 author:app/dependabot
+  - title: GoReleaser
+    filters: is:open user:goreleaser -author:app/dependabot
   - title: GoReleaser [bots]
     filters: is:pr is:open user:goreleaser author:app/dependabot
 issuesSections:
