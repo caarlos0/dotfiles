@@ -35,7 +35,6 @@ require("catppuccin").setup({
     neotree = true,
     notify = true,
     nvimtree = true,
-    symbols_outline = true,
     telescope = true,
     harpoon = true,
     treesitter = true,

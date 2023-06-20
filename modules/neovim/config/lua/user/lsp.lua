@@ -3,15 +3,6 @@ local inlay_hints = require("lsp-inlayhints")
 local autocmds = require("lsp_autocommands")
 local keymaps = require("lsp_keymaps")
 
-require("symbols-outline").setup({
-  width = 25,
-})
-vim.keymap.set("n", "<leader>smb", vim.cmd.SymbolsOutline, {
-  noremap = true,
-  silent = true,
-  desc = "Symbols Outline",
-})
-
 inlay_hints.setup({})
 
 -- Use an on_attach function to only map the following keys

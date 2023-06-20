@@ -52,7 +52,6 @@ in
       bufdelete-nvim
 
       # coding
-      symbols-outline-nvim
       nvim-lspconfig
       null-ls-nvim
       nvim-cmp
