@@ -64,6 +64,7 @@
         NSAutomaticSpellingCorrectionEnabled = false;
         AppleInterfaceStyle = "Dark";
         NSDocumentSaveNewDocumentsToCloud = false;
+        _HIHideMenuBar = true;
       };
       finder = {
         FXPreferredViewStyle = "Nlsv";
