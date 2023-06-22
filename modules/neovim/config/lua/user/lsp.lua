@@ -8,7 +8,11 @@ inlay_hints.setup({})
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+  -- if client.server_capabilities.inlayHintProvider then
+  --   vim.lsp.buf.inlay_hint(bufnr, true)
+  -- else
   inlay_hints.on_attach(client, bufnr)
+  -- end
   autocmds.on_attach(client, bufnr)
   keymaps.on_attach(bufnr)
 end

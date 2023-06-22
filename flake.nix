@@ -31,9 +31,9 @@
     # neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  # neovim-nightly,
   outputs =
     { nur
+      # , neovim-nightly
     , caarlos0-nur
     , goreleaser-nur
     , darwin
