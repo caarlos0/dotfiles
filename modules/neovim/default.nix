@@ -116,8 +116,7 @@ in
       nvim-treesitter-context
       lsp-inlayhints-nvim
       nvim-treesitter-endwise
-      (fromGitHub "rgroli" "other.nvim" "main"
-        "df/L8ZOdjkviE6WRRe7uon82hlUb+yYDdtiN3pJ5OBs=")
+      other-nvim
 
       # debug
       nvim-dap

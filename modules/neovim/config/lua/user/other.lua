@@ -1,15 +1,6 @@
 require("other-nvim").setup({
   mappings = {
-    {
-      pattern = "(.*).go$",
-      target = "%1_test.go",
-      context = "test",
-    },
-    {
-      pattern = "(.*)_test.go$",
-      target = "%1.go",
-      context = "file",
-    },
+    "golang",
   },
 })
 
