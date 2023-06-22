@@ -48,8 +48,6 @@ in
       auto-session
       telescope-nvim
       telescope-github-nvim
-      sqlite-lua
-      (fromGitHub "danielfalk" "smart-open.nvim" "main" "RiipCXDpP/C9qylei6jW2BJ5BpRv9J4mdy+zEzuIX24=")
       auto-hlsearch-nvim
       bufdelete-nvim
 
