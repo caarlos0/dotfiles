@@ -23,10 +23,14 @@ telescope.setup({
 telescope.load_extension("gh")
 telescope.load_extension("harpoon")
 telescope.load_extension("dap")
+telescope.load_extension("smart_open")
 
 local opts = { noremap = true, silent = true }
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<C-p>", function()
+  telescope.extensions.smart_open.smart_open({ cwd_only = true })
+end, opts)
+vim.keymap.set("n", "<leader>ff", function()
   builtin.find_files({
     find_command = { "rg", "--hidden", "--files", "--smart-case", "--glob=!.git" },
   })
