@@ -78,6 +78,7 @@
       tflint
       tree-sitter
       typescript-language-server
+      vscode-html-languageserver-bin
       yaml-language-server
       yamllint
     ] ++ (lib.optionals pkgs.stdenv.isDarwin [
