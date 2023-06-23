@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mods -m gpt-3.5-turbo "command to $*. only the command, no explanations, no formatting, no surrounding backticks, replace specific directories with placeholders formatted as {{ placeholder }}" |
+  vipe |
+  bash
