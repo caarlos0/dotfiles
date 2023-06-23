@@ -28,7 +28,6 @@ in
       bufferline-nvim
       lualine-nvim
       dressing-nvim
-      fidget-nvim
 
       # basics
       indent-blankline-nvim

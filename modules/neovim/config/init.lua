@@ -23,9 +23,6 @@ require("todo-comments").setup({
   },
 })
 require("dressing").setup({})
-require("fidget").setup({
-  text = { spinner = "dots_pulse" },
-})
 require("user.test")
 require("user.harpoon")
 require("user.telescope")

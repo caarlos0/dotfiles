@@ -21,7 +21,6 @@ require("catppuccin").setup({
       enabled = true,
       enable_ui = true,
     },
-    fidget = true,
     gitsigns = true,
     indent_blankline = {
       enabled = true,
