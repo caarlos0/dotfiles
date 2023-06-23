@@ -114,7 +114,6 @@ in
         ]))
       nvim-treesitter-textobjects
       nvim-treesitter-context
-      lsp-inlayhints-nvim
       nvim-treesitter-endwise
       other-nvim
 
