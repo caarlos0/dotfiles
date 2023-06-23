@@ -28,12 +28,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs =
     { nur
-      # , neovim-nightly
+    , neovim-nightly
     , caarlos0-nur
     , goreleaser-nur
     , darwin
@@ -53,7 +53,7 @@
             };
           };
         })
-        # (import neovim-nightly)
+        (import neovim-nightly)
       ];
 
     in
