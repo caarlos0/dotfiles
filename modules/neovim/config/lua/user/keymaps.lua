@@ -36,6 +36,8 @@ keymap("n", "<A-Right>", ":vertical resize +2<CR>", opts)
 -- buffer nav
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
+-- delete surrounding buffers
+keymap("n", "<leader>bsd", ":%bd|e#|bd#<cr>|'<cr>", opts)
 
 -- save and quit
 keymap("n", "<leader>w", ":write<CR>", opts)
