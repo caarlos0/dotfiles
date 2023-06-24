@@ -46,3 +46,11 @@ end, {
   silent = true,
   desc = "Git blame",
 })
+
+vim.keymap.set("n", "<leader>gms", function()
+  vim.cmd.Git("sync")
+end, {
+  noremap = true,
+  silent = true,
+  desc = "Git sync",
+})
