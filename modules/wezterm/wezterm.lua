@@ -42,6 +42,8 @@ return {
     "liga=1",
   },
 
+  term = "wezterm",
+
   -- tab bar
   tab_max_width = 32,
   use_fancy_tab_bar = true,
