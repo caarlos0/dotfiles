@@ -18,6 +18,8 @@ return {
   },
   color_scheme = "OLEDppuccin",
 
+  term = "wezterm",
+
   -- general styling
   default_cursor_style = "BlinkingBar",
   enable_scroll_bar = false,

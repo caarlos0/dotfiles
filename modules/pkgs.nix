@@ -29,6 +29,7 @@
       onefetch
       p7zip
       ripgrep
+      ncurses
       sqlite
       sshpass
       stern
