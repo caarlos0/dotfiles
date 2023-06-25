@@ -16,7 +16,7 @@ This is my latest attempt, using nix.
 
 Not much, this is roughly a translation from the latest state of
 `dotfiles.fish`, although some parts are still missing (pending me learning
-nix-darwin), and others are a bit differet, like the way Fish and Neovim are set
+nix-darwin), and others are a bit different, like the way Fish and neovim are set
 up.
 
 Other than that, more of the same...
