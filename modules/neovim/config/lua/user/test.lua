@@ -75,6 +75,7 @@ vim.diagnostic.config({
 }, neotest_ns)
 
 neotest.setup({
+  diagnostic = { enabled = false },
   adapters = {
     require("neotest-jest"),
     require("neotest-rust"),
@@ -82,7 +83,12 @@ neotest.setup({
       experimental = {
         test_table = true,
       },
-      args = { "-count=1", "-timeout=60s", "-v", "-race" },
+      args = {
+        "-count=1",
+        "-timeout=60s",
+        "-v",
+        "-race",
+      },
     }),
   },
 })
