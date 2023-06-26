@@ -28,6 +28,7 @@
       nodejs
       onefetch
       p7zip
+      ranger
       ripgrep
       sqlite
       sshpass
