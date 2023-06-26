@@ -114,5 +114,17 @@ changelog:
           order: 200
         - title: other
           order: 9999
+    - title: "ai"
+      regexp: "^.*\\(ai\\):+.*$"
+      order: 500
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
     - title: other
       order: 999
