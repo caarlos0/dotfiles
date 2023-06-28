@@ -75,5 +75,5 @@ nix-collect-garbage
 - [ ] yubikey
 - [x] code of conduct, license, etc
 - [x] better organize ./modules/dev/
-- [ ] install wezterm's terminfo with nix, currently just following instructions
+- [x] install wezterm's terminfo with nix, currently just following instructions
       [here](https://wezfurlong.org/wezterm/faq.html#how-do-i-enable-undercurl-curly-underlines) manually
