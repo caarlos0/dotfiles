@@ -22,13 +22,29 @@ require("todo-comments").setup({
     keyword = "bg",
   },
 })
-require("dressing").setup({})
+require("dressing").setup({
+  input = {
+    insert_only = false,
+  },
+  select = {
+    get_config = function(opts)
+      if opts.kind == "codeaction" or opts.kind == "codelens" then
+        return {
+          backend = "builtin",
+          nui = {
+            relative = "cursor",
+            max_width = 60,
+          },
+        }
+      end
+    end,
+  },
+})
 require("user.test")
 require("user.harpoon")
 require("user.telescope")
 require("user.fugitive")
 require("user.tree")
-require("user.bufremove")
 require("auto-hlsearch").setup()
 
 --
