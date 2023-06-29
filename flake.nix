@@ -55,7 +55,6 @@
         })
         (import neovim-nightly)
       ];
-
     in
     {
       darwinConfigurations."supernova" = darwin.lib.darwinSystem {
