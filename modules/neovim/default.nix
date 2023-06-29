@@ -48,7 +48,6 @@ in
       telescope-nvim
       telescope-github-nvim
       auto-hlsearch-nvim
-      bufdelete-nvim
 
       # coding
       nvim-lspconfig
