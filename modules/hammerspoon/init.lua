@@ -62,3 +62,23 @@ hotkey.bind(hyper, "K", function()
 
   win:setFrame(f)
 end)
+
+hotkey.bind(hyper, "Y", function()
+  hs.application.launchOrFocus("Music")
+end)
+
+hotkey.bind(hyper, "U", function()
+  hs.application.launchOrFocus("WezTerm")
+end)
+
+hotkey.bind(hyper, "I", function()
+  hs.application.launchOrFocus("Safari")
+end)
+
+hotkey.bind(hyper, "O", function()
+  hs.application.launchOrFocus("Notes")
+end)
+
+hotkey.bind(hyper, "P", function()
+  hs.application.launchOrFocus("Discord")
+end)
