@@ -25,11 +25,15 @@ Other than that, more of the same...
 
 1. Install nix and home-manager.
 1. Enable some experimental features:
-
-```bash
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-```
+   ```bash
+   mkdir -p ~/.config/nix
+   echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+   ```
+1. Enable community build cache:
+   ```bash
+   nix-env -iA cachix -f https://cachix.org/api/v1/install
+   cachix use nix-community
+   ```
 
 # Applying
 
