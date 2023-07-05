@@ -6,7 +6,7 @@ local keymaps = require("lsp_keymaps")
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   if client.server_capabilities.inlayHintProvider then
-    vim.lsp.buf.inlay_hint(bufnr, true)
+    vim.lsp.inlay_hint(bufnr, true)
   end
   autocmds.on_attach(client, bufnr)
   keymaps.on_attach(bufnr)
