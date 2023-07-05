@@ -7,7 +7,7 @@ ansible to shell scripts, and never liked any of them that much, to be honest.
 
 You can see the history on these repositories:
 
-- [dotfiles](https://github.com/caarlos0/dotfiles)
+- [dotfiles.zsh](https://github.com/caarlos0/dotfiles.zsh)
 - [dotfiles.fish](https://github.com/caarlos0/dotfiles.fish)
 
 This is my latest attempt, using nix.
