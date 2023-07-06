@@ -38,12 +38,19 @@ Other than that, more of the same...
 # Applying
 
 ```bash
+home-manager switch --flake ".#carlos@$(hostname)"
+
+# Or with task:
 task apply
 ```
 
 On macOS, you may also:
 
 ```bash
+nix build "./#darwinConfigurations.$(hostname).system"
+./result/sw/bin/darwin-rebuild switch --flake .
+
+# Or with task:
 task apply_darwin
 ```
 
@@ -60,6 +67,9 @@ chsh -s (which fish)
 # Update packages
 
 ```bash
+nix flake update
+
+# Or with task:
 task update
 ```
 
