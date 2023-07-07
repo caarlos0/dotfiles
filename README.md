@@ -25,19 +25,19 @@ Other than that, more of the same...
 
 1. Install nix and home-manager.
 1. Enable some experimental features:
-   ```bash
+   ```sh
    mkdir -p ~/.config/nix
    echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
    ```
 1. Enable community build cache:
-   ```bash
+   ```sh
    nix-env -iA cachix -f https://cachix.org/api/v1/install
    cachix use nix-community
    ```
 
 # Applying
 
-```bash
+```sh
 home-manager switch --flake ".#carlos@$(hostname)"
 
 # Or with task:
@@ -46,7 +46,7 @@ task apply
 
 On macOS, you may also:
 
-```bash
+```sh
 nix build "./#darwinConfigurations.$(hostname).system"
 ./result/sw/bin/darwin-rebuild switch --flake .
 
@@ -58,7 +58,7 @@ task apply_darwin
 
 Home-manager will not change your default shell, so you need to do it yourself.
 
-```bash
+```fish
 fish
 which fish | sudo tee -a /etc/shells
 chsh -s (which fish)
@@ -66,7 +66,7 @@ chsh -s (which fish)
 
 # Update packages
 
-```bash
+```sh
 nix flake update
 
 # Or with task:
@@ -77,7 +77,7 @@ And run the `switch` command again.
 
 # Clean up
 
-```bash
+```sh
 nix-collect-garbage
 ```
 
