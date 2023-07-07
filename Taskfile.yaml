@@ -1,6 +1,6 @@
 # https://taskfile.dev
 
-version: '3'
+version: "3"
 
 vars:
   HOSTNAME:
@@ -10,11 +10,11 @@ tasks:
   release:
     vars:
       TAG:
-        sh: 'date +%Y.%m.%d'
+        sh: "date +%Y.%m.%d"
     cmds:
-      - 'git tag -m {{.TAG}} {{.TAG}}'
-      - 'git push --tags'
-      - 'goreleaser release --clean'
+      - "git tag -m {{.TAG}} {{.TAG}}"
+      - "git push --tags"
+      - "goreleaser release --clean"
   update:
     cmds:
       - nix flake update
@@ -27,3 +27,6 @@ tasks:
     cmds:
       - nix build './#darwinConfigurations.{{ .HOSTNAME }}.system'
       - ./result/sw/bin/darwin-rebuild switch --flake .
+  clean:
+    cmds:
+      - nix-collect-garbage -d
