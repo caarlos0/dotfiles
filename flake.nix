@@ -21,6 +21,7 @@
 
     nur.url = "github:nix-community/NUR";
     caarlos0-nur.url = "github:caarlos0/nur";
+    charmbracelet-nur.url = "github:charmbracelet/nur";
     goreleaser-nur.url = "github:goreleaser/nur";
 
     darwin = {
@@ -35,6 +36,7 @@
     { nur
     , neovim-nightly
     , caarlos0-nur
+    , charmbracelet-nur
     , goreleaser-nur
     , darwin
     , home-manager
@@ -49,6 +51,7 @@
             pkgs = prev;
             repoOverrides = {
               caarlos0 = import caarlos0-nur { pkgs = prev; };
+              charmbracelet = import charmbracelet-nur { pkgs = prev; };
               goreleaser = import goreleaser-nur { pkgs = prev; };
             };
           };

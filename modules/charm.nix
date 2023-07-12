@@ -8,6 +8,6 @@
     tasktimer
     tz
     vhs
-    wishlist
+    nur.repos.charmbracelet.wishlist
   ];
 }
