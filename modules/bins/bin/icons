@@ -18,7 +18,7 @@ switch $argv[1]
         echo 
     case curl http pint lynx wget w3m
         echo 
-    case docker docker-compose
+    case docker docker-compose podman
         echo 
     case exa lf ls nnn ranger
         echo פּ
