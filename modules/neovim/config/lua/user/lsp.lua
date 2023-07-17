@@ -236,7 +236,7 @@ for name, icon in pairs(require("user.icons").diagnostics) do
   vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
 end
 
--- change documentation to be rouded and non-focusable...
+-- change documentation to be rounded and non-focusable...
 -- any time I focus into one of these, is by accident, and it always take me
 -- a couple of seconds to figure out what I did.
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
