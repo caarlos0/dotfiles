@@ -85,5 +85,12 @@
     ] ++ (lib.optionals pkgs.stdenv.isDarwin [
       nur.repos.caarlos0.discord-applemusic-rich-presence
       terminal-notifier
-    ]) ++ (lib.optionals pkgs.stdenv.isLinux [ docker docker-compose podman ]);
+    ]) ++ (lib.optionals pkgs.stdenv.isLinux [
+      docker
+      docker-compose
+      # https://nixos.wiki/wiki/podman
+      # podman
+      # shadow
+      # util-linux
+    ]);
 }
