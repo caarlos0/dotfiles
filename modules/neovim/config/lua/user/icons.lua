@@ -1,14 +1,10 @@
+-- copied from https://github.com/LunarVim/LunarVim/blob/master/lua/lvim/icons.lua
 return {
   diagnostics = {
-    -- Error = "",
     Error = "",
-    -- Warning = "",
-    Warning = "",
-    -- Information = "",
-    Information = "",
-    -- Question = "",
+    Warn = "",
+    Info = "",
     Question = "",
-    -- Hint = "",
     Hint = "󰌶",
     Debug = "",
     Trace = "✎",
