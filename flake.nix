@@ -56,7 +56,6 @@
             };
           };
         })
-        (import neovim-nightly)
       ];
     in
     {
@@ -69,7 +68,11 @@
           pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
           extraSpecialArgs = { inherit inputs; };
           modules = [
-            ({ config, ... }: { config = { nixpkgs.overlays = overlays; }; })
+            ({ config, ... }: {
+              config = {
+                nixpkgs.overlays = overlays;
+              };
+            })
             ./modules/darwin-app-activation.nix
             ./modules/home.nix
             ./modules/pkgs.nix
@@ -100,7 +103,11 @@
           pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs; };
           modules = [
-            ({ config, ... }: { config = { nixpkgs.overlays = overlays; }; })
+            ({ config, ... }: {
+              config = {
+                nixpkgs.overlays = overlays ++ [ (import neovim-nightly) ];
+              };
+            })
             ./modules/home.nix
             ./modules/pkgs.nix
             ./modules/editorconfig.nix

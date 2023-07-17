@@ -33,7 +33,9 @@ vim.opt.colorcolumn = "80"
 vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }
-vim.opt.spellfile = vim.uv.os_homedir() .. "/.spell.add"
+if vim.uv then -- doesn't work in neovim 0.9
+  vim.opt.spellfile = vim.uv.os_homedir() .. "/.spell.add"
+end
 vim.opt.laststatus = 3
 vim.opt.cursorline = true
 vim.opt.list = false
