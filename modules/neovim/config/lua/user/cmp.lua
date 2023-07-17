@@ -78,7 +78,7 @@ cmp.setup({
     format = function(_, item)
       local icons = require("user.icons").kinds
       if icons[item.kind] then
-        item.kind = icons[item.kind] .. item.kind
+        item.kind = icons[item.kind] .. " " .. item.kind
       end
       local strings = vim.split(item.kind, "%s", {
         trimempty = true,
