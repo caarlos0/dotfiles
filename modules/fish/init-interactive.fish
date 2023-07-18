@@ -1,4 +1,5 @@
 set -U fish_greeting
+set -xU ZK_NOTEBOOK_DIR ~/Documents/zk/
 
 function __trap_exit_tmux
     test -z "$NVIM_LISTEN_ADDRESS" || exit
