@@ -82,15 +82,16 @@
       vscode-html-languageserver-bin
       yaml-language-server
       yamllint
+      zk
     ] ++ (lib.optionals pkgs.stdenv.isDarwin [
       nur.repos.caarlos0.discord-applemusic-rich-presence
       terminal-notifier
     ]) ++ (lib.optionals pkgs.stdenv.isLinux [
+      util-linux
       docker
       docker-compose
       # https://nixos.wiki/wiki/podman
       # podman
       # shadow
-      # util-linux
     ]);
 }
