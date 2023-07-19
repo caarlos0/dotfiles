@@ -11,17 +11,17 @@ switch $argv[1]
     case bat cat
         echo 
     case clx
-        echo 
+        echo 
     case cp duplicate
         echo 
     case mv
-        echo 
+        echo 󰉒
     case curl http pint lynx wget w3m
         echo 
     case docker docker-compose podman
         echo 
     case exa lf ls nnn ranger
-        echo פּ
+        echo 
     case elixir mix
         echo 
     case gh gh-dash
@@ -38,34 +38,36 @@ switch $argv[1]
         echo 
     case lua
         echo 
-    case man
+    case man zk
         echo 
     case nano pico
-        echo פֿ
+        echo 
     case node npm yarn
         echo 
     case nvim vim vi
         echo 
     case python pip
-        echo 
+        echo 
     case rm
-        echo 﫧
+        echo 
     case rsync
         echo 
     case ruby irb
         echo 
     case scp ssh
-        echo 
+        echo 󰣀
     case sleep
         echo 
     case spin
-        echo ?
+        echo 
     case sudo
         echo 
     case tail
-        echo ?
+        echo 
+    case task make
+        echo 
     case tmux
-        echo ﬿
+        echo 
     case youtube-dl
         echo 
 end
