@@ -38,6 +38,7 @@
       timer
       tldr
       upx
+      unixtools.watch
       vegeta
       wget
       yarn
