@@ -40,6 +40,7 @@ require("dressing").setup({
     end,
   },
 })
+require("user.zk")
 require("user.test")
 require("user.harpoon")
 require("user.telescope")
@@ -66,20 +67,3 @@ require("Comment").setup()
 require("user.treesitter")
 require("user.debug")
 require("user.other")
-
--- zk
-require("zk").setup({
-  picker = "telescope",
-
-  lsp = {
-    config = {
-      cmd = { "zk", "lsp" },
-      name = "zk",
-    },
-
-    auto_attach = {
-      enabled = true,
-      filetypes = { "markdown" },
-    },
-  },
-})
