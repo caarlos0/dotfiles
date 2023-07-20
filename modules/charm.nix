@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     gitty
     glow
@@ -9,5 +9,6 @@
     tz
     vhs
     nur.repos.charmbracelet.wishlist
+    nur.repos.charmbracelet.pop
   ];
 }
