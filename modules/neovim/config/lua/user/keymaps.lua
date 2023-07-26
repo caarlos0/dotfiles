@@ -69,6 +69,9 @@ keymap("n", "[<Space>", "m`O<Esc>``", opts)
 keymap("n", "<leader>y", '"+y', opts)
 keymap("n", "<leader>Y", '"+Y', opts)
 
+-- copy the current file path
+keymap("n", "<leader>py", ':let @" = expand("%:p")<CR>', opts)
+
 -- delete to blackhole
 keymap("n", "<leader>d", '"_d', opts)
 keymap("n", "<leader>D", '"_D', opts)
