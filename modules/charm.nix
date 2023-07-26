@@ -7,7 +7,7 @@
     nur.repos.caarlos0.mods
     tasktimer
     tz
-    vhs
+    nur.repos.charmbracelet.vhs
     nur.repos.charmbracelet.wishlist
     nur.repos.charmbracelet.pop
   ];
