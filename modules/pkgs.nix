@@ -50,10 +50,6 @@
       nur.repos.caarlos0.svu
       nur.repos.goreleaser.goreleaser-pro
 
-      # fonts
-      # using berkeley mono now, and wezterm already comes with jetbrains mono.
-      # (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-
       # treesitter, lsps, etc
       bash-language-server
       cargo
@@ -81,12 +77,14 @@
       tree-sitter
       typescript-language-server
       vscode-html-languageserver-bin
+      vscode-json-languageserver-bin
       yaml-language-server
       yamllint
-      zk
+      zk # zettelkasten
     ] ++ (lib.optionals pkgs.stdenv.isDarwin [
       nur.repos.caarlos0.discord-applemusic-rich-presence
       terminal-notifier
+      coreutils
     ]) ++ (lib.optionals pkgs.stdenv.isLinux [
       util-linux
       docker

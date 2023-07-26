@@ -133,6 +133,7 @@ lspconfig.html.setup({
 lspconfig.jsonls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  cmd = { "json-languageserver", "--stdio" },
 })
 
 lspconfig.bashls.setup({
