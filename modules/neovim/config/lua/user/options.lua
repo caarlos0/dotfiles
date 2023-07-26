@@ -62,4 +62,5 @@ iabbrev descriptoin description
 iabbrev fucn func
 iabbrev sicne since
 iabbrev emtpy empty
+iabbrev udpate update
 ]])
