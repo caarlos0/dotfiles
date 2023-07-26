@@ -42,18 +42,6 @@ changelog:
           order: 200
         - title: other
           order: 9999
-    - title: "packages"
-      regexp: "^.*\\(pkg\\):+.*$"
-      order: 203
-      groups:
-        - title: improvements
-          regexp: "^feat.*$"
-          order: 100
-        - title: fixes
-          regexp: "^fix.*$"
-          order: 200
-        - title: other
-          order: 9999
     - title: "editor"
       regexp: "^.*\\(n?vim\\):+.*$"
       order: 240
@@ -79,7 +67,7 @@ changelog:
         - title: other
           order: 9999
     - title: "system"
-      regexp: "^.*\\((system|fish|fzf|ssh|core)\\):+.*$"
+      regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs|zk)\\):+.*$"
       order: 100
       groups:
         - title: improvements
