@@ -36,7 +36,7 @@ vim.opt.spelllang = { "en_us" }
 if vim.uv then -- doesn't work in neovim 0.9
   vim.opt.spellfile = vim.uv.os_homedir() .. "/.spell.add"
 end
-vim.opt.laststatus = 3
+vim.opt.laststatus = 2
 vim.opt.cursorline = true
 vim.opt.list = false
 vim.opt.listchars = "eol:↲,tab:» ,trail:·,extends:<,precedes:>,conceal:┊,nbsp:␣"
