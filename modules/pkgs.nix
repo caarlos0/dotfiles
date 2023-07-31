@@ -7,7 +7,8 @@
       cosign
       curl
       fd
-      ffmpeg
+      ffmpeg_6-full
+      ttyd
       git-lfs
       go-task
       graphviz
