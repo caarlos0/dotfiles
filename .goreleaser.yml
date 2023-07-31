@@ -5,6 +5,9 @@ changelog:
   sort: asc
   use: github
   divider: "---"
+  filters:
+    exclude:
+      - "^chore\\(nix\\):+.*$"
   groups:
     - title: "nix"
       regexp: "^.*\\(nix\\):+.*$"
