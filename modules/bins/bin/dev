@@ -1,0 +1,15 @@
+#!/usr/bin/env fish
+
+function am_i_home
+    /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I |
+        grep -w SSID |
+        awk '{print $2}' |
+        grep -w Becker >/dev/null
+end
+
+if am_i_home
+    ssh -o 'Hostname=darkstar.local' dev
+else
+    echo "Using VPN..."
+    ssh -o 'Hostname=darkstar.vpn' dev
+end
