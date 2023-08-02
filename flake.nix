@@ -1,8 +1,13 @@
 {
-  description = "Home Manager configuration of Carlos Becker";
+  description = "caarlos0's nix-darwin and home-manager configs";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
+    caarlos0-nur.url = "github:caarlos0/nur";
+    charmbracelet-nur.url = "github:charmbracelet/nur";
+    goreleaser-nur.url = "github:goreleaser/nur";
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -19,17 +24,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur.url = "github:nix-community/NUR";
-    caarlos0-nur.url = "github:caarlos0/nur";
-    charmbracelet-nur.url = "github:charmbracelet/nur";
-    goreleaser-nur.url = "github:goreleaser/nur";
-
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs =
