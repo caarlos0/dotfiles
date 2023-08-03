@@ -115,6 +115,9 @@ in
       nvim-treesitter-context
       nvim-treesitter-endwise
       other-nvim
+      # treesitter injections for home-manager
+      (fromGitHub "calops" "hmts.nvim" "v0.1.0"
+        "sha256-SBNTtuzwSmGgwALD/JqLwXGLow+Prn7dJrQNODPeOAY=")
 
       # debug
       nvim-dap
