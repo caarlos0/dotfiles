@@ -1,4 +1,4 @@
-# dotfiles.nix
+# caarlos0/dotfilex
 
 This is my latest dotfiles generation.
 
