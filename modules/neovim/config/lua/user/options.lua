@@ -63,4 +63,8 @@ iabbrev fucn func
 iabbrev sicne since
 iabbrev emtpy empty
 iabbrev udpate update
+
+" ptbr
+iabbrev neh né
+iabbrev soh só
 ]])
