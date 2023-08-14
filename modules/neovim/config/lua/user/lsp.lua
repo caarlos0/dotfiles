@@ -61,8 +61,8 @@ lspconfig.gopls.setup({
         useany = true,
       },
       -- usePlaceholders = true,
+      -- staticcheck = true,
       completeUnimported = true,
-      staticcheck = true,
       directoryFilters = { "-.git", "-node_modules" },
       semanticTokens = true,
     },
@@ -223,7 +223,7 @@ local float_config = {
 vim.diagnostic.config({
   underline = true,
   update_in_insert = false,
-  virtual_text = { spacing = 4, prefix = "●" },
+  virtual_text = false, --{ spacing = 4, prefix = "●" },
   severity_sort = true,
   float = float_config,
 })
@@ -231,16 +231,14 @@ vim.diagnostic.config({
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, float_config)
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, float_config)
 
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
+  callback = function()
+    vim.diagnostic.open_float()
+  end,
+})
+
 -- set up diagnostic signs
 for name, icon in pairs(require("user.icons").diagnostics) do
   name = "DiagnosticSign" .. name
   vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
 end
-
--- change documentation to be rounded and non-focusable...
--- any time I focus into one of these, is by accident, and it always take me
--- a couple of seconds to figure out what I did.
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-  focusable = false,
-})
