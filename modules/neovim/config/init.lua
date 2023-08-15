@@ -45,7 +45,6 @@ require("user.test")
 require("user.harpoon")
 require("user.telescope")
 require("user.fugitive")
-require("user.tree")
 require("auto-hlsearch").setup()
 
 --

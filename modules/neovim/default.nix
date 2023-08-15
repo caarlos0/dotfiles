@@ -23,7 +23,6 @@ in
       # ui
       catppuccin-nvim
       nvim-web-devicons
-      nvim-tree-lua
       nvim-notify
       bufferline-nvim
       lualine-nvim
