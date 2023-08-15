@@ -1,3 +1,3 @@
 #!/usr/bin/env fish
 cd ~/Documents/zk
-$EDITOR .
+$EDITOR
