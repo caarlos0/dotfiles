@@ -1,85 +1,29 @@
-local neotest = require("neotest")
-
-vim.keymap.set("n", "<leader>ttn", function()
-  neotest.run.run()
-end, {
+-- revert this once https://github.com/nvim-neotest/neotest-go/issues/51 is fixed.
+vim.keymap.set("n", "<leader>ttn", ":TestNearest -v<CR>g", {
   noremap = true,
   silent = true,
   desc = "Test nearest",
 })
-
-vim.keymap.set("n", "<leader>ttf", function()
-  neotest.run.run(vim.fn.expand("%"))
-end, {
+vim.keymap.set("n", "<leader>ttf", ":TestFile -v<CR>g", {
   noremap = true,
   silent = true,
   desc = "Test file",
 })
-
-vim.keymap.set("n", "<leader>tts", function()
-  neotest.run.run(vim.fn.getcwd())
-end, {
+vim.keymap.set("n", "<leader>tts", ":TestSuite -v<CR>g", {
   noremap = true,
   silent = true,
   desc = "Test Suite",
 })
-
-vim.keymap.set("n", "<leader>ttl", function()
-  neotest.run.run_last()
-end, {
+vim.keymap.set("n", "<leader>ttl", ":TestLast -v<CR>g", {
   noremap = true,
   silent = true,
   desc = "Test latest",
 })
-
-vim.keymap.set("n", "<leader>ttu", function()
-  neotest.summary.toggle()
-end, {
+vim.keymap.set("n", "<leader>ttv", ":TestVisit -v<CR>g", {
   noremap = true,
   silent = true,
-  desc = "Toggle test summary",
+  desc = "Test visit",
 })
 
-vim.keymap.set("n", "<leader>tto", function()
-  neotest.output_panel.toggle()
-end, {
-  noremap = true,
-  silent = true,
-  desc = "Toggle test output panel",
-})
-
-vim.keymap.set("n", "[n", function()
-  neotest.jump.prev({ status = "failed" })
-end, {
-  noremap = true,
-  silent = true,
-  desc = "Jump to previous failed test",
-})
-
-vim.keymap.set("n", "]n", function()
-  neotest.jump.next({ status = "failed" })
-end, {
-  noremap = true,
-  silent = true,
-  desc = "Jump to next failed test",
-})
-
-neotest.setup({
-  diagnostic = { enabled = false },
-  quickfix = { open = false },
-  adapters = {
-    require("neotest-jest"),
-    require("neotest-rust"),
-    require("neotest-go")({
-      experimental = {
-        test_table = true,
-      },
-      args = {
-        "-count=1",
-        "-timeout=60s",
-        "-v",
-        "-race",
-      },
-    }),
-  },
-})
+vim.api.nvim_set_var("test#strategy", "neovim")
+vim.api.nvim_set_var("test#neovim#term_position", "vert")

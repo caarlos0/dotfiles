@@ -32,10 +32,7 @@ in
       indent-blankline-nvim
       gitsigns-nvim
       todo-comments-nvim
-      neotest
-      neotest-go
-      neotest-rust
-      neotest-jest
+      vim-test
       harpoon
       vim-fugitive
       vim-abolish
