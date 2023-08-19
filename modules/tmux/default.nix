@@ -2,6 +2,10 @@
   programs.tmux = {
     enable = true;
     extraConfig = builtins.readFile ./tmux.conf;
-    plugins = with pkgs; [ tmuxPlugins.sensible tmuxPlugins.yank ];
+    plugins = with pkgs.tmuxPlugins; [
+      sensible
+      yank
+      vim-tmux-navigator
+    ];
   };
 }
