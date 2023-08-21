@@ -56,7 +56,7 @@
       cargo
       clang-tools # clangd lsp
       delve
-      docker-ls
+      dockerfile-language-server-nodejs
       gofumpt
       golangci-lint
       golangci-lint-langserver
