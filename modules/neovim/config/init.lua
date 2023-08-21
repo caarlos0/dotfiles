@@ -40,7 +40,6 @@ require("dressing").setup({
     end,
   },
 })
-require("user.zk")
 require("user.test")
 require("user.harpoon")
 require("user.telescope")
