@@ -72,7 +72,7 @@
       shfmt
       stylua
       sumneko-lua-language-server
-      taplo # tomp lsp
+      taplo # toml lsp
       terraform-ls
       tflint
       tree-sitter
