@@ -68,6 +68,7 @@ M.on_attach = function(client, bufnr)
     and vim.bo.filetype ~= "lua"
     and client.name ~= "null-ls"
     and client.name ~= "marksman"
+    and client.name ~= "zls"
   then
     vim.api.nvim_create_autocmd({ "BufWritePre" }, {
       buffer = bufnr,
