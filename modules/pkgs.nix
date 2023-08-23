@@ -82,6 +82,8 @@
       yaml-language-server
       yamllint
       zk # zettelkasten
+      zig
+      zls # zig lsp
     ] ++ (lib.optionals pkgs.stdenv.isDarwin [
       nur.repos.caarlos0.discord-applemusic-rich-presence
       terminal-notifier
