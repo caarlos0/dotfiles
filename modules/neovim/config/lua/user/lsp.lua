@@ -61,7 +61,7 @@ lspconfig.gopls.setup({
         useany = true,
       },
       -- usePlaceholders = true,
-      -- staticcheck = true,
+      staticcheck = true,
       completeUnimported = true,
       directoryFilters = { "-.git", "-node_modules" },
       semanticTokens = true,
