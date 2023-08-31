@@ -1,7 +1,8 @@
 local telescope = require("telescope")
 
 telescope.setup({
-  defaults = {
+  defaults = require("telescope.themes").get_dropdown({
+    sorting_strategy = "ascending",
     prompt_prefix = "   ",
     selection_caret = " ❯ ",
     entry_prefix = "   ",
@@ -17,7 +18,7 @@ telescope.setup({
       "--hidden",
       "--glob=!.git",
     },
-  },
+  }),
 })
 
 telescope.load_extension("gh")
