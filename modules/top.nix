@@ -1,5 +1,17 @@
-{ config, ... }: {
-  programs.btop.enable = true;
+{ pkgs, config, ... }: {
+  xdg.configFile."btop/themes/catppuccin_mocha.theme" = {
+    source = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/catppuccin/btop/main/themes/catppuccin_mocha.theme";
+      sha256 = "TeaxAadm04h4c55aXYUdzHtFc7pb12e0wQmCjSymuug=";
+    };
+  };
+  programs.btop = {
+    enable = true;
+    settings = {
+      color_theme = "catppuccin_mocha";
+      theme_background = false;
+    };
+  };
   programs.htop = {
     enable = true;
     settings = {
