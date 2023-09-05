@@ -89,9 +89,10 @@
       terminal-notifier
       coreutils
     ]) ++ (lib.optionals pkgs.stdenv.isLinux [
-      util-linux
       docker
       docker-compose
+      lm_sensors
+      util-linux
       # https://nixos.wiki/wiki/podman
       # podman
       # shadow
