@@ -32,8 +32,16 @@ keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
 keymap("n", "<leader>q", ":bd!<cr>", opts) -- delete current buffer
-keymap("n", "<leader>bsd", ":%bd|e#|bd#<cr>|'<cr>", opts) -- delete surrounding buffers
 keymap("n", "<leader>bad", ":%bd!<cr>", opts) -- delete all buffers
+-- delete surrounding buffers, make sure to keep the cursor position
+keymap("n", "<leader>bsd", function()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local current = vim.fn.expand("%:p")
+  vim.cmd("%bd")
+  vim.cmd("e " .. current)
+  vim.api.nvim_win_set_cursor(0, cursor)
+  vim.cmd("zz")
+end, opts)
 
 -- save and quit
 keymap("n", "<leader>w", ":write<CR>", opts)
