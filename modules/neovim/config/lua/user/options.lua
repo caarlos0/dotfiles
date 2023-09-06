@@ -46,7 +46,7 @@ vim.opt.shortmess:append("c")
 -- vim.opt.nrformats:append("alpha") -- most of the time I dont want this
 
 -- only works in nvim 0.10
-if vim.fn.has("nvim-0.10") then
+if vim.fn.has("nvim-0.10") == 1 then
   vim.opt.spellfile = vim.uv.os_homedir() .. "/.spell.add"
   vim.opt.smoothscroll = true
 end
