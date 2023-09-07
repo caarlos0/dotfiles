@@ -1,5 +1,5 @@
 { ... }: {
-  programs.exa = {
+  programs.lsd = {
     enable = true;
     enableAliases = true;
   };
