@@ -46,6 +46,7 @@ in
       auto-hlsearch-nvim
       zk-nvim
       vim-tmux-navigator
+      better-escape-nvim
 
       # coding
       nvim-lspconfig
