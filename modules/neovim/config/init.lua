@@ -16,7 +16,9 @@ require("user.session")
 -- BASIC
 --
 require("user.indent")
-require("gitsigns").setup()
+require("gitsigns").setup({
+  current_line_blame = true,
+})
 require("todo-comments").setup({
   highlight = {
     keyword = "bg",
