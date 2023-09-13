@@ -1,0 +1,19 @@
+#!/bin/sh
+# watch all files and re-run tests on save
+set -e
+
+if test $# -gt 0; then
+	# shellcheck disable=SC2086
+  fd --type file . |
+    entr -r go test \
+        -v \
+        -failfast \
+        -race \
+        -coverpkg="$1" \
+        -covermode=atomic \
+        -coverprofile=coverage.txt \
+        $*
+else
+	echo "first arg must be a package, e.g. ./..."
+	exit 1
+fi
