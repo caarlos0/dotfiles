@@ -6,6 +6,7 @@
       comma
       cosign
       curl
+      entr
       fd
       ffmpeg_6-full
       ttyd
