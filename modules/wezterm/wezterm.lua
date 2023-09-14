@@ -19,7 +19,7 @@ return {
   color_scheme = "OLEDppuccin",
 
   -- general styling
-  default_cursor_style = "BlinkingBar",
+  default_cursor_style = "BlinkingBlock",
   enable_scroll_bar = false,
 
   -- fonts
