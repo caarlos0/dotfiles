@@ -1,25 +1,24 @@
 local group = vim.api.nvim_create_augroup("LSP", { clear = true })
 
--- Organize imports.
+-- Format code and organize imports (if supported).
 --
--- https://github.com/neovim/nvim-lspconfig/issues/115#issuecomment-902680058
---
----@param client table Client object
 ---@param bufnr number Buffer number
 ---@param timeoutms number timeout in ms
-local organize_imports = function(client, bufnr, timeoutms)
-  local params = vim.lsp.util.make_range_params(nil, client.offset_encoding)
+local format_and_organize_imports = function(bufnr, timeoutms)
+  local params = vim.lsp.util.make_range_params()
   params.context = { only = { "source.organizeImports" } }
   local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, timeoutms)
-  for _, res in pairs(result or {}) do
+  for cid, res in pairs(result or {}) do
     for _, r in pairs(res.result or {}) do
       if r.edit then
-        vim.lsp.util.apply_workspace_edit(r.edit, client.offset_encoding)
-      else
+        local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+        vim.lsp.util.apply_workspace_edit(r.edit, enc)
+      elseif r.command and r.command.command then
         vim.lsp.buf.execute_command(r.command)
       end
     end
   end
+  vim.lsp.buf.format({ async = false })
 end
 
 --- Checks if the given client is alive.
@@ -46,34 +45,13 @@ local M = {}
 ---@param client table Client object
 ---@param bufnr number
 M.on_attach = function(client, bufnr)
-  if client.server_capabilities.documentFormattingProvider and client.name ~= "lua_ls" then
+  -- what are the chances of a lsp supporting code actions but not supporting formatting?
+  -- client.server_capabilities.codeActionProvider
+  if client.server_capabilities.documentFormattingProvider then
     vim.api.nvim_create_autocmd({ "BufWritePre" }, {
       buffer = bufnr,
       callback = function()
-        vim.lsp.buf.format({
-          filter = function(cli)
-            return cli.name == client.name
-          end,
-        })
-      end,
-      group = group,
-    })
-  end
-
-  -- If the organizeImports codeAction runs for lua files, depending on
-  -- where the cursor is, it'll reorder the args and break stuff.
-  -- This took me way too long to figure out.
-  if
-    client.server_capabilities.codeActionProvider
-    and vim.bo.filetype ~= "lua"
-    and client.name ~= "null-ls"
-    and client.name ~= "marksman"
-    and client.name ~= "zls"
-  then
-    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-      buffer = bufnr,
-      callback = function()
-        organize_imports(client, bufnr, 1500)
+        format_and_organize_imports(bufnr, 1500)
       end,
       group = group,
     })
