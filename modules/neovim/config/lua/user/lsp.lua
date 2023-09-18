@@ -204,7 +204,7 @@ null_ls.setup({
     null_ls.builtins.formatting.fish_indent,
     null_ls.builtins.formatting.nixpkgs_fmt,
     null_ls.builtins.formatting.prettier,
-    -- null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.code_actions.gitsigns,
     -- null_ls.builtins.formatting.shfmt,
   },
   capabilities = capabilities,
