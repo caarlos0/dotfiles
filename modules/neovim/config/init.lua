@@ -10,7 +10,6 @@ require("nvim-web-devicons").setup()
 require("user.notify")
 require("user.bufferline")
 require("user.lualine")
-require("user.session")
 
 --
 -- BASIC

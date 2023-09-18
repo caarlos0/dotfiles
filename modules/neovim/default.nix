@@ -40,7 +40,6 @@ in
       vim-eunuch
       vim-sleuth
       vim-speeddating
-      auto-session
       telescope-nvim
       telescope-github-nvim
       auto-hlsearch-nvim
