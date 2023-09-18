@@ -98,6 +98,7 @@ in
           python
           query
           regex
+          ruby
           rust
           scss
           sql
