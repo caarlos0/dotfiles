@@ -2,13 +2,6 @@ vim.opt_local.formatoptions:remove("l")
 vim.opt_local.textwidth = 80
 vim.opt_local.conceallevel = 1
 
-if require("zk.util").notebook_root(vim.fn.expand("%:p")) ~= nil then
-  if vim.g.loaded_zk ~= 1 then
-    require("user.zk")
-    vim.g.loaded_zk = 1
-  end
-end
-
 local CR = vim.api.nvim_replace_termcodes("<cr>", true, true, true)
 local function toggle_checkbox()
   local cursor = vim.api.nvim_win_get_cursor(0)

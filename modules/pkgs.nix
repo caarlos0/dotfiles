@@ -82,7 +82,6 @@
       vscode-json-languageserver-bin
       yaml-language-server
       yamllint
-      zk # zettelkasten
       zig
       zls # zig lsp
     ] ++ (lib.optionals pkgs.stdenv.isDarwin [

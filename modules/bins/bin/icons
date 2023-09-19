@@ -38,7 +38,7 @@ switch $argv[1]
         echo 
     case lua
         echo 
-    case man zk
+    case man
         echo 
     case nano pico
         echo 

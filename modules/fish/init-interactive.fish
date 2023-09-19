@@ -1,5 +1,4 @@
 set -U fish_greeting
-set -xU ZK_NOTEBOOK_DIR ~/Documents/zk/
 set -xU EDITOR nvim
 set -xU VISUAL nvim
 

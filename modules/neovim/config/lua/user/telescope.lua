@@ -25,7 +25,6 @@ telescope.setup({
 telescope.load_extension("gh")
 telescope.load_extension("harpoon")
 telescope.load_extension("dap")
-telescope.load_extension("zk")
 
 local opts = { noremap = true, silent = true }
 local builtin = require("telescope.builtin")
@@ -45,4 +44,3 @@ vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find, opts)
 vim.keymap.set("n", "<leader>xx", builtin.diagnostics, opts)
 vim.keymap.set("n", "<leader>ghi", telescope.extensions.gh.issues, opts)
 vim.keymap.set("n", "<leader>fj", telescope.extensions.harpoon.marks, opts)
-vim.keymap.set("n", "<leader>fn", telescope.extensions.zk.notes, opts)
