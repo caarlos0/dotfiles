@@ -70,7 +70,7 @@ changelog:
         - title: other
           order: 9999
     - title: "system"
-      regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs|zk)\\):+.*$"
+      regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs)\\):+.*$"
       order: 100
       groups:
         - title: improvements
