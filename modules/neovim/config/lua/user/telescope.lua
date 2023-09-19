@@ -1,8 +1,6 @@
 local telescope = require("telescope")
 
 telescope.setup({
-  -- XXX: using dropdown and ascending to avoid
-  -- https://github.com/nvim-telescope/telescope.nvim/issues/2667
   defaults = {
     prompt_prefix = "   ",
     selection_caret = " ❯ ",
