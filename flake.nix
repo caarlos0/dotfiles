@@ -62,7 +62,7 @@
         modules = [ ./modules/darwin/configuration.nix ];
       };
       homeConfigurations = {
-        "carlos@supernovadomain" = home-manager.lib.homeManagerConfiguration {
+        "carlos@supernova" = home-manager.lib.homeManagerConfiguration {
           pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
           extraSpecialArgs = { inherit inputs; };
           modules = [
