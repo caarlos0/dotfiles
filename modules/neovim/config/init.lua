@@ -18,11 +18,7 @@ require("user.indent")
 require("gitsigns").setup({
   current_line_blame = true,
 })
-require("todo-comments").setup({
-  highlight = {
-    keyword = "bg",
-  },
-})
+require("user.todo")
 require("dressing").setup({
   input = {
     insert_only = false,
