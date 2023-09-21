@@ -30,6 +30,8 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     keymap("<leader>o", function()
       vim.cmd.Git("pr")
     end, "Git push & open browser in PR view")
+
+    keymap("<leader>q", ":bdelete!<cr>", "Close Git status")
   end,
 })
 
