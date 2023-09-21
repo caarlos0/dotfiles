@@ -46,6 +46,7 @@ in
       telescope-nvim
       telescope-github-nvim
       auto-hlsearch-nvim
+      bufdelete-nvim
       vim-tmux-navigator
       better-escape-nvim
 
