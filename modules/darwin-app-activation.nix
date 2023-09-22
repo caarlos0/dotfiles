@@ -10,7 +10,7 @@ in
   #   https://github.com/nix-community/home-manager/issues/1341#issuecomment-1446696577
   # but using mkalias as in
   #   https://github.com/reckenrode/nixos-configs/commit/26cf5746b7847ec983f460891e500ca67aaef932?diff=unified
-  # instead; latter found via
+  # instead; later found via
   # via
   #   https://github.com/nix-community/home-manager/issues/1341#issuecomment-1452420124
   home.activation.aliasApplications = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
