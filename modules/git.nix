@@ -86,13 +86,10 @@
       ".luarc.json"
       "*.log"
     ];
-    delta = {
+
+    difftastic = {
       enable = true;
-      options = {
-        navigate = true;
-        line-numbers = true;
-        syntax-theme = "OneHalfDark";
-      };
+      background = "dark";
     };
   };
 }
