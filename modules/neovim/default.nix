@@ -52,7 +52,7 @@ in
 
       # coding
       nvim-lspconfig
-      null-ls-nvim
+      efmls-configs-nvim
       nvim-cmp
       cmp-buffer
       cmp-path
