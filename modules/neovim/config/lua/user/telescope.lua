@@ -31,7 +31,11 @@ vim.keymap.set("n", "<C-p>", function()
     find_command = { "rg", "--hidden", "--files", "--smart-case", "--glob=!.git" },
   })
 end, opts)
-vim.keymap.set("n", "<leader>of", builtin.oldfiles, opts)
+vim.keymap.set("n", "<leader>of", function()
+  builtin.oldfiles({
+    only_cwd = true,
+  })
+end, opts)
 vim.keymap.set("n", "<leader>lg", builtin.live_grep, opts)
 vim.keymap.set("n", "<leader>fb", builtin.buffers, opts)
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, opts)
