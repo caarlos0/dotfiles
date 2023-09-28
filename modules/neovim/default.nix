@@ -24,7 +24,6 @@ in
       catppuccin-nvim
       nvim-web-devicons
       nvim-notify
-      bufferline-nvim
       lualine-nvim
       dressing-nvim
 
@@ -46,7 +45,6 @@ in
       telescope-nvim
       telescope-github-nvim
       auto-hlsearch-nvim
-      bufdelete-nvim
       vim-tmux-navigator
       better-escape-nvim
 
