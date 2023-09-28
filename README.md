@@ -21,59 +21,65 @@ up.
 
 Other than that, more of the same...
 
-# Preparing
+# Setting up
 
-1. Install nix and home-manager.
+1. [Install nix](https://nixos.org/download.html)
+   ```bash
+   sh <(curl -L https://nixos.org/nix/install) --daemon
+   ```
+1. Enable community build cache:
+   ```bash
+   nix-env -iA cachix -f https://cachix.org/api/v1/install
+   cachix use nix-community
+   echo "trusted-users = root carlos" | sudo tee -a /etc/nix/nix.conf && sudo pkill nix-daemon
+   ```
 1. Enable some experimental features:
-   ```sh
+   ```bash
    mkdir -p ~/.config/nix
    echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
    ```
-1. Enable community build cache:
-   ```sh
-   nix-env -iA cachix -f https://cachix.org/api/v1/install
-   cachix use nix-community
+1. [Install home-manager](https://nix-community.github.io/home-manager/index.html#sec-install-standalone)
+   ```bash
+   nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+   nix-channel --update
+   nix-shell '<home-manager>' -A install
+   source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+   ```
+1. Update flake (optional)
+   ```bash
+   nix flake update
+   ```
+1. Apply _home-manager_
+   ```bash
+   home-manager switch --flake ".#carlos@$(hostname)"
+   ```
+1. Set the default shell
+   ```bash
+   which fish | sudo tee -a /etc/shells
+   chsh -s $(which fish)
+   ```
+1. Apply _nix-darwin_ (optional)
+   ```bash
+   nix build "./#darwinConfigurations.$(hostname).system"
+   ./result/sw/bin/darwin-rebuild switch --flake .
    ```
 
-# Applying
+This is the whole initial setup, after that, you should be able to log into a
+`fish`, after that, you can check the [applying](#Updating) section bellow.
 
-```sh
-home-manager switch --flake ".#carlos@$(hostname)"
+# Updating
 
-# Or with task:
-task apply
+To apply updates, simply run:
+
+```bash
+task update apply
 ```
 
-On macOS, you may also:
+On macOS, you can also apply the _nix-darwin_ stuff:
 
-```sh
-nix build "./#darwinConfigurations.$(hostname).system"
-./result/sw/bin/darwin-rebuild switch --flake .
-
-# Or with task:
-task apply_darwin
+```bash
+task update apply apply_darwin
 ```
-
-## On both
-
-Home-manager will not change your default shell, so you need to do it yourself.
-
-```fish
-fish
-which fish | sudo tee -a /etc/shells
-chsh -s (which fish)
-```
-
-# Update packages
-
-```sh
-nix flake update
-
-# Or with task:
-task update
-```
-
-And run the `switch` command again.
 
 # Clean up
 
