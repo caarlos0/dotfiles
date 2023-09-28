@@ -27,14 +27,8 @@ keymap("n", "<A-Down>", ":resize -2<CR>", opts)
 keymap("n", "<A-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<A-Right>", ":vertical resize +2<CR>", opts)
 
--- buffer nav
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
-
-keymap("n", "<leader>q", function()
-  require("bufdelete").bufdelete(0, true)
-end, opts) -- delete current buffer
-
+-- buffer killing
+keymap("n", "<leader>q", ":bd<CR>", opts) -- delete current buffer
 keymap("n", "<leader>bad", ":%bd!<cr>", opts) -- delete all buffers
 -- delete surrounding buffers, make sure to keep the cursor position
 keymap("n", "<leader>bsd", function()
