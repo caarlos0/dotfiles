@@ -27,14 +27,11 @@ Other than that, more of the same...
    ```bash
    sh <(curl -L https://nixos.org/nix/install) --daemon
    ```
-1. Enable community build cache:
+1. Enable community build caches and flakes:
    ```bash
    nix-env -iA cachix -f https://cachix.org/api/v1/install
    cachix use nix-community
    echo "trusted-users = root carlos" | sudo tee -a /etc/nix/nix.conf && sudo pkill nix-daemon
-   ```
-1. Enable some experimental features:
-   ```bash
    mkdir -p ~/.config/nix
    echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
    ```
@@ -44,10 +41,6 @@ Other than that, more of the same...
    nix-channel --update
    nix-shell '<home-manager>' -A install
    source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-   ```
-1. Update flake (optional)
-   ```bash
-   nix flake update
    ```
 1. Apply _home-manager_
    ```bash
