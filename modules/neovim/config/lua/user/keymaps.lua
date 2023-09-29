@@ -29,7 +29,7 @@ keymap("n", "<A-Right>", ":vertical resize +2<CR>", opts)
 
 -- buffer killing
 keymap("n", "<leader>q", ":bd<CR>", opts) -- delete current buffer
-keymap("n", "<leader>bad", ":%bd!<cr>", opts) -- delete all buffers
+keymap("n", "<leader>bad", ":%bd!<cr>:intro<cr>", opts) -- delete all buffers
 -- delete surrounding buffers, make sure to keep the cursor position
 keymap("n", "<leader>bsd", function()
   local cursor = vim.api.nvim_win_get_cursor(0)
