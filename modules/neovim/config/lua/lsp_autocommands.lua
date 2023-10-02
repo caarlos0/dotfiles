@@ -48,7 +48,6 @@ local M = {}
 ---@param client table Client object
 ---@param bufnr number
 M.on_attach = function(client, bufnr)
-  -- what are the chances of a lsp supporting code actions but not supporting formatting?
   if client.server_capabilities.codeActionProvider and client.name ~= "lua_ls" then
     vim.api.nvim_create_autocmd({ "BufWritePre" }, {
       buffer = bufnr,
@@ -59,20 +58,20 @@ M.on_attach = function(client, bufnr)
     })
   end
 
-  if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({
-          bufnr = bufnr,
-          filter = function(cli)
-            return cli.id == client.id
-          end,
-        })
-      end,
-      group = group,
-    })
-  end
+  -- if client.server_capabilities.documentFormattingProvider then
+  --   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  --     buffer = bufnr,
+  --     callback = function()
+  --       vim.lsp.buf.format({
+  --         bufnr = bufnr,
+  --         filter = function(cli)
+  --           return cli.id == client.id
+  --         end,
+  --       })
+  --     end,
+  --     group = group,
+  --   })
+  -- end
 
   if client.server_capabilities.codeLensProvider then
     vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {

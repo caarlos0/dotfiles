@@ -50,7 +50,8 @@ in
 
       # coding
       nvim-lspconfig
-      efmls-configs-nvim
+      (fromGitHub "stevearc" "conform.nvim" "v3.7.2"
+        "sha256-Pk0dq4PNvmlHPWIMT02C+Fm8+fwEkCCZIyt47PcKyWA=")
       nvim-cmp
       cmp-buffer
       cmp-path
@@ -115,8 +116,8 @@ in
       nvim-treesitter-endwise
       other-nvim
       # treesitter injections for home-manager
-      (fromGitHub "calops" "hmts.nvim" "v0.1.0"
-        "sha256-SBNTtuzwSmGgwALD/JqLwXGLow+Prn7dJrQNODPeOAY=")
+      (fromGitHub "calops" "hmts.nvim" "v1.2.2"
+        "sha256-jUuztOqNBltC3axa7s3CPJz9Cmukfwkf846+Z/gAxCU=")
 
       # debug
       nvim-dap

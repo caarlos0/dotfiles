@@ -198,30 +198,6 @@ lspconfig.taplo.setup({
   on_attach = on_attach,
 })
 
-local prettier = require("efmls-configs.formatters.prettier")
-local stylua = require("efmls-configs.formatters.stylua")
-local languages = {
-  lua = { stylua },
-  css = { prettier },
-  javascript = { prettier },
-  html = { prettier },
-  markdown = { prettier },
-}
-
-lspconfig.efm.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  filetypes = vim.tbl_keys(languages),
-  settings = {
-    rootMarkers = { ".git/" },
-    languages = languages,
-  },
-  init_options = {
-    documentFormatting = true,
-    documentRangeFormatting = true,
-  },
-})
-
 local float_config = {
   focusable = false,
   style = "minimal",

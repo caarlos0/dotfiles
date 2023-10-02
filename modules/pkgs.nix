@@ -58,7 +58,6 @@
       clang-tools # clangd lsp
       delve
       dockerfile-language-server-nodejs
-      efm-langserver
       gofumpt
       golangci-lint
       golangci-lint-langserver
