@@ -8,14 +8,17 @@ conform.setup({
     html = prettier,
     css = prettier,
     nix = { "nixpkgs_fmt" },
+    go = { "gofumpt" },
+    fish = { "fish_indent" },
+    json = { "jq" },
+    rust = { "rustfmt" },
+    tf = { "terraform_fmt" },
+    ["_"] = { "trim_whitespace" },
   },
-})
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    conform.format({ bufnr = args.buf })
-  end,
+  format_on_save = {
+    lsp_fallback = true,
+    timeout_ms = 500,
+  },
 })
 
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
