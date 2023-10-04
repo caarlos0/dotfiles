@@ -1,8 +1,9 @@
-require("indent_blankline").setup({
-  char = "│",
-  filetype_exclude = { "help", "alpha", "dashboard" },
-  show_trailing_blankline_indent = false,
-  show_current_context = false,
+require("ibl").setup({
+  indent = { char = "│" },
+  exclude = {
+    filetypes = { "help" },
+  },
+  scope = { enabled = true },
 })
 
 local treesj = require("treesj")
