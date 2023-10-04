@@ -8,13 +8,13 @@ wezterm.on("gui-startup", function()
   window:gui_window():maximize()
 end)
 
-local scheme = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
-scheme.background = "#000000"
+local catppuccin = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
+catppuccin.background = "#000000"
 
 return {
   -- colors
   color_schemes = {
-    ["OLEDppuccin"] = scheme,
+    ["OLEDppuccin"] = catppuccin,
   },
   color_scheme = "OLEDppuccin",
 
