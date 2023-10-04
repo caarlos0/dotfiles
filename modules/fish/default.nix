@@ -76,7 +76,6 @@
       # neovim
       e = "nvim";
       v = "nvim";
-      vim = "nvim";
 
       # terraform
       tf = "terraform";
