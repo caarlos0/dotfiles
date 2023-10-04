@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   fromGitHub = owner: repo: ref: hash:
-    pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pkgs.vimUtils.buildVimPlugin {
       pname = "${lib.strings.sanitizeDerivationName repo}";
       version = ref;
       src = pkgs.fetchFromGitHub {
