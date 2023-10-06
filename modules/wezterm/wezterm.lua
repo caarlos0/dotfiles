@@ -8,15 +8,9 @@ wezterm.on("gui-startup", function()
   window:gui_window():maximize()
 end)
 
-local catppuccin = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
-catppuccin.background = "#000000"
-
 return {
   -- colors
-  color_schemes = {
-    ["OLEDppuccin"] = catppuccin,
-  },
-  color_scheme = "OLEDppuccin",
+  color_scheme = "Catppuccin Mocha",
 
   -- general styling
   default_cursor_style = "BlinkingBlock",
