@@ -1,9 +1,7 @@
 require("ibl").setup({
   indent = { char = "│" },
-  exclude = {
-    filetypes = { "help" },
-  },
-  scope = { enabled = true },
+  exclude = { filetypes = { "help" } },
+  scope = { enabled = false },
 })
 
 local treesj = require("treesj")
