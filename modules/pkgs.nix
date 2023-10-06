@@ -33,6 +33,7 @@
       ranger
       ripgrep
       sqlite
+      scc
       sshpass
       stern
       syft
