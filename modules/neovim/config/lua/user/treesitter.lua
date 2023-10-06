@@ -1,3 +1,7 @@
+require("treesitter-context").setup({
+  multiline_threshold = 1,
+})
+
 require("nvim-treesitter.configs").setup({
   highlight = {
     enable = true,
