@@ -8,10 +8,6 @@
         name = "autopair";
         src = pkgs.fishPlugins.autopair-fish.src;
       }
-      {
-        name = "fzf";
-        src = pkgs.fishPlugins.fzf-fish.src;
-      }
     ];
     shellAliases = {
       # docker

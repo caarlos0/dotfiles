@@ -1,6 +1,7 @@
 { ... }: {
   programs.fzf = {
     enable = true;
+    enableFishIntegration = true;
     colors = {
       "bg+" = "#313244";
       "fg+" = "#cdd6f4";
