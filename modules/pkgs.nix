@@ -53,7 +53,7 @@
       nur.repos.caarlos0.svu
       nur.repos.goreleaser.goreleaser-pro
 
-      # treesitter, lsps, etc
+      # treesitter, lsps, formatters, etc
       bash-language-server
       cargo
       clang-tools # clangd lsp
@@ -66,12 +66,14 @@
       marksman # markdown lsp
       nil # nix lsp
       nixpkgs-fmt
+      pgformatter
       prettier
       rust-analyzer
       rustc
       rustfmt
       shellcheck
       shfmt
+      sql-formatter
       stylua
       sumneko-lua-language-server
       taplo # toml lsp

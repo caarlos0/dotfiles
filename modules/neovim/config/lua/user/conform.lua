@@ -13,6 +13,7 @@ conform.setup({
     json = { "jq" },
     rust = { "rustfmt" },
     tf = { "terraform_fmt" },
+    sql = { "pg_format", "sql_formatter" },
     ["_"] = { "trim_whitespace" },
   },
   format_on_save = {
