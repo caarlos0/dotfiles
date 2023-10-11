@@ -43,7 +43,6 @@
       stern
       syft
       terraform
-      timer
       tldr
       ttyd
       unixtools.watch
@@ -58,6 +57,7 @@
       nur.repos.caarlos0.gocovsh
       nur.repos.caarlos0.jsonfmt
       nur.repos.caarlos0.svu
+      nur.repos.caarlos0.timer
       nur.repos.goreleaser.goreleaser-pro
 
       # treesitter, lsps, formatters, etc
