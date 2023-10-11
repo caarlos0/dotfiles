@@ -43,6 +43,7 @@
     }@inputs:
     let
       overlays = [
+        inputs.neovim-nightly.overlay
         (final: prev: {
           nur = import nur {
             nurpkgs = prev;
@@ -103,7 +104,7 @@
           modules = [
             ({ config, ... }: {
               config = {
-                nixpkgs.overlays = overlays ++ [ (import neovim-nightly) ];
+                nixpkgs.overlays = overlays;
               };
             })
             ./modules/home.nix
