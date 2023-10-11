@@ -1,4 +1,10 @@
 { pkgs, lib, ... }: {
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = (_: true);
+    };
+  };
   home.packages = with pkgs;
     with pkgs.nodePackages_latest;
     [
@@ -9,7 +15,6 @@
       entr
       fd
       ffmpeg_6-full
-      ttyd
       git-lfs
       go-task
       graphviz
@@ -32,16 +37,18 @@
       p7zip
       ranger
       ripgrep
-      sqlite
       scc
+      sqlite
       sshpass
       stern
       syft
       terraform
       timer
       tldr
-      upx
+      ttyd
       unixtools.watch
+      unrar
+      upx
       vegeta
       wget
       yarn
