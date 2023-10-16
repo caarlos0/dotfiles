@@ -9,6 +9,7 @@ conform.setup({
     css = prettier,
     nix = { "nixpkgs_fmt" },
     go = { "gofumpt" },
+    sh = { "shfmt" },
     fish = { "fish_indent" },
     json = { "jq" },
     rust = { "rustfmt" },
