@@ -1,20 +1,21 @@
-local prettier = { { "prettierd", "prettier" } }
 local conform = require("conform")
 conform.setup({
   formatters_by_ft = {
-    lua = { "stylua" },
-    javascript = prettier,
-    markdown = prettier,
-    html = prettier,
-    css = prettier,
-    nix = { "nixpkgs_fmt" },
-    go = { "gofumpt" },
-    sh = { "shfmt" },
+    css = { "prettier" },
     fish = { "fish_indent" },
+    go = { "golines", "gofumpt", "injected" },
+    html = { "prettier", "injected" },
+    javascript = { "prettier" },
     json = { "jq" },
+    lua = { "stylua" },
+    markdown = { "prettier", "injected" },
+    nix = { "nixpkgs_fmt" },
     rust = { "rustfmt" },
-    tf = { "terraform_fmt" },
+    sh = { "shfmt" },
     sql = { "pg_format", "sql_formatter" },
+    tf = { "terraform_fmt" },
+    yaml = { "prettier" },
+    zig = { "zigfmt" },
     ["_"] = { "trim_whitespace" },
   },
   format_on_save = {
