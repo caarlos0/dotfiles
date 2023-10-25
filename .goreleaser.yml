@@ -8,7 +8,7 @@ changelog:
   divider: "---"
   filters:
     exclude:
-      - "^chore\\(nix\\):+.*$"
+      - "^.*chore\\(nix\\):+.*$"
   groups:
     - title: "nix"
       regexp: "^.*\\(nix\\):+.*$"
