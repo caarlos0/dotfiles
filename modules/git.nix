@@ -85,6 +85,7 @@
       "coverage.txt"
       ".luarc.json"
       "*.log"
+      ".env"
     ];
 
     difftastic = {
