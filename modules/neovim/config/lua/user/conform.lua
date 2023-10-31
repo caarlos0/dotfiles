@@ -3,7 +3,7 @@ conform.setup({
   formatters_by_ft = {
     css = { "prettier" },
     fish = { "fish_indent" },
-    go = { "golines", "gofumpt", "injected" },
+    go = { "gofumpt", "injected" },
     html = { "prettier", "injected" },
     javascript = { "prettier" },
     json = { "jq" },
