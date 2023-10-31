@@ -24,14 +24,12 @@ require("catppuccin").setup({
       enabled = true,
     },
     neogit = true,
-    neotree = true,
+    neotest = true,
     notify = true,
-    nvimtree = true,
     telescope = true,
     harpoon = true,
     treesitter = true,
     treesitter_context = true,
-    which_key = true,
   },
 })
 
