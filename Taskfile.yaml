@@ -21,6 +21,9 @@ tasks:
   apply:
     cmds:
       - home-manager switch --flake '.#carlos@{{.HOSTNAME}}'
+  tmux:
+    cmds:
+      - tmux source ~/.config/tmux/tmux.conf
   apply_darwin:
     status:
       - "test $(uname -s) -ne Darwin"
