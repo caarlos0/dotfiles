@@ -43,7 +43,7 @@
     }@inputs:
     let
       overlays = [
-        # inputs.neovim-nightly.overlay // TODO: https://github.com/nix-community/neovim-nightly-overlay/issues/332
+        inputs.neovim-nightly.overlay # TODO: https://github.com/nix-community/neovim-nightly-overlay/issues/332
         (final: prev: {
           nur = import nur {
             nurpkgs = prev;
