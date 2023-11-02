@@ -4,7 +4,7 @@ version: "3"
 
 vars:
   HOSTNAME:
-    sh: "hostname | sed 's/\\.local//'"
+    sh: "hostname | cut -f1 -d'.'"
 
 tasks:
   release:
