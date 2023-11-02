@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   programs.go = {
     enable = true;
-    package = pkgs.go_1_21;
+    package = pkgs.go;
     goPath = "Developer/Go";
     goPrivate = [
       "github.com/caarlos0"
