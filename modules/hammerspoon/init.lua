@@ -9,34 +9,17 @@ hs.window.animationDuration = 0
 hotkey.bind(hyper, ";", function()
   hs.reload()
 end)
+
 hs.alert.show("Config loaded")
 
 -- middle left
-hotkey.bind(hyper, "H", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.x = max.x
-  f.y = max.y
-  f.w = max.w / 2
-  f.h = max.h
-  win:setFrame(f)
+hs.hotkey.bind(hyper, "H", function()
+  hs.window.focusedWindow():moveToUnit({ 0, 0, 0.5, 1 })
 end)
 
 -- middle right
-hotkey.bind(hyper, "L", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.x = max.x + (max.w / 2)
-  f.y = max.y
-  f.w = max.w / 2
-  f.h = max.h
-  win:setFrame(f)
+hs.hotkey.bind(hyper, "L", function()
+  hs.window.focusedWindow():moveToUnit({ 0.5, 0, 0.5, 1 })
 end)
 
 -- centralize at 80% screen size
@@ -56,16 +39,7 @@ end)
 
 -- maximize
 hotkey.bind(hyper, "K", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local max = win:screen():frame()
-
-  f.x = max.x
-  f.y = max.y
-  f.w = max.w
-  f.h = max.h
-
-  win:setFrame(f)
+  hs.window.focusedWindow():moveToUnit({ 0, 0, 1, 1 })
 end)
 
 hotkey.bind(hyper, "Y", function()
