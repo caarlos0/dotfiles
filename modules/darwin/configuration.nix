@@ -40,7 +40,7 @@
       dock = {
         autohide = true;
         autohide-delay = 0.0;
-        orientation = "left";
+        orientation = "bottom";
         tilesize = 42;
         showhidden = true;
         show-recents = true;
