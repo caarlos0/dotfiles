@@ -66,7 +66,7 @@ return {
   -- general config
   clean_exit_codes = { 130 },
   automatically_reload_config = true,
-  -- check_for_updates = false,
+  check_for_updates = true,
 
   keys = {
     -- disables command palette
