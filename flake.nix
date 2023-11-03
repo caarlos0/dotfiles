@@ -79,7 +79,7 @@
             ./modules/yamllint.nix
             ./modules/go.nix
             ./modules/fzf.nix
-            ./modules/wezterm/default.nix
+            ./modules/ghostty/default.nix
             ./modules/tmux/default.nix
             ./modules/neovim/default.nix
             ./modules/gpg.nix
@@ -113,7 +113,6 @@
             ./modules/yamllint.nix
             ./modules/go.nix
             ./modules/fzf.nix
-            ./modules/wezterm/default.nix
             ./modules/tmux/default.nix
             ./modules/neovim/default.nix
             ./modules/gpg.nix

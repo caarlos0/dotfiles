@@ -28,7 +28,6 @@
       "subtitles"
       "telegram"
       "vlc"
-      "wezterm"
       "whatsapp"
       "yubico-yubikey-manager"
       "zoom"
