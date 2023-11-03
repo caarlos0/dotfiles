@@ -82,11 +82,4 @@ nix-collect-garbage
 
 # TODO
 
-- [x] postgres module
-- [x] set-defaults
-- [x] maybe move most of the functions to bin?
 - [ ] yubikey
-- [x] code of conduct, license, etc
-- [x] better organize ./modules/dev/
-- [x] install wezterm's terminfo with nix, currently just following instructions
-      [here](https://wezfurlong.org/wezterm/faq.html#how-do-i-enable-undercurl-curly-underlines) manually
