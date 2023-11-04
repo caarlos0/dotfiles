@@ -59,10 +59,8 @@
   };
 
   programs.fish.shellInit = ''
-      if test -e "/Applications/Postgres.app"
-    	fish_add_path -a /Applications/Postgres.app/Contents/Versions/latest/bin/
-      end
-
-      fish_add_path -a /opt/homebrew/bin/
+    fish_add_path -a ~/Applications/Ghostty.app/Contents/MacOS/
+    fish_add_path -a /Applications/Postgres.app/Contents/Versions/latest/bin/
+    fish_add_path -a /opt/homebrew/bin/
   '';
 }
