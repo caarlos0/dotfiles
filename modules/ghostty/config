@@ -33,3 +33,6 @@ selection-background = 585b70
 selection-foreground = cdd6f4
 
 macos-option-as-alt = true
+mouse-hide-while-typing = true
+cursor-style = bar
+
