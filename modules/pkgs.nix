@@ -98,6 +98,7 @@
       nur.repos.caarlos0.discord-applemusic-rich-presence
       terminal-notifier
       coreutils
+      platformio
     ]) ++ (lib.optionals pkgs.stdenv.isLinux [
       docker
       docker-compose
