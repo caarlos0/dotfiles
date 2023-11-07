@@ -1,6 +1,7 @@
 { ... }: {
   programs.git = {
     enable = true;
+    delta.enable = true;
     userName = "Carlos Alexandro Becker";
     userEmail = "caarlos0@users.noreply.github.com";
     signing = {
@@ -48,18 +49,6 @@
       submodule = { fetchJobs = 4; };
       log = { showSignature = false; };
       format = { signOff = true; };
-      diff = {
-        tool = "nvimdiff";
-        nvimdiff = { cmd = ''nvim -d "$LOCAL" "$REMOTE"''; };
-      };
-      merge = {
-        tool = "nvimmerge";
-        nvimdiff = {
-          cmd = ''
-            nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-          '';
-        };
-      };
       rerere = { enabled = true; };
       pull = { ff = "only"; };
       init = { defaultBranch = "main"; };
@@ -88,9 +77,5 @@
       ".env"
     ];
 
-    difftastic = {
-      enable = true;
-      background = "dark";
-    };
   };
 }
