@@ -25,7 +25,9 @@ in
       nvim-web-devicons
       nvim-notify
       lualine-nvim
-      dressing-nvim
+      # dressing-nvim TODO: https://github.com/stevearc/dressing.nvim/issues/126
+      (fromGitHub "stevearc" "dressing.nvim" "master"
+        "sha256-htUCShHjjwJU26/POs2GHDoUFFxczCXd87Ao//as5ig=")
 
       # basics
       indent-blankline-nvim
