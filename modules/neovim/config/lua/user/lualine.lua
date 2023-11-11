@@ -3,6 +3,7 @@ require("lualine").setup({
     theme = "catppuccin",
     component_separators = "",
     section_separators = "",
+    icons_enabled = false,
   },
   sections = {
     lualine_c = {
