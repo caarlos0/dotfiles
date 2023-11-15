@@ -6,7 +6,7 @@ local keymaps = require("lsp_keymaps")
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   if client.server_capabilities.inlayHintProvider and vim.fn.has("nvim-0.10") then -- doesn't work in neovim 0.9
-    vim.lsp.inlay_hint(bufnr, true)
+    vim.lsp.inlay_hint.enable(bufnr, true)
   end
   autocmds.on_attach(client, bufnr)
   keymaps.on_attach(bufnr)
