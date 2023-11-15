@@ -99,6 +99,7 @@
       terminal-notifier
       coreutils
       platformio
+      mosquitto
     ]) ++ (lib.optionals pkgs.stdenv.isLinux [
       docker
       docker-compose
