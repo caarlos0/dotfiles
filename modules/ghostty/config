@@ -1,3 +1,11 @@
+# vi:ft=conf
+
+macos-option-as-alt = true
+mouse-hide-while-typing = true
+shell-integration = none
+cursor-style = block
+cursor-style-blink = true
+
 font-family = "Berkeley Mono"
 font-size = 16
 font-feature = zero
@@ -32,10 +40,3 @@ foreground = cdd6f4
 cursor-color = f5e0dc
 selection-background = 585b70
 selection-foreground = cdd6f4
-
-macos-option-as-alt = true
-mouse-hide-while-typing = true
-
-shell-integration = none
-cursor-style = block
-cursor-style-blink = true
