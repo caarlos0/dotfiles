@@ -72,7 +72,6 @@
                 nixpkgs.overlays = overlays;
               };
             })
-            ./modules/darwin-app-activation.nix
             ./modules/home.nix
             ./modules/pkgs.nix
             ./modules/editorconfig.nix
@@ -92,9 +91,9 @@
             ./modules/charm.nix
             ./modules/hammerspoon/default.nix
             inputs.caarlos0-nur.homeManagerModules.default
-            ./modules/darwin.nix
             # ./modules/yubikey.nix
             nix-index-database.hmModules.nix-index
+            ./modules/darwin
           ];
         };
 
