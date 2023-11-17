@@ -71,7 +71,13 @@ task update apply
 On macOS, you can also apply the _nix-darwin_ stuff:
 
 ```bash
-task update apply apply_darwin
+task update apply darwin
+```
+
+Or, on nixOS, you can also apply the _nixOS_ stuff:
+
+```bash
+task update apply nixos
 ```
 
 # Clean up
@@ -82,5 +88,6 @@ nix-collect-garbage
 
 # TODO
 
+- [ ] update docs, split into darwin and nixos setup
 - [ ] build nixos config as a flake, right now I'm just setting `-I nixos-config`
 - [ ] yubikey
