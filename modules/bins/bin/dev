@@ -11,5 +11,5 @@ if am_i_home
     ssh -o 'Hostname=darkstar.local' dev
 else
     echo "Using VPN..."
-    ssh -o 'Hostname=darkstar.vpn' dev
+    ssh -o 'Hostname=darkstar' dev
 end
