@@ -90,6 +90,12 @@ in
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    settings = {
+      trusted-users = [
+        "root"
+        "carlos"
+      ];
+    };
   };
 
 
@@ -102,6 +108,7 @@ in
     unzip
     jq
     neofetch
+    cachix
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
