@@ -60,7 +60,7 @@
     {
       darwinConfigurations."supernova" = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        modules = [ ./modules/darwin/configuration.nix ];
+        modules = [ ./machines/supernova.nix ];
       };
       homeConfigurations = {
         "carlos@supernova" = home-manager.lib.homeManagerConfiguration {
