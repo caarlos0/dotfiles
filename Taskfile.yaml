@@ -24,10 +24,10 @@ tasks:
   tmux:
     cmds:
       - tmux source ~/.config/tmux/tmux.conf
-  apply_nixos:
+  nixos:
     cmds:
       - sudo nixos-rebuild switch -I nixos-config=./machines/{{ .HOSTNAME }}.nix
-  apply_darwin:
+  darwin:
     status:
       - "test $(uname -s) -ne Darwin"
     cmds:
