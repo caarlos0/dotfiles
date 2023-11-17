@@ -12,6 +12,10 @@
   networking.hostName = "darkstar"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  # setup docker
+  virtualisation.docker.enable = true;
+  users.users.carlos.extraGroups = [ "docker" ];
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
