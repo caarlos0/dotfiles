@@ -1,6 +1,10 @@
 # vi:ft=conf
+#
+# https://github.com/mitchellh/ghostty/blob/main/src/config/Config.zig
+#
 
 window-theme = "dark"
+confirm-close-surface = false
 macos-option-as-alt = true
 mouse-hide-while-typing = true
 shell-integration = none
@@ -11,7 +15,7 @@ clipboard-read = "allow"
 clipboard-paste-protection = false
 
 font-family = "Berkeley Mono"
-font-size = 16
+font-size = 15
 font-feature = zero
 font-feature = ss01
 font-feature = ss02
