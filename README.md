@@ -82,4 +82,5 @@ nix-collect-garbage
 
 # TODO
 
+- [ ] build nixos config as a flake, right now I'm just setting `-I nixos-config`
 - [ ] yubikey
