@@ -102,13 +102,14 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget
+    cachix
     curl
-    neovim
-    unzip
+    git
     jq
     neofetch
-    cachix
+    neovim
+    unzip
+    wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
