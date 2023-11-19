@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ ... }:
+{ pkgs, ... }:
 {
   imports =
     [
@@ -9,12 +9,19 @@
       /etc/nixos/hardware-configuration.nix
     ];
 
-  networking.hostName = "darkstar"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostName = "darkstar";
 
   # setup docker
   virtualisation.docker.enable = true;
   users.users.carlos.extraGroups = [ "docker" ];
+
+  services.postgresql = {
+    enable = true;
+    authentication = pkgs.lib.mkOverride 10 ''
+      #type database  DBuser  auth-method
+      local all       all     trust
+    '';
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
