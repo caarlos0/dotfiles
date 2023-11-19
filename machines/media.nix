@@ -54,7 +54,7 @@
     user = "carlos";
     settings = {
       rpc-bind-address = "0.0.0.0";
-      rpc-whitelist = "127.0.0.1,192.168.1.*";
+      rpc-whitelist = "127.0.0.1,192.168.1.*,*.local";
       download-dir = "/home/carlos/media";
       incomplete-dir = "/home/carlos/media";
     };
