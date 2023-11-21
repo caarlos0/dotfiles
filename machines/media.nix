@@ -44,7 +44,6 @@
     openFirewall = true;
     group = "wheel";
     user = "carlos";
-    package = pkgs.unstable.bazarr;
   };
   services.jackett = {
     enable = true;
