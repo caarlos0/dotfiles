@@ -39,11 +39,12 @@
     , darwin
     , home-manager
     , nix-index-database
+    , nixpkgs
     , ...
     }@inputs:
     let
       overlays = [
-        inputs.neovim-nightly.overlay # TODO: https://github.com/nix-community/neovim-nightly-overlay/issues/332
+        inputs.neovim-nightly.overlay
         (final: prev: {
           nur = import nur {
             nurpkgs = prev;
@@ -58,6 +59,14 @@
       ];
     in
     {
+      nixosConfigurations = {
+        darkstar = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./machines/darkstar.nix
+          ];
+        };
+      };
       darwinConfigurations."supernova" = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [ ./machines/supernova.nix ];

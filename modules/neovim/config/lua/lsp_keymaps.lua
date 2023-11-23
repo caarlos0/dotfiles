@@ -37,6 +37,11 @@ M.on_attach = function(bufnr)
     vim.diagnostic.goto_next({ float = false })
     vim.cmd("norm zz")
   end, bufnr)
+
+  keymap("<leader>v", function()
+    vim.cmd("<cmd>vsplit | lua vim.lsp.buf.definition()<CR>")
+    vim.cmd("norm zz")
+  end, bufnr)
 end
 
 return M

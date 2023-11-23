@@ -1,14 +1,7 @@
 { config, pkgs, ... }:
-let
-  unstableTarball =
-    fetchTarball
-      "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-in
-
 {
   imports =
     [
-      <home-manager/nixos>
       ./tailscale.nix
     ];
 
@@ -76,13 +69,7 @@ in
   };
 
   nixpkgs.config = {
-    # Allow unfree packages
     allowUnfree = true;
-    packageOverrides = pkgs: {
-      unstable = import unstableTarball {
-        config = config.nixpkgs.config;
-      };
-    };
   };
 
   nix = {
@@ -98,9 +85,6 @@ in
     };
   };
 
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     cachix
     curl
@@ -112,18 +96,8 @@ in
     wget
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
   programs.fish.enable = true;
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.cron.enable = true;
   services.avahi = {
@@ -135,10 +109,4 @@ in
       addresses = true;
     };
   };
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 }
