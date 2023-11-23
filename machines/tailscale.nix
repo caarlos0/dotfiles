@@ -2,7 +2,7 @@
 {
   services.tailscale = {
     enable = true;
-    package = pkgs.unstable.tailscale;
+    package = pkgs.tailscale;
   };
 
   # create a oneshot job to authenticate to Tailscale

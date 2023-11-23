@@ -6,7 +6,7 @@
   imports =
     [
       ./shared.nix
-      /etc/nixos/hardware-configuration.nix
+      ./hardware/darkstar.nix
     ];
 
   networking.hostName = "darkstar";

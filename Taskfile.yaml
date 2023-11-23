@@ -26,7 +26,7 @@ tasks:
       - tmux source ~/.config/tmux/tmux.conf
   nixos:
     cmds:
-      - sudo nixos-rebuild switch -I nixos-config=./machines/{{ .HOSTNAME }}.nix
+      - sudo nixos-rebuild switch --flake .#
   darwin:
     status:
       - "test $(uname -s) -ne Darwin"
