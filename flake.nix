@@ -60,6 +60,24 @@
     in
     {
       nixosConfigurations = {
+        media = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            { nixpkgs.overlays = overlays; }
+            ./machines/media.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.carlos = {
+                imports = [
+                  ./modules/home.nix
+                  ./modules/shell.nix
+                ];
+              };
+            }
+          ];
+        };
         darkstar = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
@@ -77,8 +95,8 @@
                   ./modules/yamllint.nix
                   ./modules/go.nix
                   ./modules/fzf.nix
-                  ./modules/tmux/default.nix
-                  ./modules/neovim/default.nix
+                  ./modules/tmux
+                  ./modules/neovim
                   ./modules/gpg.nix
                   ./modules/git.nix
                   ./modules/gh/default.nix
