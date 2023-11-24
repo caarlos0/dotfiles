@@ -9,6 +9,7 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -78,10 +79,16 @@
       experimental-features = nix-command flakes
     '';
     settings = {
+      auto-optimise-store = true;
       trusted-users = [
         "root"
         "carlos"
       ];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 1w";
     };
   };
 
