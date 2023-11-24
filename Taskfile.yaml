@@ -18,18 +18,21 @@ tasks:
   update:
     cmds:
       - nix flake update
-  apply:
-    cmds:
-      - home-manager switch --flake '.#carlos@{{.HOSTNAME}}'
   tmux:
     cmds:
       - tmux source ~/.config/tmux/tmux.conf
+  apply:
+    cmds:
+      - task: nixos
+      - task: darwin
   nixos:
+    status:
+      - "test $(uname -s) != Linux"
     cmds:
       - sudo nixos-rebuild switch --flake .#
   darwin:
     status:
-      - "test $(uname -s) -ne Darwin"
+      - "test $(uname -s) != Darwin"
     cmds:
       - nix build './#darwinConfigurations.{{ .HOSTNAME }}.system'
       - ./result/sw/bin/darwin-rebuild switch --flake .

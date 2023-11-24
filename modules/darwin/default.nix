@@ -1,7 +1,5 @@
-{ ... }: {
-  imports = [
-    ./app-activation.nix
-  ];
+{ lib, ... }: {
+  home.homeDirectory = lib.mkDefault "/Users/carlos";
 
   targets.darwin.defaults = {
     "com.apple.Safari.SandboxBroker".ShowDevelop = true;
