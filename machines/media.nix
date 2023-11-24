@@ -7,15 +7,13 @@
   imports =
     [
       ./shared.nix
-      /etc/nixos/hardware-configuration.nix
+      ./hardware/media.nix
     ];
 
-  networking.hostName = "media"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostName = "media";
 
   users.users.carlos.packages = with pkgs; [
     unrar
-    unpackerr
   ];
 
   services.jellyfin = {
@@ -59,6 +57,10 @@
       incomplete-dir = "/home/carlos/media";
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    unpackerr
+  ];
 
   systemd.services.unpackerr = {
     description = "Unpackerr";
