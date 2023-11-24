@@ -21,21 +21,18 @@
     openFirewall = true;
     group = "wheel";
     user = "carlos";
-    package = pkgs.unstable.jellyfin;
   };
   services.sonarr = {
     enable = true;
     openFirewall = true;
     group = "wheel";
     user = "carlos";
-    package = pkgs.unstable.sonarr;
   };
   services.radarr = {
     enable = true;
     openFirewall = true;
     group = "wheel";
     user = "carlos";
-    package = pkgs.unstable.radarr;
   };
   services.bazarr = {
     enable = true;
@@ -48,7 +45,6 @@
     openFirewall = true;
     group = "wheel";
     user = "carlos";
-    package = pkgs.unstable.jackett;
   };
   services.transmission = {
     enable = true;
