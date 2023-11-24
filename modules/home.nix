@@ -1,8 +1,8 @@
-{ pkgs, ... }: {
+{ ... }: {
   home.username = "carlos";
-  home.homeDirectory = (if pkgs.stdenv.isDarwin then "/Users/" else "/home/")
-    + "carlos";
   home.stateVersion = "23.11";
+
+  home.enableNixpkgsReleaseCheck = false; # FIXME: remove this
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

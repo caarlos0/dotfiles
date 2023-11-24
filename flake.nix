@@ -14,11 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mkAlias = {
-      url = "github:cdmistman/mkAlias";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -72,6 +67,7 @@
               home-manager.users.carlos = {
                 imports = [
                   ./modules/home.nix
+                  ./modules/nixos.nix
                   ./modules/shell.nix
                 ];
               };
@@ -90,6 +86,7 @@
               home-manager.users.carlos = {
                 imports = [
                   ./modules/home.nix
+                  ./modules/nixos.nix
                   ./modules/pkgs.nix
                   ./modules/editorconfig.nix
                   ./modules/yamllint.nix
@@ -115,41 +112,40 @@
       darwinConfigurations = {
         supernova = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          modules = [ ./machines/supernova.nix ];
-        };
-      };
-      homeConfigurations = {
-        "carlos@supernova" = home-manager.lib.homeManagerConfiguration {
-          pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
-          extraSpecialArgs = { inherit inputs; };
           modules = [
-            ({ config, ... }: {
-              config = {
-                nixpkgs.overlays = overlays;
+            { nixpkgs.overlays = overlays; }
+            ./machines/supernova.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.carlos = {
+                imports = [
+                  ./modules/home.nix
+                  ./modules/darwin
+                  ./modules/pkgs.nix
+                  ./modules/editorconfig.nix
+                  ./modules/yamllint.nix
+                  ./modules/go.nix
+                  ./modules/fzf.nix
+                  ./modules/ghostty
+                  ./modules/tmux
+                  ./modules/neovim
+                  ./modules/gpg.nix
+                  ./modules/git.nix
+                  ./modules/gh
+                  ./modules/top.nix
+                  ./modules/shell.nix
+                  ./modules/ssh
+                  ./modules/bins
+                  ./modules/charm.nix
+                  ./modules/hammerspoon
+                  inputs.caarlos0-nur.homeManagerModules.default
+                  # ./modules/yubikey.nix
+                  nix-index-database.hmModules.nix-index
+                ];
               };
-            })
-            ./modules/home.nix
-            ./modules/pkgs.nix
-            ./modules/editorconfig.nix
-            ./modules/yamllint.nix
-            ./modules/go.nix
-            ./modules/fzf.nix
-            ./modules/ghostty
-            ./modules/tmux
-            ./modules/neovim
-            ./modules/gpg.nix
-            ./modules/git.nix
-            ./modules/gh
-            ./modules/top.nix
-            ./modules/shell.nix
-            ./modules/ssh
-            ./modules/bins
-            ./modules/charm.nix
-            ./modules/hammerspoon
-            inputs.caarlos0-nur.homeManagerModules.default
-            # ./modules/yubikey.nix
-            nix-index-database.hmModules.nix-index
-            ./modules/darwin
+            }
           ];
         };
       };
