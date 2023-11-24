@@ -10,6 +10,8 @@ function __trap_exit_tmux
     tmux switch-client -t default
 end
 
-trap __trap_exit_tmux EXIT
+if command -v tmux >/dev/null
+    trap __trap_exit_tmux EXIT
+end
 
 set -p fish_complete_path $HOME/.nix-profile/share/fish/vendor_completions.d/
