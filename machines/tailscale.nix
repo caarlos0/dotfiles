@@ -1,9 +1,6 @@
 { pkgs, ... }:
 {
-  services.tailscale = {
-    enable = true;
-    package = pkgs.tailscale;
-  };
+  services.tailscale.enable = true;
 
   # create a oneshot job to authenticate to Tailscale
   systemd.services.tailscale-autoconnect = {
