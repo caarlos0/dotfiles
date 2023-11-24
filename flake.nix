@@ -99,11 +99,11 @@
                   ./modules/neovim
                   ./modules/gpg.nix
                   ./modules/git.nix
-                  ./modules/gh/default.nix
+                  ./modules/gh
                   ./modules/top.nix
                   ./modules/shell.nix
-                  ./modules/ssh/default.nix
-                  ./modules/bins/default.nix
+                  ./modules/ssh
+                  ./modules/bins
                   ./modules/charm.nix
                   nix-index-database.hmModules.nix-index
                 ];
@@ -134,51 +134,22 @@
             ./modules/yamllint.nix
             ./modules/go.nix
             ./modules/fzf.nix
-            ./modules/ghostty/default.nix
-            ./modules/tmux/default.nix
-            ./modules/neovim/default.nix
+            ./modules/ghostty
+            ./modules/tmux
+            ./modules/neovim
             ./modules/gpg.nix
             ./modules/git.nix
-            ./modules/gh/default.nix
+            ./modules/gh
             ./modules/top.nix
             ./modules/shell.nix
-            ./modules/ssh/default.nix
-            ./modules/bins/default.nix
+            ./modules/ssh
+            ./modules/bins
             ./modules/charm.nix
-            ./modules/hammerspoon/default.nix
+            ./modules/hammerspoon
             inputs.caarlos0-nur.homeManagerModules.default
             # ./modules/yubikey.nix
             nix-index-database.hmModules.nix-index
             ./modules/darwin
-          ];
-        };
-
-        "carlos@darkstar" = home-manager.lib.homeManagerConfiguration {
-          pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ({ config, ... }: {
-              config = {
-                nixpkgs.overlays = overlays;
-              };
-            })
-            ./modules/home.nix
-            ./modules/pkgs.nix
-            ./modules/editorconfig.nix
-            ./modules/yamllint.nix
-            ./modules/go.nix
-            ./modules/fzf.nix
-            ./modules/tmux/default.nix
-            ./modules/neovim/default.nix
-            ./modules/gpg.nix
-            ./modules/git.nix
-            ./modules/gh/default.nix
-            ./modules/top.nix
-            ./modules/shell.nix
-            ./modules/ssh/default.nix
-            ./modules/bins/default.nix
-            ./modules/charm.nix
-            nix-index-database.hmModules.nix-index
           ];
         };
       };
