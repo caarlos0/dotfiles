@@ -14,6 +14,7 @@
 
   users.users.carlos.packages = with pkgs; [
     unrar
+    go-task
   ];
 
   services.jellyfin = {
