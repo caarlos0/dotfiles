@@ -63,13 +63,42 @@
         darkstar = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
+            { nixpkgs.overlays = overlays; }
             ./machines/darkstar.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.carlos = {
+                imports = [
+                  ./modules/home.nix
+                  ./modules/pkgs.nix
+                  ./modules/editorconfig.nix
+                  ./modules/yamllint.nix
+                  ./modules/go.nix
+                  ./modules/fzf.nix
+                  ./modules/tmux/default.nix
+                  ./modules/neovim/default.nix
+                  ./modules/gpg.nix
+                  ./modules/git.nix
+                  ./modules/gh/default.nix
+                  ./modules/top.nix
+                  ./modules/shell.nix
+                  ./modules/ssh/default.nix
+                  ./modules/bins/default.nix
+                  ./modules/charm.nix
+                  nix-index-database.hmModules.nix-index
+                ];
+              };
+            }
           ];
         };
       };
-      darwinConfigurations."supernova" = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        modules = [ ./machines/supernova.nix ];
+      darwinConfigurations = {
+        supernova = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [ ./machines/supernova.nix ];
+        };
       };
       homeConfigurations = {
         "carlos@supernova" = home-manager.lib.homeManagerConfiguration {
