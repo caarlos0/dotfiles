@@ -17,24 +17,17 @@
     go-task
   ];
 
-  services.caddy = {
+  # services.caddy = {
+  #   enable = true;
+  #   virtualHosts."jellyfin.local".extraConfig = ''
+  #     reverse_proxy http://media.local:8096
+  #   '';
+  # };
+  #
+
+  services.homepage-dashboard = {
     enable = true;
-    virtualHosts."jellyfin.local".extraConfig = ''
-      reverse_proxy http://media.local:8096
-    '';
-  };
-
-
-  systemd.services.avahi-aliases = {
-    description = "Avahi Aliases";
-    after = [ "avahi-daemon.service" ];
-    wants = [ "avahi-daemon.service" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "simple";
-    script = with pkgs; ''
-      addr = "$(${avahi}/bin/avahi-resolve -4 -n media.local | cut -f2)"
-      ${avahi}/bin/avahi-publish -a -R jellyfin.local "$addr"
-    '';
+    port = 80;
   };
 
   services.jellyfin = {
