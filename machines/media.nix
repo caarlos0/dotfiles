@@ -3,6 +3,33 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { pkgs, ... }:
+let
+  homepage-dashboard-config = pkgs.writeTextToFile {
+    name = "bookmarks.yaml";
+    executable = false;
+    destination = "/var/lib/private/homepage-dashboard/bookmarks.yaml";
+    text = ''
+      ---
+      # For configuration options and examples, please see:
+      # https://gethomepage.dev/en/configs/bookmarks
+
+      - Developer:
+          - Github:
+              - abbr: GH
+                href: https://github.com/
+
+      - Social:
+          - Twitter:
+              - abbr: X
+                href: https://twitter.com/
+
+      - Entertainment:
+          - YouTube:
+              - abbr: YT
+                href: https://youtube.com/
+    '';
+  };
+in
 {
   imports =
     [
@@ -29,6 +56,20 @@
     enable = true;
     listenPort = 80;
     openFirewall = true;
+  };
+
+  environment.etc = {
+    "private/homepage-dashboard/services.yaml".text = ''
+      - Jellyfin:
+        href: https://media.local:8086
+        description: Watch movies and TV shows.
+        server: localhost
+        container: jellyfin
+        widget:
+          type: jellyfin
+          url: http://media.local:8086
+          key: f972a063155049baa6080533886ccdd8
+    '';
   };
 
   services.jellyfin = {
