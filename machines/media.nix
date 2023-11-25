@@ -27,7 +27,8 @@
 
   services.homepage-dashboard = {
     enable = true;
-    port = 80;
+    listenPort = 80;
+    openFirewall = true;
   };
 
   services.jellyfin = {
