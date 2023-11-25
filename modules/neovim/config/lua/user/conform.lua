@@ -8,7 +8,7 @@ conform.setup({
     javascript = { "prettier" },
     json = { "jq" },
     lua = { "stylua" },
-    markdown = { "prettier", "injected" },
+    markdown = { "prettier" },
     nix = { "nixpkgs_fmt" },
     rust = { "rustfmt" },
     sh = { "shfmt" },
