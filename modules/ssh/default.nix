@@ -6,6 +6,10 @@
     matchBlocks = {
       "*" = {
         identityFile = "~/.ssh/id_ed25519";
+        setEnv = {
+          TERM = "xterm-256color";
+        };
+
         extraOptions = {
           IgnoreUnknown = "UseKeychain";
           UseKeyChain = "yes";
@@ -19,6 +23,9 @@
       };
       "dev" = {
         forwardAgent = true;
+        setEnv = {
+          TERM = "xterm-ghostty";
+        };
         remoteForwards = [
           {
             # pbcopy
