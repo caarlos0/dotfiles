@@ -11,8 +11,6 @@
 
   networking.hostName = "darkstar";
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
-
   # setup docker
   virtualisation.docker.enable = true;
   users.users.carlos.extraGroups = [ "docker" ];
