@@ -8,8 +8,8 @@ function am_i_home
 end
 
 if am_i_home
-    ssh -o 'Hostname=darkstar.local' dev
+    ssh -o 'Hostname=darkstar.local' -o 'SetEnv=TERM=xterm-ghostty' dev
 else
     echo "Using VPN..."
-    ssh -o 'Hostname=darkstar' dev
+    ssh -o 'Hostname=darkstar' -o 'SetEnv=TERM=xterm-ghostty' dev
 end

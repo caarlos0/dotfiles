@@ -23,9 +23,6 @@
       };
       "dev" = {
         forwardAgent = true;
-        setEnv = {
-          TERM = "xterm-ghostty";
-        };
         remoteForwards = [
           {
             # pbcopy
