@@ -41,6 +41,9 @@
     gcc
   ];
 
+  networking.firewall.allowedTCPPortRanges = [
+    { from = 1024; to = 65535; } # high ports
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
