@@ -6,6 +6,11 @@
   nix.package = pkgs.nix;
   nix.settings.trusted-users = [ "root" "carlos" ];
 
+  users.users.carlos = {
+    name = "carlos";
+    home = "/Users/carlos";
+  };
+
   homebrew = {
     enable = true;
     casks = [

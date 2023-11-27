@@ -1,5 +1,5 @@
-{ lib, ... }: {
-  home.homeDirectory = lib.mkDefault "/Users/carlos";
+{ ... }: {
+  home.homeDirectory = "/Users/carlos";
 
   targets.darwin.defaults = {
     "com.apple.Safari.SandboxBroker".ShowDevelop = true;
