@@ -104,13 +104,13 @@
           "WebKitDeveloperExtras" = true;
         };
         "com.apple.ImageCapture" = { "disableHotPlug" = true; };
-        "com.apple.Safari" = {
-          "IncludeInternalDebugMenu" = true;
-          "IncludeDevelopMenu" = true;
-          "WebKitDeveloperExtrasEnabledPreferenceKey" = true;
-          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" =
-            true;
-        };
+        # "com.apple.Safari" = {
+        #   "IncludeInternalDebugMenu" = true;
+        #   "IncludeDevelopMenu" = true;
+        #   "WebKitDeveloperExtrasEnabledPreferenceKey" = true;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" =
+        #     true;
+        # };
       };
     };
   };

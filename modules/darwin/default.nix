@@ -1,14 +1,14 @@
 { ... }: {
   home.homeDirectory = "/Users/carlos";
 
-  targets.darwin.defaults = {
-    "com.apple.Safari.SandboxBroker".ShowDevelop = true;
-    "com.apple.Safari".AutoFillPasswords = false;
-    "com.apple.Safari".IncludeDevelopMenu = true;
-    "com.apple.Safari".ShowOverlayStatusBar = true;
-    "com.apple.Safari".AutoOpenSafeDownloads = false;
-    "com.apple.Safari".AutoFillCreditCardData = false;
-  };
+  # targets.darwin.defaults = {
+  #   "com.apple.Safari.SandboxBroker".ShowDevelop = true;
+  #   "com.apple.Safari".AutoFillPasswords = false;
+  #   "com.apple.Safari".IncludeDevelopMenu = true;
+  #   "com.apple.Safari".ShowOverlayStatusBar = true;
+  #   "com.apple.Safari".AutoOpenSafeDownloads = false;
+  #   "com.apple.Safari".AutoFillCreditCardData = false;
+  # };
 
   services = {
     discord-applemusic-rich-presence.enable = true;
