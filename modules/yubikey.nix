@@ -21,8 +21,6 @@ in
           SuccessfulExit = false;
         };
         ProcessType = "Background";
-        EnvironmentVariables = { "LC_CTYPE" = "UTF-8"; };
-        inetdCompatibility = { Wait = false; };
       };
     };
   };
