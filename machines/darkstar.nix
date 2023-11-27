@@ -10,6 +10,7 @@
     ];
 
   networking.hostName = "darkstar";
+  services.qemuGuest.enable = true;
 
   # setup docker
   virtualisation.docker.enable = true;

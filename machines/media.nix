@@ -11,6 +11,7 @@
     ];
 
   networking.hostName = "media";
+  services.qemuGuest.enable = true;
 
   users.users.carlos.packages = with pkgs; [
     unrar
