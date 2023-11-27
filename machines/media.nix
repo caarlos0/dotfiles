@@ -17,6 +17,15 @@
     go-task
   ];
 
+  services.nginx = {
+    enable = true;
+    virtualHosts."media.local" = {
+      root = (pkgs.callPackage ../packages/homer.nix { });
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+
   services.jellyfin = {
     enable = true;
     openFirewall = true;
