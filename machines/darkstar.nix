@@ -10,17 +10,30 @@
     ];
 
   networking.hostName = "darkstar";
-  services.qemuGuest.enable = true;
 
-  # setup docker
   virtualisation.docker.enable = true;
   users.users.carlos.extraGroups = [ "docker" ];
 
+  services.qemuGuest.enable = true;
   services.postgresql = {
     enable = true;
+    ensureDatabases = [ "carlos" ];
+    ensureUsers = [
+      {
+        name = "carlos";
+        ensureClauses = {
+          login = true;
+          createrole = true;
+          createdb = true;
+          superuser = true;
+        };
+      }
+    ];
     authentication = pkgs.lib.mkOverride 10 ''
-      #type database  DBuser  auth-method
-      local all       all     trust
+      # TYPE  DATABASE        USER            ADDRESS                 METHOD
+      local   all             all                                     trust
+      host    all             all             127.0.0.1/32            trust
+      host    all             all             ::1/128                 trust
     '';
   };
 
