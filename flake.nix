@@ -168,7 +168,6 @@
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               go-task
-              neovim
               goreleaser.goreleaser-pro
               neofetch
               glow

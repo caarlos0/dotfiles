@@ -1,4 +1,4 @@
-{ writeText, stdenv, fetchzip, pkgs, ... }:
+{ stdenv, fetchzip, pkgs, ... }:
 let
   formatYaml = pkgs.formats.yaml { };
   config = formatYaml.generate "config.yml" {
@@ -61,8 +61,7 @@ let
     ];
   };
 in
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   name = "homer";
   version = "23.10.1";
   src = fetchzip {
