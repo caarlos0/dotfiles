@@ -52,6 +52,13 @@
           };
         })
       ];
+
+      forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.platforms.unix;
+
+      nixpkgsFor = forAllSystems (system: import nixpkgs {
+        inherit system;
+        overlays = overlays;
+      });
     in
     {
       nixosConfigurations = {
@@ -149,5 +156,24 @@
           ];
         };
       };
+
+      devShells = forAllSystems (system:
+        let
+          pkgs = nixpkgsFor.${system};
+          goreleaser = (import goreleaser-nur {
+            pkgs = pkgs;
+          });
+        in
+        {
+          default = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              go-task
+              neovim
+              goreleaser.goreleaser-pro
+              neofetch
+              glow
+            ];
+          };
+        });
     };
 }

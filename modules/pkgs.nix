@@ -15,18 +15,14 @@
       entr
       fd
       ffmpeg_6-full
-      git-lfs
       go-task
       graphviz
-      htmltest
       httpstat
-      hugo
       hyperfine
       inetutils
       jq
       moreutils
       ncdu
-      neofetch
       netcat-gnu
       nmap
       nodejs

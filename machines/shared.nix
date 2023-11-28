@@ -97,7 +97,6 @@
     curl
     git
     jq
-    neofetch
     neovim
     unzip
     wget
