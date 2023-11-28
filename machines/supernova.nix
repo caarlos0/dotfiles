@@ -15,7 +15,6 @@
     enable = true;
     casks = [
       "1password"
-      "airflow"
       "blackhole-2ch"
       "cleanshot"
       "dash5"
@@ -27,17 +26,12 @@
       "keybase"
       "ledger-live"
       "monodraw"
-      "notion"
-      "rar"
       "sensei"
       "signal"
       "slack"
       "soulver"
-      "subtitles"
       "telegram"
-      "vlc"
       "whatsapp"
-      "yubico-yubikey-manager"
       "zoom"
     ];
   };
