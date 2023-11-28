@@ -105,10 +105,14 @@
     curl
     git
     jq
-    neovim
     unzip
     wget
   ];
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
 
   programs.fish.enable = true;
 
