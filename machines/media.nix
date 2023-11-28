@@ -13,11 +13,6 @@
   networking.hostName = "media";
   services.qemuGuest.enable = true;
 
-  users.users.carlos.packages = with pkgs; [
-    unrar
-    go-task
-  ];
-
   services.nginx = {
     enable = true;
     virtualHosts."media.local" = {
