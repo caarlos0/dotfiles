@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports =
     [
@@ -102,6 +102,7 @@
 
   environment.systemPackages = with pkgs; [
     cachix
+    coreutils
     curl
     git
     jq
