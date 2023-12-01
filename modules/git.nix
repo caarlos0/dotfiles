@@ -70,7 +70,6 @@
       ".settings"
       ".ruby-version"
       ".vscode/"
-      "Session.vim"
       "dump.rdb"
       "main.tfvars"
       "coverage.out"
