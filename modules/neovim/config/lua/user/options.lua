@@ -40,10 +40,7 @@ vim.opt.listchars = "eol:↲,tab:» ,trail:·,extends:<,precedes:>,conceal:┊,n
 vim.opt.grepprg = "rg --vimgrep --smart-case --follow"
 vim.opt.background = "dark"
 vim.opt.termguicolors = true
-vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
-
 vim.opt.shortmess:append("c")
--- vim.opt.nrformats:append("alpha") -- most of the time I dont want this
 
 -- only works in nvim 0.10
 if vim.fn.has("nvim-0.10") == 1 then
