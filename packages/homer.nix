@@ -13,7 +13,8 @@ let
             url = "http://media.local:32400/web";
             endpoint = "http://media.local:8181";
             type = "Tautulli";
-            apikey = "ljgCJtXc8mUtk9IJlYNtqdCWsiizduQC";
+            apikey = "779ac777f02245fda8f23879e0b9eb37";
+            target = "_blank";
           }
           {
             name = "Series";
