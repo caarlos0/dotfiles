@@ -9,6 +9,13 @@ let
         name = "Watch";
         items = [
           {
+            name = "Plex";
+            url = "http://media.local:32400/web";
+            endpoint = "http://media.local:8181";
+            type = "Tautulli";
+            apikey = "ljgCJtXc8mUtk9IJlYNtqdCWsiizduQC";
+          }
+          {
             name = "Series";
             url = "http://media.local:8096/";
             type = "Emby";
