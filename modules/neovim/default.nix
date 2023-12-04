@@ -66,6 +66,8 @@ in
       nvim-ts-autotag
       cmp-nvim-lsp
       cmp-nvim-lsp-signature-help
+      copilot-lua
+      copilot-cmp
       luasnip
       cmp_luasnip
       friendly-snippets
