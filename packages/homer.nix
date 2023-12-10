@@ -16,19 +16,17 @@ let
             apikey = "779ac777f02245fda8f23879e0b9eb37";
             target = "_blank";
           }
+        ];
+      }
+      {
+        name = "Statistics";
+        items = [
           {
-            name = "Series";
-            url = "http://media.local:8096/";
-            type = "Emby";
-            apikey = "f972a063155049baa6080533886ccdd8";
-            libraryType = "series";
-          }
-          {
-            name = "Movies";
-            url = "http://media.local:8096/";
-            type = "Emby";
-            apikey = "f972a063155049baa6080533886ccdd8";
-            libraryType = "movies";
+            name = "Tautulli";
+            endpoint = "http://media.local:8181";
+            type = "Tautulli";
+            apikey = "779ac777f02245fda8f23879e0b9eb37";
+            target = "_blank";
           }
         ];
       }

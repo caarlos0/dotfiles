@@ -34,12 +34,6 @@
     group = "wheel";
     user = "carlos";
   };
-  services.jellyfin = {
-    enable = true;
-    openFirewall = true;
-    group = "wheel";
-    user = "carlos";
-  };
   services.sonarr = {
     enable = true;
     openFirewall = true;
