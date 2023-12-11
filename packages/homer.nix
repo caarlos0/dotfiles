@@ -24,6 +24,7 @@ let
           {
             name = "Tautulli";
             endpoint = "http://media.local:8181";
+            url = "http://media.local:8181";
             type = "Tautulli";
             apikey = "779ac777f02245fda8f23879e0b9eb37";
             target = "_blank";
