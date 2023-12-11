@@ -42,8 +42,9 @@ in
 
   services.homepage-dashboard = {
     enable = true;
-    package = pkgs.unstable.homepage-dashboard;
     openFirewall = true;
+    group = "wheel";
+    user = "carlos";
   };
 
   services.nginx = {
