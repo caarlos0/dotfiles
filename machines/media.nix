@@ -4,6 +4,48 @@
 
 { pkgs, ... }:
 let
+  homepage-settings = pkgs.writeTextFile
+    {
+      name = "settings.yaml";
+      executable = false;
+      destination = "/var/lib/private/homepage-dashboard/settings.yaml";
+      text = ''
+        title: Media
+        layout:
+          Media:
+            style: row
+            columns: 4
+
+      '';
+    };
+
+  homepage-services = pkgs.writeTextFile
+    {
+      name = "settings.yaml";
+      executable = false;
+      destination = "/var/lib/private/homepage-dashboard/services.yaml";
+      text = ''
+        - Media
+          - Sonarr:
+            icon: sonarr.png
+            href: http://media.local:8989/
+            description: Series management
+            widget:
+              type: sonarr
+              url: http://media.local:8989/
+              key: 71c261a86baf491784a60fa7489620fc
+          - Radarr:
+            icon: radarr.png
+            href: http://media.local:7878/
+            description: Movie management
+            widget:
+              type: radarr
+              url: http://media.local:7878/
+              key: 0042dc1c54444388b0ed680187f11b37
+
+      '';
+    };
+
   homepage-bookmarks = pkgs.writeTextFile {
     name = "bookmarks.yaml";
     executable = false;
@@ -43,8 +85,6 @@ in
   services.homepage-dashboard = {
     enable = true;
     openFirewall = true;
-    group = "wheel";
-    user = "carlos";
   };
 
   services.nginx = {
@@ -109,6 +149,9 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    homepage-settings
+    homepage-services
+    homepage-bookmarks
     unpackerr
   ];
 

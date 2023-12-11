@@ -36,7 +36,7 @@ let
         items = [
           {
             name = "Series";
-            type = "Radarr";
+            type = "Sonarr";
             url = "http://media.local:8989/";
             apikey = "71c261a86baf491784a60fa7489620fc";
             target = "_blank";
