@@ -2,6 +2,12 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
+require("copilot").setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
+require("copilot_cmp").setup()
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -98,6 +104,8 @@ cmp.setup({
       keyword_length = 2,
       priority = 50,
     },
+  }, {
+    { name = "copilot" },
   }, {
     {
       name = "buffer",
