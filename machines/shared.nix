@@ -93,6 +93,7 @@
       trusted-users = [
         "root"
         "carlos"
+        "@wheel"
       ];
     };
     gc = {
@@ -101,6 +102,11 @@
       options = "--delete-older-than 1w";
     };
   };
+
+  networking.extraHosts =
+    ''
+      192.168.1.19 cachixe.local
+    '';
 
   environment.systemPackages = with pkgs; [
     cachix
