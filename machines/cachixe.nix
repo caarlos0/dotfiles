@@ -12,11 +12,18 @@
   networking.hostName = "cachixe";
   services.qemuGuest.enable = true;
 
-  services.nix-serve = {
-    enable = true;
-    secretKeyFile = "/var/cache/cache-priv-key.pem";
+  users.groups.nix-serve = { };
+  users.users.nix-serve = {
+    isSystemUser = true;
+    group = "nix-serve";
   };
 
+  services.nix-serve = {
+    enable = true;
+    secretKeyFile = "/var/cache-priv-key.pem";
+  };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
