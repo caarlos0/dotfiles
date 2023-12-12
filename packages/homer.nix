@@ -9,18 +9,25 @@ let
         name = "Watch";
         items = [
           {
-            name = "Series";
-            url = "http://media.local:8096/";
-            type = "Emby";
-            apikey = "f972a063155049baa6080533886ccdd8";
-            libraryType = "series";
+            name = "Plex";
+            url = "http://media.local:32400/web";
+            endpoint = "http://media.local:8181";
+            type = "Tautulli";
+            apikey = "779ac777f02245fda8f23879e0b9eb37";
+            target = "_blank";
           }
+        ];
+      }
+      {
+        name = "Statistics";
+        items = [
           {
-            name = "Movies";
-            url = "http://media.local:8096/";
-            type = "Emby";
-            apikey = "f972a063155049baa6080533886ccdd8";
-            libraryType = "movies";
+            name = "Tautulli";
+            endpoint = "http://media.local:8181";
+            url = "http://media.local:8181";
+            type = "Tautulli";
+            apikey = "779ac777f02245fda8f23879e0b9eb37";
+            target = "_blank";
           }
         ];
       }
@@ -29,7 +36,7 @@ let
         items = [
           {
             name = "Series";
-            type = "Radarr";
+            type = "Sonarr";
             url = "http://media.local:8989/";
             apikey = "71c261a86baf491784a60fa7489620fc";
             target = "_blank";
