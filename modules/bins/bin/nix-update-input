@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # stolen from https://github.com/meowgorithm/dotfiles/blob/77f8832c37248ce74f143d155110887a21f684ac/modules/home/bash/bashrc#L144
 nix flake info --json |
   jq -r '.locks.nodes.root.inputs | keys | .[]' |

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 git --no-pager diff | mods -f 'perform a code review on this source. \
 	List out any logical flaws or bugs you find, ranked in order of \

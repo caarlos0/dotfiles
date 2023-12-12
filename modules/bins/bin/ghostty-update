@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -eo pipefail
 cd /tmp
 gh release download -R mitchellh/ghostty tip -p 'ghostty-macos-universal.zip' --clobber
