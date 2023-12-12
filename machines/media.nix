@@ -22,7 +22,13 @@
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-  services.jellyfin = {
+  services.plex = {
+    enable = true;
+    openFirewall = true;
+    group = "wheel";
+    user = "carlos";
+  };
+  services.tautulli = {
     enable = true;
     openFirewall = true;
     group = "wheel";
