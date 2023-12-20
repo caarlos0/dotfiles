@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  cachixe = (pkgs.callPackage ../packages/cachixe.nix { });
+in
 {
   imports =
     [
@@ -77,6 +80,7 @@
     package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
+      post-build-hook = ${cachixe}/bin/upload-to-cache
     '';
     settings = {
       auto-optimise-store = true;
@@ -129,7 +133,7 @@
   services.cron.enable = true;
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     publish = {
       enable = true;
       domain = true;
