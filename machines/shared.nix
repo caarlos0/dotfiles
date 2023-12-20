@@ -80,7 +80,7 @@ in
     package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
-      post-build-hook = ${cachixe}/bin/upload-to-cache
+      post-build-hook = ${cachixe}/bin/upload-to-cachixe
     '';
     settings = {
       auto-optimise-store = true;
