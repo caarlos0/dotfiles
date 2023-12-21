@@ -22,6 +22,7 @@
       commit = "commit -s";
       commend = "commit -s --amend --no-edit";
       lt = "log --tags --decorate --simplify-by-decoration --oneline";
+      unshallow = "fetch --prune --tags --unshallow";
     };
     extraConfig = {
       lfs = { enable = true; };
