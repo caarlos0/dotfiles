@@ -126,7 +126,6 @@
                   ./modules/top.nix
                   ./modules/shell.nix
                   ./modules/ssh
-                  ./modules/bins
                   ./modules/charm.nix
                   nix-index-database.hmModules.nix-index
                 ];
@@ -163,7 +162,6 @@
                   ./modules/top.nix
                   ./modules/shell.nix
                   ./modules/ssh
-                  ./modules/bins
                   ./modules/charm.nix
                   ./modules/hammerspoon
                   inputs.caarlos0-nur.homeManagerModules.default
