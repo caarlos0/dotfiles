@@ -6,7 +6,7 @@ let
     set -f # disable globbing
     export IFS=' '
     echo "Uploading paths" $OUT_PATHS
-    exec nix copy --to "ssh://cachixe.local" $OUT_PATHS
+    exec nix copy --to "ssh://carlos@cachixe.local" $OUT_PATHS
   '';
 in
 stdenv.mkDerivation {
