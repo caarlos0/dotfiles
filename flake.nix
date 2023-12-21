@@ -66,7 +66,7 @@
           system = "x86_64-linux";
           modules = [
             { nixpkgs.overlays = overlays; }
-            ./machines/cachixe.nix
+            ./machines/cachixe
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -85,7 +85,7 @@
           system = "x86_64-linux";
           modules = [
             { nixpkgs.overlays = overlays; }
-            ./machines/media.nix
+            ./machines/media
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -104,7 +104,7 @@
           system = "x86_64-linux";
           modules = [
             { nixpkgs.overlays = overlays; }
-            ./machines/darkstar.nix
+            ./machines/darkstar
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -139,7 +139,7 @@
           system = "aarch64-darwin";
           modules = [
             { nixpkgs.overlays = overlays; }
-            ./machines/supernova.nix
+            ./machines/supernova
             home-manager.darwinModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

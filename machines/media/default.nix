@@ -6,8 +6,8 @@
 {
   imports =
     [
-      ./shared.nix
-      ./hardware/media.nix
+      ../shared.nix
+      ./hardware.nix
     ];
 
   networking.hostName = "media";

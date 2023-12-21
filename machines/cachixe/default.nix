@@ -5,8 +5,8 @@
 {
   imports =
     [
-      ./shared.nix
-      ./hardware/cachixe.nix
+      ../shared.nix
+      ./hardware.nix
     ];
 
   networking.hostName = "cachixe";

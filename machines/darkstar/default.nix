@@ -5,8 +5,8 @@
 {
   imports =
     [
-      ./shared.nix
-      ./hardware/darkstar.nix
+      ../shared.nix
+      ./hardware.nix
     ];
 
   networking.hostName = "darkstar";
