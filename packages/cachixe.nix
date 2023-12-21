@@ -2,6 +2,9 @@
 let
   script = writeText "upload-to-cache.sh" ''
     #!/bin/sh
+    if [ "$(hostname)" = "cachixe" ]; then
+      exit 0
+    fi
     set -eu
     set -f # disable globbing
     export IFS=' '
