@@ -32,6 +32,7 @@ tasks:
     status:
       - "test $(uname -s) != Linux"
     cmds:
+      # --option post-build-hook ""
       - sudo nixos-rebuild switch --flake .#
   darwin:
     status:
