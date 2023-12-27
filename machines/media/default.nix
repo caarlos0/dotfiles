@@ -16,7 +16,7 @@
   services.nginx = {
     enable = true;
     virtualHosts."media.local" = {
-      root = (pkgs.callPackage ../packages/homer.nix { });
+      root = (pkgs.callPackage ../../packages/homer.nix { });
     };
   };
 
@@ -55,12 +55,6 @@
   services.prowlarr = {
     enable = true;
     openFirewall = true;
-  };
-  services.jackett = {
-    enable = true;
-    openFirewall = true;
-    group = "wheel";
-    user = "carlos";
   };
   services.transmission = {
     enable = true;

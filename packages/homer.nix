@@ -59,13 +59,10 @@ let
             target = "_blank";
           }
           {
-            name = "Prowlarr";
-            url = "http://media.local:9696/";
-            target = "_blank";
-          }
-          {
             name = "Indexer";
-            url = "http://media.local:9117/";
+            url = "http://media.local:9696/";
+            type = "Prowlarr";
+            apikey = "171a6baff00a4b918e722a7de9befaa1";
             target = "_blank";
           }
         ];
