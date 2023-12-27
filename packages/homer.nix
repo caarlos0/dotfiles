@@ -59,6 +59,11 @@ let
             target = "_blank";
           }
           {
+            name = "Prowlarr";
+            url = "http://media.local:9696/";
+            target = "_blank";
+          }
+          {
             name = "Indexer";
             url = "http://media.local:9117/";
             target = "_blank";
