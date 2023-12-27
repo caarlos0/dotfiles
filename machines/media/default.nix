@@ -55,8 +55,6 @@
   services.prowlarr = {
     enable = true;
     openFirewall = true;
-    group = "wheel";
-    user = "carlos";
   };
   services.jackett = {
     enable = true;
