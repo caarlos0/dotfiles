@@ -1,14 +1,14 @@
-{ stdenv, writeText, ... }:
+{ pkgs, stdenv, writeText, ... }:
 let
   script = writeText "upload-to-cache.sh" ''
     #!/bin/sh
-    if [ "$(hostname)" = "cachixe" ]; then
+    if [ "$(${pkgs.busybox}/bin/hostname)" = "cachixe" ]; then
       exit 0
     fi
     set -eu
     set -f # disable globbing
     export IFS=' '
-    echo "Uploading paths" $OUT_PATHS
+    echo "uploading paths" $OUT_PATHS
     exec nix copy --to "ssh://carlos@cachixe.local" $OUT_PATHS
   '';
 in
@@ -16,6 +16,8 @@ stdenv.mkDerivation {
   name = "upload-to-cache";
   version = "unstable";
   dontUnpack = true;
+
+  buildInputs = with pkgs; [ busybox ];
 
   installPhase = ''
     mkdir -vp $out/bin
