@@ -4,6 +4,7 @@ let
   config = formatYaml.generate "config.yml" {
     title = "Media";
     header = true;
+    # https://github.com/bastienwirtz/homer/blob/main/docs/customservices.md
     services = [
       {
         name = "Watch";
