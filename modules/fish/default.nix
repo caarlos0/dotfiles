@@ -77,7 +77,7 @@
       tf = "terraform";
 
       # tmux
-      ta = "tmux-new";
+      ta = "tmux new -A -s default";
 
       # mods
       gcai =

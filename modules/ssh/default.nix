@@ -45,7 +45,7 @@
         ];
         extraOptions = {
           RequestTTY = "true";
-          RemoteCommand = "tmux-new";
+          RemoteCommand = "tmux new -A -s default";
         };
       };
       "aur.archlinux.org" = { identityFile = "~/.ssh/aur"; };
