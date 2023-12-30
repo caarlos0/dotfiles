@@ -89,9 +89,11 @@
           config = pkgs.writeText "unpackerr.conf"
             ''
               [[sonarr]]
+              url = "http://localhost:8989"
               api_key = "71c261a86baf491784a60fa7489620fc"
 
               [[radarr]]
+              url = "http://localhost:7878"
               api_key = "0042dc1c54444388b0ed680187f11b37"
             '';
         in
