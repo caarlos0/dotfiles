@@ -33,11 +33,9 @@
     ripgrep
     sqlite
     sshpass
-    syft
     tldr
     unixtools.watch
     unrar
-    upx
     vegeta
     wget
     yarn
