@@ -132,6 +132,10 @@ in
       nvim-dap-go
       telescope-dap-nvim
       nvim-dap-virtual-text
+
+
+      # others
+      vim-wakatime
     ];
   };
 
