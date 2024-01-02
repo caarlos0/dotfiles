@@ -37,9 +37,9 @@ in
       neotest-go
       neotest-rust
       neotest-jest
-      # TODO: https://github.com/ThePrimeagen/harpoon/issues/323
-      (fromGitHub "ThePrimeagen" "harpoon" "master"
-        "sha256-pSnFx5fg1llNlpTCV4hoo3Pf1KWnAJDRVSe+88N4HXM=")
+      # TODO: until harpoon2 is merged into main
+      (fromGitHub "ThePrimeagen" "harpoon" "harpoon2"
+        "sha256-WD93Oq1WHrfkdOVbYDJiExr+MP1Uezl5WKA53jEdwmY=")
       vim-fugitive
       vim-abolish
       vim-repeat
