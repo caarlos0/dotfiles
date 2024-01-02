@@ -7,11 +7,11 @@ switch $argv[1]
     case atop htop top btop
         echo 
     case bash fish zsh sh ash
-        echo 
+        echo 
     case bat cat
         echo 
     case clx
-        echo 
+        echo 
     case cp duplicate
         echo 
     case mv
@@ -19,7 +19,7 @@ switch $argv[1]
     case curl http pint lynx wget w3m
         echo 
     case docker docker-compose podman
-        echo 
+        echo 
     case lf ls nnn ranger lsd
         echo 
     case elixir mix
@@ -43,7 +43,7 @@ switch $argv[1]
     case nano pico
         echo 
     case node npm yarn
-        echo 
+        echo 
     case vim vi
         echo 
     case nvim
@@ -60,8 +60,6 @@ switch $argv[1]
         echo 󰣀
     case sleep
         echo 
-    case spin
-        echo 
     case sudo
         echo 
     case tail
