@@ -44,8 +44,10 @@ switch $argv[1]
         echo 
     case node npm yarn
         echo 
-    case nvim vim vi
+    case vim vi
         echo 
+    case nvim
+        echo 
     case python pip
         echo 
     case rm
