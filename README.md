@@ -28,11 +28,3 @@ task update apply
 ```sh
 nix-collect-garbage
 ```
-
----
-
-Check cache:
-
-```bash
-curl http://cachixe.local/$(readlink -f $(which fish) | cut -c12-43).narinfo
-```
