@@ -20,6 +20,7 @@
       "dash5"
       "deckset"
       "discord"
+      "font-jetbrains-mono-nerd-font"
       "google-chrome"
       "hammerspoon"
       "imageoptim"
