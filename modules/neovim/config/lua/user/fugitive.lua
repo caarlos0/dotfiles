@@ -41,14 +41,6 @@ vim.keymap.set("n", "<leader>gs", vim.cmd.Git, {
   desc = "Open Git",
 })
 
-vim.keymap.set("n", "<leader>gb", function()
-  vim.cmd.Git("blame")
-end, {
-  noremap = true,
-  silent = true,
-  desc = "Git blame",
-})
-
 vim.keymap.set("n", "<leader>gms", function()
   vim.cmd.Git("sync")
 end, {

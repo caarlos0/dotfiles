@@ -41,6 +41,7 @@ in
       (fromGitHub "ThePrimeagen" "harpoon" "harpoon2"
         "sha256-WD93Oq1WHrfkdOVbYDJiExr+MP1Uezl5WKA53jEdwmY=")
       vim-fugitive
+      vim-rhubarb
       vim-abolish
       vim-repeat
       vim-eunuch
