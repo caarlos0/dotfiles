@@ -17,6 +17,11 @@ let
             apikey = "779ac777f02245fda8f23879e0b9eb37";
             target = "_blank";
           }
+          {
+            name = "Overseerr";
+            url = "http://media.local:5055";
+            target = "_blank";
+          }
         ];
       }
       {

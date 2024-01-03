@@ -3,6 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { pkgs, ... }:
+let
+  overseerr = (pkgs.callPackage ../../packages/overseerr.nix { });
+in
 {
   imports =
     [
@@ -20,7 +23,7 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 5055 ];
 
   services.plex = {
     enable = true;
@@ -103,6 +106,39 @@
       Restart = "on-failure";
     };
   };
+
+  systemd.services.overseerr = {
+    description = "Request management and media discovery tool for the Plex ecosystem";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    environment.PORT = "5055";
+    serviceConfig = {
+      Type = "exec";
+      StateDirectory = "overseerr";
+      WorkingDirectory = "${overseerr}/libexec/overseerr/deps/overseerr";
+      DynamicUser = true;
+      ExecStart = "${overseerr}/bin/overseerr";
+      BindPaths = [ "/var/lib/overseerr/:${overseerr}/libexec/overseerr/deps/overseerr/config/" ];
+      Restart = "on-failure";
+      ProtectHome = true;
+      ProtectSystem = "strict";
+      PrivateTmp = true;
+      PrivateDevices = true;
+      ProtectHostname = true;
+      ProtectClock = true;
+      ProtectKernelTunables = true;
+      ProtectKernelModules = true;
+      ProtectKernelLogs = true;
+      ProtectControlGroups = true;
+      NoNewPrivileges = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      RemoveIPC = true;
+      PrivateMounts = true;
+    };
+  };
+
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
