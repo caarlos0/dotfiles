@@ -61,7 +61,6 @@ mkYarnPackage rec {
       shopt -s dotglob
       cd deps/overseerr
       rm -r config/*
-      echo "{\"commitTag\": \"v${version}\"}" > committag.json
       yarn --offline build
       rm -r .next/cache
     )
