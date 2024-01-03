@@ -3,6 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { pkgs, ... }:
+let
+  overseerr = (pkgs.callPackage ../../packages/overseerr.nix { });
+in
 {
   imports =
     [
@@ -112,10 +115,10 @@
     serviceConfig = {
       Type = "exec";
       StateDirectory = "overseerr";
-      WorkingDirectory = "${pkgs.overseerr}/libexec/overseerr/deps/overseerr";
+      WorkingDirectory = "${overseerr}/libexec/overseerr/deps/overseerr";
       DynamicUser = true;
-      ExecStart = "${pkgs.overseerr}/bin/overseerr";
-      BindPaths = [ "/var/lib/overseerr/:${pkgs.overseerr}/libexec/overseerr/deps/overseerr/config/" ];
+      ExecStart = "${overseerr}/bin/overseerr";
+      BindPaths = [ "/var/lib/overseerr/:${overseerr}/libexec/overseerr/deps/overseerr/config/" ];
       Restart = "on-failure";
       ProtectHome = true;
       ProtectSystem = "strict";
