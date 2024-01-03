@@ -47,7 +47,9 @@ local function tidy()
       stderr:read_stop()
       stdout:close()
       stderr:close()
-      handle:close()
+      if handle then
+        handle:close()
+      end
       vim.schedule(function()
         for _, name in ipairs({ "gopls", "golangci_lint_ls" }) do
           restart(name)
@@ -61,5 +63,12 @@ local function tidy()
 end
 
 vim.api.nvim_create_user_command("GoModTidy", tidy, vim.tbl_extend("force", { desc = "go mod tidy" }, {}))
+
+local group = vim.api.nvim_create_augroup("Go", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = { "go.mod", "go.sum", "go.work" },
+  callback = tidy,
+  group = group,
+})
 
 vim.keymap.set("n", "<leader>gmt", ":GoModTidy<CR>", { noremap = true, silent = true, desc = "Run go mod tidy" })
