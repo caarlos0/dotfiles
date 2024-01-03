@@ -62,25 +62,6 @@
     in
     {
       nixosConfigurations = {
-        cachixe = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            { nixpkgs.overlays = overlays; }
-            ./machines/cachixe
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.carlos = {
-                imports = [
-                  ./modules/home.nix
-                  ./modules/nixos.nix
-                  ./modules/shell.nix
-                ];
-              };
-            }
-          ];
-        };
         media = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
