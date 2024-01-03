@@ -4,7 +4,7 @@
 
 { pkgs, ... }:
 let
-  overseerr = (pkgs.callPackage ../../packages/overseerr.nix { });
+  overseerr = (pkgs.callPackage ../../pkgs/overseerr { });
 in
 {
   imports =
@@ -19,7 +19,7 @@ in
   services.nginx = {
     enable = true;
     virtualHosts."media.local" = {
-      root = (pkgs.callPackage ../../packages/homer.nix { });
+      root = (pkgs.callPackage ../../pkgs/homer { });
     };
   };
 

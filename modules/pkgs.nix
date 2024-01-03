@@ -7,7 +7,7 @@
   };
   home.packages = with pkgs; with pkgs.nodePackages_latest; [
     # custom packages
-    (pkgs.callPackage ../packages/bins/default.nix { })
+    (pkgs.callPackage ../pkgs/bins { })
 
     age
     comma
