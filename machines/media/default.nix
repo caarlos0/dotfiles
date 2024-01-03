@@ -111,7 +111,7 @@ in
     description = "Request management and media discovery tool for the Plex ecosystem";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-    environment.PORT = 5055;
+    environment.PORT = "5055";
     serviceConfig = {
       Type = "exec";
       StateDirectory = "overseerr";
