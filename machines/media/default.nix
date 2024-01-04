@@ -19,13 +19,14 @@ in
   services.nginx = {
     enable = true;
     virtualHosts."media.local" = {
-      locations."~ ^/pp/(.*)$" = {
-        proxyPass = "$1";
-        # recommendedProxySettings = true;
+      locations."~* ^/pp/(?<proxy_proto>https?)/(?<proxy_host>.*?)/(?<proxy_path>.*)$" = {
+        proxyPass = "$proxy_proto://$proxy_host/$proxy_path";
         priority = 1;
         extraConfig = ''
           internal;
+          proxy_set_header Host $proxy_host;
         '';
+        # recommendedProxySettings = true;
       };
       locations."/" = {
         root = (pkgs.callPackage ../../pkgs/homer { });
