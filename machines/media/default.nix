@@ -18,7 +18,7 @@ in
 
   services.caddy = {
     enable = true;
-    extraConfig = ''
+    globalConfig = ''
       cors
     '';
     virtualHosts."media.local".extraConfig = ''
