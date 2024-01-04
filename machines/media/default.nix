@@ -35,7 +35,7 @@ in
           proxy_set_header X-Forwarded-Host $server_name;
         '';
       };
-      locations."~ /flood(.*)" = {
+      locations."~ /flood/(.*)" = {
         proxyPass = "http://flood/$1$is_args$args";
         # recommendedProxySettings = true;
         priority = 2;
