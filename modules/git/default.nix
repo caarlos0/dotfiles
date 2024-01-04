@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   home.packages = with pkgs; [
     git-lfs
   ];
@@ -57,28 +57,6 @@
       pull = { ff = "only"; };
       init = { defaultBranch = "main"; };
     };
-    ignores = [
-      ".DS_Store"
-      ".svn"
-      "*~"
-      "*.swp"
-      "*.orig"
-      "*.rbc"
-      ".idea"
-      "*.iml"
-      ".classpath"
-      ".project"
-      ".settings"
-      ".ruby-version"
-      ".vscode/"
-      "dump.rdb"
-      "main.tfvars"
-      "coverage.out"
-      "coverage.txt"
-      ".luarc.json"
-      "*.log"
-      ".env"
-    ];
-
+    ignores = lib.splitString "\n" (builtins.readFile ./gitignore_global);
   };
 }

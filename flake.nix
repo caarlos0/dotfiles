@@ -102,7 +102,7 @@
                   ./modules/tmux
                   ./modules/neovim
                   ./modules/gpg.nix
-                  ./modules/git.nix
+                  ./modules/git
                   ./modules/gh
                   ./modules/top.nix
                   ./modules/shell.nix
@@ -138,7 +138,7 @@
                   ./modules/tmux
                   ./modules/neovim
                   ./modules/gpg.nix
-                  ./modules/git.nix
+                  ./modules/git
                   ./modules/gh
                   ./modules/top.nix
                   ./modules/shell.nix
