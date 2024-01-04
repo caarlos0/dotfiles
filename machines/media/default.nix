@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ self, pkgs, ... }:
 let
   overseerr = (pkgs.callPackage ../../pkgs/overseerr { });
 in
@@ -15,6 +15,8 @@ in
 
   networking.hostName = "media";
   services.qemuGuest.enable = true;
+
+  writeNginxConfig = self.writeText;
 
   services.nginx = {
     enable = true;
