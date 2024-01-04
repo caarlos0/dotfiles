@@ -62,6 +62,7 @@ let
           {
             name = "Torrents";
             url = "http://media.local:8091/";
+            endpoint = "http://media.local/flood";
             target = "_blank";
             type = "qBittorrent";
           }
