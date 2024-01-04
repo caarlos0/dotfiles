@@ -19,11 +19,13 @@ in
   services.nginx = {
     enable = true;
     virtualHosts."media.local" = {
-      root = (pkgs.callPackage ../../pkgs/homer { });
-      locations."/tautulli/*".extraConfig = ''
-        proxy_pass http://media.local:8181/;
-        proxy_set_header Host $host;
-      '';
+      locations."/tautulli" = {
+        proxyPass = "http://media.local:8181/";
+        recommendedProxySettings = true;
+      };
+      locations."/" = {
+        root = (pkgs.callPackage ../../pkgs/homer { });
+      };
     };
   };
 
