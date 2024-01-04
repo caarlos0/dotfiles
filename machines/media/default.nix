@@ -20,12 +20,12 @@ in
     enable = true;
     virtualHosts."media.local" = {
       locations."/tautulli" = {
-        proxyPass = "http://media.local:8181/";
+        proxyPass = "http://media.local:8181";
         recommendedProxySettings = true;
         priority = 1;
       };
       locations."/flood" = {
-        proxyPass = "http://media.local:8091/";
+        proxyPass = "http://media.local:8091";
         recommendedProxySettings = true;
         priority = 2;
       };

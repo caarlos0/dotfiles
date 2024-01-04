@@ -12,7 +12,7 @@ let
           {
             name = "Plex";
             url = "http://media.local:32400/web";
-            endpoint = "http://media.local:8181";
+            endpoint = "http://media.local/tautulli";
             type = "Tautulli";
             apikey = "779ac777f02245fda8f23879e0b9eb37";
             target = "_blank";
@@ -22,15 +22,10 @@ let
             url = "http://media.local:5055";
             target = "_blank";
           }
-        ];
-      }
-      {
-        name = "Statistics";
-        items = [
           {
             name = "Tautulli";
-            endpoint = "http://media.local/tautulli";
             url = "http://media.local:8181";
+            endpoint = "http://media.local/tautulli";
             type = "Tautulli";
             apikey = "779ac777f02245fda8f23879e0b9eb37";
             target = "_blank";
