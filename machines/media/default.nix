@@ -18,6 +18,9 @@ in
 
   services.caddy = {
     enable = true;
+    globalConfig = ''
+      auto_https off
+    '';
     virtualHosts."media.local".extraConfig = ''
       header {
         Access-Control-Allow-Headers *
