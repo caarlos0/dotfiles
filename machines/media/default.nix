@@ -18,12 +18,28 @@ in
 
   services.nginx = {
     enable = true;
+    upstreams = {
+      tautulli.servers."media.local:8181" = { };
+    };
     virtualHosts."media.local" = {
-      root = (pkgs.callPackage ../../pkgs/homer { });
+      locations."~ /tautulli/(.*)" = {
+        proxyPass = "http://tautulli/$1$is_args$args";
+        priority = 1;
+        extraConfig = ''
+          proxy_redirect off;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Host $server_name;
+        '';
+      };
+      locations."/" = {
+        root = (pkgs.callPackage ../../pkgs/homer { });
+      };
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 5055 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 5055 8090 8091 ];
 
   services.plex = {
     enable = true;
@@ -58,32 +74,6 @@ in
   services.prowlarr = {
     enable = true;
     openFirewall = true;
-  };
-
-  systemd.services.qbittorrent = {
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "exec";
-      User = "carlos";
-      Group = "wheel";
-      ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=8090";
-      Restart = "on-failure";
-      ProtectSystem = "strict";
-    };
-  };
-
-  systemd.services.flood = {
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "exec";
-      User = "carlos";
-      Group = "wheel";
-      ExecStart = "${pkgs.flood}/bin/flood --host 0.0.0.0 --port=8091";
-      Restart = "on-failure";
-      ProtectSystem = "strict";
-    };
   };
 
   systemd.services.unpackerr = {
@@ -145,7 +135,31 @@ in
     };
   };
 
+  systemd.services.qbittorrent = {
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "exec";
+      User = "carlos";
+      Group = "wheel";
+      ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=8090";
+      Restart = "on-failure";
+      ProtectSystem = "strict";
+    };
+  };
 
+  systemd.services.flood = {
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "exec";
+      User = "carlos";
+      Group = "wheel";
+      ExecStart = "${pkgs.flood}/bin/flood --host 0.0.0.0 --port=8091";
+      Restart = "on-failure";
+      ProtectSystem = "strict";
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
