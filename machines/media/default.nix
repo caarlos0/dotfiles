@@ -23,7 +23,6 @@ in
         proxyPass = "$proxy_proto://$proxy_host/$proxy_path";
         priority = 1;
         extraConfig = ''
-          internal;
           proxy_set_header Host $proxy_host;
         '';
         # recommendedProxySettings = true;
