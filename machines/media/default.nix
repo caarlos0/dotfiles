@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, pkgs, ... }:
+{ pkgs, ... }:
 let
   overseerr = (pkgs.callPackage ../../pkgs/overseerr { });
 in
@@ -16,24 +16,21 @@ in
   networking.hostName = "media";
   services.qemuGuest.enable = true;
 
-  writeNginxConfig = self.writeText;
-
-  services.nginx = {
+  services.caddy = {
     enable = true;
-    virtualHosts."media.local" = {
-      locations."~* ^/pp/(?<proxy_proto>https?)/(?<proxy_host>.*?)/(?<proxy_path>.*)$" = {
-        proxyPass = "$proxy_proto://$proxy_host/$proxy_path";
-        priority = 1;
-        extraConfig = ''
-          proxy_set_header Host $proxy_host;
-        '';
-        # recommendedProxySettings = true;
-      };
-      locations."/" = {
-        root = (pkgs.callPackage ../../pkgs/homer { });
-        priority = 1000;
-      };
-    };
+    virtualHosts."media.local".extraConfig = ''
+      handle /tautulli/* {
+        reverse_proxy 127.0.0.1:8181
+      }
+      handle /flood/* {
+        reverse_proxy 127.0.0.1:8091
+      }
+      handle {
+        encode gzip
+        file_server
+        root * ${(pkgs.callPackage ../../pkgs/homer { })}
+      }
+    '';
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 5055 8090 8091 ];
