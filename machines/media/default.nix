@@ -25,7 +25,7 @@ in
         priority = 1;
       };
       locations."/flood" = {
-        proxyPass = "http://media.local:9081/";
+        proxyPass = "http://media.local:8091/";
         recommendedProxySettings = true;
         priority = 2;
       };
