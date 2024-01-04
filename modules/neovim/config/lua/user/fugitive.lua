@@ -20,11 +20,11 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end, "Git push")
 
     keymap("<leader>P", function()
-      vim.cmd.Git({ "pull", "--rebase" })
+      vim.cmd.Git("pull --rebase")
     end, "Git pull --rebase")
 
     keymap("<leader>t", function()
-      vim.cmd.Git({ "push", "-u", "origin" })
+      vim.cmd.Git("push -u origin")
     end, "Git push tracking origin")
 
     keymap("<leader>o", function()
