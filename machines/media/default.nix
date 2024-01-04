@@ -18,8 +18,10 @@ in
 
   services.caddy = {
     enable = true;
-    virtualHosts."media.local".extraConfig = ''
+    extraConfig = ''
       cors
+    '';
+    virtualHosts."media.local".extraConfig = ''
       reverse_proxy /tautulli* media.local:8181
       reverse_proxy /flood* media.local:8091
       root * ${(pkgs.callPackage ../../pkgs/homer { })}
