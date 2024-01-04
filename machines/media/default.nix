@@ -23,7 +23,7 @@ in
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 5055 5060 5061 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 5055 8090 8091 ];
 
   services.plex = {
     enable = true;
@@ -146,7 +146,7 @@ in
       Type = "exec";
       User = "carlos";
       Group = "wheel";
-      ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=5060";
+      ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=8090";
       Restart = "on-failure";
       ProtectSystem = "strict";
     };
@@ -159,7 +159,7 @@ in
       Type = "exec";
       User = "carlos";
       Group = "wheel";
-      ExecStart = "${pkgs.flood}/bin/flood --host 0.0.0.0 --port=5061";
+      ExecStart = "${pkgs.flood}/bin/flood --host 0.0.0.0 --port=8091";
       Restart = "on-failure";
       ProtectSystem = "strict";
     };
