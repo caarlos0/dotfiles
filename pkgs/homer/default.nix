@@ -104,7 +104,7 @@ mkYarnPackage rec {
     owner = "caarlos0";
     repo = "homer";
     rev = "main";
-    hash = "sha256-PuQTbqp2nDLPuhCHICHmLaimpCP8QN/1yo5eHLpF7jM=";
+    hash = "sha256-xNziRpNVCM13IckyETbD4LQ4YWWlvXUz4OLooayFmVI=";
   };
 
   offlineCache = fetchYarnDeps {
