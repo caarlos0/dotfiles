@@ -29,7 +29,7 @@ let
         items = [
           {
             name = "Tautulli";
-            endpoint = "http://media.local:8181";
+            endpoint = "http://media.local/tautulli";
             url = "http://media.local:8181";
             type = "Tautulli";
             apikey = "779ac777f02245fda8f23879e0b9eb37";
