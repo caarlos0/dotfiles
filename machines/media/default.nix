@@ -23,6 +23,9 @@ in
         proxyPass = "$1";
         # recommendedProxySettings = true;
         priority = 1;
+        extraConfig = ''
+          internal;
+        '';
       };
       locations."/" = {
         root = (pkgs.callPackage ../../pkgs/homer { });
