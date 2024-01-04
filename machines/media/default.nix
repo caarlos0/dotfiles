@@ -20,6 +20,10 @@ in
     enable = true;
     virtualHosts."media.local" = {
       root = (pkgs.callPackage ../../pkgs/homer { });
+      locations."/".extraConfig = ''
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+      '';
     };
   };
 
