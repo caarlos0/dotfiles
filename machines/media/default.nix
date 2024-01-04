@@ -24,6 +24,11 @@ in
         recommendedProxySettings = true;
         priority = 1;
       };
+      locations."/flood" = {
+        proxyPass = "http://media.local:9081/";
+        recommendedProxySettings = true;
+        priority = 2;
+      };
       locations."/" = {
         root = (pkgs.callPackage ../../pkgs/homer { });
         priority = 1000;
