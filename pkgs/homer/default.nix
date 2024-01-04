@@ -11,20 +11,26 @@ let
         items = [
           {
             name = "Plex";
+            subtitle = "Media Server";
             url = "http://media.local:32400/web";
             endpoint = "http://media.local/tautulli";
+            logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/plex.png";
             type = "Tautulli";
             apikey = "779ac777f02245fda8f23879e0b9eb37";
             target = "_blank";
           }
           {
             name = "Overseerr";
+            subtitle = "Request Media";
+            logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/overseerr.png";
             url = "http://media.local:5055";
             target = "_blank";
           }
           {
             name = "Tautulli";
+            subtitle = "Plex Statistics";
             url = "http://media.local:8181";
+            logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/tautulli.png";
             endpoint = "http://media.local/tautulli";
             type = "Tautulli";
             apikey = "779ac777f02245fda8f23879e0b9eb37";
@@ -36,33 +42,43 @@ let
         name = "Download";
         items = [
           {
-            name = "Series";
-            type = "Sonarr";
-            url = "http://media.local:8989/";
-            apikey = "71c261a86baf491784a60fa7489620fc";
-            target = "_blank";
-          }
-          {
-            name = "Movies";
-            type = "Radarr";
-            url = "http://media.local:7878/";
-            apikey = "0042dc1c54444388b0ed680187f11b37";
-            target = "_blank";
-          }
-          {
-            name = "Subtitles";
-            url = "http://media.local:6767/";
-            target = "_blank";
-          }
-          {
-            name = "Torrents";
+            name = "qBittorrent";
+            subtitle = "Downloads";
+            logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/qbittorrent.png";
             url = "http://media.local:8091/";
             endpoint = "http://media.local:8090";
             target = "_blank";
             type = "qBittorrent";
           }
           {
-            name = "Indexer";
+            name = "Sonarr";
+            subtitle = "Series";
+            logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/sonarr.png";
+            type = "Sonarr";
+            url = "http://media.local:8989/";
+            apikey = "71c261a86baf491784a60fa7489620fc";
+            target = "_blank";
+          }
+          {
+            name = "Radarr";
+            subtitle = "Movies";
+            logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/radarr.png";
+            type = "Radarr";
+            url = "http://media.local:7878/";
+            apikey = "0042dc1c54444388b0ed680187f11b37";
+            target = "_blank";
+          }
+          {
+            name = "Bazaarr";
+            subtitle = "Subtitles";
+            logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/bazaarr.png";
+            url = "http://media.local:6767/";
+            target = "_blank";
+          }
+          {
+            name = "Prowlarr";
+            subtitle = "Indexers";
+            logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/prowlarr.png";
             url = "http://media.local:9696/";
             type = "Prowlarr";
             apikey = "171a6baff00a4b918e722a7de9befaa1";
