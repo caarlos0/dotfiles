@@ -20,9 +20,15 @@ in
     enable = true;
     virtualHosts."media.local" = {
       root = (pkgs.callPackage ../../pkgs/homer { });
-      locations."/".extraConfig = ''
-        add_header 'Access-Control-Allow-Origin' '*';
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+      locations."/tautulli".extraConfig = ''
+        proxy_pass http://127.0.0.1:8181/;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Host $server_name;
+        proxy_set_header 'Access-Control-Allow-Origin' '*';
+        proxy_set_header 'Access-Control-Allow-Methods' '*';
       '';
     };
   };
