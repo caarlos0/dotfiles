@@ -69,9 +69,9 @@ let
             target = "_blank";
           }
           {
-            name = "Bazaarr";
+            name = "Bazarr";
             subtitle = "Subtitles";
-            logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/bazaarr.png";
+            logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/bazarr.png";
             url = "http://media.local:6767/";
             target = "_blank";
           }
