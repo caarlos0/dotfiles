@@ -22,9 +22,11 @@ in
       locations."/tautulli" = {
         proxyPass = "http://media.local:8181/";
         recommendedProxySettings = true;
+        priority = 1;
       };
       locations."/" = {
         root = (pkgs.callPackage ../../pkgs/homer { });
+        priority = 1000;
       };
     };
   };
