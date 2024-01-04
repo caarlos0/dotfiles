@@ -61,7 +61,7 @@ let
           }
           {
             name = "Torrents";
-            url = "http://media.local:9091/";
+            url = "http://media.local:8091/";
             target = "_blank";
           }
           {

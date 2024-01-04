@@ -59,25 +59,32 @@ in
     enable = true;
     openFirewall = true;
   };
-  services.transmission = {
-    enable = true;
-    openFirewall = true;
-    openRPCPort = true;
-    group = "wheel";
-    user = "carlos";
-    settings = {
-      rpc-bind-address = "0.0.0.0";
-      rpc-whitelist = "127.0.0.1,192.168.1.*";
-      rpc-host-whitelist = "media.local";
-      rpc-host-whitelist-enabled = true;
-      download-dir = "/home/carlos/media";
-      incomplete-dir = "/home/carlos/media";
+
+  systemd.services.qbittorrent = {
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "exec";
+      User = "carlos";
+      Group = "wheel";
+      ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=8090";
+      Restart = "on-failure";
+      ProtectSystem = "strict";
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    unpackerr
-  ];
+  systemd.services.flood = {
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "exec";
+      User = "carlos";
+      Group = "wheel";
+      ExecStart = "${pkgs.flood}/bin/flood --host 0.0.0.0 --port=8091";
+      Restart = "on-failure";
+      ProtectSystem = "strict";
+    };
+  };
 
   systemd.services.unpackerr = {
     description = "Unpackerr";
