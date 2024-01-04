@@ -19,17 +19,11 @@ in
   services.caddy = {
     enable = true;
     virtualHosts."media.local".extraConfig = ''
-      handle /tautulli/* {
-        reverse_proxy 127.0.0.1:8181
-      }
-      handle /flood/* {
-        reverse_proxy 127.0.0.1:8091
-      }
-      handle {
-        encode gzip
-        file_server
-        root * ${(pkgs.callPackage ../../pkgs/homer { })}
-      }
+      cors
+      reverse_proxy /tautulli* media.local:8181
+      reverse_proxy /flood* media.local:8091
+      root * ${(pkgs.callPackage ../../pkgs/homer { })}
+      file_server
     '';
   };
 
