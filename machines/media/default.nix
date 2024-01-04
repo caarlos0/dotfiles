@@ -18,14 +18,18 @@ in
 
   services.nginx = {
     enable = true;
+    upstreams = {
+      tautulli.servers."media.local:8181" = { };
+      flood.servers."media.local:8091" = { };
+    };
     virtualHosts."media.local" = {
       locations."~ /tautulli/(.*)" = {
-        proxyPass = "http://media.local:8181/$1";
+        proxyPass = "http://tautulli/$1";
         # recommendedProxySettings = true;
         priority = 1;
       };
       locations."~ /flood/(.*)" = {
-        proxyPass = "http://media.local:8091/$1";
+        proxyPass = "http://flood/$1";
         # recommendedProxySettings = true;
         priority = 2;
       };
