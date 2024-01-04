@@ -1,4 +1,10 @@
-{ stdenv, fetchzip, pkgs, ... }:
+# with import <nixpkgs> { };
+{ fetchFromGitHub
+, fetchYarnDeps
+, mkYarnPackage
+, pkgs
+, ...
+}:
 let
   formatYaml = pkgs.formats.yaml { };
   config = formatYaml.generate "config.yml" {
@@ -49,6 +55,8 @@ let
             endpoint = "http://media.local:8090";
             target = "_blank";
             type = "qBittorrent";
+            username = "admin";
+            password = "adminadmin";
           }
           {
             name = "Sonarr";
@@ -89,18 +97,31 @@ let
     ];
   };
 in
-stdenv.mkDerivation rec {
+mkYarnPackage rec {
   name = "homer";
-  version = "23.10.1";
-  src = fetchzip {
-    url = "https://github.com/bastienwirtz/homer/releases/download/v${version}/homer.zip";
-    hash = "sha256-KUEqrjO9LAoigZsQGLy5JrtsXx+HDXaz4Y4Vpba0uNw=";
-    stripRoot = false;
+  version = "fork";
+  src = fetchFromGitHub {
+    owner = "caarlos0";
+    repo = "homer";
+    rev = "main";
+    hash = "sha256-PuQTbqp2nDLPuhCHICHmLaimpCP8QN/1yo5eHLpF7jM=";
   };
 
-  installPhase = ''
-    mkdir -vp $out
-    cp -r . $out
+  offlineCache = fetchYarnDeps {
+    yarnLock = "${src}/yarn.lock";
+    hash = "sha256-6OAK9zTF/Yev4f/yg3GZfkFMflBzspt3vDnVpo71DPw=";
+  };
+
+  distPhase = "true";
+
+  buildPhase = ''
+    export HOME=$(mktemp -d)
+    yarn --offline build
+  '';
+
+  fixupPhase = ''
+    cp -rf $out/libexec/homer/deps/homer/dist/* $out
+    rm -rf $out/bin $out/libexec
     cp -r ${config} $out/assets/config.yml
   '';
 }

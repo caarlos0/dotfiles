@@ -20,25 +20,11 @@ in
     enable = true;
     upstreams = {
       tautulli.servers."media.local:8181" = { };
-      flood.servers."media.local:8091" = { };
     };
     virtualHosts."media.local" = {
       locations."~ /tautulli/(.*)" = {
         proxyPass = "http://tautulli/$1$is_args$args";
-        # recommendedProxySettings = true;
         priority = 1;
-        extraConfig = ''
-          proxy_redirect off;
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Host $server_name;
-        '';
-      };
-      locations."~ /flood/(.*)" = {
-        proxyPass = "http://flood/$1$is_args$args";
-        # recommendedProxySettings = true;
-        priority = 2;
         extraConfig = ''
           proxy_redirect off;
           proxy_set_header Host $host;
