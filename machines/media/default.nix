@@ -21,14 +21,8 @@ in
     virtualHosts."media.local" = {
       root = (pkgs.callPackage ../../pkgs/homer { });
       locations."/tautulli".extraConfig = ''
-        proxy_pass http://127.0.0.1:8181/;
-        proxy_redirect off;
+        proxy_pass http://media.local:8181/;
         proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Host $server_name;
-        add_header 'Access-Control-Allow-Origin' '*' always;
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
       '';
     };
   };
