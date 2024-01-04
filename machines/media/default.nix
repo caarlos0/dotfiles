@@ -19,7 +19,11 @@ in
   services.caddy = {
     enable = true;
     virtualHosts."media.local".extraConfig = ''
-      cors
+      header {
+        Access-Control-Allow-Headers *
+        Access-Control-Allow-Methods *
+        Access-Control-Allow-Origin *
+      }
       reverse_proxy /tautulli* media.local:8181
       reverse_proxy /flood* media.local:8091
       root * ${(pkgs.callPackage ../../pkgs/homer { })}
