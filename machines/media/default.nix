@@ -139,6 +139,31 @@ in
   };
 
 
+  systemd.services.qbittorrent = {
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "exec";
+      User = "carlos";
+      Group = "wheel";
+      ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=5060";
+      Restart = "on-failure";
+      ProtectSystem = "strict";
+    };
+  };
+
+  systemd.services.flood = {
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "exec";
+      User = "carlos";
+      Group = "wheel";
+      ExecStart = "${pkgs.flood}/bin/flood --host 0.0.0.0 --port=5061";
+      Restart = "on-failure";
+      ProtectSystem = "strict";
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
