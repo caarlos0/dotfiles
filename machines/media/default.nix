@@ -23,7 +23,7 @@ in
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 5055 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 5055 5060 5061 ];
 
   services.plex = {
     enable = true;
