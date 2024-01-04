@@ -16,22 +16,23 @@ in
   networking.hostName = "media";
   services.qemuGuest.enable = true;
 
-  services.caddy = {
+  services.nginx = {
     enable = true;
-    globalConfig = ''
-      auto_https off
-    '';
-    virtualHosts."media.local".extraConfig = ''
-      header {
-        Access-Control-Allow-Headers *
-        Access-Control-Allow-Methods *
-        Access-Control-Allow-Origin *
-      }
-      reverse_proxy /tautulli* media.local:8181
-      reverse_proxy /flood* media.local:8091
-      root * ${(pkgs.callPackage ../../pkgs/homer { })}
-      file_server
-    '';
+    virtualHosts."media.local" = {
+      locations."~ /tautulli/(.*)" = {
+        proxyPass = "http://media.local:8181/$1";
+        # recommendedProxySettings = true;
+        priority = 1;
+      };
+      locations."~ /flood/(.*)" = {
+        proxyPass = "http://media.local:8091/$1";
+        # recommendedProxySettings = true;
+        priority = 2;
+      };
+      locations."/" = {
+        root = (pkgs.callPackage ../../pkgs/homer { });
+      };
+    };
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 5055 8090 8091 ];
