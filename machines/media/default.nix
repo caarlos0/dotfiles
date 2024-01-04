@@ -20,7 +20,7 @@ in
     enable = true;
     virtualHosts."media.local" = {
       root = (pkgs.callPackage ../../pkgs/homer { });
-      locations."/tautulli".extraConfig = ''
+      locations."/tautulli/*".extraConfig = ''
         proxy_pass http://media.local:8181/;
         proxy_set_header Host $host;
       '';
