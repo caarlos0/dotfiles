@@ -59,25 +59,6 @@ in
     enable = true;
     openFirewall = true;
   };
-  services.transmission = {
-    enable = true;
-    openFirewall = true;
-    openRPCPort = true;
-    group = "wheel";
-    user = "carlos";
-    settings = {
-      rpc-bind-address = "0.0.0.0";
-      rpc-whitelist = "127.0.0.1,192.168.1.*";
-      rpc-host-whitelist = "media.local";
-      rpc-host-whitelist-enabled = true;
-      download-dir = "/home/carlos/media";
-      incomplete-dir = "/home/carlos/media";
-    };
-  };
-
-  environment.systemPackages = with pkgs; [
-    unpackerr
-  ];
 
   systemd.services.unpackerr = {
     description = "Unpackerr";
@@ -137,7 +118,6 @@ in
       PrivateMounts = true;
     };
   };
-
 
   systemd.services.qbittorrent = {
     after = [ "network.target" ];
