@@ -45,6 +45,31 @@
     { from = 1024; to = 65535; } # high ports
   ];
 
+  systemd.timers."backup" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "hourly";
+      Persistent = true;
+    };
+  };
+
+  systemd.services."backup" = {
+    path = [
+      pkgs.nix
+    ];
+    environment = {
+      NIX_PATH = "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos";
+    };
+    # TODO: use a proper backup tool... maybe restic?
+    script = ''
+      $HOME/Developer/backup.sh
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "carlos";
+    };
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

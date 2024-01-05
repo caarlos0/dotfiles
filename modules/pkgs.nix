@@ -32,7 +32,6 @@
     ranger
     ripgrep
     sqlite
-    sshpass
     tldr
     unixtools.watch
     unrar
