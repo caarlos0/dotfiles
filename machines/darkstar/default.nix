@@ -54,15 +54,20 @@
   };
 
   systemd.services."backup" = {
-    path = [
-      pkgs.nix
+    path = with pkgs; [
+      rclone
+      curl
+      openssh
     ];
-    environment = {
-      NIX_PATH = "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos";
-    };
-    # TODO: use a proper backup tool... maybe restic?
     script = ''
-      $HOME/Developer/backup.sh
+      rclone copy -v \
+        --no-update-modtime \
+        --exclude 'Go/' \
+        --exclude 'forks/' \
+        $HOME/Developer/ nas:/darkstar/
+      rclone copy $HOME/.localrc.fish nas:/darkstar/
+      rclone copy $HOME/.local/share/fish/fish_history nas:/darkstar/
+      curl -sf https://hc-ping.com/$(cat $HOME/Developer/.PING_ID)
     '';
     serviceConfig = {
       Type = "oneshot";
