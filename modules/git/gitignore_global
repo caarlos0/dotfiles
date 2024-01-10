@@ -43,6 +43,7 @@ vendor/
 
 # Go workspace file
 go.work
+go.work.sum
 
 ####
 # macOS.gitignore
