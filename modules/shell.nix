@@ -4,7 +4,8 @@
     ./starship.nix
     ./lsd.nix
     ./bat.nix
-    ./zoxide.nix
     ./direnv.nix
   ];
+
+  programs.zoxide.enable = true;
 }
