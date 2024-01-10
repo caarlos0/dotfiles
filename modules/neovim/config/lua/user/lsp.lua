@@ -12,6 +12,7 @@ local on_attach = function(client, bufnr)
   keymaps.on_attach(bufnr)
 end
 
+require("lsp_lines").setup()
 local lspconfig = require("lspconfig")
 lspconfig.gopls.setup({
   capabilities = capabilities,

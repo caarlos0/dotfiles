@@ -76,6 +76,7 @@ in
       nvim-surround
       comment-nvim
       treesj
+      lsp_lines-nvim
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
         with plugins; [
           bash
