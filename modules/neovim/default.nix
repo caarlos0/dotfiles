@@ -52,6 +52,7 @@ in
       auto-hlsearch-nvim
       vim-tmux-navigator
       better-escape-nvim
+      bufdelete-nvim
 
       # coding
       nvim-lspconfig
