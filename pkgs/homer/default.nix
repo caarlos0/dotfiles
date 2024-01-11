@@ -22,7 +22,7 @@ let
             endpoint = "http://media.local/tautulli";
             logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/plex.png";
             type = "Tautulli";
-            apikey = "779ac777f02245fda8f23879e0b9eb37";
+            apikey = "e8b5cf4086f0418393d976ef26f40570";
             target = "_blank";
           }
           {
@@ -39,7 +39,7 @@ let
             logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/tautulli.png";
             endpoint = "http://media.local/tautulli";
             type = "Tautulli";
-            apikey = "779ac777f02245fda8f23879e0b9eb37";
+            apikey = "e8b5cf4086f0418393d976ef26f40570";
             target = "_blank";
           }
         ];
