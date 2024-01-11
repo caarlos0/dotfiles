@@ -98,7 +98,6 @@ in
           gomod
           gosum
           gowork
-          gpg
           graphql
           hcl
           html

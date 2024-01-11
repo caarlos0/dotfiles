@@ -101,7 +101,6 @@
                   ./modules/fzf.nix
                   ./modules/tmux
                   ./modules/neovim
-                  ./modules/gpg.nix
                   ./modules/git
                   ./modules/gh
                   ./modules/top.nix
@@ -137,7 +136,6 @@
                   ./modules/ghostty
                   ./modules/tmux
                   ./modules/neovim
-                  ./modules/gpg.nix
                   ./modules/git
                   ./modules/gh
                   ./modules/top.nix
