@@ -11,10 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v24
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - run: nix flake check --show-trace
-
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 # stolen from https://github.com/nekowinston/dotfiles/blob/main/.github/workflows/check.yml
