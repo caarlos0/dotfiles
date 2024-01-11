@@ -1,0 +1,20 @@
+name: Bump flake.lock
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v20
+      - run: nix flake update
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore(nix): update"
+          branch: main
+          file_pattern: flake.lock
