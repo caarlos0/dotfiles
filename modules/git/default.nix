@@ -7,10 +7,6 @@
     delta.enable = true;
     userName = "Carlos Alexandro Becker";
     userEmail = "caarlos0@users.noreply.github.com";
-    signing = {
-      key = "C4AEF954837E820358B990C4E61E2F7DC14AB940";
-      signByDefault = true;
-    };
     aliases = {
       co = "checkout";
       count = "shortlog -sn";
@@ -25,6 +21,9 @@
       unshallow = "fetch --prune --tags --unshallow";
     };
     extraConfig = {
+      commit.gpgSign = true;
+      gpg.format = "ssh";
+      user.signingKey = "~/.ssh/id_ed25519";
       lfs = { enable = true; };
       core = {
         editor = "nvim";
