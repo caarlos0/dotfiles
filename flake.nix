@@ -137,6 +137,7 @@
                   ./modules/ghostty
                   ./modules/tmux
                   ./modules/neovim
+                  ./modules/yubikey.nix
                   ./modules/gpg.nix
                   ./modules/git
                   ./modules/gh
@@ -146,7 +147,6 @@
                   ./modules/charm.nix
                   ./modules/hammerspoon
                   inputs.caarlos0-nur.homeManagerModules.default
-                  # ./modules/yubikey.nix
                   nix-index-database.hmModules.nix-index
                 ];
               };
