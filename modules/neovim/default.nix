@@ -80,9 +80,12 @@ in
       lsp_lines-nvim
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
         with plugins; [
+          arduino
+          awk
           bash
           cpp
           css
+          csv
           diff
           dockerfile
           fish
@@ -93,11 +96,15 @@ in
           gitignore
           go
           gomod
+          gosum
           gowork
+          gpg
           graphql
           hcl
           html
           http
+          http
+          ini
           javascript
           jq
           json
@@ -113,6 +120,7 @@ in
           rust
           scss
           sql
+          ssh_config
           terraform
           toml
           vhs
