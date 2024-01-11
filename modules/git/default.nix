@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     git-lfs
   ];
+  home.file.".ssh/allowed_signers".text = "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILxWe2rXKoiO6W14LYPVfJKzRfJ1f3Jhzxrgjc/D4tU7";
   programs.git = {
     enable = true;
     delta.enable = true;
@@ -23,6 +24,7 @@
     extraConfig = {
       commit.gpgSign = true;
       gpg.format = "ssh";
+      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
       user.signingKey = "~/.ssh/id_ed25519";
       lfs = { enable = true; };
       core = {
