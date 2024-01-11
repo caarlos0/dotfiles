@@ -1,6 +1,5 @@
 {
-  description = "caarlos0's nix-darwin and home-manager configs";
-
+  description = "caarlos0's nixos, nix-darwin, and home-manager configs";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
