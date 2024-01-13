@@ -155,17 +155,12 @@
       devShells = forAllSystems (system:
         let
           pkgs = nixpkgsFor.${system};
-          goreleaser = (import goreleaser-nur {
-            pkgs = pkgs;
-          });
         in
         {
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               go-task
-              goreleaser.goreleaser-pro
               neofetch
-              glow
             ];
           };
         });
