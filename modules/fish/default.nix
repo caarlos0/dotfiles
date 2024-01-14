@@ -1,8 +1,15 @@
 { pkgs, config, ... }: {
   programs.fish = {
     enable = true;
-    shellInit = builtins.readFile ./init.fish;
-    interactiveShellInit = builtins.readFile ./init-interactive.fish;
+    shellInit = ''
+      if test -f ~/.localrc.fish
+          source ~/.localrc.fish
+      end
+    '';
+    interactiveShellInit = ''
+      # disable fish greeting
+      set fish_greeting
+    '';
     plugins = [
       {
         name = "autopair";
