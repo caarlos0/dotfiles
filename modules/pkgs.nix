@@ -82,7 +82,6 @@
     nur.repos.caarlos0.discord-applemusic-rich-presence
     terminal-notifier
     coreutils
-    platformio
     mosquitto
   ]) ++ (lib.optionals pkgs.stdenv.isLinux [
     docker
