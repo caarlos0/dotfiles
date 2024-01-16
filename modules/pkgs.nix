@@ -55,7 +55,6 @@
     golangci-lint
     golangci-lint-langserver
     gopls
-    marksman # markdown lsp
     nil # nix lsp
     nixpkgs-fmt
     pgformatter

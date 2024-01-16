@@ -98,12 +98,6 @@ lspconfig.tsserver.setup({
   },
 })
 
--- XXX: see if it stopped freezing for no reason
--- lspconfig.marksman.setup({
---   capabilities = capabilities,
---   on_attach = on_attach,
--- })
-
 lspconfig.yamlls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
