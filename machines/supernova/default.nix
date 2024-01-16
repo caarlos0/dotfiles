@@ -112,8 +112,7 @@
 
   launchd.agents = {
     pbcopy = {
-      enable = true;
-      config = {
+      serviceConfig = {
         Label = "localhost.pbcopy";
         ProgramArguments = [ "/usr/bin/pbcopy" ];
         RunAtLoad = true;
@@ -133,8 +132,7 @@
       };
     };
     pbpaste = {
-      enable = true;
-      config = {
+      serviceConfig = {
         Label = "localhost.pbpaste";
         ProgramArguments = [ "/usr/bin/pbpaste" ];
         RunAtLoad = true;
