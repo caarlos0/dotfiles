@@ -41,7 +41,7 @@ M.on_attach = function(bufnr)
   end, bufnr)
 
   keymap("<leader>v", function()
-    vim.cmd("<cmd>vsplit | lua vim.lsp.buf.definition()<CR>")
+    vim.cmd("vsplit | lua vim.lsp.buf.definition()")
     vim.cmd("norm zz")
   end, bufnr)
 end
