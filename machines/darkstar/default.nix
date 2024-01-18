@@ -60,10 +60,13 @@
       openssh
     ];
     script = ''
-      rclone copy -v \
+      rclone sync -v \
         --no-update-modtime \
         --exclude 'Go/' \
         --exclude 'forks/' \
+        --exclude '**/.direnv/' \
+        --exclude '**/dist/' \
+        --exclude '**/.git/' \
         $HOME/Developer/ nas:/darkstar/
       rclone copy $HOME/.localrc.fish nas:/darkstar/
       rclone copy $HOME/.local/share/fish/fish_history nas:/darkstar/
