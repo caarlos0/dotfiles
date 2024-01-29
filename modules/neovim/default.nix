@@ -25,9 +25,7 @@ in
       nvim-web-devicons
       nvim-notify
       lualine-nvim
-      # dressing-nvim TODO: https://github.com/stevearc/dressing.nvim/issues/126
-      (fromGitHub "stevearc" "dressing.nvim" "master"
-        "sha256-htUCShHjjwJU26/POs2GHDoUFFxczCXd87Ao//as5ig=")
+      dressing-nvim
 
       # basics
       indent-blankline-nvim
@@ -37,9 +35,7 @@ in
       neotest-go
       neotest-rust
       neotest-jest
-      # TODO: until harpoon2 is merged into main
-      (fromGitHub "ThePrimeagen" "harpoon" "harpoon2"
-        "sha256-WD93Oq1WHrfkdOVbYDJiExr+MP1Uezl5WKA53jEdwmY=")
+      harpoon2
       vim-fugitive
       vim-rhubarb
       vim-abolish
@@ -130,9 +126,7 @@ in
       nvim-treesitter-context
       nvim-treesitter-endwise
       other-nvim
-      # treesitter injections for home-manager
-      (fromGitHub "calops" "hmts.nvim" "v1.2.2"
-        "sha256-jUuztOqNBltC3axa7s3CPJz9Cmukfwkf846+Z/gAxCU=")
+      hmts-nvim # treesitter injections for home-manager
 
       # debug
       nvim-dap
