@@ -56,8 +56,7 @@ in
 
       # coding
       nvim-lspconfig
-      (fromGitHub "stevearc" "conform.nvim" "v4.0.0"
-        "sha256-fcifkP2beaHRIsyZbqk4fdryvXxTJfPGE7dwZ51ENTc=")
+      conform-nvim
       nvim-cmp
       cmp-buffer
       cmp-path

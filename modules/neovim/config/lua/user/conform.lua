@@ -3,12 +3,12 @@ conform.setup({
   formatters_by_ft = {
     css = { "prettier" },
     fish = { "fish_indent" },
-    go = { "gofumpt", "injected" },
+    go = { "gofmt", "gofumpt", "injected" },
     html = { "prettier", "injected" },
     javascript = { "prettier" },
     json = { "jq" },
     lua = { "stylua" },
-    markdown = { "prettier" },
+    markdown = { "prettier", "injected" },
     nix = { "nixpkgs_fmt" },
     rust = { "rustfmt" },
     sh = { "shfmt" },
@@ -16,7 +16,7 @@ conform.setup({
     tf = { "terraform_fmt" },
     yaml = { "prettier" },
     zig = { "zigfmt" },
-    ["_"] = { "trim_whitespace" },
+    ["_"] = { "trim_whitespace", "trim_newlines" },
   },
   format_on_save = {
     lsp_fallback = true,
