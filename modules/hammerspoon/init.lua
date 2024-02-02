@@ -61,3 +61,7 @@ end)
 hotkey.bind(hyper, "P", function()
   hs.application.launchOrFocus("Discord")
 end)
+
+hotkey.bind(hyper, "M", function()
+  hs.application.launchOrFocus("Reminders")
+end)
