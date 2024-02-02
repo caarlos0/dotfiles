@@ -157,7 +157,7 @@
           pkgs = nixpkgsFor.${system};
         in
         {
-          default = pkgs.mkShell {
+          default = pkgs.mkShellNoCC {
             buildInputs = with pkgs; [
               go-task
               neofetch
