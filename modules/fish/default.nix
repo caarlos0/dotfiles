@@ -9,6 +9,7 @@
     interactiveShellInit = ''
       # disable fish greeting
       set fish_greeting
+      fish_config theme choose "Rosé Pine"
     '';
     plugins = [
       {
@@ -96,12 +97,10 @@
     source = config.lib.file.mkOutOfStoreSymlink ./functions;
   };
 
-  # fish_config theme choose "Catppuccin Mocha"
-  # fish_config theme save
-  xdg.configFile."fish/themes/Catppuccin Mocha.theme" = {
+  xdg.configFile."fish/themes/Rosé Pine.theme" = {
     source = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/catppuccin/fish/main/themes/Catppuccin%20Mocha.theme";
-      sha256 = "MlI9Bg4z6uGWnuKQcZoSxPEsat9vfi5O1NkeYFaEb2I=";
+      url = "https://raw.githubusercontent.com/rose-pine/fish/main/themes/Rosé%20Pine.theme";
+      sha256 = "sha256-aRk1M8a3za36l6MNiOlD3PwVZqtXiv6I+s3WacqPDhw=";
     };
   };
 }
