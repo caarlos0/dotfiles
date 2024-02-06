@@ -1,13 +1,5 @@
 require("catppuccin").setup({
   flavour = "mocha",
-  highlight_overrides = {
-    mocha = function(C)
-      return {
-        TabLineSel = { bg = C.pink },
-        TelescopeBorder = { link = "FloatBorder" },
-      }
-    end,
-  },
   integrations = {
     cmp = true,
     dap = {
