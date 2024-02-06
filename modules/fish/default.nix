@@ -96,6 +96,8 @@
     source = config.lib.file.mkOutOfStoreSymlink ./functions;
   };
 
+  # fish_config theme choose "Catppuccin Mocha"
+  # fish_config theme save
   xdg.configFile."fish/themes/Catppuccin Mocha.theme" = {
     source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/catppuccin/fish/main/themes/Catppuccin%20Mocha.theme";
