@@ -2,5 +2,7 @@
 #
 # Copies the last commit SHA1 to the clipboard.
 #
-git show --format="%H" --no-patch HEAD --quiet | tee /dev/stderr | pbcopy
-
+git show --format="%H" --no-patch HEAD --quiet |
+  tee /dev/stderr |
+  tr -d '\n' |
+  pbcopy
