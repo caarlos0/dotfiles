@@ -50,8 +50,7 @@ in
       vim-tmux-navigator
       better-escape-nvim
       bufdelete-nvim
-      (fromGitHub "laytan" "cloak.nvim" "main"
-        "sha256-fL+qUK22QkNGxbnL8MH+97nl3QkRd8zizHcdJnDv0Eo=")
+      cloak-nvim
 
       # coding
       nvim-lspconfig
