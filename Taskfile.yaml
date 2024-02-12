@@ -7,6 +7,11 @@ vars:
     sh: "hostname | cut -f1 -d'.'"
 
 tasks:
+  sync:
+    cmds:
+      - git pull --rebase origin main
+      - task: apply
+      - task: clean
   release:
     vars:
       TAG:
