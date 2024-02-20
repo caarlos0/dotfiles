@@ -12,6 +12,7 @@ tasks:
       - git pull --rebase origin main
       - task: apply
       - task: clean
+      - task: apply
   release:
     vars:
       TAG:
