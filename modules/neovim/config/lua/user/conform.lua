@@ -3,8 +3,8 @@ conform.setup({
   formatters_by_ft = {
     css = { "prettier" },
     fish = { "fish_indent" },
-    go = { "gofmt", "gofumpt", "injected" },
-    html = { "prettier", "injected" },
+    go = { "gofumpt" },
+    html = { "prettier" },
     javascript = { "prettier" },
     json = { "jq" },
     lua = { "stylua" },
