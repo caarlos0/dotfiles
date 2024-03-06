@@ -61,8 +61,7 @@ in
       cmp-cmdline
       cmp-emoji
       cmp-calc
-      # nvim-autopairs TODO: version 2024-02-17 is broken
-      (fromGitHub "windwp" "nvim-autopairs" "master" "sha256-w95F9wK3M3S4P43kKPT/uM+PFT/Z6NcTDLj60H2r/tQ=")
+      nvim-autopairs
       nvim-ts-autotag
       cmp-nvim-lsp
       cmp-nvim-lsp-signature-help
