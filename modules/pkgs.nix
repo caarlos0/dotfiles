@@ -39,10 +39,20 @@
     wget
     yarn
 
+    # gke stuff
+    (google-cloud-sdk.withExtraComponents [
+      google-cloud-sdk.components.gke-gcloud-auth-plugin
+    ])
+    kubectl
+    kubectx
+    stern
+    argocd
+
     # From NUR
     nur.repos.caarlos0.gocovsh
     nur.repos.caarlos0.jsonfmt
     nur.repos.caarlos0.svu
+    nur.repos.caarlos0.glyphs
     nur.repos.goreleaser.goreleaser-pro
 
     # treesitter, lsps, formatters, etc

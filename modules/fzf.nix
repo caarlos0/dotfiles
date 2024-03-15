@@ -2,6 +2,7 @@
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
+    # --> Catppuccin (Mocha)
     colors = {
       "bg+" = "#26233a";
       "fg+" = "#e0def4";

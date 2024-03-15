@@ -11,6 +11,11 @@
 
   networking.hostName = "darkstar";
 
+  # https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+  ];
+
   virtualisation.docker.enable = true;
   users.users.carlos.extraGroups = [ "docker" ];
 

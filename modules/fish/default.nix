@@ -97,6 +97,8 @@
     source = config.lib.file.mkOutOfStoreSymlink ./functions;
   };
 
+  # fish_config theme choose "Rosé Pine"
+  # fish_config theme save
   xdg.configFile."fish/themes/Rosé Pine.theme" = {
     source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/rose-pine/fish/main/themes/Rosé%20Pine.theme";

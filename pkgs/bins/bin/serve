@@ -1,0 +1,4 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p python3Minimal
+# vim: set ft=sh
+python3 -m http.server --bind 0 --directory . 8000
