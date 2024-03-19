@@ -26,7 +26,6 @@ in
       nvim-notify
       lualine-nvim
       dressing-nvim
-      nvim-bqf
 
       # basics
       indent-blankline-nvim
