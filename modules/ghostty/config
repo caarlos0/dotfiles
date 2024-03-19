@@ -10,7 +10,7 @@ mouse-hide-while-typing = true
 shell-integration = none
 cursor-style = block
 cursor-style-blink = true
-theme = catppuccin-mocha
+theme = rose-pine
 clipboard-read = "allow"
 clipboard-paste-protection = false
 
@@ -38,4 +38,3 @@ font-codepoint-map = U+e5fa-U+e6b1=JetBrainsMono Nerd Font Mono
 
 # codicons
 font-codepoint-map = U+ea60-U+ebeb=JetBrainsMono Nerd Font Mono
-

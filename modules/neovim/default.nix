@@ -21,7 +21,7 @@ in
     vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
       # ui
-      catppuccin-nvim
+      rose-pine
       nvim-web-devicons
       nvim-notify
       lualine-nvim
