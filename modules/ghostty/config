@@ -6,7 +6,6 @@
 window-theme = "dark"
 confirm-close-surface = false
 macos-option-as-alt = true
-mouse-hide-while-typing = true
 shell-integration = none
 cursor-style = block
 cursor-style-blink = true
