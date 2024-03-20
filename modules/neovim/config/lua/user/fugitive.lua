@@ -1,3 +1,5 @@
+vim.g.fugitive_legacy_commands = 0
+
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("user-fugitive", { clear = true }),
   pattern = "fugitive",
