@@ -159,8 +159,27 @@
         {
           default = pkgs.mkShellNoCC {
             buildInputs = with pkgs; [
-              go-task
-              neofetch
+              (writeScriptBin "dot-release" ''
+                git tag -m "$(date +%Y.%m.%d)" "$(date +%Y.%m.%d)"
+                git push --tags
+                goreleaser release --clean
+              '')
+              (writeScriptBin "dot-sync" ''
+                git pull --rebase origin main
+                nix flake update
+                nix-apply
+                nix-collect-garbage -d
+                nix-apply
+              '')
+              (writeScriptBin "nix-apply" ''
+                if test $(uname -s) == "Linux"; then
+                  sudo nixos-rebuild switch --flake .#
+                fi
+                if test $(uname -s) == "Darwin"; then
+                  nix build "./#darwinConfigurations.$(hostname | cut -f1 -d'.').system"
+                  ./result/sw/bin/darwin-rebuild switch --flake .
+                fi
+              '')
             ];
           };
         });

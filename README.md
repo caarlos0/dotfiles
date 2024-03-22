@@ -20,11 +20,11 @@ for several machines and VMs I use.
 To apply updates, simply run:
 
 ```bash
-task update apply
+dot-sync
 ```
 
 # Clean up
 
 ```sh
-nix-collect-garbage
+nix-collect-garbage -d
 ```
