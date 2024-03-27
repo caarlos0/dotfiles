@@ -9,7 +9,7 @@ macos-option-as-alt = true
 shell-integration = none
 cursor-style = block
 cursor-style-blink = true
-theme = rose-pine
+theme = catppuccin-mocha
 clipboard-read = "allow"
 clipboard-paste-protection = false
 
