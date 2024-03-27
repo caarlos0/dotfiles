@@ -67,6 +67,8 @@
     script = ''
       rclone sync -v \
         --no-update-modtime \
+        --disable PartialUploads \
+        --links \
         --exclude 'Go/' \
         --exclude 'forks/' \
         --exclude '**/.direnv/' \
