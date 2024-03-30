@@ -167,11 +167,11 @@
               (writeScriptBin "dot-sync" ''
                 git pull --rebase origin main
                 nix flake update
-                nix-apply
+                dot-apply
                 nix-collect-garbage -d
-                nix-apply
+                dot-apply
               '')
-              (writeScriptBin "nix-apply" ''
+              (writeScriptBin "dot-apply" ''
                 if test $(uname -s) == "Linux"; then
                   sudo nixos-rebuild switch --flake .#
                 fi
