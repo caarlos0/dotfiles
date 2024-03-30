@@ -26,6 +26,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end, "Git push tracking origin")
 
     keymap("<leader>o", function()
+      vim.cmd.Git("push")
       vim.cmd.Git("pr")
     end, "Git push & open browser in PR view")
 
