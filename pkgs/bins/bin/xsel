@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -eo pipefail
+for i in "$@"; do
+  if test "$i" = "--input"; then
+    pbcopy
+  fi
+  if test "$i" = "--output"; then
+    pbpaste
+  fi
+done

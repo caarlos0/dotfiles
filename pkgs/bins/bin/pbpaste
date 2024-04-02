@@ -4,6 +4,4 @@ if test -n "$SSH_TTY"; then
   nc -w1 -c localhost 2225
 elif test "$(uname)" = Darwin; then
   /usr/bin/pbpaste
-else
-  xsel --clipboard --output
 fi
