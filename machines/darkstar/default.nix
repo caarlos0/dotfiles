@@ -58,6 +58,7 @@
     };
   };
 
+  # NOTE: need to run `rclone config` once for it to work.
   systemd.services."backup" = {
     path = with pkgs; [
       rclone
