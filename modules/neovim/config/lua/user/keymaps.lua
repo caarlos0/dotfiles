@@ -51,8 +51,9 @@ keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
 
 -- keep more or less in the same place when going up/down
-keymap("n", "<C-u>", "<C-u>zz", opts)
-keymap("n", "<C-d>", "<C-d>zz", opts)
+-- BUG: https://github.com/neovim/neovim/issues/28106
+-- keymap("n", "<C-u>", "<C-u>zz", opts)
+-- keymap("n", "<C-d>", "<C-d>zz", opts)
 keymap("n", "<C-o>", "<C-o>zz", opts)
 keymap("n", "<C-i>", "<C-i>zz", opts)
 
