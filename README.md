@@ -32,7 +32,7 @@ nix-collect-garbage -d
 
 # Create release
 
-To apply updates, simply run:
+To create a release, run:
 
 ```bash
 nix develop .#default --command dot-release
