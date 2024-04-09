@@ -42,7 +42,6 @@ telescope.setup({
 
 telescope.load_extension("gh")
 telescope.load_extension("harpoon")
-telescope.load_extension("dap")
 
 local opts = { noremap = true, silent = true }
 local builtin = require("telescope.builtin")

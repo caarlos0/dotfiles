@@ -25,7 +25,6 @@ require("dressing").setup({
     insert_only = false,
   },
 })
-require("user.test")
 require("user.harpoon")
 require("user.telescope")
 require("user.fugitive")
@@ -52,6 +51,5 @@ require("user.cmp")
 require("nvim-surround").setup()
 require("Comment").setup()
 require("user.treesitter")
-require("user.debug")
 require("user.other")
 require("user.conform")

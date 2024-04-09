@@ -31,10 +31,6 @@ in
       indent-blankline-nvim
       gitsigns-nvim
       todo-comments-nvim
-      neotest
-      neotest-go
-      neotest-rust
-      neotest-jest
       harpoon2
       vim-fugitive
       vim-rhubarb
@@ -127,14 +123,6 @@ in
       nvim-treesitter-endwise
       other-nvim
       hmts-nvim # treesitter injections for home-manager
-
-      # debug
-      nvim-dap
-      nvim-dap-ui
-      nvim-dap-go
-      telescope-dap-nvim
-      nvim-dap-virtual-text
-
 
       # others
       vim-wakatime
