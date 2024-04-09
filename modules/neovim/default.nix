@@ -123,9 +123,6 @@ in
       nvim-treesitter-endwise
       other-nvim
       hmts-nvim # treesitter injections for home-manager
-
-      # others
-      vim-wakatime
     ];
   };
 
