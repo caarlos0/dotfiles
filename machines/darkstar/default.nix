@@ -43,7 +43,11 @@
   };
 
   environment.systemPackages = with pkgs; [
+    coreutils-full
+    dig
     gcc
+    inetutils
+    util-linux
   ];
 
   networking.firewall.allowedTCPPortRanges = [
