@@ -2,7 +2,7 @@ local group = vim.api.nvim_create_augroup("LSP", { clear = true })
 
 -- Format code and organize imports (if supported).
 --
----@param client lsp.Client Client
+---@param client vim.lsp.Client Client
 ---@param bufnr number Buffer number
 ---@param timeoutms number timeout in ms
 local organize_imports = function(client, bufnr, timeoutms)
@@ -45,7 +45,7 @@ local M = {}
 
 --- On attach adds all the autocommands we might need when attaching a lsp server to a buffer.
 --
----@param client table Client object
+---@param client vim.lsp.Client Client object
 ---@param bufnr number
 M.on_attach = function(client, bufnr)
   if client.server_capabilities.codeActionProvider and client.name ~= "lua_ls" then
@@ -63,7 +63,7 @@ M.on_attach = function(client, bufnr)
       buffer = bufnr,
       callback = function()
         if is_alive(client) then
-          vim.lsp.codelens.refresh()
+          vim.lsp.codelens.refresh({ bufnr = bufnr })
         end
       end,
       group = group,
@@ -73,7 +73,7 @@ M.on_attach = function(client, bufnr)
       buffer = bufnr,
       callback = function()
         if is_alive(client) then
-          vim.lsp.codelens.clear()
+          vim.lsp.codelens.clear(client.id, bufnr)
         end
       end,
       group = group,
