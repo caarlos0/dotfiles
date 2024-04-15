@@ -67,7 +67,6 @@ in
       friendly-snippets
       neodev-nvim
       nvim-surround
-      comment-nvim
       treesj
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
         with plugins; [
