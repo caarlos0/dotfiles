@@ -27,70 +27,80 @@ end
 
 local M = {}
 
+-- Checks if the given buffer has any lsp clients that support the given method.
+--
+---@param bufnr number Buffer number
+---@param method string Method name
+---@return boolean
+local has_clients_with_method = function(bufnr, method)
+  local clients = vim.lsp.get_clients({ bufnr = bufnr, method = method })
+  return #clients > 0
+end
+
+---@param bufnr number
+---@param method string
+---@param fn function(client)
+local on_clients = function(bufnr, method, fn)
+  local clients = vim.lsp.get_clients({ bufnr = bufnr, method = method })
+  for _, client in ipairs(clients) do
+    fn(client)
+  end
+end
+
 M.setup = function()
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function()
       if vim.lsp.inlay_hint.is_enabled(0) then
         return
       end
-      local clients = vim.lsp.get_clients({ bufnr = 0, method = ms.textDocument_inlayHint })
-      if #clients == 0 then
-        return
+      if has_clients_with_method(0, ms.textDocument_inlayHint) then
+        vim.lsp.inlay_hint.enable(0, true)
       end
-      vim.lsp.inlay_hint.enable(0, true)
     end,
   })
   vim.api.nvim_create_autocmd("LspDetach", {
     callback = function()
-      local clients = vim.lsp.get_clients({ bufnr = 0, method = ms.textDocument_codeLens })
-      for _, client in ipairs(clients) do
+      on_clients(0, ms.textDocument_codeLens, function(client)
         vim.lsp.codelens.clear(client.id, 0)
-      end
+      end)
     end,
     group = group,
   })
 
   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     callback = function()
-      local clients = vim.lsp.get_clients({ bufnr = 0, method = ms.textDocument_codeAction })
-      for _, client in ipairs(clients) do
+      on_clients(0, ms.textDocument_codeAction, function(client)
         if client.name ~= "lua_ls" then
           organize_imports(client, 0, 1500)
         end
-      end
+      end)
     end,
     group = group,
   })
 
   vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
     callback = function()
-      local clients = vim.lsp.get_clients({ bufnr = 0, method = ms.textDocument_codeLens })
-      if #clients == 0 then
-        return
+      if has_clients_with_method(0, ms.textDocument_codeLens) then
+        vim.lsp.codelens.refresh({ bufnr = 0 })
       end
-      vim.lsp.codelens.refresh({ bufnr = 0 })
     end,
     group = group,
   })
 
   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
     callback = function()
-      local clients = vim.lsp.get_clients({ bufnr = 0, method = ms.textDocument_documentHighlight })
-      if #clients == 0 then
-        return
+      if has_clients_with_method(0, ms.textDocument_documentHighlight) then
+        vim.lsp.buf.document_highlight()
       end
-      vim.lsp.buf.document_highlight()
     end,
     group = group,
   })
 
   vim.api.nvim_create_autocmd({ "CursorMoved" }, {
     callback = function()
-      local clients = vim.lsp.get_clients({ bufnr = 0, method = ms.textDocument_documentHighlight })
-      if #clients == 0 then
-        return
+      if has_clients_with_method(0, ms.textDocument_documentHighlight) then
+        vim.lsp.buf.clear_references()
       end
-      vim.lsp.buf.clear_references()
     end,
     group = group,
   })
