@@ -1,14 +1,10 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local autocmds = require("lsp_autocommands")
 local keymaps = require("lsp_keymaps")
+require("lsp_autocommands").setup()
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  if client.server_capabilities.inlayHintProvider and vim.fn.has("nvim-0.10") then -- doesn't work in neovim 0.9
-    vim.lsp.inlay_hint.enable(bufnr, true)
-  end
-  autocmds.on_attach(client, bufnr)
   keymaps.on_attach(bufnr)
 end
 
