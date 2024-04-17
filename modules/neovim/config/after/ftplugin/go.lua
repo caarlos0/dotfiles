@@ -4,7 +4,7 @@ local function restart(name)
   local configs = require("lspconfig.configs")
   local bufnr = vim.api.nvim_get_current_buf()
   for _, client in
-    ipairs(vim.lsp.get_active_clients({
+    ipairs(vim.lsp.get_clients({
       bufnr = bufnr,
       name = name,
     }))
