@@ -49,10 +49,11 @@
     argocd
 
     # From NUR
+    nur.repos.caarlos0.glyphs
     nur.repos.caarlos0.gocovsh
+    nur.repos.caarlos0.gopls # always latest
     nur.repos.caarlos0.jsonfmt
     nur.repos.caarlos0.svu
-    nur.repos.caarlos0.glyphs
     nur.repos.goreleaser.goreleaser-pro
 
     # treesitter, lsps, formatters, etc
@@ -64,7 +65,6 @@
     gofumpt
     golangci-lint
     golangci-lint-langserver
-    gopls
     nil # nix lsp
     nixpkgs-fmt
     pgformatter
