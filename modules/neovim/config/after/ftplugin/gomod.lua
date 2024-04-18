@@ -1,4 +1,1 @@
-vim.cmd.runtime({
-  "after/ftplugin/go.lua",
-  bang = true,
-})
+vim.cmd.runtime({ "after/ftplugin/go.lua", bang = true })
