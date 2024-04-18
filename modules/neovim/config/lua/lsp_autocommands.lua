@@ -74,6 +74,12 @@ M.setup = function()
           organize_imports(client, 0, 1500)
         end
       end)
+      if
+        has_clients_with_method(0, ms.textDocument_formatting)
+        or has_clients_with_method(0, ms.textDocument_rangeFormatting)
+      then
+        vim.lsp.buf.format()
+      end
     end,
     group = group,
   })
