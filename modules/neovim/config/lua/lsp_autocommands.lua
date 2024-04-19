@@ -59,10 +59,12 @@ M.setup = function()
     end,
   })
   vim.api.nvim_create_autocmd("LspDetach", {
-    callback = function()
-      on_clients(0, ms.textDocument_codeLens, function(client)
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client ~= nil then
         vim.lsp.codelens.clear(client.id, 0)
-      end)
+        vim.api.nvim_del_user_command("GoModTidy")
+      end
     end,
     group = group,
   })

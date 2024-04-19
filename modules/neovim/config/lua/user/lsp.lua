@@ -2,12 +2,6 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local keymaps = require("lsp_keymaps")
 require("lsp_autocommands").setup()
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  keymaps.on_attach(bufnr)
-end
-
 local lspconfig = require("lspconfig")
 lspconfig.gopls.setup({
   capabilities = capabilities,
@@ -25,7 +19,7 @@ lspconfig.gopls.setup({
         range = true,
       }
     end
-    on_attach(client, bufnr)
+    keymaps.on_attach(bufnr)
   end,
   settings = {
     gopls = {
