@@ -54,7 +54,7 @@ M.setup = function()
         return
       end
       if has_clients_with_method(0, ms.textDocument_inlayHint) then
-        vim.lsp.inlay_hint.enable(0, true)
+        vim.lsp.inlay_hint.enable(true, { buffer = 0 })
       end
     end,
   })
