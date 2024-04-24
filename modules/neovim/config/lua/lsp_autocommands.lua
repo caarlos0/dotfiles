@@ -49,21 +49,24 @@ end
 
 M.setup = function()
   vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function()
-      if vim.lsp.inlay_hint.is_enabled(0) then
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client == nil then
         return
       end
-      if has_clients_with_method(0, ms.textDocument_inlayHint) then
-        vim.lsp.inlay_hint.enable(true, { buffer = 0 })
+      if client.server_capabilities.codeLensProvider then
+        vim.lsp.inlay_hint.enable(true)
       end
     end,
   })
   vim.api.nvim_create_autocmd("LspDetach", {
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if client ~= nil then
-        vim.lsp.codelens.clear(client.id, 0)
-        vim.api.nvim_del_user_command("GoModTidy")
+      if client == nil then
+        return
+      end
+      if client.server_capabilities.codeLensProvider then
+        vim.lsp.codelens.clear(client.id)
       end
     end,
     group = group,
