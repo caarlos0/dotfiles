@@ -13,11 +13,11 @@ vim.api.nvim_buf_create_user_command(bufnr, "GoModTidy", function()
     command = "gopls.tidy",
     arguments = arguments,
   })
-  -- vim.cmd("silent! e") -- do we need this?
 end, { desc = "go mod tidy" })
 
 vim.keymap.set("n", "<leader>gmt", vim.cmd.GoModTidy, {
   noremap = true,
   silent = true,
+  buffer = bufnr,
   desc = "Run go mod tidy",
 })
