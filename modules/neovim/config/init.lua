@@ -16,9 +16,7 @@ require("user.lualine")
 -- BASIC
 --
 require("user.indent")
-require("gitsigns").setup({
-  current_line_blame = true,
-})
+require("gitsigns").setup()
 require("user.todo")
 require("dressing").setup({
   input = {
