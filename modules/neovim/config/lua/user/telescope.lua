@@ -26,6 +26,7 @@ telescope.setup({
     selection_caret = " ❯ ",
     entry_prefix = "   ",
     multi_icon = "+ ",
+    path_display = { "filename_first" },
     vimgrep_arguments = {
       "rg",
       "--color=never",
