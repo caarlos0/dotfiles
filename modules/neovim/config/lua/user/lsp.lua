@@ -1,26 +1,28 @@
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local keymaps = require("lsp_keymaps")
 require("lsp_autocommands").setup()
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend("force", capabilities, cmp_capabilities)
+capabilities = vim.tbl_deep_extend("force", capabilities, {
+  workspace = {
+    didChangeWatchedFiles = {
+      dynamicRegistration = true,
+    },
+  },
+})
+
+---@param client vim.lsp.Client LSP client
+---@param bufnr number Buffer number
+---@diagnostic disable: unused-local
+local on_attach = function(client, bufnr)
+  keymaps.on_attach(bufnr)
+end
 
 local lspconfig = require("lspconfig")
 lspconfig.gopls.setup({
   capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    -- workaround for gopls not supporting semanticTokensProvider
-    -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-    if not client.server_capabilities.semanticTokensProvider then
-      local semanticTokens = client.config.capabilities.textDocument.semanticTokens
-      client.server_capabilities.semanticTokensProvider = {
-        full = true,
-        legend = {
-          tokenTypes = semanticTokens.tokenTypes,
-          tokenModifiers = semanticTokens.tokenModifiers,
-        },
-        range = true,
-      }
-    end
-    keymaps.on_attach(bufnr)
-  end,
+  on_attach = on_attach,
   settings = {
     gopls = {
       gofumpt = true,
