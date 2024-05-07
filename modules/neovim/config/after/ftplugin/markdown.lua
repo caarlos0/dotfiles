@@ -1,4 +1,5 @@
 vim.opt_local.textwidth = 80
+vim.opt_local.formatoptions:remove("ct")
 
 local CR = vim.api.nvim_replace_termcodes("<cr>", true, true, true)
 local function toggle_checkbox()
