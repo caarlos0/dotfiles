@@ -52,7 +52,9 @@
           RemoteCommand = "tmux new -A -s default";
         };
       };
-      "aur.archlinux.org" = { identityFile = "~/.ssh/aur"; };
+      "aur.archlinux.org" = {
+        identityFile = "~/.ssh/aur";
+      };
       "github.com" = {
         serverAliveInterval = 0;
         extraOptions = {
