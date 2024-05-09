@@ -10,6 +10,10 @@
           TERM = "xterm-256color";
         };
 
+        sendEnv = [
+          "COLORTERM"
+        ];
+
         extraOptions = {
           IgnoreUnknown = "UseKeychain";
           UseKeyChain = "yes";
