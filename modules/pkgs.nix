@@ -51,6 +51,7 @@
     nur.repos.caarlos0.glyphs
     nur.repos.caarlos0.gocovsh
     nur.repos.caarlos0.gopls # always latest
+    nur.repos.caarlos0.golangci-lint # always latest
     nur.repos.caarlos0.jsonfmt
     nur.repos.caarlos0.svu
     nur.repos.goreleaser.goreleaser-pro
@@ -62,7 +63,6 @@
     delve
     dockerfile-language-server-nodejs
     gofumpt
-    golangci-lint
     golangci-lint-langserver
     nil # nix lsp
     nixpkgs-fmt
