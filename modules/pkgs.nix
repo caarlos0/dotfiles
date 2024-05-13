@@ -15,7 +15,6 @@
     curl
     entr
     fd
-    ffmpeg_6-full
     go-task
     graphviz
     httpstat
@@ -98,6 +97,7 @@
     docker-compose
     lm_sensors
     util-linux
+    ffmpeg_6-full # failing on macos
     # https://nixos.wiki/wiki/podman
     # podman
     # shadow
