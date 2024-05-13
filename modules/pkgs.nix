@@ -15,6 +15,7 @@
     curl
     entr
     fd
+    gnumake
     go-task
     graphviz
     httpstat
