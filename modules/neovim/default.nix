@@ -122,6 +122,11 @@ in
       nvim-treesitter-endwise
       other-nvim
       hmts-nvim # treesitter injections for home-manager
+
+      # sql
+      vim-dadbod
+      vim-dadbod-ui
+      vim-dadbod-completion
     ];
   };
 
