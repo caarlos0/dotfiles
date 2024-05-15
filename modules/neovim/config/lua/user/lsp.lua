@@ -7,7 +7,8 @@ capabilities = vim.tbl_deep_extend("force", capabilities, cmp_capabilities)
 capabilities = vim.tbl_deep_extend("force", capabilities, {
   workspace = {
     didChangeWatchedFiles = {
-      dynamicRegistration = true,
+      dynamicRegistration = true, -- needs fswatch on linux
+      relativePatternSupport = true,
     },
   },
 })
