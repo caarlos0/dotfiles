@@ -16,7 +16,6 @@ require("user.lualine")
 -- BASIC
 --
 require("user.indent")
-require("gitsigns").setup()
 require("user.todo")
 require("dressing").setup({
   input = {
@@ -25,7 +24,7 @@ require("dressing").setup({
 })
 require("user.harpoon")
 require("user.telescope")
-require("user.fugitive")
+require("user.git")
 require("auto-hlsearch").setup()
 require("better_escape").setup({
   mapping = { "jk", "kj" },
