@@ -25,7 +25,7 @@ k("[k", function()
 end, "Harpoon next")
 
 k("<leader>m", function()
-  harpoon:list():append()
+  harpoon:list():add()
 end, "Harpoon mark current file")
 
 k("<A-e>", function()
