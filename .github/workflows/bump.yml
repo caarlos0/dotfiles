@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v26
+      - uses: cachix/install-nix-action@V27
       - run: nix flake update
       - uses: stefanzweifel/git-auto-commit-action@v5
         env:
