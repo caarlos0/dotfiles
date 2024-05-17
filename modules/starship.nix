@@ -3,29 +3,47 @@
     enable = true;
     enableTransience = true;
     settings = {
-      aws.disabled = true;
-      cmake.disabled = true;
       cmd_duration = {
         min_time = 500;
         format = "[$duration]($style) ";
       };
-      conda.disabled = true;
-      crystal.disabled = true;
-      dart.disabled = true;
+      git_branch.symbol = " ";
+      git_status.format = "[$ahead_behind$untracked$modified]($style) ";
       directory = {
         read_only = " ";
         truncate_to_repo = false;
       };
+      username.format = "[$user]($style)";
+      hostname = {
+        ssh_symbol = "@";
+        format = "$ssh_symbol[$hostname](bright-blue) ";
+      };
+
+      aws.disabled = true;
+      azure.disabled = true;
+      buf.disabled = true;
+      bun.disabled = true;
+      c.disabled = true;
+      cmake.disabled = true;
+      conda.disabled = true;
+      container.disabled = true;
+      crystal.disabled = true;
+      daml.disabled = true;
+      dart.disabled = true;
+      deno.disabled = true;
       docker_context.disabled = true;
       dotnet.disabled = true;
       elixir.disabled = true;
       elm.disabled = true;
       env_var.disabled = true;
       erlang.disabled = true;
+      fennel.disabled = true;
       gcloud.disabled = true;
-      git_branch.symbol = " ";
-      git_status.format = "[$ahead_behind$untracked$modified]($style) ";
       golang.disabled = true;
+      gradle.disabled = true;
+      guix_shell.disabled = true;
+      haskell.disabled = true;
+      haxe.disabled = true;
       helm.disabled = true;
       java.disabled = true;
       jobs.disabled = true;
@@ -52,11 +70,6 @@
       terraform.disabled = true;
       vagrant.disabled = true;
       zig.disabled = true;
-      username.format = "[$user]($style)";
-      hostname = {
-        ssh_symbol = "@";
-        format = "$ssh_symbol[$hostname](bright-blue) ";
-      };
     };
   };
   programs.fish.interactiveShellInit = "
