@@ -36,10 +36,10 @@ cmp.setup({
     ["<C-d>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete({}),
     ["<C-e>"] = cmp.mapping.abort(),
-    ["<CR>"] = cmp.mapping.confirm({
+    ["<C-y>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
-    }),
+    }, { "i", "c" }),
     ["<Up>"] = cmp.mapping.select_prev_item(cmp_select_opts),
     ["<Down>"] = cmp.mapping.select_next_item(cmp_select_opts),
     ["<C-p>"] = cmp.mapping(function()
@@ -56,26 +56,14 @@ cmp.setup({
         cmp.complete()
       end
     end),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      local col = vim.fn.col(".") - 1
-
-      if cmp.visible() then
-        cmp.select_next_item(cmp_select_opts)
-      elseif luasnip.expand_or_jumpable() then
+    ["<C-k>"] = cmp.mapping(function()
+      if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
-      elseif col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
-        fallback()
-      else
-        cmp.complete()
       end
     end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item(cmp_select_opts)
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
+    ["<C-j>"] = cmp.mapping(function()
+      if luasnip.expand_or_jumpable(-1) then
+        luasnip.expand_or_jump(-1)
       end
     end, { "i", "s" }),
   }),
