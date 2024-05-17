@@ -31,6 +31,7 @@
     p7zip
     ranger
     ripgrep
+    scc
     sqlite
     tldr
     unixtools.watch
