@@ -54,7 +54,7 @@ M.setup = function()
       if client == nil then
         return
       end
-      if client.server_capabilities.codeLensProvider then
+      if client.supports_method(ms.textDocument_codeLens) then
         vim.lsp.inlay_hint.enable(true)
       end
     end,
@@ -65,7 +65,7 @@ M.setup = function()
       if client == nil then
         return
       end
-      if client.server_capabilities.codeLensProvider then
+      if client.supports_method(ms.textDocument_codeLens) then
         vim.lsp.codelens.clear(client.id)
       end
     end,
