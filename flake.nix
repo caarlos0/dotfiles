@@ -6,7 +6,7 @@
     caarlos0-nur.url = "github:caarlos0/nur";
     charmbracelet-nur.url = "github:charmbracelet/nur";
     goreleaser-nur.url = "github:goreleaser/nur";
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    # neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -26,7 +26,7 @@
 
   outputs =
     { nur
-    , neovim-nightly
+      # , neovim-nightly
     , caarlos0-nur
     , charmbracelet-nur
     , goreleaser-nur
@@ -38,7 +38,7 @@
     }@inputs:
     let
       overlays = [
-        inputs.neovim-nightly.overlay
+        # inputs.neovim-nightly.overlay
         (final: prev: {
           nur = import nur {
             nurpkgs = prev;
