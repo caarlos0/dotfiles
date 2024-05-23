@@ -20,14 +20,16 @@ for several machines and VMs I use.
 To apply updates, simply run:
 
 ```bash
-nix develop .#default --command dot-apply
-nix develop .#default --command dot-sync
+nix develop -c dot-apply
+
+# pull, update flake, clean old, apply
+nix develop -c dot-sync
 ```
 
 # Clean up
 
 ```sh
-nix-collect-garbage -d
+nix develop -c dot-clean
 ```
 
 # Create release
@@ -35,5 +37,5 @@ nix-collect-garbage -d
 To create a release, run:
 
 ```bash
-nix develop .#default --command dot-release
+nix develop -c dot-release
 ```

@@ -159,6 +159,9 @@
         {
           default = pkgs.mkShellNoCC {
             buildInputs = with pkgs; [
+              (writeScriptBin "dot-clean" ''
+                nix-collect-garbage -d --delete-older-than 30d
+              '')
               (writeScriptBin "dot-release" ''
                 git tag -m "$(date +%Y.%m.%d)" "$(date +%Y.%m.%d)"
                 git push --tags
@@ -167,8 +170,7 @@
               (writeScriptBin "dot-sync" ''
                 git pull --rebase origin main
                 nix flake update
-                dot-apply
-                nix-collect-garbage -d
+                dot-clean
                 dot-apply
               '')
               (writeScriptBin "dot-apply" ''
