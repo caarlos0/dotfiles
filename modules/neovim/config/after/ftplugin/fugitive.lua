@@ -8,7 +8,7 @@ local keymap = function(lhs, rhs, desc)
 end
 
 keymap("<leader>p", function()
-  vim.cmd.Git("push")
+  vim.cmd.Git("push --quiet")
 end, "Git push")
 
 keymap("<leader>P", function()
@@ -16,11 +16,11 @@ keymap("<leader>P", function()
 end, "Git pull --rebase")
 
 keymap("<leader>t", function()
-  vim.cmd.Git("push -u origin")
+  vim.cmd.Git("push -u origin --quiet")
 end, "Git push tracking origin")
 
 keymap("<leader>o", function()
-  vim.cmd.Git("push")
+  vim.cmd.Git("push --quiet")
   vim.cmd.Git("pr")
 end, "Git push & open browser in PR view")
 
