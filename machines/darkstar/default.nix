@@ -16,7 +16,17 @@
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    daemon = {
+      settings = {
+        dns = [ "1.1.1.1" ];
+      };
+    };
+    autoPrune = {
+      enable = true;
+    };
+  };
   users.users.carlos.extraGroups = [ "docker" ];
 
   services.qemuGuest.enable = true;
