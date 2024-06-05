@@ -3,6 +3,7 @@
 # https://github.com/mitchellh/ghostty/blob/main/src/config/Config.zig
 #
 
+window-decoration = false
 window-theme = "dark"
 confirm-close-surface = false
 macos-option-as-alt = true
