@@ -19,6 +19,7 @@ vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 10
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.smoothscroll = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
@@ -34,6 +35,7 @@ vim.opt.colorcolumn = "80"
 vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }
+vim.opt.spellfile = vim.uv.os_homedir() .. "/.spell.add"
 vim.opt.laststatus = 2
 vim.opt.cursorline = true
 vim.opt.list = true
@@ -42,12 +44,6 @@ vim.opt.grepprg = "rg --vimgrep --smart-case --follow"
 vim.opt.background = "dark"
 vim.opt.termguicolors = true
 vim.opt.shortmess:append("c")
-
--- only works in nvim 0.10
-if vim.fn.has("nvim-0.10") == 1 then
-  vim.opt.spellfile = vim.uv.os_homedir() .. "/.spell.add"
-  vim.opt.smoothscroll = true
-end
 
 vim.filetype.add({
   extension = {
