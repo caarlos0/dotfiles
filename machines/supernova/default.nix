@@ -15,6 +15,7 @@
     enable = true;
     casks = [
       "1password"
+      "appcleaner"
       "blackhole-2ch"
       "cleanshot"
       "dash5"
@@ -28,11 +29,11 @@
       "keybase"
       "ledger-live"
       "monodraw"
-      "sensei"
       "signal"
       "slack"
       "soulver"
       "telegram"
+      "vlc"
       "whatsapp"
       "zoom"
     ];
