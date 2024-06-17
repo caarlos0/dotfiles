@@ -2,21 +2,24 @@
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
-    # --> Catppuccin (Mocha)
+    # --> Tokyo Night
     colors = {
-      "bg+" = "#313244";
-      "fg+" = "#cdd6f4";
-      "hl+" = "#f38ba8";
-      bg = "#1e1e2e";
-      fg = "#cdd6f4";
-      header = "#f38ba8";
-      hl = "#f38ba8";
-      info = "#cba6f7";
-      marker = "#f5e0dc";
-      pointer = "#f5e0dc";
-      prompt = "#cba6f7";
-      spinner = "#f5e0dc";
-
+      "bg" = "#16161e";
+      "bg+" = "#283457";
+      "border" = "#27a1b9";
+      "fg" = "#c0caf5";
+      "gutter" = "#16161e";
+      "header" = "#ff9e64";
+      "hl" = "#2ac3de";
+      "hl+" = "#2ac3de";
+      "info" = "#545c7e";
+      "marker" = "#ff007c";
+      "pointer" = "#ff007c";
+      "prompt" = "#2ac3de";
+      "query" = "#c0caf5:regular";
+      "scrollbar" = "#27a1b9";
+      "separator" = "#ff9e64";
+      "spinner" = "#ff007c";
     };
   };
 }

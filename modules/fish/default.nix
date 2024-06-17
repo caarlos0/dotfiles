@@ -9,7 +9,7 @@
     interactiveShellInit = ''
       # disable fish greeting
       set fish_greeting
-      fish_config theme choose "Catppuccin Mocha"
+      fish_config theme choose tokyonight
     '';
     plugins = [
       {
@@ -97,10 +97,10 @@
     source = config.lib.file.mkOutOfStoreSymlink ./functions;
   };
 
-  xdg.configFile."fish/themes/Catppuccin Mocha.theme" = {
+  xdg.configFile."fish/themes/tokyonight.theme" = {
     source = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/catppuccin/fish/main/themes/Catppuccin%20Mocha.theme";
-      sha256 = "sha256-MlI9Bg4z6uGWnuKQcZoSxPEsat9vfi5O1NkeYFaEb2I=";
+      url = "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/fish_themes/tokyonight_night.theme";
+      sha256 = "sha256-C0I3aZJw3FL+0MUb9jTqRgECRPuo3ZSj5ZFvlVzOtS8=";
     };
   };
 }
