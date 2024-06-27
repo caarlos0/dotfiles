@@ -66,6 +66,7 @@ in
       cmp_luasnip
       friendly-snippets
       neodev-nvim
+      neogen
       nvim-surround
       treesj
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:

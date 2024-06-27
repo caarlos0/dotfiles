@@ -1,0 +1,5 @@
+local neogen = require("neogen")
+neogen.setup({})
+vim.keymap.set("n", "<Leader>gco", function()
+  neogen.generate()
+end, { noremap = true, silent = true })
