@@ -115,6 +115,7 @@ in
           toml
           vhs
           vim
+          vimdoc
           yaml
           zig
         ]))
