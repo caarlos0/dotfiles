@@ -20,6 +20,7 @@ telescope.setup({
     mappings = {
       i = {
         ["<CR>"] = select_one_or_multi,
+        ["<C-y>"] = select_one_or_multi,
       },
     },
     prompt_prefix = "   ",
