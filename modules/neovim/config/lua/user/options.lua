@@ -52,16 +52,21 @@ vim.filetype.add({
 })
 
 vim.cmd([[
-iabbrev Goreleaser GoReleaser
-iabbrev gorelesaer goreleaser
-iabbrev carlos0 caarlos0
-iabbrev descriptoin description
-iabbrev fucn func
-iabbrev sicne since
-iabbrev emtpy empty
-iabbrev udpate update
+inoreabbrev Goreleaser GoReleaser
+inoreabbrev gorelesaer goreleaser
+inoreabbrev carlos0 caarlos0
+inoreabbrev descriptoin description
+inoreabbrev fucn func
+inoreabbrev sicne since
+inoreabbrev emtpy empty
+inoreabbrev udpate update
+inoreabbrev dont don't
+inoreabbrev lenght length
+inoreabbrev Lenght Length
 
 " ptbr
-iabbrev neh né
-iabbrev soh só
+inoreabbrev neh né
+inoreabbrev soh só
+inoreabbrev nao não
+inoreabbrev sao são
 ]])
