@@ -113,13 +113,16 @@ lspconfig.nil_ls.setup({
 lspconfig.html.setup({
   capabilities = capabilities,
   on_attach = on_attach,
-  cmd = { "html-languageserver", "--stdio" },
+})
+
+lspconfig.cssls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
 })
 
 lspconfig.jsonls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
-  cmd = { "json-languageserver", "--stdio" },
 })
 
 lspconfig.bashls.setup({
