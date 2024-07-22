@@ -26,10 +26,7 @@ require("user.harpoon")
 require("user.telescope")
 require("user.git")
 require("auto-hlsearch").setup()
-require("better_escape").setup({
-  mapping = { "jk", "kj" },
-  timeout = 100,
-})
+require("better_escape").setup()
 
 --
 -- CODING
