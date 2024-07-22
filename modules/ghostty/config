@@ -6,7 +6,7 @@
 window-decoration = true
 window-theme = "dark"
 confirm-close-surface = true
-macos-titlebar-tabs = true
+# macos-titlebar-tabs = true
 macos-option-as-alt = true
 shell-integration = none
 cursor-style = block
