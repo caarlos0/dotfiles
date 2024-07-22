@@ -3,10 +3,10 @@
 # https://github.com/mitchellh/ghostty/blob/main/src/config/Config.zig
 #
 
-window-decoration = false
+window-decoration = true
 window-theme = "dark"
-confirm-close-surface = false
-# macos-titlebar-tabs = true
+confirm-close-surface = true
+macos-titlebar-tabs = true
 macos-option-as-alt = true
 shell-integration = none
 cursor-style = block
