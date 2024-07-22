@@ -63,5 +63,5 @@ hotkey.bind(hyper, "P", function()
 end)
 
 hotkey.bind(hyper, "M", function()
-  hs.application.launchOrFocus("Reminders")
+  hs.application.launchOrFocus("Todoist")
 end)
