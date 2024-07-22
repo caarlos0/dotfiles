@@ -42,6 +42,7 @@ end, opts)
 
 -- save and quit
 keymap("n", "<leader>w", ":write<CR>", opts)
+keymap("n", "<leader>W", ":noaucmd write<CR>", opts)
 
 -- paste over without replacing default register
 keymap("n", "<leader>p", '"_dP', opts)
