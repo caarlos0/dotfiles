@@ -15,6 +15,19 @@ This is my most recent attempt, using nix.
 It contains **home-manager**, **nixOS** and **nix-darwin** configuration
 for several machines and VMs I use.
 
+# First run
+
+```bash
+sh <(curl -L https://nixos.org/nix/install)
+echo "experimental-features = nix-command flakes">~/.config/nix/nix.conf
+```
+
+On macOS, install homebrew too:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
 # Updating
 
 To apply updates, simply run:
