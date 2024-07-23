@@ -17,7 +17,6 @@
       "1password"
       "appcleaner"
       "cleanshot"
-      "dash5"
       "deckset"
       "discord"
       "figma"
