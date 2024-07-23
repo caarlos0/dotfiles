@@ -10,6 +10,7 @@
       # disable fish greeting
       set fish_greeting
       fish_config theme choose tokyonight
+      fish_add_path -p ~/.nix-profile/bin
     '';
     plugins = [
       {
@@ -100,7 +101,7 @@
   xdg.configFile."fish/themes/tokyonight.theme" = {
     source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/fish_themes/tokyonight_night.theme";
-      sha256 = "sha256-C0I3aZJw3FL+0MUb9jTqRgECRPuo3ZSj5ZFvlVzOtS8=";
+      sha256 = "sha256-yabv/At93pvL3Kp/H4XGn8YHd5zfsNsOlktj5iUx3AM=";
     };
   };
 }
