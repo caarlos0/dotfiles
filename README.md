@@ -53,9 +53,15 @@ To create a release, run:
 nix develop -c dot-release
 ```
 
+# Post first run
+
 ## Fish as the default shell
 
 ```sh
 which fish | sudo tee -a /etc/shells
 chsh -s $(which fish)
 ```
+
+## Keyboard layouts
+
+Add the US layout so input doesn't wait after opening quotes and such.
