@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  programs.fish.interacticeShellInit = ''
+  programs.fish.interactiveShellInit = ''
     fish_add_path -p ~/Developer/Go/bin
   '';
   programs.go = {
