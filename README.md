@@ -56,6 +56,6 @@ nix develop -c dot-release
 ## Fish as the default shell
 
 ```sh
-echo $(which fish) | sudo tee -a /etc/shells
+which fish | sudo tee -a /etc/shells
 chsh -s $(which fish)
 ```
