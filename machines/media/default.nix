@@ -7,11 +7,10 @@ let
   overseerr = (pkgs.callPackage ../../pkgs/overseerr { });
 in
 {
-  imports =
-    [
-      ../shared.nix
-      ./hardware.nix
-    ];
+  imports = [
+    ../shared/linux.nix
+    ./hardware.nix
+  ];
 
   networking.hostName = "media";
   services.qemuGuest.enable = true;

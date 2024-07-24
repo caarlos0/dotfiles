@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   services.tailscale.enable = true;
 
   # create a oneshot job to authenticate to Tailscale

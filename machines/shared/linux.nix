@@ -1,9 +1,7 @@
-{ pkgs, ... }:
-{
-  imports =
-    [
-      ./tailscale.nix
-    ];
+{ pkgs, ... }: {
+  imports = [
+    ./tailscale.nix
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
