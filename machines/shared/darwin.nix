@@ -53,6 +53,18 @@
         launchanim = false;
         mineffect = "scale";
         mru-spaces = false;
+        persistent-apps = [
+          "/System/Applications/Reminders.app"
+          "/Applications/Todoist.app"
+          "/System/Applications/Notes.app"
+          "/System/Applications/Calendar.app"
+          "/System/Cryptexes/App/System/Applications/Safari.app"
+          "/Applications/Ghostty.app"
+          "/System/Applications/Mail.app"
+          "/System/Applications/Messages.app"
+          "/Applications/Discord.app"
+          "/System/Applications/Music.app"
+        ];
       };
       NSGlobalDomain = {
         ApplePressAndHoldEnabled = false;
