@@ -28,6 +28,9 @@ On macOS, install homebrew too:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+Also make sure the terminal being used has full disk access, otherwise you might
+get errors like `Could not write domain`.
+
 # Updating
 
 To apply updates, simply run:

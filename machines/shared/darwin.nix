@@ -91,34 +91,57 @@
         ShowPathbar = true;
       };
       CustomUserPreferences = {
-        "com.apple.NetworkBrowser" = { "BrowseAllInterfaces" = true; };
-        # "WebAutomaticTextReplacementEnabled" = true;
+        "com.apple.NetworkBrowser" = { BrowseAllInterfaces = true; };
         "com.apple.screensaver" = {
-          "askForPassword" = true;
-          "askForPasswordDelay" = 0;
+          askForPassword = true;
+          askForPasswordDelay = 0;
         };
-        "com.apple.trackpad" = { "scaling" = 2; };
-        "com.apple.mouse" = { "scaling" = 2.5; };
-        "com.apple.desktopservices" = { "DSDontWriteNetworkStores" = false; };
-        "com.apple.LaunchServices" = { "LSQuarantine" = true; };
+        "com.apple.trackpad" = { scaling = 2; };
+        "com.apple.mouse" = { scaling = 2.5; };
+        "com.apple.desktopservices" = { DSDontWriteNetworkStores = false; };
+        "com.apple.LaunchServices" = { LSQuarantine = true; };
         "com.apple.finder" = {
-          "ShowExternalHardDrivesOnDesktop" = false;
-          "ShowRemovableMediaOnDesktop" = false;
-          "WarnOnEmptyTrash" = false;
+          ShowExternalHardDrivesOnDesktop = false;
+          ShowRemovableMediaOnDesktop = false;
+          WarnOnEmptyTrash = false;
         };
         "NSGlobalDomain" = {
-          "NSNavPanelExpandedStateForSaveMode" = true;
-          "NSTableViewDefaultSizeMode" = 1;
-          "WebKitDeveloperExtras" = true;
+          NSNavPanelExpandedStateForSaveMode = true;
+          NSTableViewDefaultSizeMode = 1;
+          WebKitDeveloperExtras = true;
         };
         "com.apple.ImageCapture" = { "disableHotPlug" = true; };
-        # "com.apple.Safari" = {
-        #   "IncludeInternalDebugMenu" = true;
-        #   "IncludeDevelopMenu" = true;
-        #   "WebKitDeveloperExtrasEnabledPreferenceKey" = true;
-        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" =
-        #     true;
-        # };
+        "com.apple.mail" = {
+          DisableReplyAnimations = true;
+          DisableSendAnimations = true;
+          DisableInlineAttachmentViewing = true;
+          AddressesIncludeNameOnPasteboard = true;
+          InboxViewerAttributes = {
+            DisplayInThreadedMode = "yes";
+            SortedDescending = "yes";
+            SortOrder = "received-date";
+          };
+          NSUserKeyEquivalents = {
+            Send = "@\U21a9";
+            Archive = "@$e";
+          };
+        };
+        "com.apple.dock" = {
+          size-immutable = true;
+        };
+        "com.apple.Safari" = {
+          IncludeInternalDebugMenu = true;
+          IncludeDevelopMenu = true;
+          WebKitDeveloperExtrasEnabledPreferenceKey = true;
+          ShowFullURLInSmartSearchField = true;
+          AutoOpenSafeDownloads = false;
+          HomePage = "";
+          AutoFillCreditCardData = false;
+          AutoFillFromAddressBook = false;
+          AutoFillMiscellaneousForms = false;
+          AutoFillPasswords = false;
+          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
+        };
       };
     };
   };
