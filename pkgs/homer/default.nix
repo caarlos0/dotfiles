@@ -77,6 +77,15 @@ let
             target = "_blank";
           }
           {
+            name = "Readarr";
+            subtitle = "Books";
+            logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/readarr.png";
+            type = "Readarr";
+            url = "http://media.local:8787/";
+            apikey = "TODO";
+            target = "_blank";
+          }
+          {
             name = "Bazarr";
             subtitle = "Subtitles";
             logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/bazarr.png";

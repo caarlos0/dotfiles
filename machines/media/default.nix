@@ -58,6 +58,12 @@ in
     group = "wheel";
     user = "carlos";
   };
+  services.readarr = {
+    enable = true;
+    openFirewall = true;
+    group = "wheel";
+    user = "carlos";
+  };
   services.radarr = {
     enable = true;
     openFirewall = true;
