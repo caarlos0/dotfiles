@@ -82,7 +82,7 @@ let
             logo = "https://raw.githubusercontent.com/NX211/homer-icons/master/png/readarr.png";
             type = "Readarr";
             url = "http://media.local:8787/";
-            apikey = "TODO";
+            apikey = "313e7d4ebdf2407ab58b0da3cf557c3e";
             target = "_blank";
           }
           {
