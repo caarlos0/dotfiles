@@ -19,6 +19,7 @@
       "cleanshot"
       "deckset"
       "discord"
+      # "contexts"
       "figma"
       "font-jetbrains-mono"
       "font-jetbrains-mono-nerd-font"
@@ -36,6 +37,9 @@
       "whatsapp"
       "zoom"
     ];
+    masApps = {
+      "1Password for Safari" = 1569813296;
+    };
   };
 
   system = {
