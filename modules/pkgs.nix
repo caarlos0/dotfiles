@@ -20,7 +20,6 @@
     graphviz
     httpstat
     hyperfine
-    inetutils
     jq
     moreutils
     ncdu
@@ -96,10 +95,11 @@
   ]) ++ (lib.optionals pkgs.stdenv.isLinux [
     docker
     docker-compose
+    ffmpeg_6-full # failing on macos
+    fswatch
+    inetutils # macos already has its own utils
     lm_sensors
     util-linux
-    fswatch
-    ffmpeg_6-full # failing on macos
     # https://nixos.wiki/wiki/podman
     # podman
     # shadow
