@@ -13,17 +13,17 @@ end)
 hs.alert.show("Config loaded")
 
 -- middle left
-hs.hotkey.bind(hyper, "H", function()
+hs.hotkey.bind(hyper, "Left", function()
   hs.window.focusedWindow():moveToUnit({ 0, 0, 0.5, 1 })
 end)
 
 -- middle right
-hs.hotkey.bind(hyper, "L", function()
+hs.hotkey.bind(hyper, "Right", function()
   hs.window.focusedWindow():moveToUnit({ 0.5, 0, 0.5, 1 })
 end)
 
 -- centralize at 80% screen size
-hotkey.bind(hyper, "J", function()
+hotkey.bind(hyper, "Down", function()
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local max = win:screen():frame()
@@ -38,7 +38,7 @@ hotkey.bind(hyper, "J", function()
 end)
 
 -- maximize
-hotkey.bind(hyper, "K", function()
+hotkey.bind(hyper, "Up", function()
   hs.window.focusedWindow():moveToUnit({ 0, 0, 1, 1 })
 end)
 
@@ -62,6 +62,14 @@ hotkey.bind(hyper, "P", function()
   hs.application.launchOrFocus("Discord")
 end)
 
-hotkey.bind(hyper, "M", function()
+hotkey.bind(hyper, "H", function()
   hs.application.launchOrFocus("Todoist")
+end)
+
+hotkey.bind(hyper, "J", function()
+  hs.application.launchOrFocus("Calendar")
+end)
+
+hotkey.bind(hyper, "K", function()
+  hs.application.launchOrFocus("Mail")
 end)
