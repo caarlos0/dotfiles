@@ -180,6 +180,7 @@
                   ./modules/ssh
                   ./modules/charm.nix
                   ./modules/aerospace
+                  ./modules/hammerspoon
                   caarlos0-nur.homeManagerModules.default
                   # ./modules/yubikey.nix
                   nix-index-database.hmModules.nix-index
