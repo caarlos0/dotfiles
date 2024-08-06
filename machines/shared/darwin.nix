@@ -43,6 +43,8 @@
     ];
     masApps = {
       "1Password for Safari" = 1569813296;
+      "Lungo" = 1263070803;
+      # "Today •" = 2146219664; always fails for some reason
     };
   };
 
