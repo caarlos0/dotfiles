@@ -92,7 +92,6 @@ cmp.setup({
       keyword_length = 2,
       priority = 50,
     },
-  }, {
     { name = "copilot" },
   }, {
     {
