@@ -1,5 +1,6 @@
+local opts = { noremap = true, silent = true }
 local neogen = require("neogen")
-neogen.setup({})
-vim.keymap.set("n", "<Leader>gco", function()
-  neogen.generate()
-end, { noremap = true, silent = true })
+neogen.setup({
+  snippet_engine = "luasnip",
+})
+vim.keymap.set("n", "gco", neogen.generate, opts)
