@@ -73,3 +73,49 @@ end)
 hotkey.bind(hyper, "K", function()
   hs.application.launchOrFocus("Mail")
 end)
+
+local function handleAppLaunch(app, appName)
+  local screen = hs.screen:primaryScreen():getUUID()
+  local spaces = hs.spaces.allSpaces()[screen]
+  while #spaces < 3 do
+    hs.spaces.addSpaceToScreen(screen)
+    spaces = hs.spaces.allSpaces()[screen]
+  end
+
+  local apps = {
+    ["Safari"] = 1,
+    ["Ghostty"] = 1,
+    ["Mail"] = 2,
+    ["Calendar"] = 2,
+    ["Todoist"] = 2,
+    ["Notes"] = 2,
+    ["Reminders"] = 2,
+    ["Music"] = 3,
+    ["Discord"] = 3,
+    ["Telegram"] = 3,
+    ["WhatsApp"] = 3,
+    ["Messages"] = 3,
+  }
+
+  print(appName)
+
+  if apps[appName] then
+    local space = spaces[apps[appName]]
+    local window = app:mainWindow()
+    hs.spaces.moveWindowToSpace(window, space)
+    window:focus()
+    -- if space ~= hs.spaces.activeSpaceOnScreen(hs.screen.primaryScreen()) then
+    --   hs.spaces.gotoSpace(spaces[space])
+    -- end
+  end
+end
+
+---needs to be a global var otherwise it gets garbage collected apparently
+---@diagnostic disable-next-line: lowercase-global
+appwatcher = hs.application.watcher
+  .new(function(appName, event, app)
+    if event == hs.application.watcher.launched then
+      handleAppLaunch(app, appName)
+    end
+  end)
+  :start()

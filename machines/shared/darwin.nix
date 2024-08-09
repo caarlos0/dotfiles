@@ -13,8 +13,12 @@
 
   homebrew = {
     enable = true;
+    taps = [
+      "nikitabobko/tap"
+    ];
     casks = [
       "1password"
+      "aerospace"
       "appcleaner"
       "cleanshot"
       "deckset"
