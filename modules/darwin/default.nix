@@ -21,6 +21,16 @@
     fish_add_path -a /opt/homebrew/bin/
   '';
 
+  # exclude GOPATH from time machine backups
+  # exclude 'dist' and 'node_modules' folders as well
+  home.activation.time-machine-exclusions = ''
+    /usr/bin/tmutil addexclusion /Users/carlos/Developer/Go/
+    find /Users/carlos/Developer \( -name 'dist' -or -name 'node_modules' \) -not -path "*/Go/*" -not -path "*/.git/*" | while read -r p; do
+      echo "TimeMachine: excluding $p..."
+      /usr/bin/tmutil addexclusion "$p"
+    done
+  '';
+
 
   launchd.agents = {
     pbcopy = {
