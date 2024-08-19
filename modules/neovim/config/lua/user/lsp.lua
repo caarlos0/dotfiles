@@ -130,11 +130,6 @@ lspconfig.bashls.setup({
   on_attach = on_attach,
 })
 
-lspconfig.golangci_lint_ls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
 lspconfig.terraformls.setup({
   capabilities = capabilities,
   on_attach = on_attach,

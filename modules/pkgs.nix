@@ -64,7 +64,6 @@
     delve
     dockerfile-language-server-nodejs
     gofumpt
-    golangci-lint-langserver
     nil # nix lsp
     nixpkgs-fmt
     pgformatter
