@@ -11,4 +11,10 @@
     LC_CTYPE = "en_US.UTF-8";
     PROJECTS = "$HOME/Developer";
   };
+
+  # ensures ~/Developer folder exists.
+  # this folder is later assumed by other activations, specially on darwin.
+  home.activation.developer = ''
+    mkdir -p ~/Developer
+  '';
 }
