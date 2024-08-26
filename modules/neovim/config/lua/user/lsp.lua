@@ -92,6 +92,47 @@ lspconfig.tsserver.setup({
   },
 })
 
+for _, lsp in ipairs({
+  "bashls",
+  "clangd",
+  "cssls",
+  "dockerls",
+  "jsonls",
+  "nil_ls",
+  "rust_analyzer",
+  "taplo",
+  "templ",
+  "terraformls",
+  "tflint",
+  "zls",
+}) do
+  lspconfig[lsp].setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+end
+
+for _, lsp in ipairs({ "html", "htmx" }) do
+  lspconfig[lsp].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "html", "templ" },
+  })
+end
+
+lspconfig.tailwindcss.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "html", "templ", "javascript" },
+  settings = {
+    tailwindCSS = {
+      includeLanguages = {
+        templ = "html",
+      },
+    },
+  },
+})
+
 lspconfig.yamlls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
@@ -103,76 +144,6 @@ lspconfig.yamlls.setup({
       },
     },
   },
-})
-
-lspconfig.nil_ls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-lspconfig.html.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  filetypes = { "html", "templ" },
-})
-
-lspconfig.htmx.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  filetypes = { "html", "templ" },
-})
-
-lspconfig.tailwindcss.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  filetypes = { "templ", "astro", "javascript", "typescript", "react" },
-  settings = {
-    tailwindCSS = {
-      includeLanguages = {
-        templ = "html",
-      },
-    },
-  },
-})
-
-lspconfig.cssls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-lspconfig.jsonls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-lspconfig.bashls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-lspconfig.terraformls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-lspconfig.tflint.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-lspconfig.dockerls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-lspconfig.clangd.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-lspconfig.zls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
 })
 
 -- Make runtime files discoverable to the server
@@ -193,16 +164,6 @@ lspconfig.lua_ls.setup({
       },
     },
   },
-})
-
-lspconfig.rust_analyzer.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-lspconfig.taplo.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
 })
 
 local float_config = {
