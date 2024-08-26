@@ -27,6 +27,12 @@
   };
   users.users.carlos.extraGroups = [ "docker" ];
 
+  # this allows to cross-build docker images, for example.
+  # akin to https://github.com/docker/setup-qemu-action
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+  ];
+
   services.qemuGuest.enable = true;
   services.postgresql = {
     enable = true;
