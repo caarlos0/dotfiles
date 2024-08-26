@@ -113,6 +113,26 @@ lspconfig.nil_ls.setup({
 lspconfig.html.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  filetypes = { "html", "templ" },
+})
+
+lspconfig.htmx.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "html", "templ" },
+})
+
+lspconfig.tailwindcss.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+  settings = {
+    tailwindCSS = {
+      includeLanguages = {
+        templ = "html",
+      },
+    },
+  },
 })
 
 lspconfig.cssls.setup({

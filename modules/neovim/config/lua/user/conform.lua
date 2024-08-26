@@ -12,6 +12,7 @@ conform.setup({
     rust = { "rustfmt" },
     sh = { "shfmt" },
     sql = { "pg_format", "sql_formatter" },
+    templ = { "templ" },
     tf = { "terraform_fmt" },
     yaml = { "prettier" },
     zig = { "zigfmt" },

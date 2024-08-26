@@ -64,6 +64,7 @@
     delve
     dockerfile-language-server-nodejs
     gofumpt
+    htmx-lsp
     nil # nix lsp
     nixpkgs-fmt
     pgformatter
@@ -76,6 +77,7 @@
     sql-formatter
     stylua
     sumneko-lua-language-server
+    tailwindcss-language-server
     taplo # toml lsp
     terraform-ls
     tflint
