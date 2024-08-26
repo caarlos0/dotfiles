@@ -115,43 +115,6 @@
         };
       };
       darwinConfigurations = {
-        supernova = darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [
-            { nixpkgs.overlays = overlays; }
-            ./machines/supernova
-            home-manager.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = false;
-              home-manager.users.carlos = {
-                programs.neovim.package = neovim-nightly.packages.aarch64-darwin.default;
-                imports = [
-                  ./modules/home.nix
-                  ./modules/darwin
-                  ./modules/pkgs.nix
-                  ./modules/editorconfig.nix
-                  ./modules/yamllint.nix
-                  ./modules/go.nix
-                  ./modules/fzf.nix
-                  ./modules/ghostty
-                  ./modules/tmux
-                  ./modules/neovim
-                  ./modules/git
-                  ./modules/gh
-                  ./modules/top.nix
-                  ./modules/shell.nix
-                  ./modules/ssh
-                  ./modules/charm.nix
-                  ./modules/hammerspoon
-                  caarlos0-nur.homeManagerModules.default
-                  # ./modules/yubikey.nix
-                  nix-index-database.hmModules.nix-index
-                ];
-              };
-            }
-          ];
-        };
         darkmatter = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           modules = [
