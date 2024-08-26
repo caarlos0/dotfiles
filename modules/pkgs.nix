@@ -94,13 +94,9 @@
     coreutils
     mosquitto
   ]) ++ (lib.optionals pkgs.stdenv.isLinux [
-    docker
-    docker-compose
     ffmpeg_6-full # failing on macos
-    fswatch
     inetutils # macos already has its own utils
     lm_sensors
-    util-linux
     # https://nixos.wiki/wiki/podman
     # podman
     # shadow

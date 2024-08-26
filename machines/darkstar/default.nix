@@ -60,8 +60,14 @@
     coreutils-full
     dig
     gcc
+    grpcurl
     inetutils
+    kind
+    python312Packages.tqdm
     util-linux
+    docker
+    docker-compose
+    fswatch
   ];
 
   networking.firewall.allowedTCPPortRanges = [
