@@ -70,9 +70,15 @@
     settings = {
       auto-optimise-store = true;
       substituters = [
+        "https://caarlos0.cachix.org"
+        "https://charmbracelet.cachix.org"
+        "https://goreleaser.cachix.org"
         "https://nix-community.cachix.org"
       ];
       trusted-public-keys = [
+        "caarlos0.cachix.org-1:+isrUkB/il038Bpn7P8Gy1YrJ31uIyvk/+nBrQg4M+w="
+        "charmbracelet.cachix.org-1:iA+l3/8TVJsKR9h28f7f0C0CYA9JjI24yJ8YlGabbkg="
+        "goreleaser.cachix.org-1:zoswTZ5hfNwaUOEZ869pjxjXIp5HMkgQXWK/vwrl158="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
       trusted-users = [
