@@ -1,4 +1,6 @@
-require("avante").setup()
+require("avante").setup({
+  hints = { enabled = false },
+})
 local opts = { noremap = true, silent = true }
 local keymap = vim.keymap.set
 local avante = require("avante.api")
