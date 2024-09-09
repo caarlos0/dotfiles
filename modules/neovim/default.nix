@@ -49,9 +49,7 @@ in
 
       # ai
       nui-nvim
-      (fromGitHub "yetone" "avante.nvim"
-        "61acd714ba08b961f055906e45592909387eae07"
-        "sha256-F4E3K5637qjWBtu67DuwpG6YZoF+Q0gaQFzq00bOLpU=")
+      (pkgs.callPackage ../../pkgs/avante-nvim { })
 
       # coding
       nvim-lspconfig
