@@ -14,6 +14,8 @@ switch $argv[1]
         echo 
     case cp duplicate
         echo 
+    case diff
+        echo 
     case mv
         echo 󰉒
     case curl http pint lynx wget w3m
