@@ -125,7 +125,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = false;
               home-manager.users.carlos = {
-                programs.neovim.package = neovim-nightly.packages.aarch64-darwin.default;
+              #  programs.neovim.package = neovim-nightly.packages.aarch64-darwin.default;
                 imports = [
                   ./modules/home.nix
                   ./modules/darwin
