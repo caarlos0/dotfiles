@@ -1,5 +1,6 @@
-; extends
 ; copied from https://github.com/ray-x/go.nvim/blob/master/after/queries/go/injections.scm
+
+; extends
 
 ; inject sql in single line strings
 ; e.g. db.GetContext(ctx, "SELECT * FROM users WHERE name = 'John'")
@@ -28,6 +29,7 @@
   (raw_string_literal)
   ] @injection.content
  (#match? @injection.content "(SELECT|select|INSERT|insert|UPDATE|update|DELETE|delete).+(FROM|from|INTO|into|VALUES|values|SET|set).*(WHERE|where|GROUP BY|group by)?")
+ (#offset! @injection.content 0 1 0 -1)
 (#set! injection.language "sql"))
 
 ; a general query injection
@@ -87,17 +89,22 @@
 ; nvim 0.10
 
 (const_spec
-  name: ((identifier) @_const(#lua-match? @_const ".*[J|j]son.*"))
+  name: (identifier)
   value: (expression_list (raw_string_literal) @injection.content
+   (#lua-match? @injection.content "^`[\n|\t| ]*\{.*\}[\n|\t| ]*`$")
+   (#offset! @injection.content 0 1 0 -1)
    (#set! injection.language "json")))
 
 (short_var_declaration
-    left: (expression_list (identifier) @_var (#lua-match? @_var ".*[J|j]son.*"))
+    left: (expression_list (identifier))
     right: (expression_list (raw_string_literal) @injection.content)
+  (#lua-match? @injection.content "^`[\n|\t| ]*\{.*\}[\n|\t| ]*`$")
   (#offset! @injection.content 0 1 0 -1)
   (#set! injection.language "json"))
 
 (var_spec
-  name: ((identifier) @_const(#lua-match? @_const ".*[J|j]son.*"))
+  name: (identifier)
   value: (expression_list (raw_string_literal) @injection.content
+   (#lua-match? @injection.content "^`[\n|\t| ]*\{.*\}[\n|\t| ]*`$")
+   (#offset! @injection.content 0 1 0 -1)
    (#set! injection.language "json")))
