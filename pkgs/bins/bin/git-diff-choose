@@ -1,0 +1,22 @@
+#!/bin/bash
+# Stolen from Ayman
+
+# Exit on error
+set -euo pipefail
+
+FILES=$(git diff --stat | head -n-1 | cut -d' ' -f2)
+
+choose() {
+  FILE=$(echo "$FILES" | gum choose --cursor " ")
+
+  if [ -z "$FILE" ]; then
+    echo "No file selected"
+    exit 1
+  fi
+
+  git diff -- "$FILE"
+}
+
+while true; do
+  choose
+done
