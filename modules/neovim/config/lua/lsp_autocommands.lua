@@ -92,23 +92,23 @@ M.setup = function()
     group = group,
   })
 
-  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-    callback = function()
-      if has_clients_with_method(0, ms.textDocument_documentHighlight) then
-        vim.lsp.buf.document_highlight()
-      end
-    end,
-    group = group,
-  })
-
-  vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-    callback = function()
-      if has_clients_with_method(0, ms.textDocument_documentHighlight) then
-        vim.lsp.buf.clear_references()
-      end
-    end,
-    group = group,
-  })
+  -- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  --   callback = function()
+  --     if has_clients_with_method(0, ms.textDocument_documentHighlight) then
+  --       vim.lsp.buf.document_highlight()
+  --     end
+  --   end,
+  --   group = group,
+  -- })
+  --
+  -- vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+  --   callback = function()
+  --     if has_clients_with_method(0, ms.textDocument_documentHighlight) then
+  --       vim.lsp.buf.clear_references()
+  --     end
+  --   end,
+  --   group = group,
+  -- })
 end
 
 return M

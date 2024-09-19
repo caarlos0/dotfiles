@@ -22,14 +22,11 @@ in
     plugins = with pkgs.vimPlugins; [
       # ui
       tokyonight-nvim
-      nvim-web-devicons
-      nvim-notify
-      lualine-nvim
       dressing-nvim
 
+      mini-nvim
+
       # basics
-      indent-blankline-nvim
-      gitsigns-nvim
       todo-comments-nvim
       harpoon2
       vim-fugitive
@@ -41,10 +38,8 @@ in
       vim-speeddating
       telescope-nvim
       telescope-github-nvim
-      auto-hlsearch-nvim
       vim-tmux-navigator
       better-escape-nvim
-      bufdelete-nvim
       cloak-nvim
 
       # ai
@@ -60,7 +55,6 @@ in
       cmp-cmdline
       cmp-emoji
       cmp-calc
-      nvim-autopairs
       nvim-ts-autotag
       cmp-nvim-lsp
       cmp-nvim-lsp-signature-help
@@ -124,7 +118,6 @@ in
           yaml
           zig
         ]))
-      nvim-treesitter-textobjects
       nvim-treesitter-context
       nvim-treesitter-endwise
       other-nvim

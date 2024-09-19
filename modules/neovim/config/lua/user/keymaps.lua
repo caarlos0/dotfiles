@@ -18,8 +18,6 @@ keymap("n", "<leader>n", ":enew<CR>", opts)
 -- quicklists
 keymap("n", "<leader>co", ":copen<CR>", opts)
 keymap("n", "<leader>cc", ":cclose<CR>", opts)
-keymap("n", "[q", ":cprevious<CR>zz", opts)
-keymap("n", "]q", ":cnext<CR>zz", opts)
 
 -- Resize with arrows
 keymap("n", "<A-Up>", ":resize +2<CR>", opts)

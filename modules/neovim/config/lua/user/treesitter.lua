@@ -15,10 +15,6 @@ require("nvim-treesitter.configs").setup({
   autopairs = {
     enable = true,
   },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -29,57 +25,4 @@ require("nvim-treesitter.configs").setup({
     },
   },
   auto_install = false,
-  textobjects = {
-    enable = true,
-    lookahead = true,
-    swap = {
-      enable = true,
-      swap_next = {
-        ["<leader>a"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["<leader>A"] = "@parameter.inner",
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true,
-      goto_next_start = {
-        ["]f"] = "@function.outer",
-        ["]c"] = "@class.outer",
-        ["]a"] = "@parameter.outer",
-      },
-      goto_next_end = {
-        ["]F"] = "@function.outer",
-        ["]C"] = "@class.outer",
-        ["]A"] = "@parameter.outer",
-      },
-      goto_previous_start = {
-        ["[f"] = "@function.outer",
-        ["[c"] = "@class.outer",
-        ["[a"] = "@parameter.outer",
-      },
-      goto_previous_end = {
-        ["[F"] = "@function.outer",
-        ["[C"] = "@class.outer",
-        ["[A"] = "@parameter.outer",
-      },
-    },
-    select = {
-      enable = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-
-        ["ac"] = "@conditional.outer",
-        ["ic"] = "@conditional.inner",
-
-        ["aa"] = "@parameter.outer",
-        ["ia"] = "@parameter.inner",
-
-        ["av"] = "@variable.outer",
-        ["iv"] = "@variable.inner",
-      },
-    },
-  },
 })
