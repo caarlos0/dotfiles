@@ -5,6 +5,7 @@
   services = { nix-daemon = { enable = true; }; };
   nix.package = pkgs.nix;
   nix.settings.trusted-users = [ "root" "carlos" ];
+  system.stateVersion = 5;
 
   users.users.carlos = {
     name = "carlos";
