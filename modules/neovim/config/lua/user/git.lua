@@ -1,6 +1,6 @@
 vim.g.fugitive_legacy_commands = 0
 
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git, {
+vim.keymap.set("n", "<leader>gs", "<cmd>tab Git<cr>", {
   noremap = true,
   silent = true,
   desc = "Open Git",

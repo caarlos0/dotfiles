@@ -7,6 +7,9 @@ local keymap = function(lhs, rhs, desc)
   })
 end
 
+-- goes directly to the first file and opens diff view
+vim.cmd("normal )=")
+
 keymap("<leader>p", function()
   vim.cmd.Git("push --quiet")
 end, "Git push")
@@ -24,4 +27,4 @@ keymap("<leader>o", function()
   vim.cmd.Git("pr")
 end, "Git push & open browser in PR view")
 
-vim.cmd.runtime({ "lua/bdelete.lua", bang = true })
+keymap("q", ":bdelete!<cr>", "Close Git")
