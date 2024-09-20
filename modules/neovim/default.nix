@@ -46,6 +46,7 @@ in
       better-escape-nvim
       bufdelete-nvim
       cloak-nvim
+      clever-f-vim
 
       # ai
       nui-nvim
