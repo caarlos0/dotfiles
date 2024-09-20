@@ -15,7 +15,6 @@ require("user.lualine")
 -- BASIC
 --
 require("user.indent")
-require("user.todo")
 require("dressing").setup({
   input = {
     insert_only = false,
