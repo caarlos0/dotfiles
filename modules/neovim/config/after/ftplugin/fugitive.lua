@@ -28,3 +28,4 @@ keymap("<leader>o", function()
 end, "Git push & open browser in PR view")
 
 keymap("q", ":bdelete!<cr>", "Close Git")
+keymap("<leader>q", ":bdelete!<cr>", "Close Git")
