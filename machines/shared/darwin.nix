@@ -33,7 +33,6 @@
       "slack"
       "soulver"
       "telegram"
-      "todoist"
       "vlc"
       "whatsapp"
       "zoom"
@@ -62,7 +61,6 @@
         mru-spaces = false;
         persistent-apps = [
           "/System/Applications/Reminders.app"
-          "/Applications/Todoist.app"
           "/System/Applications/Notes.app"
           "/System/Applications/Calendar.app"
           "/System/Cryptexes/App/System/Applications/Safari.app"

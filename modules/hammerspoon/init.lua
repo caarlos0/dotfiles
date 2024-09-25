@@ -63,7 +63,7 @@ hotkey.bind(hyper, "P", function()
 end)
 
 hotkey.bind(hyper, "H", function()
-  hs.application.launchOrFocus("Todoist")
+  hs.application.launchOrFocus("Reminders")
 end)
 
 hotkey.bind(hyper, "J", function()
@@ -87,7 +87,6 @@ local function handleAppLaunch(app, appName)
     ["Ghostty"] = 1,
     ["Mail"] = 2,
     ["Calendar"] = 2,
-    ["Todoist"] = 2,
     ["Notes"] = 2,
     ["Reminders"] = 2,
     ["Music"] = 3,
