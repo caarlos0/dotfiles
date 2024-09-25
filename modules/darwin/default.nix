@@ -32,9 +32,7 @@
   '';
 
   # never index the developer folder in spotlight.
-  home.activation.spotlight-exclusions = ''
-    touch ~/Developer/.metadata_never_index
-  '';
+  home.file."Developer/.metadata_never_index".text = "";
 
   launchd.agents = {
     pbcopy = {
