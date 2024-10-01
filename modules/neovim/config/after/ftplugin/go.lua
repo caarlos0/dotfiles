@@ -2,6 +2,7 @@
 local bufnr = vim.api.nvim_get_current_buf()
 
 vim.opt_local.formatoptions:append("jo")
+vim.opt_local.makeprg = "go build ./..."
 
 --- Add a normal keymap.
 ---@param lhs string Keymap
@@ -24,5 +25,18 @@ vim.api.nvim_buf_create_user_command(bufnr, "GoModTidy", function()
     arguments = arguments,
   })
 end, { desc = "go mod tidy" })
+
+local function copen()
+  if vim.fn.getqflist({ size = 0 }).size > 1 then
+    vim.cmd("copen")
+  else
+    vim.cmd("cclose")
+  end
+end
+
+keymap("<F2>", function()
+  vim.cmd("make")
+  copen()
+end)
 
 keymap("<F4>", vim.cmd.GoModTidy)
