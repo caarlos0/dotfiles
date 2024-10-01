@@ -3,6 +3,7 @@ local bufnr = vim.api.nvim_get_current_buf()
 
 vim.opt_local.formatoptions:append("jo")
 vim.opt_local.makeprg = "go build ./..."
+vim.opt_local.errorformat = "%A%f:%l:%c: %m,%-G%.%#"
 
 --- Add a normal keymap.
 ---@param lhs string Keymap
@@ -39,4 +40,11 @@ keymap("<F2>", function()
   copen()
 end)
 
+keymap("<F3>", function()
+  local output = vim.fn.system("golangci-lint run --max-issues-per-linter=0 --max-same-issues=0")
+  if output and output ~= "" then
+    vim.fn.setqflist({}, " ", { lines = vim.split(output, "\n") })
+    copen()
+  end
+end)
 keymap("<F4>", vim.cmd.GoModTidy)
