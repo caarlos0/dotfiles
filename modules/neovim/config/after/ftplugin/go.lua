@@ -17,7 +17,7 @@ local keymap = function(lhs, rhs)
 end
 
 vim.api.nvim_buf_create_user_command(bufnr, "GoModTidy", function()
-  vim.notify("Running `go mod tidy`...")
+  vim.notify("Running go mod tidy...")
   local uri = vim.uri_from_bufnr(bufnr)
   local arguments = { { URIs = { uri } } }
   vim.cmd([[ noautocmd wall ]])
@@ -36,15 +36,18 @@ local function copen()
 end
 
 keymap("<F2>", function()
+  vim.notify("Running make...")
   vim.cmd("make")
   copen()
 end)
 
 keymap("<F3>", function()
+  vim.notify("Running golangci-lint...")
   local output = vim.fn.system("golangci-lint run --max-issues-per-linter=0 --max-same-issues=0")
   if output and output ~= "" then
     vim.fn.setqflist({}, " ", { lines = vim.split(output, "\n") })
     copen()
   end
 end)
+
 keymap("<F4>", vim.cmd.GoModTidy)
