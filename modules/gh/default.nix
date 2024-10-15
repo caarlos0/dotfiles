@@ -13,7 +13,6 @@
       };
       editor = "nvim";
       git_protocol = "ssh";
-      prompt = "disabled";
     };
   };
 
