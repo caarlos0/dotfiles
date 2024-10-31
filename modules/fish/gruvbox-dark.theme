@@ -1,0 +1,25 @@
+# Gruvbox
+
+# Syntax Highlighting Colors
+fish_color_normal ebdbb2
+fish_color_command 8ec07c
+fish_color_keyword 83a598
+fish_color_quote fabd2f
+fish_color_redirection ebdbb2
+fish_color_option 8f3f71
+fish_color_end fe8019
+fish_color_error fb4934
+fish_color_param de869b
+fish_color_comment 8f3f71
+fish_color_selection --background=504945
+fish_color_search_match --background=504945
+fish_color_operator b8bb26
+fish_color_escape 83a598
+fish_color_autosuggestion 8f3f71
+
+# Completion Pager Colors
+fish_pager_color_progress 8f3f71
+fish_pager_color_prefix 8ec07c
+fish_pager_color_completion ebdbb2
+fish_pager_color_description 8f3f71
+fish_pager_color_selected_background --background=504945

@@ -11,7 +11,7 @@ macos-option-as-alt = true
 shell-integration = none
 cursor-style = block
 cursor-style-blink = true
-theme = tokyonight
+theme = GruvboxDarkHard
 clipboard-read = "allow"
 clipboard-paste-protection = false
 

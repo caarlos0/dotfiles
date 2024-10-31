@@ -9,7 +9,7 @@
     interactiveShellInit = ''
       # disable fish greeting
       set fish_greeting
-      fish_config theme choose tokyonight
+      fish_config theme choose gruvbox
       fish_add_path -p ~/.nix-profile/bin /nix/var/nix/profiles/default/bin
     '';
     plugins = [
@@ -98,10 +98,7 @@
     source = config.lib.file.mkOutOfStoreSymlink ./functions;
   };
 
-  xdg.configFile."fish/themes/tokyonight.theme" = {
-    source = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/fish_themes/tokyonight_night.theme";
-      sha256 = "sha256-yabv/At93pvL3Kp/H4XGn8YHd5zfsNsOlktj5iUx3AM=";
-    };
+  xdg.configFile."fish/themes/gruvbox.theme" = {
+    source = ./gruvbox-dark.theme;
   };
 }
