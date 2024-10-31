@@ -1,8 +1,11 @@
-{ pkgs, config, ... }: {
+{ config, ... }: {
+  xdg.configFile."btop/themes/gruvbox.theme" = {
+    source = ./gruvbox-dark.theme;
+  };
   programs.btop = {
     enable = true;
     settings = {
-      color_theme = "${pkgs.btop}/share/btop/themes/tokyo-night.theme";
+      color_theme = "${config.xdg.configHome}/btop/themes/gruvbox.theme";
     };
   };
   programs.htop = {

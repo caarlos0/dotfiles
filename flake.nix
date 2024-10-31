@@ -103,7 +103,7 @@
                   ./modules/neovim
                   ./modules/git
                   ./modules/gh
-                  ./modules/top.nix
+                  ./modules/top
                   ./modules/shell.nix
                   ./modules/ssh
                   ./modules/charm.nix
@@ -139,7 +139,7 @@
                   ./modules/neovim
                   ./modules/git
                   ./modules/gh
-                  ./modules/top.nix
+                  ./modules/top
                   ./modules/shell.nix
                   ./modules/ssh
                   ./modules/charm.nix
