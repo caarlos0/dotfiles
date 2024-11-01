@@ -1,7 +1,6 @@
 require("user.options")
 require("user.keymaps")
 require("user.autocommands")
-require("cloak").setup()
 
 --
 -- UI
