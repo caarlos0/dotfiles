@@ -6,7 +6,7 @@ local hyper = { "alt", "ctrl", "cmd", "shift" }
 -- disable anymations
 hs.window.animationDuration = 0
 
-hotkey.bind(hyper, ";", function()
+hotkey.bind(hyper, "\\", function()
   hs.reload()
 end)
 
@@ -22,8 +22,23 @@ hs.hotkey.bind(hyper, "Right", function()
   hs.window.focusedWindow():moveToUnit({ 0.5, 0, 0.5, 1 })
 end)
 
+-- middle up
+hs.hotkey.bind(hyper, "Up", function()
+  hs.window.focusedWindow():moveToUnit({ 0, 0, 1, 0.5 })
+end)
+
+-- middle down
+hs.hotkey.bind(hyper, "Down", function()
+  hs.window.focusedWindow():moveToUnit({ 0, 0.5, 1, 0.5 })
+end)
+
+-- maximize
+hotkey.bind(hyper, ";", function()
+  hs.window.focusedWindow():moveToUnit({ 0, 0, 1, 1 })
+end)
+
 -- centralize at 80% screen size
-hotkey.bind(hyper, "Down", function()
+hotkey.bind(hyper, "'", function()
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local max = win:screen():frame()
@@ -35,11 +50,6 @@ hotkey.bind(hyper, "Down", function()
 
   win:setFrame(f)
   win:centerOnScreen()
-end)
-
--- maximize
-hotkey.bind(hyper, "Up", function()
-  hs.window.focusedWindow():moveToUnit({ 0, 0, 1, 1 })
 end)
 
 hotkey.bind(hyper, "Y", function()
