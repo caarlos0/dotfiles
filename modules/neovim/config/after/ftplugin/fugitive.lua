@@ -10,22 +10,19 @@ end
 -- goes directly to the first file and opens diff view
 vim.cmd("normal )=")
 
-keymap("<leader>p", function()
+keymap("gp", function()
   vim.cmd.Git("push --quiet")
 end, "Git push")
 
-keymap("<leader>P", function()
+keymap("gP", function()
   vim.cmd.Git("pull --rebase")
 end, "Git pull --rebase")
 
-keymap("<leader>t", function()
+keymap("gt", function()
   vim.cmd.Git("push -u origin --quiet")
 end, "Git push tracking origin")
 
-keymap("<leader>o", function()
+keymap("go", function()
   vim.cmd.Git("push --quiet")
   vim.cmd.Git("pr")
 end, "Git push & open browser in PR view")
-
-keymap("q", ":bdelete!<cr>", "Close Git")
-keymap("<leader>q", ":bdelete!<cr>", "Close Git")

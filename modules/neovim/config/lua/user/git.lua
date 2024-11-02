@@ -6,21 +6,13 @@ vim.keymap.set("n", "<leader>gs", "<cmd>tab Git<cr>", {
   desc = "Open Git",
 })
 
-vim.keymap.set("n", "<leader>gms", function()
-  vim.cmd.Git("sync")
-end, {
-  noremap = true,
-  silent = true,
-  desc = "Git sync",
-})
-
 require("gitsigns").setup({
   preview_config = {
     border = "rounded",
   },
 })
 
-vim.keymap.set("n", "<leader>gp", function()
+vim.keymap.set("n", "<leader>gd", function()
   vim.cmd.Gitsigns("preview_hunk")
 end, {
   noremap = true,
