@@ -53,20 +53,10 @@ in
       # coding
       nvim-lspconfig
       conform-nvim
-      nvim-cmp
-      cmp-buffer
-      cmp-path
-      cmp-cmdline
-      cmp-emoji
-      cmp-calc
+      # TODO: change to nixpkgs when latest version is available there.
+      (pkgs.callPackage ../../pkgs/blink-cmp { })
       nvim-autopairs
       nvim-ts-autotag
-      cmp-nvim-lsp
-      cmp-nvim-lsp-signature-help
-      copilot-lua
-      copilot-cmp
-      luasnip
-      cmp_luasnip
       friendly-snippets
       neodev-nvim
       neogen
@@ -132,7 +122,6 @@ in
       # sql
       vim-dadbod
       vim-dadbod-ui
-      vim-dadbod-completion
     ];
   };
 
