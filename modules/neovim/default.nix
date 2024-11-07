@@ -33,6 +33,7 @@ in
       todo-comments-nvim
       harpoon2
       vim-fugitive
+      vim-flog
       vim-rhubarb
       vim-abolish
       vim-repeat

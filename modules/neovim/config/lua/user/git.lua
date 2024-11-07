@@ -1,4 +1,5 @@
 vim.g.fugitive_legacy_commands = 0
+vim.g.flog_enable_extended_chars = 1
 
 vim.keymap.set("n", "<leader>gs", "<cmd>tab Git<cr>", {
   noremap = true,
