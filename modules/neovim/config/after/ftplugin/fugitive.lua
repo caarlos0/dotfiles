@@ -1,28 +1,30 @@
-local keymap = function(lhs, rhs, desc)
-  vim.keymap.set("n", lhs, rhs, {
-    noremap = true,
-    silent = true,
-    buffer = vim.api.nvim_get_current_buf(),
-    desc = desc,
-  })
-end
+local opts = {
+  noremap = true,
+  silent = true,
+  buffer = vim.api.nvim_get_current_buf(),
+}
 
 -- goes directly to the first file and opens diff view
 vim.cmd("normal )=")
 
-keymap("gp", function()
-  vim.cmd.Git("push --quiet")
-end, "Git push")
+vim.keymap.set("n", "gp", function()
+  vim.cmd([[
+    silent! Git push --quiet
+    close
+  ]])
+end, opts)
 
-keymap("gP", function()
-  vim.cmd.Git("pull --rebase")
-end, "Git pull --rebase")
+vim.keymap.set("n", "gP", function()
+  vim.cmd([[
+    silent! Git pull --rebase
+    close
+  ]])
+end, opts)
 
-keymap("gt", function()
-  vim.cmd.Git("push -u origin --quiet")
-end, "Git push tracking origin")
-
-keymap("go", function()
-  vim.cmd.Git("push --quiet")
-  vim.cmd.Git("pr")
-end, "Git push & open browser in PR view")
+vim.keymap.set("n", "go", function()
+  vim.cmd([[
+    silent! Git push origin HEAD --quiet
+    silent! Git pr
+    close
+  ]])
+end, opts)
