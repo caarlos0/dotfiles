@@ -12,6 +12,18 @@ local keymap = function(lhs, rhs, bufnr)
   })
 end
 
+--- Add an insert keymap.
+---@param lhs string Keymap
+---@param rhs function Action
+---@param bufnr number Buffer number
+local ikeymap = function(lhs, rhs, bufnr)
+  vim.keymap.set("i", lhs, rhs, {
+    noremap = true,
+    silent = true,
+    buffer = bufnr,
+  })
+end
+
 local is_v10 = vim.fn.has("nvim-0.10") == 1
 
 --- On attach for key maps.
@@ -23,7 +35,8 @@ M.on_attach = function(bufnr)
   keymap("grr", builtin.lsp_references, bufnr)
   keymap("<leader>ls", builtin.lsp_document_symbols, bufnr)
   keymap("<leader>lS", builtin.lsp_dynamic_workspace_symbols, bufnr)
-  keymap("<C+s>", vim.lsp.buf.signature_help, bufnr)
+  keymap("<C-s>", vim.lsp.buf.signature_help, bufnr)
+  ikeymap("<C-s>", vim.lsp.buf.signature_help, bufnr)
   keymap("gi", builtin.lsp_implementations, bufnr)
   keymap("gD", vim.lsp.buf.declaration, bufnr)
   keymap("K", vim.lsp.buf.hover, bufnr)
@@ -31,7 +44,7 @@ M.on_attach = function(bufnr)
   keymap("grn", vim.lsp.buf.rename, bufnr)
   keymap("gra", vim.lsp.buf.code_action, bufnr)
   keymap("grl", vim.lsp.codelens.run, bufnr)
-  keymap("<leader>gl", vim.diagnostic.open_float, bufnr)
+  keymap("gl", vim.diagnostic.open_float, bufnr)
   keymap("[d", function()
     if is_v10 then
       vim.diagnostic.goto_prev()
