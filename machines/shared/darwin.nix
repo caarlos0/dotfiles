@@ -21,7 +21,6 @@
       "deckset"
       "discord"
       # "contexts"
-      "figma"
       "font-jetbrains-mono"
       "font-jetbrains-mono-nerd-font"
       "google-chrome"
