@@ -1,0 +1,60 @@
+confirm-before-quit = false
+
+# from https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/refs/heads/master/rio/GruvboxDarkHard.toml
+[colors]
+background = '#1b1b1b'
+foreground = '#ebdbb2'
+selection-background = '#665c54'
+selection-foreground = '#ebdbb2'
+cursor = '#ebdbb2'
+black = '#1b1b1b'
+red = '#cc241d'
+green = '#98971a'
+yellow = '#d79921'
+blue = '#458588'
+magenta = '#b16286'
+cyan = '#689d6a'
+white = '#a89984'
+light_black = '#928374'
+light_red = '#fb4934'
+light_green = '#b8bb26'
+light_yellow = '#fabd2f'
+light_blue = '#83a598'
+light_magenta = '#d3869b'
+light_cyan = '#8ec07c'
+light_white = '#ebdbb2'
+
+[cursor]
+shape = 'block'
+blinking = false
+blinking-interval = 800
+
+[editor]
+program = "nvim"
+args = []
+
+[window]
+mode = "maximized"
+
+[renderer]
+performance = "high"
+backend = "Metal"
+
+[keyboard]
+use-kitty-keyboard-protocol = true
+
+[fonts]
+family = "Berkeley Mono"
+size = 15
+extras = [{ family = "JetBrainsMono Nerd Font Mono" }]
+features = [
+  "zero",
+  "ss01",
+  "ss02",
+  "ss03",
+  "ss04",
+  "ss05",
+  "ss06",
+  "calt",
+  "liga",
+]

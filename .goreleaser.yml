@@ -96,7 +96,7 @@ changelog:
         - title: other
           order: 9999
     - title: "terminals"
-      regexp: "^.*\\((kitty|wezterm|ghostty|alacritty)\\):+.*$"
+      regexp: "^.*\\((kitty|wezterm|rio|ghostty|alacritty)\\):+.*$"
       order: 400
       groups:
         - title: improvements

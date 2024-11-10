@@ -29,6 +29,7 @@
       "imageoptim"
       "ledger-live"
       "monodraw"
+      "rio"
       "signal"
       "slack"
       "soulver"

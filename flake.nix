@@ -135,6 +135,7 @@
                   ./modules/go.nix
                   ./modules/fzf.nix
                   ./modules/ghostty
+                  ./modules/rio
                   ./modules/tmux
                   ./modules/neovim
                   ./modules/git
