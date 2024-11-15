@@ -1,3 +1,5 @@
+local async = require("plenary.async")
+
 local opts = {
   noremap = true,
   silent = true,
@@ -8,23 +10,29 @@ local opts = {
 vim.cmd("normal )=")
 
 vim.keymap.set("n", "gp", function()
-  vim.cmd([[
-    silent! Git push --quiet
-    close
-  ]])
+  async.run(function()
+    vim.cmd([[
+      silent! Git push --quiet
+    ]])
+  end)
+  vim.cmd([[ close ]])
 end, opts)
 
 vim.keymap.set("n", "gP", function()
-  vim.cmd([[
-    silent! Git pull --rebase
-    close
-  ]])
+  async.run(function()
+    vim.cmd([[
+      silent! Git pull --rebase
+    ]])
+  end)
+  vim.cmd([[ close ]])
 end, opts)
 
 vim.keymap.set("n", "go", function()
-  vim.cmd([[
-    silent! Git push origin HEAD --quiet
-    silent! Git pr
-    close
-  ]])
+  async.run(function()
+    vim.cmd([[
+      silent! Git push origin HEAD --quiet
+      silent! Git pr
+    ]])
+  end)
+  vim.cmd([[ close ]])
 end, opts)
