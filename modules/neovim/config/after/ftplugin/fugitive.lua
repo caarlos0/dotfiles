@@ -41,7 +41,5 @@ end, opts)
 
 vim.keymap.set("n", "go", function()
   vim.cmd("close")
-  async.run(function()
-    async_git({ "ppr" }, "Pushed and opened PR URL!", "Failed to push or open PR")
-  end)
+  async_git({ "ppr" }, "Pushed and opened PR URL!", "Failed to push or open PR")
 end, opts)
