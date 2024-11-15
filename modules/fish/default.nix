@@ -47,6 +47,7 @@
       gms = "git switch (git main-branch); and git sync";
       egms = "e; git switch (git main-branch); and git sync";
       gwc = "git switch -c";
+      gpr = "git ppr";
 
       # go
       gmt = "go mod tidy";
