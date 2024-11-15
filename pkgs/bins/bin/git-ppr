@@ -2,5 +2,5 @@
 # git push and open github pr creation page
 set -e
 
-git push origin HEAD && \
-	gh pr create -w
+git push origin HEAD &&
+  gh pr create -w
