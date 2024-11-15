@@ -1,4 +1,4 @@
-local async = require("plenary.async")
+local Job = require("plenary.job")
 
 local opts = {
   noremap = true,
@@ -6,27 +6,42 @@ local opts = {
   buffer = vim.api.nvim_get_current_buf(),
 }
 
+-- Runs a git command async.
+--
+---@param args table: git command arguments.
+---@param success_msg string: notification message when the command succeeds.
+---@param error_msg string: notification message when the command fails.
+local function async_git(args, success_msg, error_msg)
+  Job:new({
+    command = "git",
+    args = args,
+    ---@diagnostic disable: unused-local
+    on_exit = function(j, status)
+      if status == 0 then
+        vim.notify(success_msg, vim.log.levels.INFO)
+      else
+        vim.notify(error_msg, vim.log.levels.ERROR)
+      end
+    end,
+  }):start()
+end
+
 -- goes directly to the first file and opens diff view
 vim.cmd("normal )=")
 
 vim.keymap.set("n", "gp", function()
   vim.cmd("close")
-  async.void(function()
-    vim.cmd("silent! Git push --quiet")
-  end)()
+  async_git({ "push", "--quiet" }, "Pushed!", "Push failed!")
 end, opts)
 
 vim.keymap.set("n", "gP", function()
   vim.cmd("close")
-  async.void(function()
-    vim.cmd("silent! Git pull --rebase")
-  end)()
+  async_git({ "pull", "--rebase" }, "Pulled!", "Pull failed!")
 end, opts)
 
 vim.keymap.set("n", "go", function()
   vim.cmd("close")
-  async.void(function()
-    vim.cmd("silent! Git push origin HEAD --quiet")
-    vim.cmd("silent! Git pr")
-  end)()
+  async.run(function()
+    async_git({ "ppr" }, "Pushed and opened PR URL!", "Failed to push or open PR")
+  end)
 end, opts)
