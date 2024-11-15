@@ -10,29 +10,23 @@ local opts = {
 vim.cmd("normal )=")
 
 vim.keymap.set("n", "gp", function()
+  vim.cmd("close")
   async.run(function()
-    vim.cmd([[
-      silent! Git push --quiet
-    ]])
+    vim.cmd("silent! Git push --quiet")
   end)
-  vim.cmd([[ close ]])
 end, opts)
 
 vim.keymap.set("n", "gP", function()
+  vim.cmd("close")
   async.run(function()
-    vim.cmd([[
-      silent! Git pull --rebase
-    ]])
+    vim.cmd("silent! Git pull --rebase")
   end)
-  vim.cmd([[ close ]])
 end, opts)
 
 vim.keymap.set("n", "go", function()
+  vim.cmd("close")
   async.run(function()
-    vim.cmd([[
-      silent! Git push origin HEAD --quiet
-      silent! Git pr
-    ]])
+    vim.cmd("silent! Git push origin HEAD --quiet")
+    vim.cmd("silent! Git pr")
   end)
-  vim.cmd([[ close ]])
 end, opts)
