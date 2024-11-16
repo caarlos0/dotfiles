@@ -30,16 +30,16 @@ end
 vim.cmd("normal )=")
 
 vim.keymap.set("n", "gp", function()
-  vim.cmd("close")
   async_git({ "push", "--quiet" }, "Pushed!", "Push failed!")
+  vim.cmd("silent! close")
 end, opts)
 
 vim.keymap.set("n", "gP", function()
-  vim.cmd("close")
   async_git({ "pull", "--rebase" }, "Pulled!", "Pull failed!")
+  vim.cmd("silent! close")
 end, opts)
 
 vim.keymap.set("n", "go", function()
-  vim.cmd("close")
   async_git({ "ppr" }, "Pushed and opened PR URL!", "Failed to push or open PR")
+  vim.cmd("silent! close")
 end, opts)
