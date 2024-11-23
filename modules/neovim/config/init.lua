@@ -9,6 +9,7 @@ require("user.colorscheme")
 require("nvim-web-devicons").setup()
 require("user.notify")
 require("user.lualine")
+require("colorizer").setup()
 
 --
 -- BASIC

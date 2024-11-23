@@ -52,6 +52,7 @@ in
       vim-tmux-navigator
       better-escape-nvim
       bufdelete-nvim
+      nvim-colorizer-lua
 
       # ai
       nui-nvim
