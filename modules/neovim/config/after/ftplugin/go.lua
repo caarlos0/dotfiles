@@ -43,11 +43,18 @@ end)
 
 keymap("<F3>", function()
   vim.notify("Running golangci-lint...")
-  local output = vim.fn.system("golangci-lint run --max-issues-per-linter=0 --max-same-issues=0")
-  if output and output ~= "" then
-    vim.fn.setqflist({}, " ", { lines = vim.split(output, "\n") })
-    copen()
-  end
+  vim.fn.setqflist({}, "r")
+  vim.fn.jobstart("golangci-lint run --max-issues-per-linter=0 --max-same-issues=0", {
+    stdout_buffered = true,
+    on_stdout = function(_, data)
+      if data and #data > 1 then
+        vim.schedule(function()
+          vim.fn.setqflist({}, " ", { lines = data })
+          copen()
+        end)
+      end
+    end,
+  })
 end)
 
 keymap("<F4>", vim.cmd.GoModTidy)
