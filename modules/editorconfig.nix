@@ -12,12 +12,17 @@
         indent_style = "space";
         indent_size = 2;
       };
-      "*.go" = {
+      "*.{go,rs,zig,fish}" = {
         indent_style = "tab";
         indent_size = 4;
       };
       "Makefile" = {
         indent_style = "tab";
+        indent_size = 4;
+      };
+      # pep8
+      "*.py" = {
+        indent_style = "space";
         indent_size = 4;
       };
     };
