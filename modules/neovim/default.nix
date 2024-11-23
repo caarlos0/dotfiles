@@ -53,6 +53,7 @@ in
       better-escape-nvim
       bufdelete-nvim
       nvim-colorizer-lua
+      vim-exchange
 
       # ai
       nui-nvim
