@@ -66,7 +66,7 @@
     gofumpt
     htmx-lsp
     nil # nix lsp
-    nixpkgs-fmt
+    nixfmt-rfc-style
     pgformatter
     prettier
     rust-analyzer
