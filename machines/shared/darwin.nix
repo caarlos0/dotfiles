@@ -7,6 +7,8 @@
   nix.settings.trusted-users = [ "root" "carlos" ];
   system.stateVersion = 5;
 
+  security.pam.enableSudoTouchIdAuth = true;
+
   users.users.carlos = {
     name = "carlos";
     home = "/Users/carlos";
