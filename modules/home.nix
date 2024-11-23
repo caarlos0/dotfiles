@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   home.username = "carlos";
   home.stateVersion = "23.11";
 

@@ -38,7 +38,13 @@ in
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 5055 8090 8091 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+    5055
+    8090
+    8091
+  ];
 
   services.plex = {
     enable = true;
@@ -91,18 +97,17 @@ in
       Group = "wheel";
       ExecStart =
         let
-          config = pkgs.writeText "unpackerr.conf"
-            ''
-              [[sonarr]]
-              url = "http://localhost:8989"
-              api_key = "71c261a86baf491784a60fa7489620fc"
-              delete_orig = true
+          config = pkgs.writeText "unpackerr.conf" ''
+            [[sonarr]]
+            url = "http://localhost:8989"
+            api_key = "71c261a86baf491784a60fa7489620fc"
+            delete_orig = true
 
-              [[radarr]]
-              url = "http://localhost:7878"
-              api_key = "0042dc1c54444388b0ed680187f11b37"
-              delete_orig = true
-            '';
+            [[radarr]]
+            url = "http://localhost:7878"
+            api_key = "0042dc1c54444388b0ed680187f11b37"
+            delete_orig = true
+          '';
         in
         "${pkgs.unpackerr}/bin/unpackerr -c ${config}";
       Restart = "on-failure";
@@ -174,4 +179,3 @@ in
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 }
-

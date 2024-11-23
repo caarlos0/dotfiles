@@ -1,6 +1,12 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
-  fromGitHub = owner: repo: ref: hash:
+  fromGitHub =
+    owner: repo: ref: hash:
     pkgs.vimUtils.buildVimPlugin {
       pname = "${lib.strings.sanitizeDerivationName repo}";
       version = ref;
@@ -73,8 +79,8 @@ in
       neogen
       nvim-surround
       treesj
-      (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
-        with plugins; [
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (
+        plugins: with plugins; [
           arduino
           awk
           bash
@@ -123,7 +129,8 @@ in
           vimdoc
           yaml
           zig
-        ]))
+        ]
+      ))
       nvim-treesitter-textobjects
       nvim-treesitter-context
       nvim-treesitter-endwise

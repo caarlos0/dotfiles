@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   home.homeDirectory = "/Users/carlos";
 
   # targets.darwin.defaults = {
@@ -46,8 +47,12 @@
           SuccessfulExit = false;
         };
         ProcessType = "Background";
-        EnvironmentVariables = { "LC_CTYPE" = "UTF-8"; };
-        inetdCompatibility = { Wait = false; };
+        EnvironmentVariables = {
+          "LC_CTYPE" = "UTF-8";
+        };
+        inetdCompatibility = {
+          Wait = false;
+        };
         Sockets = {
           Listener = {
             SockServiceName = "2224";
@@ -67,8 +72,12 @@
           SuccessfulExit = false;
         };
         ProcessType = "Background";
-        inetdCompatibility = { Wait = false; };
-        EnvironmentVariables = { "LC_CTYPE" = "UTF-8"; };
+        inetdCompatibility = {
+          Wait = false;
+        };
+        EnvironmentVariables = {
+          "LC_CTYPE" = "UTF-8";
+        };
         Sockets = {
           Listener = {
             SockServiceName = "2225";

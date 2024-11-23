@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   home.packages = with pkgs; [
     git-lfs
     nur.repos.caarlos0.diffnav
@@ -27,7 +28,9 @@
       gpg.format = "ssh";
       gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
       user.signingKey = "~/.ssh/id_ed25519";
-      lfs = { enable = true; };
+      lfs = {
+        enable = true;
+      };
       core = {
         editor = "nvim";
         compression = -1;
@@ -41,9 +44,15 @@
         branch = "auto";
         ui = true;
       };
-      advice = { addEmptyPathspec = false; };
-      apply = { whitespace = "nowarn"; };
-      help = { autocorrect = 1; };
+      advice = {
+        addEmptyPathspec = false;
+      };
+      apply = {
+        whitespace = "nowarn";
+      };
+      help = {
+        autocorrect = 1;
+      };
       grep = {
         extendRegexp = true;
         lineNumber = true;
@@ -52,12 +61,24 @@
         autoSetupRemote = true;
         default = "simple";
       };
-      submodule = { fetchJobs = 4; };
-      log = { showSignature = false; };
-      format = { signOff = true; };
-      rerere = { enabled = true; };
-      pull = { ff = "only"; };
-      init = { defaultBranch = "main"; };
+      submodule = {
+        fetchJobs = 4;
+      };
+      log = {
+        showSignature = false;
+      };
+      format = {
+        signOff = true;
+      };
+      rerere = {
+        enabled = true;
+      };
+      pull = {
+        ff = "only";
+      };
+      init = {
+        defaultBranch = "main";
+      };
     };
     ignores = lib.splitString "\n" (builtins.readFile ./gitignore_global);
   };

@@ -1,9 +1,10 @@
 # with import <nixpkgs> { };
-{ fetchFromGitHub
-, fetchYarnDeps
-, mkYarnPackage
-, pkgs
-, ...
+{
+  fetchFromGitHub,
+  fetchYarnDeps,
+  mkYarnPackage,
+  pkgs,
+  ...
 }:
 let
   formatYaml = pkgs.formats.yaml { };

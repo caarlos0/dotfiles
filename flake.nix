@@ -25,16 +25,17 @@
   };
 
   outputs =
-    { nur
+    {
+      nur,
       # , neovim-nightly
-    , caarlos0-nur
-    , charmbracelet-nur
-    , goreleaser-nur
-    , darwin
-    , home-manager
-    , nix-index-database
-    , nixpkgs
-    , ...
+      caarlos0-nur,
+      charmbracelet-nur,
+      goreleaser-nur,
+      darwin,
+      home-manager,
+      nix-index-database,
+      nixpkgs,
+      ...
     }:
     let
       overlays = [
@@ -54,10 +55,13 @@
 
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.platforms.unix;
 
-      nixpkgsFor = forAllSystems (system: import nixpkgs {
-        inherit system;
-        overlays = overlays;
-      });
+      nixpkgsFor = forAllSystems (
+        system:
+        import nixpkgs {
+          inherit system;
+          overlays = overlays;
+        }
+      );
     in
     {
       nixosConfigurations = {
@@ -155,7 +159,8 @@
         };
       };
 
-      devShells = forAllSystems (system:
+      devShells = forAllSystems (
+        system:
         let
           pkgs = nixpkgsFor.${system};
         in
@@ -187,6 +192,7 @@
               '')
             ];
           };
-        });
+        }
+      );
     };
 }

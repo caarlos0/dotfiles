@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   programs.ssh = {
     enable = true;
     includes = [ "~/.ssh/config.local" ];

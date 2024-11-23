@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.fish.interactiveShellInit = ''
     fish_add_path -p ~/Developer/Go/bin
   '';

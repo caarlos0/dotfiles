@@ -1,10 +1,11 @@
-{ lib
-, mkYarnPackage
-, fetchFromGitHub
-, fetchYarnDeps
-, nodejs
-, python3
-, makeWrapper
+{
+  lib,
+  mkYarnPackage,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  nodejs,
+  python3,
+  makeWrapper,
 }:
 
 mkYarnPackage rec {
@@ -18,7 +19,6 @@ mkYarnPackage rec {
     hash = "sha256-xDzWyU4f56+0Tpk87LpH6zXtxmRxVMCKySCY6WD5go0=";
   };
 
-
   offlineCache = fetchYarnDeps {
     yarnLock = "${src}/yarn.lock";
     hash = "sha256-SZwhC6djgU5qshtDhQnkz/INeklp/c+BKjn7ao0r5IE=";
@@ -28,11 +28,17 @@ mkYarnPackage rec {
     CYPRESS_INSTALL_BINARY = 0; # cypress tries to download binaries otherwise
   };
 
-  nativeBuildInputs = [ nodejs makeWrapper ];
+  nativeBuildInputs = [
+    nodejs
+    makeWrapper
+  ];
 
   # Fixes "SQLite package has not been found installed" at launch
   pkgConfig.sqlite3 = {
-    nativeBuildInputs = [ nodejs.pkgs.node-pre-gyp python3 ];
+    nativeBuildInputs = [
+      nodejs.pkgs.node-pre-gyp
+      python3
+    ];
     postInstall = ''
       export CPPFLAGS="-I${nodejs}/include/node"
       node-pre-gyp install --prefer-offline --build-from-source --nodedir=${nodejs}/include/node
@@ -42,7 +48,10 @@ mkYarnPackage rec {
 
   # Fixes MODULE_NOT_FOUND at launch.
   pkgConfig.bcrypt = {
-    nativeBuildInputs = [ nodejs.pkgs.node-pre-gyp python3 ];
+    nativeBuildInputs = [
+      nodejs.pkgs.node-pre-gyp
+      python3
+    ];
     postInstall = ''
       export CPPFLAGS="-I${nodejs}/include/node"
       node-pre-gyp install --prefer-offline --build-from-source --nodedir=${nodejs}/include/node
@@ -77,5 +86,3 @@ mkYarnPackage rec {
     maintainers = with lib.maintainers; [ caarlos0 ];
   };
 }
-
-

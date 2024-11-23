@@ -1,10 +1,18 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   nixpkgs.config = {
     allowUnfree = true;
   };
-  services = { nix-daemon = { enable = true; }; };
+  services = {
+    nix-daemon = {
+      enable = true;
+    };
+  };
   nix.package = pkgs.nix;
-  nix.settings.trusted-users = [ "root" "carlos" ];
+  nix.settings.trusted-users = [
+    "root"
+    "carlos"
+  ];
   system.stateVersion = 5;
 
   security.pam.enableSudoTouchIdAuth = true;
@@ -98,15 +106,25 @@
         ShowPathbar = true;
       };
       CustomUserPreferences = {
-        "com.apple.NetworkBrowser" = { BrowseAllInterfaces = true; };
+        "com.apple.NetworkBrowser" = {
+          BrowseAllInterfaces = true;
+        };
         "com.apple.screensaver" = {
           askForPassword = true;
           askForPasswordDelay = 0;
         };
-        "com.apple.trackpad" = { scaling = 2; };
-        "com.apple.mouse" = { scaling = 2.5; };
-        "com.apple.desktopservices" = { DSDontWriteNetworkStores = false; };
-        "com.apple.LaunchServices" = { LSQuarantine = true; };
+        "com.apple.trackpad" = {
+          scaling = 2;
+        };
+        "com.apple.mouse" = {
+          scaling = 2.5;
+        };
+        "com.apple.desktopservices" = {
+          DSDontWriteNetworkStores = false;
+        };
+        "com.apple.LaunchServices" = {
+          LSQuarantine = true;
+        };
         "com.apple.finder" = {
           ShowExternalHardDrivesOnDesktop = false;
           ShowRemovableMediaOnDesktop = false;
@@ -117,7 +135,9 @@
           NSTableViewDefaultSizeMode = 1;
           WebKitDeveloperExtras = true;
         };
-        "com.apple.ImageCapture" = { "disableHotPlug" = true; };
+        "com.apple.ImageCapture" = {
+          "disableHotPlug" = true;
+        };
         "com.apple.mail" = {
           DisableReplyAnimations = true;
           DisableSendAnimations = true;
