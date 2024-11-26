@@ -35,15 +35,22 @@ local function copen()
   end
 end
 
+local function cclear()
+  vim.fn.setqflist({}, "r")
+end
+
 keymap("<F2>", function()
   vim.notify("Running make...")
-  vim.cmd("make")
-  copen()
+  cclear()
+  vim.schedule(function()
+    vim.cmd("make")
+    copen()
+  end)
 end)
 
 keymap("<F3>", function()
   vim.notify("Running golangci-lint...")
-  vim.fn.setqflist({}, "r")
+  cclear()
   vim.fn.jobstart("golangci-lint run --max-issues-per-linter=0 --max-same-issues=0", {
     stdout_buffered = true,
     on_stdout = function(_, data)
