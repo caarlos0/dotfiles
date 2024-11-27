@@ -9,18 +9,20 @@ conform.setup({
     lua = { "stylua" },
     markdown = { "prettier" },
     nix = { "nixfmt" },
-    rust = { "rustfmt" },
     sh = { "shfmt" },
     sql = { "pg_format", "sql_formatter" },
     templ = { "templ" },
     tf = { "terraform_fmt" },
     yaml = { "prettier" },
-    zig = { "zigfmt" },
     ["_"] = { "trim_whitespace", "trim_newlines" },
+
+    -- let only the lsp take care of these.
+    go = {},
+    rust = {},
+    zig ={},
   },
-  format_on_save = {
+  format_after_save = {
     lsp_fallback = true,
-    timeout_ms = 500,
   },
 })
 
