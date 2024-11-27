@@ -1,27 +1,52 @@
 local ms = require("vim.lsp.protocol").Methods
 local group = vim.api.nvim_create_augroup("LSP", { clear = true })
 
--- Format code and organize imports (if supported).
+-- Format code (async).
 --
 ---@param client vim.lsp.Client Client
 ---@param bufnr number Buffer number
----@param timeoutms number timeout in ms
-local organize_imports = function(client, bufnr, timeoutms)
+local format = function(client, bufnr)
+  vim.lsp.buf.format({
+    bufnr = bufnr,
+    id = client.id,
+    async = true,
+  })
+end
+
+-- Format code and organize imports (if supported) (async).
+--
+---@param client vim.lsp.Client Client
+---@param bufnr number Buffer number
+local organize_imports = function(client, bufnr)
   local params = vim.lsp.util.make_range_params()
   params.context = { only = { "source.organizeImports" } }
-  -- TODO: PR neovim allowing to filter buf_request_sync
-  local result = vim.lsp.buf_request_sync(bufnr, ms.textDocument_codeAction, params, timeoutms)
-  for cid, res in pairs(result or {}) do
-    if cid == client.id then
-      for _, r in pairs(res.result or {}) do
-        if r.edit then
-          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-          vim.lsp.util.apply_workspace_edit(r.edit, enc)
-        elseif r.command and r.command.command then
-          vim.lsp.buf.execute_command(r.command)
-        end
-      end
+
+  ---@param err lsp.ResponseError?
+  ---@param result any
+  ---@param context lsp.HandlerContext
+  ---@param config? table
+  local handler = function(err, result, context, config)
+    if err then
+      vim.notify("Organize Imports failed: " .. err.message, vim.log.levels.ERROR)
     end
+    for _, r in pairs(result or {}) do
+      if r.edit then
+        local enc = client.offset_encoding or "utf-16"
+        vim.lsp.util.apply_workspace_edit(r.edit, enc)
+      elseif r.command and r.command.command then
+        vim.lsp.buf.execute_command(r.command)
+      end
+
+      -- we don't have a callback to format, so we organize imports first, and
+      -- then format in the codeAction callback.
+      format(client, bufnr)
+    end
+  end
+
+  local ok, _ = client.request(ms.textDocument_codeAction, params, handler, bufnr)
+  -- if the request to organizeImports fails, at least format the code.
+  if not ok then
+    format(client, bufnr)
   end
 end
 
@@ -72,11 +97,15 @@ M.setup = function()
     group = group,
   })
 
+  -- TODO: maybe use BufWritePost since we are now doing this async?
   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     callback = function()
-      on_clients(0, ms.textDocument_codeAction, function(client)
+      local bufnr = vim.api.nvim_get_current_buf()
+      on_clients(bufnr, ms.textDocument_codeAction, function(client)
+        -- lua_ls is freaks out when you ask it to organize imports... and we
+        -- use stylua to format, so it doesn't matter anyway.
         if client.name ~= "lua_ls" then
-          organize_imports(client, 0, 1500)
+          organize_imports(client, bufnr)
         end
       end)
     end,
