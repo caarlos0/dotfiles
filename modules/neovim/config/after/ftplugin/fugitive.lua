@@ -26,8 +26,8 @@ local function async_git(args, success_msg, error_msg)
   }):start()
 end
 
--- goes directly to the first file and opens diff view
-vim.cmd("normal )=")
+-- goes directly to the file list.
+vim.cmd("normal )k=")
 
 vim.keymap.set("n", "gp", function()
   async_git({ "push", "--quiet" }, "Pushed!", "Push failed!")
