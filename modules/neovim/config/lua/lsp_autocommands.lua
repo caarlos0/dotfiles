@@ -1,20 +1,9 @@
 local ms = require("vim.lsp.protocol").Methods
 local group = vim.api.nvim_create_augroup("LSP", { clear = true })
 
--- Format code (async).
---
----@param client vim.lsp.Client Client
----@param bufnr number Buffer number
-local format = function(client, bufnr)
-  vim.lsp.buf.format({
-    bufnr = bufnr,
-    id = client.id,
-    async = true,
-  })
-end
-
 -- Format code and organize imports (if supported) (async).
 --
+---@async
 ---@param client vim.lsp.Client Client
 ---@param bufnr number Buffer number
 local organize_imports = function(client, bufnr)
@@ -36,18 +25,11 @@ local organize_imports = function(client, bufnr)
       elseif r.command and r.command.command then
         vim.lsp.buf.execute_command(r.command)
       end
-
-      -- we don't have a callback to format, so we organize imports first, and
-      -- then format in the codeAction callback.
-      format(client, bufnr)
     end
+    vim.cmd([[noautocmd write]])
   end
 
-  local ok, _ = client.request(ms.textDocument_codeAction, params, handler, bufnr)
-  -- if the request to organizeImports fails, at least format the code.
-  if not ok then
-    format(client, bufnr)
-  end
+  client.request(ms.textDocument_codeAction, params, handler, bufnr)
 end
 
 local M = {}
@@ -64,11 +46,19 @@ end
 
 ---@param bufnr number
 ---@param method string
----@param fn function(client)
-local on_clients = function(bufnr, method, fn)
+---@param apply fun(client: vim.lsp.Client, bufnr: number)
+---@param filter? fun(client: vim.lsp.Client): boolean
+local on_clients = function(bufnr, method, apply, filter)
   local clients = vim.lsp.get_clients({ bufnr = bufnr, method = method })
+  if not filter then
+    filter = function()
+      return true
+    end
+  end
   for _, client in ipairs(clients) do
-    fn(client)
+    if filter(client) then
+      apply(client, bufnr)
+    end
   end
 end
 
@@ -97,17 +87,28 @@ M.setup = function()
     group = group,
   })
 
-  -- TODO: maybe use BufWritePost since we are now doing this async?
   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     callback = function()
       local bufnr = vim.api.nvim_get_current_buf()
-      on_clients(bufnr, ms.textDocument_codeAction, function(client)
+      vim.lsp.buf.format({
+        bufnr = bufnr,
+        -- for some reason gopls started timing out on big projects recently...
+        timeout_ms = 5000,
+      })
+    end,
+    group = group,
+  })
+
+  vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    callback = function()
+      local bufnr = vim.api.nvim_get_current_buf()
+      local filter = function(client)
         -- lua_ls is freaks out when you ask it to organize imports... and we
         -- use stylua to format, so it doesn't matter anyway.
-        if client.name ~= "lua_ls" then
-          organize_imports(client, bufnr)
-        end
-      end)
+        -- rust_analyzer doesnt implement organizeImports yet.
+        return client.name ~= "lua_ls" and client.name ~= "rust_analyzer"
+      end
+      on_clients(bufnr, ms.textDocument_codeAction, organize_imports, filter)
     end,
     group = group,
   })
