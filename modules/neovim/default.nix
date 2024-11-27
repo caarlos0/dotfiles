@@ -75,7 +75,7 @@ in
       luasnip
       cmp_luasnip
       friendly-snippets
-      neodev-nvim
+      lazydev-nvim
       neogen
       nvim-surround
       treesj

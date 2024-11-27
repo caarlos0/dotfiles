@@ -29,7 +29,7 @@ require("user.escape")
 --
 -- CODING
 --
-require("neodev").setup({})
+require("lazydev").setup({})
 require("luasnip").setup({
   -- see: https://github.com/L3MON4D3/LuaSnip/issues/525
   region_check_events = "InsertEnter",
