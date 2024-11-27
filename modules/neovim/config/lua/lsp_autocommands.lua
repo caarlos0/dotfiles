@@ -89,12 +89,17 @@ M.setup = function()
 
   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     callback = function()
-      local bufnr = vim.api.nvim_get_current_buf()
-      vim.lsp.buf.format({
-        bufnr = bufnr,
-        -- for some reason gopls started timing out on big projects recently...
-        timeout_ms = 5000,
-      })
+      local format = function(client, bufnr)
+        if client.server_capabilities.documentFormattingProvider then
+          vim.lsp.buf.format({
+            bufnr = bufnr,
+            -- for some reason gopls started timing out on big projects recently...
+            timeout_ms = 5000,
+            id = client.id,
+          })
+        end
+      end
+      on_clients(vim.api.nvim_get_current_buf(), ms.textDocument_codeAction, format)
     end,
     group = group,
   })
@@ -103,8 +108,7 @@ M.setup = function()
     callback = function()
       local bufnr = vim.api.nvim_get_current_buf()
       local filter = function(client)
-        -- lua_ls is freaks out when you ask it to organize imports... and we
-        -- use stylua to format, so it doesn't matter anyway.
+        -- lua_ls is freaks out when you ask it to organize imports.
         -- rust_analyzer doesnt implement organizeImports yet.
         return client.name ~= "lua_ls" and client.name ~= "rust_analyzer"
       end
