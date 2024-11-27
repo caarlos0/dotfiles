@@ -1,19 +1,16 @@
 local ms = require("vim.lsp.protocol").Methods
 local group = vim.api.nvim_create_augroup("LSP", { clear = true })
 
+-- Some type definitions:
+---@alias lsp.Apply fun(client: vim.lsp.Client, bufnr: number)
+---@alias lsp.Filter fun(client: vim.lsp.Client): boolean
+
 -- Format code and organize imports (if supported) (async).
 --
 ---@async
----@param client vim.lsp.Client Client
----@param bufnr number Buffer number
+---@type lsp.Apply
 local organize_imports = function(client, bufnr)
-  local params = vim.lsp.util.make_range_params()
-  params.context = { only = { "source.organizeImports" } }
-
-  ---@param err lsp.ResponseError?
-  ---@param result any
-  ---@param context lsp.HandlerContext
-  ---@param config? table
+  ---@type lsp.Handler
   local handler = function(err, result, context, config)
     if err then
       vim.notify("Organize Imports failed: " .. err.message, vim.log.levels.ERROR)
@@ -29,10 +26,10 @@ local organize_imports = function(client, bufnr)
     vim.cmd([[noautocmd write]])
   end
 
+  local params = vim.lsp.util.make_range_params()
+  params.context = { only = { "source.organizeImports" } }
   client.request(ms.textDocument_codeAction, params, handler, bufnr)
 end
-
-local M = {}
 
 -- Checks if the given buffer has any lsp clients that support the given method.
 --
@@ -46,8 +43,8 @@ end
 
 ---@param bufnr number
 ---@param method string
----@param apply fun(client: vim.lsp.Client, bufnr: number)
----@param filter? fun(client: vim.lsp.Client): boolean
+---@param apply lsp.Apply
+---@param filter? lsp.Filter
 local on_clients = function(bufnr, method, apply, filter)
   local clients = vim.lsp.get_clients({ bufnr = bufnr, method = method })
   if not filter then
@@ -61,6 +58,8 @@ local on_clients = function(bufnr, method, apply, filter)
     end
   end
 end
+
+local M = {}
 
 M.setup = function()
   vim.api.nvim_create_autocmd("LspAttach", {
@@ -89,6 +88,7 @@ M.setup = function()
 
   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     callback = function()
+      ---@type lsp.Apply
       local format = function(client, bufnr)
         if client.server_capabilities.documentFormattingProvider then
           vim.lsp.buf.format({
@@ -107,6 +107,7 @@ M.setup = function()
   vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     callback = function()
       local bufnr = vim.api.nvim_get_current_buf()
+      ---@type lsp.Filter
       local filter = function(client)
         -- lua_ls is freaks out when you ask it to organize imports.
         -- rust_analyzer doesnt implement organizeImports yet.
