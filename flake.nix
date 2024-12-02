@@ -102,6 +102,7 @@
                   ./modules/editorconfig.nix
                   ./modules/yamllint.nix
                   ./modules/go.nix
+                  ./modules/rust.nix
                   ./modules/fzf.nix
                   ./modules/tmux
                   ./modules/neovim
@@ -137,6 +138,7 @@
                   ./modules/editorconfig.nix
                   ./modules/yamllint.nix
                   ./modules/go.nix
+                  ./modules/rust.nix
                   ./modules/fzf.nix
                   ./modules/ghostty
                   ./modules/rio

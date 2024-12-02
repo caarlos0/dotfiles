@@ -63,7 +63,6 @@
 
       # treesitter, lsps, formatters, etc
       bash-language-server
-      cargo
       clang-tools # clangd lsp
       delve
       dockerfile-language-server-nodejs
@@ -73,12 +72,10 @@
       nixfmt-rfc-style
       pgformatter
       prettier
-      rust-analyzer
-      rustc
-      rustfmt
+      rustup
       shellcheck
       shfmt
-      sql-formatter
+      # sql-formatter
       stylua
       sumneko-lua-language-server
       tailwindcss-language-server
