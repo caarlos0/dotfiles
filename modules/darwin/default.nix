@@ -26,7 +26,9 @@
   # exclude 'dist' and 'node_modules' folders as well
   home.activation.time-machine-exclusions = ''
     /usr/bin/tmutil addexclusion /Users/carlos/Developer/Go/
-    find /Users/carlos/Developer -maxdepth 3 \( -name 'dist' -or -name 'node_modules' \) -not -path "*/Go/*" -not -path "*/.git/*" | while read -r p; do
+    /usr/bin/tmutil addexclusion /Users/carlos/.cargo/
+    /usr/bin/tmutil addexclusion /Users/carlos/.rustup/
+    find /Users/carlos/Developer -maxdepth 3 \( -name 'dist' -or -name 'node_modules' -or -name 'target' \) -not -path "*/Go/*" -not -path "*/.git/*" | while read -r p; do
       echo "TimeMachine: excluding $p..."
       /usr/bin/tmutil addexclusion "$p"
     done
