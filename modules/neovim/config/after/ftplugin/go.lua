@@ -39,8 +39,8 @@ local function cclear()
   vim.fn.setqflist({}, "r")
 end
 
-keymap("<F2>", function()
-  vim.notify("Running make...")
+keymap("<F1>", function()
+  vim.notify("Building...")
   cclear()
   vim.schedule(function()
     vim.cmd("make")
@@ -48,7 +48,14 @@ keymap("<F2>", function()
   end)
 end)
 
-keymap("<F3>", function()
+keymap("<F2>", function()
+  vim.notify("Installing...")
+  vim.fn.jobstart("go install ./...")
+end)
+
+keymap("<F6>", vim.cmd.GoModTidy)
+
+keymap("<F7>", function()
   vim.notify("Running golangci-lint...")
   cclear()
   vim.fn.jobstart("golangci-lint run --max-issues-per-linter=0 --max-same-issues=0", {
@@ -63,5 +70,3 @@ keymap("<F3>", function()
     end,
   })
 end)
-
-keymap("<F4>", vim.cmd.GoModTidy)
