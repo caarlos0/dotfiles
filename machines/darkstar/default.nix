@@ -15,18 +15,29 @@
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
-  virtualisation.docker = {
-    enable = true;
-    daemon = {
-      settings = {
-        dns = [ "1.1.1.1" ];
+  virtualisation = {
+    docker = {
+      enable = true;
+      daemon = {
+        settings = {
+          dns = [ "1.1.1.1" ];
+        };
+      };
+      autoPrune = {
+        enable = true;
       };
     };
-    autoPrune = {
+    podman = {
       enable = true;
+      dockerCompat = false;
+      defaultNetwork.settings.dns_enabled = true;
     };
   };
-  users.users.carlos.extraGroups = [ "docker" ];
+
+  users.users.carlos.extraGroups = [
+    "docker"
+    "podman"
+  ];
 
   # this allows to cross-build docker images, for example.
   # akin to https://github.com/docker/setup-qemu-action
