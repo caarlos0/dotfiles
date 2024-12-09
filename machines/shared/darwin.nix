@@ -65,7 +65,7 @@
         show-recents = true;
         show-process-indicators = true;
         expose-animation-duration = 0.1;
-        expose-group-by-app = true;
+        expose-group-apps = true;
         launchanim = false;
         mineffect = "scale";
         mru-spaces = false;
