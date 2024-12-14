@@ -17,6 +17,11 @@ end
 
 telescope.setup({
   defaults = {
+    pickers = {
+      find_files = {
+        theme = "ivy",
+      },
+    },
     mappings = {
       i = {
         ["<CR>"] = select_one_or_multi,
@@ -48,30 +53,61 @@ telescope.load_extension("harpoon")
 
 local opts = { noremap = true, silent = true }
 local builtin = require("telescope.builtin")
+local ivy = require("telescope.themes").get_ivy()
+
 vim.keymap.set("n", "<C-p>", function()
-  builtin.find_files({
-    find_command = {
-      "rg",
-      "--hidden",
-      "--files",
-      "--smart-case",
-      "--glob=!.git",
-      "--sort=path",
-    },
-  })
+  local opts = ivy
+  opts.find_command = {
+    "rg",
+    "--hidden",
+    "--files",
+    "--smart-case",
+    "--glob=!.git",
+    "--sort=path",
+  }
+  builtin.find_files(opts)
 end, opts)
+
 vim.keymap.set("n", "<leader>of", function()
   builtin.oldfiles({
     only_cwd = true,
   })
 end, opts)
-vim.keymap.set("n", "<leader>lg", builtin.live_grep, opts)
-vim.keymap.set("n", "<leader>fb", builtin.buffers, opts)
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, opts)
-vim.keymap.set("n", "<leader>fc", builtin.commands, opts)
-vim.keymap.set("n", "<leader>fr", builtin.resume, opts)
-vim.keymap.set("n", "<leader>fq", builtin.quickfix, opts)
-vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find, opts)
-vim.keymap.set("n", "<leader>xx", builtin.diagnostics, opts)
-vim.keymap.set("n", "<leader>ghi", telescope.extensions.gh.issues, opts)
-vim.keymap.set("n", "<leader>fj", telescope.extensions.harpoon.marks, opts)
+
+vim.keymap.set("n", "<leader>lg", require("user.telescope-multi"), opts)
+
+vim.keymap.set("n", "<leader>fb", function()
+  builtin.buffers(ivy)
+end, opts)
+
+vim.keymap.set("n", "<leader>fh", function()
+  builtin.help_tags(ivy)
+end, opts)
+
+vim.keymap.set("n", "<leader>fc", function()
+  builtin.commands(ivy)
+end, opts)
+
+vim.keymap.set("n", "<leader>fr", function()
+  builtin.resume(ivy)
+end, opts)
+
+vim.keymap.set("n", "<leader>fq", function()
+  builtin.quickfix(ivy)
+end, opts)
+
+vim.keymap.set("n", "<leader>/", function()
+  builtin.current_buffer_fuzzy_find(ivy)
+end, opts)
+
+vim.keymap.set("n", "<leader>xx", function()
+  builtin.diagnostics(ivy)
+end, opts)
+
+vim.keymap.set("n", "<leader>ghi", function()
+  telescope.extensions.gh.issues(ivy)
+end, opts)
+
+vim.keymap.set("n", "<leader>fj", function()
+  telescope.extensions.harpoon.marks(ivy)
+end, opts)
