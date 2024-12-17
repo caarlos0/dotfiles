@@ -69,6 +69,12 @@
           system = "x86_64-linux";
           modules = [
             { nixpkgs.overlays = overlays; }
+            {
+              nixpkgs.config.permittedInsecurePackages = [
+                "dotnet-sdk-6.0.428"
+                "aspnetcore-runtime-6.0.36"
+              ];
+            }
             ./machines/media
             home-manager.nixosModules.home-manager
             {
