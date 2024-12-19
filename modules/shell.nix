@@ -9,4 +9,10 @@
   ];
 
   programs.zoxide.enable = true;
+  programs.ranger = {
+    enable = true;
+    settings = {
+      unicode_ellipsis = true;
+    };
+  };
 }

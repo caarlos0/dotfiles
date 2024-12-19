@@ -32,7 +32,6 @@
       nodejs
       onefetch
       p7zip
-      ranger
       ripgrep
       scc
       sqlite
