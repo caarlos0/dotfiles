@@ -110,8 +110,9 @@ M.setup = function()
       ---@type lsp.Filter
       local filter = function(client)
         -- lua_ls is freaks out when you ask it to organize imports.
-        -- rust_analyzer doesnt implement organizeImports yet.
-        return client.name ~= "lua_ls" and client.name ~= "rust_analyzer"
+        -- rust_analyzer doesn't implement organizeImports yet.
+        -- nil_ls doesn't implement organizeImports.
+        return client.name ~= "lua_ls" and client.name ~= "rust_analyzer" and client.name ~= "nil_ls"
       end
       on_clients(bufnr, ms.textDocument_codeAction, organize_imports, filter)
     end,
