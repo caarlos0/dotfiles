@@ -30,12 +30,6 @@ require("user.escape")
 -- CODING
 --
 require("lazydev").setup({})
-require("luasnip").setup({
-  -- see: https://github.com/L3MON4D3/LuaSnip/issues/525
-  region_check_events = "InsertEnter",
-  delete_check_events = "InsertLeave",
-})
-require("luasnip.loaders.from_vscode").lazy_load()
 require("nvim-autopairs").setup({ check_ts = true })
 require("nvim-ts-autotag").setup({ enable = true })
 require("user.lsp")

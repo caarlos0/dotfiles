@@ -1,136 +1,25 @@
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
-
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
+---@diagnostic disable: missing-fields
+require("blink.cmp").setup({
+  keymap = { preset = "default" },
+  appearance = {
+    use_nvim_cmp_as_default = true,
+    nerd_font_variant = "mono",
+  },
+  signature = { enabled = true },
+  sources = {
+    default = { "lsp", "path", "snippets", "buffer" },
+    cmdline = function()
+      local type = vim.fn.getcmdtype()
+      if type == "/" or type == "?" then
+        return { "buffer" }
+      end
+      if type == ":" then
+        return { "cmdline" }
+      end
+      return {}
     end,
-  },
-  window = {
-    documentation = cmp.config.window.bordered(),
-    completion = {
-      winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
-      col_offset = -3,
-      side_padding = 0,
-    },
-  },
-  view = {
-    entries = {
-      name = "custom",
-      selection_order = "top_down",
-    },
   },
   completion = {
-    keyword_length = 3,
-  },
-  mapping = cmp.mapping.preset.insert({
-    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete({}),
-    ["<C-e>"] = cmp.mapping.abort(),
-    ["<C-y>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
-    }, { "i", "c" }),
-    ["<Up>"] = cmp.mapping.select_prev_item(cmp_select_opts),
-    ["<Down>"] = cmp.mapping.select_next_item(cmp_select_opts),
-    ["<C-p>"] = cmp.mapping(function()
-      if cmp.visible() then
-        cmp.select_prev_item(cmp_select_opts)
-      else
-        cmp.complete()
-      end
-    end),
-    ["<C-n>"] = cmp.mapping(function()
-      if cmp.visible() then
-        cmp.select_next_item(cmp_select_opts)
-      else
-        cmp.complete()
-      end
-    end),
-    ["<C-k>"] = cmp.mapping(function()
-      if luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      end
-    end, { "i", "s" }),
-    ["<C-j>"] = cmp.mapping(function()
-      if luasnip.expand_or_jumpable(-1) then
-        luasnip.expand_or_jump(-1)
-      end
-    end, { "i", "s" }),
-  }),
-  formatting = {
-    fields = { "kind", "abbr", "menu" },
-    format = function(_, item)
-      local icons = require("user.icons").kinds
-      if icons[item.kind] then
-        item.kind = icons[item.kind] .. " " .. item.kind
-      end
-      local strings = vim.split(item.kind, "%s", {
-        trimempty = true,
-      })
-      item.kind = " " .. strings[1] .. " "
-      if #strings > 1 then
-        item.menu = "    (" .. strings[2] .. ")"
-      end
-      return item
-    end,
-  },
-  sources = cmp.config.sources({
-    { name = "nvim_lsp" },
-    { name = "nvim_lsp_signature_help" },
-    {
-      name = "luasnip",
-      keyword_length = 2,
-      priority = 50,
-    },
-  }, {
-    {
-      name = "buffer",
-      keyword_length = 5,
-    },
-    { name = "path" },
-    { name = "emoji" },
-    { name = "calc" },
-  }),
-  confirm_opts = {
-    behavior = cmp.ConfirmBehavior.Select,
-  },
-  experimental = {
-    native_menu = false,
-    ghost_text = false,
+    accept = { auto_brackets = { enabled = true } },
   },
 })
-
-cmp.setup.filetype({ "sql" }, {
-  sources = {
-    { name = "vim-dadbod-completion" },
-    { name = "buffer" },
-  },
-})
-
-cmp.setup.cmdline(":", {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    {
-      name = "cmdline",
-      option = {
-        ignore_cmds = { "Man", "!" },
-      },
-    },
-  }, {
-    { name = "path" },
-  }),
-})
-
-cmp.setup.cmdline({ "/", "?" }, {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = "buffer" },
-  },
-})
-
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())

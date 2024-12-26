@@ -62,18 +62,9 @@ in
       # coding
       nvim-lspconfig
       conform-nvim
-      nvim-cmp
-      cmp-buffer
-      cmp-path
-      cmp-cmdline
-      cmp-emoji
-      cmp-calc
+      blink-cmp
       nvim-autopairs
       nvim-ts-autotag
-      cmp-nvim-lsp
-      cmp-nvim-lsp-signature-help
-      luasnip
-      cmp_luasnip
       friendly-snippets
       lazydev-nvim
       neogen

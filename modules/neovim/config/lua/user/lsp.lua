@@ -1,18 +1,15 @@
 local ms = require("vim.lsp.protocol").Methods
-local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local keymaps = require("lsp_keymaps")
 require("lsp_autocommands").setup()
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, cmp_capabilities)
-capabilities = vim.tbl_deep_extend("force", capabilities, {
+local capabilities = require("blink.cmp").get_lsp_capabilities({
   workspace = {
     didChangeWatchedFiles = {
       dynamicRegistration = true, -- needs fswatch on linux
       relativePatternSupport = true,
     },
   },
-})
+}, true)
 
 ---@param client vim.lsp.Client LSP client
 ---@param bufnr number Buffer number
