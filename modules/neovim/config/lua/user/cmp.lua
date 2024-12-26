@@ -18,8 +18,48 @@ require("blink.cmp").setup({
       end
       return {}
     end,
+    providers = {
+      lsp = {
+        min_keyword_length = 2,
+        score_offset = 0,
+      },
+      path = {
+        min_keyword_length = 0,
+      },
+      snippets = {
+        min_keyword_length = 2,
+      },
+      buffer = {
+        min_keyword_length = 5,
+        max_items = 5,
+      },
+    },
   },
   completion = {
     accept = { auto_brackets = { enabled = true } },
+
+    documentation = {
+      auto_show = true,
+      auto_show_delay_ms = 250,
+      treesitter_highlighting = true,
+    },
+
+    menu = {
+      draw = {
+        columns = {
+          { "kind_icon", "label", gap = 1 },
+          { "kind" },
+        },
+        components = {
+          kind_icon = {
+            text = function(item)
+              local icons = require("user.icons").kinds
+              local kind = icons[item.kind] or ""
+              return kind .. " "
+            end,
+          },
+        },
+      },
+    },
   },
 })
