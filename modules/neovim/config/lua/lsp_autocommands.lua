@@ -1,19 +1,17 @@
 local ms = require("vim.lsp.protocol").Methods
 local group = vim.api.nvim_create_augroup("LSP", { clear = true })
 
--- Some type definitions:
----@alias lsp.Apply fun(client: vim.lsp.Client, bufnr: number)
----@alias lsp.Filter fun(client: vim.lsp.Client): boolean
-
 -- Format code and organize imports (if supported) (async).
 --
 ---@async
 ---@type lsp.Apply
 local organize_imports = function(client, bufnr)
   ---@type lsp.Handler
+  ---@diagnostic disable-next-line: unused-local
   local handler = function(err, result, context, config)
     if err then
-      vim.notify("Organize Imports failed: " .. err.message, vim.log.levels.ERROR)
+      -- ignore errors
+      return
     end
     for _, r in pairs(result or {}) do
       if r.edit then
@@ -109,10 +107,8 @@ M.setup = function()
       local bufnr = vim.api.nvim_get_current_buf()
       ---@type lsp.Filter
       local filter = function(client)
-        -- lua_ls is freaks out when you ask it to organize imports.
-        -- rust_analyzer doesn't implement organizeImports yet.
-        -- nil_ls doesn't implement organizeImports.
-        return client.name ~= "lua_ls" and client.name ~= "rust_analyzer" and client.name ~= "nil_ls"
+        -- lua_ls freaks out when you ask it to organize imports.
+        return client.name ~= "lua_ls"
       end
       on_clients(bufnr, ms.textDocument_codeAction, organize_imports, filter)
     end,

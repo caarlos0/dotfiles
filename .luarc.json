@@ -1,6 +1,7 @@
 {
   "diagnostics.globals": [
     "hs",
-    "vim"
+    "vim",
+    "require"
   ]
 }
