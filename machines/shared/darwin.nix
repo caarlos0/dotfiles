@@ -28,6 +28,8 @@
       "1password"
       "appcleaner"
       "cleanshot"
+      "claude"
+      "orbstack"
       "deckset"
       "discord"
       # "contexts"
