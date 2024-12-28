@@ -6,7 +6,6 @@
 window-decoration = true
 window-theme = "dark"
 confirm-close-surface = true
-# macos-titlebar-tabs = true
 macos-option-as-alt = true
 shell-integration = none
 cursor-style = block
@@ -15,15 +14,9 @@ theme = GruvboxDarkHard
 clipboard-read = "allow"
 clipboard-paste-protection = false
 
-font-family = "Berkeley Mono"
+font-family = "TX-02"
 font-size = 15
 font-feature = zero
-font-feature = ss01
-font-feature = ss02
-font-feature = ss03
-font-feature = ss04
-font-feature = ss05
-font-feature = ss06
 font-feature = calt
 font-feature = liga
 
