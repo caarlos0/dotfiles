@@ -186,7 +186,16 @@ vim.lsp.handlers[ms.textDocument_signatureHelp] = vim.lsp.with(vim.lsp.handlers.
 vim.highlight.priorities.semantic_tokens = 95
 
 -- set up diagnostic signs
-for name, icon in pairs(require("user.icons").diagnostics) do
+local icons = {
+  Error = "",
+  Warn = "",
+  Info = "",
+  Question = "",
+  Hint = "󰌶",
+  Debug = "",
+  Trace = "✎",
+}
+for name, icon in pairs(icons) do
   name = "DiagnosticSign" .. name
   vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
 end
