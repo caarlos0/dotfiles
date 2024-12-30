@@ -1,10 +1,16 @@
 # vi:ft=conf
 #
-# https://github.com/mitchellh/ghostty/blob/main/src/config/Config.zig
+# https://ghostty.org/docs/config/reference
 #
 
+auto-update-channel = tip
 window-decoration = true
 window-theme = "dark"
+window-save-state = always
+window-padding-balance = true
+# makes it maximizes the window
+window-height = 9999
+window-width = 9999
 confirm-close-surface = true
 macos-option-as-alt = true
 shell-integration = none
