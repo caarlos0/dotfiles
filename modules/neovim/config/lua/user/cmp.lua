@@ -1,5 +1,12 @@
 ---@diagnostic disable: missing-fields
 require("blink.cmp").setup({
+  fuzzy = {
+    prebuilt_binaries = {
+      -- TODO: this will be the default in nixpkgs soon.
+      -- https://github.com/NixOS/nixpkgs/pull/368677
+      force_version = "@tag@",
+    },
+  },
   keymap = { preset = "default" },
   appearance = {
     use_nvim_cmp_as_default = true,
