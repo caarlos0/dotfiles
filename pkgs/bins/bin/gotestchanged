@@ -1,0 +1,12 @@
+#!/bin/sh
+# go test only the changed packages.
+set -e
+git status --porcelain |
+  awk '{print $2}' |
+  while read -r file; do
+    echo "./$(dirname "$file")/..."
+  done |
+  sort |
+  uniq |
+  tr '\n' ' ' |
+  xargs go test --failfast
