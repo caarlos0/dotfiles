@@ -179,7 +179,8 @@
                 nix-collect-garbage -d --delete-older-than 30d
               '')
               (writeScriptBin "dot-release" ''
-                git tag -m "$(date +%Y.%m.%d)" "$(date +%Y.%m.%d)"
+                tag="$(date +%Y).$(expr $(date +%m) + 0).$(expr $(date +%d) + 0)"
+                git tag -m "$tag" "$tag"
                 git push --tags
                 goreleaser release --clean
               '')
