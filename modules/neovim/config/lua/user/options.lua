@@ -33,7 +33,6 @@ vim.opt.autoread = true
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.colorcolumn = "80"
 vim.opt.backspace = { "indent", "eol", "start" }
-vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }
 vim.opt.spellfile = vim.uv.os_homedir() .. "/.spell.add"
 vim.opt.laststatus = 2
