@@ -1,12 +1,16 @@
 #!/bin/sh
 # go test only the changed packages.
 set -e
-git status --porcelain |
-  awk '{print $2}' |
+(
+  git status --porcelain | awk '{print $2}'
+  git diff --name-only HEAD..origin/main
+) |
+  grep -E '.*\.go$' |
+  grep -v dagger |
   while read -r file; do
     echo "./$(dirname "$file")/..."
   done |
   sort |
   uniq |
   tr '\n' ' ' |
-  xargs go test --failfast
+  xargs go test --failfast -cover $*
