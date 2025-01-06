@@ -26,19 +26,26 @@ end
 
 local is_v10 = vim.fn.has("nvim-0.10") == 1
 
+local telescope = function(action)
+  return function()
+    local ivy = require("telescope.themes").get_ivy()
+    require("telescope.builtin")["lsp_" .. action](ivy)
+  end
+end
+
 --- On attach for key maps.
 ---@param bufnr number Buffer number
 M.on_attach = function(bufnr)
-  keymap("gd", vim.lsp.buf.definition, bufnr)
-  keymap("grr", vim.lsp.buf.references, bufnr)
-  keymap("<leader>ls", vim.lsp.buf.document_symbol, bufnr)
-  keymap("<leader>lS", vim.lsp.buf.workspace_symbol, bufnr)
+  keymap("gd", telescope("definitions"), bufnr)
+  keymap("grr", telescope("references"), bufnr)
+  keymap("<leader>ls", telescope("document_symbols"), bufnr)
+  keymap("<leader>lS", telescope("workspace_symbols"), bufnr)
   keymap("<C-s>", vim.lsp.buf.signature_help, bufnr)
   ikeymap("<C-s>", vim.lsp.buf.signature_help, bufnr)
-  keymap("gi", vim.lsp.buf.implementation, bufnr)
+  keymap("gi", telescope("implementations"), bufnr)
   keymap("gD", vim.lsp.buf.declaration, bufnr)
   keymap("K", vim.lsp.buf.hover, bufnr)
-  keymap("<leader>D", vim.lsp.buf.type_definition, bufnr)
+  keymap("<leader>D", telescope("type_definitions"), bufnr)
   keymap("grn", vim.lsp.buf.rename, bufnr)
   keymap("gra", vim.lsp.buf.code_action, bufnr)
   keymap("grl", vim.lsp.codelens.run, bufnr)
