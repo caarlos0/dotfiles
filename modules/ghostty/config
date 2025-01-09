@@ -21,6 +21,10 @@ theme = GruvboxDarkHard
 clipboard-read = "allow"
 clipboard-paste-protection = false
 
+# makes it darker like it was before https://github.com/mbadolato/iTerm2-Color-Schemes/commit/506ab2b98b6546d1dc46327dfa1e1e3f8363fbc0
+palette = "0=#1b1b1b"
+background = "#1b1b1b"
+
 font-family = "TX-02"
 font-size = 15
 font-feature = zero
