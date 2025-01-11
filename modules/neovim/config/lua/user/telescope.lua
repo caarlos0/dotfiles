@@ -53,19 +53,22 @@ telescope.load_extension("harpoon")
 
 local opts = { noremap = true, silent = true }
 local builtin = require("telescope.builtin")
-local ivy = require("telescope.themes").get_ivy()
+
+local function ivy(opts)
+  return require("telescope.themes").get_ivy(opts)
+end
 
 vim.keymap.set("n", "<C-p>", function()
-  local opts = ivy
-  opts.find_command = {
-    "rg",
-    "--hidden",
-    "--files",
-    "--smart-case",
-    "--glob=!.git",
-    "--sort=path",
-  }
-  builtin.find_files(opts)
+  builtin.find_files(ivy({
+    find_command = {
+      "rg",
+      "--hidden",
+      "--files",
+      "--smart-case",
+      "--glob=!.git",
+      "--sort=path",
+    },
+  }))
 end, opts)
 
 vim.keymap.set("n", "<leader>of", function()
@@ -77,37 +80,37 @@ end, opts)
 vim.keymap.set("n", "<leader>lg", require("user.telescope-multi"), opts)
 
 vim.keymap.set("n", "<leader>fb", function()
-  builtin.buffers(ivy)
+  builtin.buffers(ivy())
 end, opts)
 
 vim.keymap.set("n", "<leader>fh", function()
-  builtin.help_tags(ivy)
+  builtin.help_tags(ivy())
 end, opts)
 
 vim.keymap.set("n", "<leader>fc", function()
-  builtin.commands(ivy)
+  builtin.commands(ivy())
 end, opts)
 
 vim.keymap.set("n", "<leader>fr", function()
-  builtin.resume(ivy)
+  builtin.resume(ivy())
 end, opts)
 
 vim.keymap.set("n", "<leader>fq", function()
-  builtin.quickfix(ivy)
+  builtin.quickfix(ivy())
 end, opts)
 
 vim.keymap.set("n", "<leader>/", function()
-  builtin.current_buffer_fuzzy_find(ivy)
+  builtin.current_buffer_fuzzy_find(ivy())
 end, opts)
 
 vim.keymap.set("n", "<leader>xx", function()
-  builtin.diagnostics(ivy)
+  builtin.diagnostics(ivy())
 end, opts)
 
 vim.keymap.set("n", "<leader>ghi", function()
-  telescope.extensions.gh.issues(ivy)
+  telescope.extensions.gh.issues(ivy())
 end, opts)
 
 vim.keymap.set("n", "<leader>fj", function()
-  telescope.extensions.harpoon.marks(ivy)
+  telescope.extensions.harpoon.marks(ivy())
 end, opts)
