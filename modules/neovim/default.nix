@@ -37,6 +37,7 @@ in
       indent-blankline-nvim
       gitsigns-nvim
       todo-comments-nvim
+      ts-comments-nvim
       harpoon2
       vim-fugitive
       vim-flog
