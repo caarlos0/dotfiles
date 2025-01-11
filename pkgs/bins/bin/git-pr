@@ -1,4 +1,0 @@
-#!/bin/sh
-gh repo set-default --view | grep -qw set-default &&
-  gh repo set-default "$(git remote get-url upstream 2>/dev/null || git remote get-url origin 2>/dev/null)"
-gh pr create -w
