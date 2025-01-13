@@ -44,17 +44,7 @@ backend = "Metal"
 use-kitty-keyboard-protocol = true
 
 [fonts]
-family = "Berkeley Mono"
-size = 15
+family = "TX-02"
+size = 14
 extras = [{ family = "JetBrainsMono Nerd Font Mono" }]
-features = [
-  "zero",
-  "ss01",
-  "ss02",
-  "ss03",
-  "ss04",
-  "ss05",
-  "ss06",
-  "calt",
-  "liga",
-]
+features = ["zero", "calt", "liga"]
