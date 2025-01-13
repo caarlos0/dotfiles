@@ -78,7 +78,7 @@ require("blink.cmp").setup({
       copilot = {
         name = "copilot",
         module = "blink-cmp-copilot",
-        score_offset = 3,
+        score_offset = -10,
         async = true,
         transform_items = function(_, items)
           local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
