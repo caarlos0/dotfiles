@@ -16,15 +16,37 @@ local keymap = function(lhs, rhs)
   })
 end
 
+-- get the gopls server from the given buffer, or nil.
+---@param bufnr integer
+---@return vim.lsp.Client
+local get_gopls = function(bufnr)
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+  for _, c in ipairs(clients) do
+    if c.name == "gopls" then
+      return c
+    end
+  end
+  vim.notify("gopls not found", vim.log.levels.WARN)
+  return nil
+end
+
+-- based on https://github.com/ray-x/go.nvim/blob/c6d5ca26377d01c4de1f7bff1cd62c8b43baa6bc/lua/go/gopls.lua#L57
 vim.api.nvim_buf_create_user_command(bufnr, "GoModTidy", function()
   vim.notify("Running go mod tidy...")
+  local gopls = get_gopls(bufnr)
+  if gopls == nil then
+    return
+  end
+
+  vim.cmd([[ noautocmd wall ]])
+
   local uri = vim.uri_from_bufnr(bufnr)
   local arguments = { { URIs = { uri } } }
-  vim.cmd([[ noautocmd wall ]])
-  vim.lsp.buf.execute_command({
+
+  gopls.request_sync("workspace/executeCommand", {
     command = "gopls.tidy",
     arguments = arguments,
-  })
+  }, 2000, bufnr)
 end, { desc = "go mod tidy" })
 
 local function copen()
