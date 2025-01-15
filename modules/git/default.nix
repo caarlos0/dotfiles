@@ -4,7 +4,8 @@
     git-lfs
     nur.repos.caarlos0.diffnav
   ];
-  home.file.".ssh/allowed_signers".text = "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILxWe2rXKoiO6W14LYPVfJKzRfJ1f3Jhzxrgjc/D4tU7";
+  home.file.".ssh/allowed_signers".text =
+    "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILxWe2rXKoiO6W14LYPVfJKzRfJ1f3Jhzxrgjc/D4tU7";
   programs.git = {
     enable = true;
     delta.enable = true;
