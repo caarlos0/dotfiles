@@ -10,6 +10,9 @@
     delta.enable = true;
     userName = "Carlos Alexandro Becker";
     userEmail = "caarlos0@users.noreply.github.com";
+    lfs = {
+      enable = true;
+    };
     aliases = {
       co = "checkout";
       count = "shortlog -sn";
@@ -28,9 +31,6 @@
       gpg.format = "ssh";
       gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
       user.signingKey = "~/.ssh/id_ed25519";
-      lfs = {
-        enable = true;
-      };
       core = {
         editor = "nvim";
         compression = -1;
