@@ -1,5 +1,10 @@
 require("todo-comments").setup()
-require("ts-comments").setup()
+require("ts-comments").setup({
+  lang = {
+    gomod = "// %s",
+    gowork = "// %s",
+  },
+})
 require("treesitter-context").setup({
   multiline_threshold = 1,
 })
