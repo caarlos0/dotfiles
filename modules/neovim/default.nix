@@ -106,6 +106,7 @@ in
           make
           markdown
           markdown_inline
+          mermaid
           nix
           python
           query
