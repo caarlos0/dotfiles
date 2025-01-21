@@ -2,8 +2,9 @@
 # git push and open github pr creation page
 set -e
 
-gh repo set-default --view | grep -qw set-default &&
+if gh repo set-default --view 2>&1 | grep -qw set-default; then
   gh repo set-default "$(git remote get-url upstream 2>/dev/null || git remote get-url origin 2>/dev/null)"
+fi
 
 git push origin HEAD &&
   gh pr create -w --assignee="@me"
