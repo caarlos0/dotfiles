@@ -109,7 +109,7 @@
                   ./modules/yamllint.nix
                   ./modules/go.nix
                   ./modules/rust.nix
-                  ./modules/fzf.nix
+                  ./modules/search.nix
                   ./modules/tmux
                   ./modules/neovim
                   ./modules/git
@@ -145,7 +145,7 @@
                   ./modules/yamllint.nix
                   ./modules/go.nix
                   ./modules/rust.nix
-                  ./modules/fzf.nix
+                  ./modules/search.nix
                   ./modules/ghostty
                   ./modules/rio
                   ./modules/tmux

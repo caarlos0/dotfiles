@@ -1,5 +1,21 @@
 { ... }:
 {
+  programs.fd = {
+    enable = true;
+    ignores = [ ".git/" ];
+    hidden = true;
+  };
+
+  programs.ripgrep = {
+    enable = true;
+    arguments = [ "--ignore-file=$HOME/.rignore" ];
+  };
+
+  home.file.".rignore".text = ''
+    !.github/
+    !.gitignore
+  '';
+
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;

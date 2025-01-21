@@ -41,8 +41,6 @@ telescope.setup({
       "--line-number",
       "--column",
       "--smart-case",
-      "--hidden",
-      "--glob=!.git",
       "--sort=path",
     },
   },
@@ -61,12 +59,11 @@ end
 vim.keymap.set("n", "<C-p>", function()
   builtin.find_files(ivy({
     find_command = {
-      "rg",
+      "fd",
+      "--type",
+      "f",
+      "--strip-cwd-prefix",
       "--hidden",
-      "--files",
-      "--smart-case",
-      "--glob=!.git",
-      "--sort=path",
     },
   }))
 end, opts)

@@ -18,7 +18,6 @@
       cosign
       curl
       entr
-      fd
       gnumake
       go-task
       graphviz
@@ -32,7 +31,6 @@
       nodejs
       onefetch
       p7zip
-      ripgrep
       scc
       sqlite
       tldr
