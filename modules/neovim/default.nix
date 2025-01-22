@@ -1,24 +1,8 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }:
-let
-  fromGitHub =
-    owner: repo: ref: hash:
-    pkgs.vimUtils.buildVimPlugin {
-      pname = "${lib.strings.sanitizeDerivationName repo}";
-      version = ref;
-      src = pkgs.fetchFromGitHub {
-        owner = owner;
-        repo = repo;
-        rev = ref;
-        sha256 = hash;
-      };
-    };
-
-in
 {
   programs.neovim = {
     enable = true;

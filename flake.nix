@@ -40,7 +40,7 @@
     let
       overlays = [
         # inputs.neovim-nightly.overlay
-        (final: prev: {
+        (_final: prev: {
           nur = import nur {
             nurpkgs = prev;
             pkgs = prev;
