@@ -89,7 +89,7 @@
       zls # zig lsp
     ]
     ++ (lib.optionals pkgs.stdenv.isDarwin [
-      nur.repos.caarlos0.discord-applemusic-rich-presence
+      # nur.repos.caarlos0.discord-applemusic-rich-presence
       terminal-notifier
       coreutils
       mosquitto

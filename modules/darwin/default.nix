@@ -12,7 +12,7 @@
   # };
 
   services = {
-    discord-applemusic-rich-presence.enable = true;
+    discord-applemusic-rich-presence.enable = false;
     xdg-open-svc.enable = true;
   };
 
