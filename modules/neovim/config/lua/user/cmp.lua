@@ -62,7 +62,7 @@ require("blink.cmp").setup({
     end,
     providers = {
       lsp = {
-        min_keyword_length = 2,
+        min_keyword_length = 0,
         score_offset = 0,
       },
       path = {
@@ -79,7 +79,16 @@ require("blink.cmp").setup({
         name = "copilot",
         module = "blink-cmp-copilot",
         score_offset = -10,
+        min_keyword_length = 0,
         async = true,
+        override = {
+          -- copilot complete on space, new line, etc as well...
+          get_trigger_characters = function(self)
+            local trigger_characters = self:get_trigger_characters()
+            vim.list_extend(trigger_characters, { "\n", "\t", " " })
+            return trigger_characters
+          end,
+        },
         transform_items = function(_, items)
           local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
           local kind_idx = #CompletionItemKind + 1
@@ -94,6 +103,16 @@ require("blink.cmp").setup({
   },
   completion = {
     accept = { auto_brackets = { enabled = true } },
+
+    keyword = {
+      range = "full",
+    },
+
+    trigger = {
+      show_on_insert_on_trigger_character = true,
+      show_on_trigger_character = true,
+      show_on_keyword = true,
+    },
 
     documentation = {
       auto_show = true,
