@@ -42,7 +42,8 @@
 
       # ai
       nui-nvim
-      avante-nvim
+      # avante-nvim
+      (pkgs.callPackage ../../pkgs/avante { })
 
       # coding
       nvim-lspconfig
