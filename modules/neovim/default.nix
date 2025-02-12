@@ -42,15 +42,14 @@
 
       # ai
       nui-nvim
-      # avante-nvim
-      (pkgs.callPackage ../../pkgs/avante { })
+      copilot-lua
+      (pkgs.callPackage ../../pkgs/avante { }) # avante-nvim
 
       # coding
       nvim-lspconfig
       conform-nvim
       blink-cmp
       blink-cmp-copilot
-      copilot-lua
       nvim-autopairs
       nvim-ts-autotag
       friendly-snippets
