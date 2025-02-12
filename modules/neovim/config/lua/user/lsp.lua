@@ -19,7 +19,7 @@ local on_attach = function(client, bufnr)
 end
 
 local lspconfig = require("lspconfig")
-require("lspconfig.ui.windows").default_options.border = "rounded"
+require("lspconfig.ui.windows").default_options.border = "none"
 lspconfig.gopls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
@@ -166,7 +166,7 @@ lspconfig.lua_ls.setup({
 local float_config = {
   focusable = false,
   style = "minimal",
-  border = "rounded",
+  border = "none",
   source = "always",
   header = "",
   prefix = "",

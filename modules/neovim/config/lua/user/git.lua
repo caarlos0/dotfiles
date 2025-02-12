@@ -9,7 +9,7 @@ vim.keymap.set("n", "<leader>gs", "<cmd>tab Git<cr>", {
 
 require("gitsigns").setup({
   preview_config = {
-    border = "rounded",
+    border = "none",
   },
 })
 
