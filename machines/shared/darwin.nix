@@ -3,16 +3,13 @@
   nixpkgs.config = {
     allowUnfree = true;
   };
-  services = {
-    nix-daemon = {
-      enable = true;
-    };
-  };
   nix.package = pkgs.nix;
   nix.settings.trusted-users = [
     "root"
     "carlos"
   ];
+  # do not try to manage nix installation:
+  nix.enable = false;
   system.stateVersion = 5;
 
   security.pam.enableSudoTouchIdAuth = true;
