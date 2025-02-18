@@ -2,5 +2,5 @@
 # create the next semantic tag and push
 set -e
 
-next="$(svu n --force-patch-increment)"
-git tag -m "$next" "$next" && svu c
+next="$(svu next --always)"
+git tag -m "$next" "$next" && svu current
