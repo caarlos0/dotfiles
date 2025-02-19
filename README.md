@@ -15,7 +15,7 @@ This is my most recent attempt, using nix.
 It contains **home-manager**, **nixOS** and **nix-darwin** configuration
 for several machines and VMs I use.
 
-# First run
+## First run
 
 ```bash
 sh <(curl -L https://nixos.org/nix/install)
@@ -31,7 +31,7 @@ On macOS, install homebrew too:
 Also make sure the terminal being used has full disk access, otherwise you might
 get errors like `Could not write domain`.
 
-# Updating
+## Updating
 
 To apply updates, simply run:
 
@@ -42,9 +42,9 @@ nix develop -c dot-apply
 nix develop -c dot-sync
 ```
 
-# Clean up
+## Clean up
 
-```sh
+```bash
 nix develop -c dot-clean
 ```
 
@@ -56,15 +56,15 @@ To create a release, run:
 nix develop -c dot-release
 ```
 
-# Post first run
+## Post first run
 
-## Fish as the default shell
+### Fish as the default shell
 
-```sh
+```bash
 which fish | sudo tee -a /etc/shells
 chsh -s $(which fish)
 ```
 
-## Keyboard layouts
+### Keyboard layouts
 
 Add the US layout so input doesn't wait after opening quotes and such.
