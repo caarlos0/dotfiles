@@ -39,6 +39,7 @@
       bufdelete-nvim
       nvim-colorizer-lua
       vim-exchange
+      render-markdown-nvim
 
       # ai
       nui-nvim

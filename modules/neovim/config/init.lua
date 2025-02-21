@@ -10,6 +10,9 @@ require("nvim-web-devicons").setup()
 require("user.notify")
 require("user.lualine")
 require("colorizer").setup()
+require("render-markdown").setup({
+  file_types = { "markdown", "Avante" },
+})
 
 --
 -- BASIC
