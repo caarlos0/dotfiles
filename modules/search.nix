@@ -8,13 +8,7 @@
 
   programs.ripgrep = {
     enable = true;
-    arguments = [ "--ignore-file=$HOME/.rignore" ];
   };
-
-  home.file.".rignore".text = ''
-    !.github/
-    !.gitignore
-  '';
 
   programs.fzf = {
     enable = true;
