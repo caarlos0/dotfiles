@@ -18,6 +18,7 @@
       set hydro_color_error brred
       set hydro_color_prompt brgreen
       set hydro_color_duration bryellow
+      set hydro_multiline true
     '';
     plugins = [
       {
