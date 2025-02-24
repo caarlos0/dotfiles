@@ -45,6 +45,6 @@ use-kitty-keyboard-protocol = true
 
 [fonts]
 family = "TX-02"
-size = 14
+size = 13
 extras = [{ family = "JetBrainsMono Nerd Font Mono" }]
 features = ["zero", "calt", "liga"]
