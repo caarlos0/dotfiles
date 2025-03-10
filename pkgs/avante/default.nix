@@ -8,23 +8,28 @@
   stdenv,
   vimPlugins,
   vimUtils,
+  makeWrapper,
+  pkgs,
 }:
 let
-  version = "0.0.19";
+  version = "0.0.23";
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "avante.nvim";
     tag = "v${version}";
-    hash = "sha256-/WvkMsyhaYa3TLOg6QBVz1dvHO4vr1PdeSF7zVIOUcY=";
+    hash = "sha256-Ud4NkJH7hze5796KjVe5Nj9DzxwQkDQErCJDDiBzAIY=";
   };
   avante-nvim-lib = rustPlatform.buildRustPackage {
     pname = "avante-nvim-lib";
     inherit version src;
 
-    cargoHash = "sha256-28pmbtPnVpstYT4YvKsQ3B2/hWsELYv+tlgBgjSUujM=";
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-pmnMoNdaIR0i+4kwW3cf01vDQo39QakTCEG9AXA86ck=";
 
     nativeBuildInputs = [
       pkg-config
+      makeWrapper
+      pkgs.perl
     ];
 
     buildInputs = [
@@ -38,6 +43,7 @@ let
       "--skip=test_hf"
       "--skip=test_public_url"
       "--skip=test_roundtrip"
+      "--skip=test_fetch_md"
     ];
   };
 in
@@ -47,6 +53,7 @@ vimUtils.buildVimPlugin {
 
   dependencies = with vimPlugins; [
     dressing-nvim
+    img-clip-nvim
     nui-nvim
     nvim-treesitter
     plenary-nvim
