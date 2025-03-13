@@ -12,7 +12,7 @@
   nix.enable = false;
   system.stateVersion = 5;
 
-  security.pam.enableSudoTouchIdAuth = true;
+  # security.pam.enableSudoTouchIdAuth = true;
 
   users.users.carlos = {
     name = "carlos";
@@ -20,7 +20,7 @@
   };
 
   homebrew = {
-    enable = true;
+    enable = false;
     casks = [
       "1password"
       "appcleaner"
