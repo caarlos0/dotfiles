@@ -2,13 +2,11 @@
 {
   home.packages = with pkgs; [
     git-lfs
-    nur.repos.caarlos0.diffnav
   ];
   home.file.".ssh/allowed_signers".text =
     "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILxWe2rXKoiO6W14LYPVfJKzRfJ1f3Jhzxrgjc/D4tU7";
   programs.git = {
     enable = true;
-    delta.enable = true;
     userName = "Carlos Alexandro Becker";
     userEmail = "caarlos0@users.noreply.github.com";
     lfs = {
@@ -32,12 +30,25 @@
       gpg.format = "ssh";
       gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
       user.signingKey = "~/.ssh/id_ed25519";
+      column.ui = "auto";
       core = {
         editor = "nvim";
         compression = -1;
         autocrlf = "input";
         whitespace = "trailing-space,space-before-tab";
         precomposeunicode = true;
+      };
+      branch = {
+        sort = "-commiterdate";
+      };
+      tag = {
+        sort = "version:refname";
+      };
+      diff = {
+        algorithm = "histogram";
+        colorMoved = "plain";
+        mnemonicPrefix = true;
+        renames = true;
       };
       color = {
         diff = "auto";
@@ -52,7 +63,7 @@
         whitespace = "nowarn";
       };
       help = {
-        autocorrect = 1;
+        autocorrect = true;
       };
       grep = {
         extendRegexp = true;
@@ -61,6 +72,20 @@
       push = {
         autoSetupRemote = true;
         default = "simple";
+        followTags = true;
+      };
+      fetch = {
+        prune = true;
+        pruneTags = true;
+        all = true;
+      };
+      rebase = {
+        autoStash = true;
+        autoSquash = true;
+        updateRefs = true;
+      };
+      merge = {
+        conflictStyle = "zdiff3";
       };
       submodule = {
         fetchJobs = 4;
@@ -73,6 +98,7 @@
       };
       rerere = {
         enabled = true;
+        autoUpdate = true;
       };
       pull = {
         ff = "only";
