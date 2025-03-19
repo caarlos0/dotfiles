@@ -63,7 +63,7 @@
         whitespace = "nowarn";
       };
       help = {
-        autocorrect = true;
+        autocorrect = 1;
       };
       grep = {
         extendRegexp = true;
