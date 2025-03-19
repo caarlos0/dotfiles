@@ -48,3 +48,21 @@ family = "TX-02"
 size = 13
 extras = [{ family = "JetBrainsMono Nerd Font Mono" }]
 features = ["zero", "calt", "liga"]
+
+fonts.symbol-map = [
+  # powerline
+  { start = "e0b0", end = "e0b3", font-family = "JetBrainsMono Nerd Font Mono" },
+  { start = "e0b4", end = "e0c8", font-family = "JetBrainsMono Nerd Font Mono" },
+  { start = "e0cc", end = "e0d4", font-family = "JetBrainsMono Nerd Font Mono" },
+  { start = "e0ca", end = "e0ca", font-family = "JetBrainsMono Nerd Font Mono" },
+
+  # font-awesome
+  { start = "f000", end = "f2e0", font-family = "JetBrainsMono Nerd Font Mono" },
+  { start = "e200", end = "e2a9", font-family = "JetBrainsMono Nerd Font Mono" },
+
+  # seti-ui
+  { start = "e5fa", end = "e6b1", font-family = "JetBrainsMono Nerd Font Mono" },
+
+  # codicons
+  { start = "ea60", end = "ebeb", font-family = "JetBrainsMono Nerd Font Mono" },
+]
