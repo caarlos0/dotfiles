@@ -1,8 +1,24 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
+let
+  fromGitHub =
+    owner: repo: ref: hash:
+    pkgs.vimUtils.buildVimPlugin {
+      pname = "${lib.strings.sanitizeDerivationName repo}";
+      version = ref;
+      src = pkgs.fetchFromGitHub {
+        owner = owner;
+        repo = repo;
+        rev = ref;
+        sha256 = hash;
+      };
+    };
+
+in
 {
   programs.neovim = {
     enable = true;
@@ -39,6 +55,10 @@
       bufdelete-nvim
       nvim-colorizer-lua
       vim-exchange
+
+      (fromGitHub "akinsho" "git-conflict.nvim" "main"
+        "sha256-CmSgmpg5K3ySXYrDjg8yTAojeLWJdSHP8uNVFyrkNhc="
+      )
 
       # ai
       nui-nvim
