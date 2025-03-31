@@ -30,7 +30,7 @@
       gpg.format = "ssh";
       gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
       user.signingKey = "~/.ssh/id_ed25519";
-      column.ui = "auto";
+      # column.ui = "auto";
       core = {
         editor = "nvim";
         compression = -1;
@@ -39,7 +39,7 @@
         precomposeunicode = true;
       };
       branch = {
-        sort = "-commiterdate";
+        sort = "-committerdate";
       };
       tag = {
         sort = "version:refname";
@@ -76,7 +76,8 @@
       };
       fetch = {
         prune = true;
-        pruneTags = true;
+        # do not delete tags.
+        # pruneTags = true;
         all = true;
       };
       rebase = {
