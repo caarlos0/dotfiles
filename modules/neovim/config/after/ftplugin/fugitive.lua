@@ -8,10 +8,11 @@ local opts = {
 
 -- Runs a git command async.
 --
----@param args table: git command arguments.
+---@param args string[]: git command arguments.
 ---@param success_msg string: notification message when the command succeeds.
 ---@param error_msg string: notification message when the command fails.
 local function async_git(args, success_msg, error_msg)
+  ---@diagnostic disable-next-line: missing-fields
   Job:new({
     command = "git",
     args = args,

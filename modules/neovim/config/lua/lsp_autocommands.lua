@@ -4,7 +4,9 @@ local group = vim.api.nvim_create_augroup("LSP", { clear = true })
 -- Format code and organize imports (if supported) (async).
 --
 ---@async
----@type lsp.Apply
+---@param client vim.lsp.Client
+---@param bufnr number
+---@type fun(client: vim.lsp.Client, bufnr: number)
 local organize_imports = function(client, bufnr)
   ---@type lsp.Handler
   ---@diagnostic disable-next-line: unused-local
@@ -18,7 +20,7 @@ local organize_imports = function(client, bufnr)
         local enc = client.offset_encoding or "utf-16"
         vim.lsp.util.apply_workspace_edit(r.edit, enc)
       elseif r.command and r.command.command then
-        vim.lsp.buf.execute_command(r.command)
+        client:exec_cmd(r.command, { bufnr = bufnr })
       end
     end
     vim.cmd([[noautocmd write]])
@@ -27,7 +29,7 @@ local organize_imports = function(client, bufnr)
   local win = vim.api.nvim_get_current_win()
   local params = vim.lsp.util.make_range_params(win, client.offset_encoding or "utf-16")
   params.context = { only = { "source.organizeImports" } }
-  client.request(ms.textDocument_codeAction, params, handler, bufnr)
+  client:request(ms.textDocument_codeAction, params, handler, bufnr)
 end
 
 -- Checks if the given buffer has any lsp clients that support the given method.
@@ -42,8 +44,8 @@ end
 
 ---@param bufnr number
 ---@param method string
----@param apply lsp.Apply
----@param filter? lsp.Filter
+---@param apply fun(client: vim.lsp.Client, bufnr: number)
+---@param filter? fun(client: vim.lsp.Client): boolean?
 local on_clients = function(bufnr, method, apply, filter)
   local clients = vim.lsp.get_clients({ bufnr = bufnr, method = method })
   if not filter then
@@ -67,7 +69,7 @@ M.setup = function()
       if client == nil then
         return
       end
-      if client.supports_method(ms.textDocument_codeLens) then
+      if client:supports_method(ms.textDocument_codeLens, vim.api.nvim_get_current_buf()) then
         vim.lsp.inlay_hint.enable(true)
       end
     end,
@@ -78,7 +80,7 @@ M.setup = function()
       if client == nil then
         return
       end
-      if client.supports_method(ms.textDocument_codeLens) then
+      if client:supports_method(ms.textDocument_codeLens, vim.api.nvim_get_current_buf()) then
         vim.lsp.codelens.clear(client.id)
       end
     end,
@@ -87,7 +89,7 @@ M.setup = function()
 
   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     callback = function()
-      ---@type lsp.Apply
+      ---@type fun(client: vim.lsp.Client, bufnr: number)
       local format = function(client, bufnr)
         if client.server_capabilities.documentFormattingProvider then
           vim.lsp.buf.format({
@@ -106,7 +108,7 @@ M.setup = function()
   vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     callback = function()
       local bufnr = vim.api.nvim_get_current_buf()
-      ---@type lsp.Filter
+      ---@type fun(client: vim.lsp.Client): boolean?
       local filter = function(client)
         -- lua_ls freaks out when you ask it to organize imports.
         return client.name ~= "lua_ls"

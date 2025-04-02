@@ -17,7 +17,7 @@ local keymap = function(lhs, rhs)
 end
 
 -- get the gopls server from the given buffer, or nil.
----@param bufnr integer
+---@param bufnr number
 ---@return vim.lsp.Client
 local get_gopls = function(bufnr)
   local clients = vim.lsp.get_clients({ bufnr = bufnr })

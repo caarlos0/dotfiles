@@ -1,4 +1,5 @@
 local notify = require("notify")
+---@diagnostic disable-next-line: missing-fields
 notify.setup({
   render = "compact",
   stages = "static",

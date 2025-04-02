@@ -18,8 +18,6 @@ keymap("n", "<leader>n", ":enew<CR>", opts)
 -- quicklists
 keymap("n", "<leader>co", ":copen<CR>", opts)
 keymap("n", "<leader>cc", ":cclose<CR>", opts)
-keymap("n", "[q", ":cprevious<CR>zz", opts)
-keymap("n", "]q", ":cnext<CR>zz", opts)
 
 -- Resize with arrows
 keymap("n", "<A-Up>", ":resize +2<CR>", opts)
@@ -28,7 +26,7 @@ keymap("n", "<A-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<A-Right>", ":vertical resize +2<CR>", opts)
 
 -- buffer killing
-keymap("n", "<leader>q", ":Bdelete<CR>", opts) -- delete current buffer
+keymap("n", "<leader>q", ":Bdelete<CR>", opts)          -- delete current buffer
 keymap("n", "<leader>bad", ":%bd!<cr>:intro<cr>", opts) -- delete all buffers
 -- delete surrounding buffers, make sure to keep the cursor position
 keymap("n", "<leader>bsd", function()
@@ -60,10 +58,6 @@ keymap("n", "<C-i>", "<C-i>zz", opts)
 -- move record macro to Q instead of q
 keymap("n", "Q", "q", opts)
 keymap("n", "q", "<Nop>", opts)
-
--- Insert empty blank line above/bellow
-keymap("n", "]<Space>", "m`o<Esc>``", opts)
-keymap("n", "[<Space>", "m`O<Esc>``", opts)
 
 -- system clipboard integration
 keymap("n", "<leader>y", '"+y', opts)
