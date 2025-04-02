@@ -62,6 +62,7 @@
       # treesitter, lsps, formatters, etc
       bash-language-server
       clang-tools # clangd lsp
+      copilot-language-server
       delve
       dockerfile-language-server-nodejs
       gofumpt
