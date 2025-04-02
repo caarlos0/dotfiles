@@ -15,3 +15,8 @@ require("gruvbox").setup({
   },
 })
 vim.cmd("colorscheme gruvbox")
+
+-- https://github.com/ellisonleao/gruvbox.nvim/commit/c74e6e523c4827b67af2cb02b636e22dc35fdf70
+-- https://github.com/nvim-lualine/lualine.nvim/issues/1312
+vim.api.nvim_set_hl(0, "StatusLine", { reverse = false })
+vim.api.nvim_set_hl(0, "StatusLineNC", { reverse = false })
