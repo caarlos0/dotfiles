@@ -24,7 +24,8 @@ local organize_imports = function(client, bufnr)
     vim.cmd([[noautocmd write]])
   end
 
-  local params = vim.lsp.util.make_range_params()
+  local win = vim.api.nvim_get_current_win()
+  local params = vim.lsp.util.make_range_params(win, client.offset_encoding or "utf-16")
   params.context = { only = { "source.organizeImports" } }
   client.request(ms.textDocument_codeAction, params, handler, bufnr)
 end
