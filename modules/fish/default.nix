@@ -22,10 +22,6 @@
     '';
     plugins = [
       {
-        name = "autopair";
-        src = pkgs.fishPlugins.autopair-fish.src;
-      }
-      {
         name = "hydro";
         src = pkgs.fishPlugins.hydro.src;
       }
