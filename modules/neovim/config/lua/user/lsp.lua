@@ -163,12 +163,10 @@ lspconfig.lua_ls.setup({
 })
 
 local float_config = {
-  focusable = false,
+  focusable = true,
   style = "minimal",
   border = "none",
-  source = "always",
-  header = "",
-  prefix = "",
+  source = "if_many",
 }
 
 -- setup diagnostics
