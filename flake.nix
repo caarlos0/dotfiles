@@ -133,7 +133,7 @@
             ./machines/darkmatter
             home-manager.darwinModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
+              # home-manager.useGlobalPkgs = true;
               home-manager.backupFileExtension = "backup";
               home-manager.useUserPackages = false;
               home-manager.users.carlos = {
