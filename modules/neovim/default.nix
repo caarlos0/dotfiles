@@ -51,7 +51,6 @@ in
       telescope-github-nvim
       auto-hlsearch-nvim
       vim-tmux-navigator
-      better-escape-nvim
       bufdelete-nvim
       nvim-colorizer-lua
       vim-exchange

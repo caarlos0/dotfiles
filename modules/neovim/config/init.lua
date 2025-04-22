@@ -24,7 +24,6 @@ require("user.harpoon")
 require("user.telescope")
 require("user.git")
 require("auto-hlsearch").setup()
-require("user.escape")
 
 --
 -- CODING
