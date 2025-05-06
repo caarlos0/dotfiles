@@ -2,6 +2,6 @@
 {
   programs.lsd = {
     enable = true;
-    enableAliases = true;
+    enableFishIntegration = true;
   };
 }
