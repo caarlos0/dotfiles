@@ -39,6 +39,7 @@
       "monodraw"
       "orbstack"
       "rio"
+      "reminders-menubar"
       "signal"
       "slack"
       "soulver"
