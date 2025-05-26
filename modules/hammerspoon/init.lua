@@ -61,7 +61,7 @@ hotkey.bind(hyper, "U", function()
 end)
 
 hotkey.bind(hyper, "I", function()
-  hs.application.launchOrFocus("Brave Browser")
+  hs.application.launchOrFocus("Safari")
 end)
 
 hotkey.bind(hyper, "O", function()

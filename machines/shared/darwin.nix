@@ -24,7 +24,6 @@
     casks = [
       "1password"
       "appcleaner"
-      "brave-browser"
       "claude"
       "cleanshot"
       # "contexts"
@@ -74,7 +73,7 @@
           "/System/Applications/Reminders.app"
           "/System/Applications/Notes.app"
           "/System/Applications/Calendar.app"
-          "/Applications/Brave Browser.app"
+          "/System/Cryptexes/App/System/Applications/Safari.app"
           "/Applications/Ghostty.app"
           "/System/Applications/Mail.app"
           "/System/Applications/Messages.app"
