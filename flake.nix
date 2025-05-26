@@ -197,7 +197,7 @@
                 fi
                 if test $(uname -s) == "Darwin"; then
                   nix build "./#darwinConfigurations.$(hostname | cut -f1 -d'.').system"
-                  ./result/sw/bin/darwin-rebuild switch --flake .
+                  sudo ./result/sw/bin/darwin-rebuild switch --flake .
                 fi
               '')
             ];
