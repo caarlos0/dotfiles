@@ -4,10 +4,13 @@
     allowUnfree = true;
   };
   nix.package = pkgs.nix;
-  nix.settings.trusted-users = [
-    "root"
-    "carlos"
-  ];
+  nix.settings = {
+    trusted-users = [
+      "root"
+      "carlos"
+    ];
+    auto-optimise-store = true;
+  };
   # do not try to manage nix installation:
   nix.enable = false;
   system.stateVersion = 5;
