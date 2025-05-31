@@ -62,7 +62,7 @@ in
       # ai
       nui-nvim
       copilot-lua
-      (pkgs.callPackage ../../pkgs/avante { }) # avante-nvim
+      avante-nvim
 
       # coding
       nvim-lspconfig
