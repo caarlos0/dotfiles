@@ -28,9 +28,9 @@ require("auto-hlsearch").setup()
 --
 -- CODING
 --
-require("lazydev").setup({})
+require("lazydev").setup()
 require("nvim-autopairs").setup({ check_ts = true })
-require("nvim-ts-autotag").setup({ enable = true })
+require("nvim-ts-autotag").setup()
 require("user.lsp")
 require("user.cmp")
 require("nvim-surround").setup()
@@ -38,4 +38,3 @@ require("user.treesitter")
 require("user.other")
 require("user.conform")
 require("user.neogen")
-require("user.avante")

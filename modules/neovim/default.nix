@@ -60,9 +60,7 @@ in
       )
 
       # ai
-      nui-nvim
       copilot-lua
-      avante-nvim
 
       # coding
       nvim-lspconfig
