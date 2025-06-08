@@ -53,3 +53,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end
   end,
 })
+
+-- Opens the directory of the current file in Finder/file explorer.
+vim.api.nvim_create_user_command("Finder", "!open %:h", {})
