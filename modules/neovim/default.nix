@@ -113,7 +113,6 @@ in
           query
           regex
           ruby
-          rust
           scss
           sql
           ssh_config
