@@ -18,4 +18,4 @@ ln -sf $PWD/ghostty.config ~/.config/ghostty/config
 mkdir -p ~/.hammerspoon
 ln -sf $PWD/hammerspoon.lua /Users/carlos/.hammerspoon/init.lua
 ln -sf $PWD/nvim ~/.config/nvim
-ln -sf $PWD/gitconfig ~/.config/config
+ln -sf $PWD/gitconfig ~/.config/git/config
