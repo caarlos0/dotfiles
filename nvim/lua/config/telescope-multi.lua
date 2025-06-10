@@ -12,15 +12,14 @@ return function(opts)
   opts = opts or {}
   opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.loop.cwd()
   opts.shortcuts = opts.shortcuts
-    or {
-      ["c"] = "*.c",
-      ["g"] = "*.go",
-      ["l"] = "*.lua",
-      ["n"] = "*.nix",
-      ["r"] = "*.rs",
-      ["y"] = "*.ya?ml",
-      ["z"] = "*.zig",
-    }
+      or {
+        ["c"] = "*.c",
+        ["g"] = "*.go",
+        ["l"] = "*.lua",
+        ["r"] = "*.rs",
+        ["y"] = "*.ya?ml",
+        ["z"] = "*.zig",
+      }
   opts.pattern = opts.pattern or "%s"
 
   opts = themes.get_ivy(opts)
@@ -71,12 +70,12 @@ return function(opts)
   })
 
   pickers
-    .new(opts, {
-      debounce = 100,
-      prompt_title = "Live Grep (with shortcuts)",
-      finder = custom_grep,
-      previewer = conf.grep_previewer(opts),
-      sorter = sorters.empty(),
-    })
-    :find()
+      .new(opts, {
+        debounce = 100,
+        prompt_title = "Live Grep (with shortcuts)",
+        finder = custom_grep,
+        previewer = conf.grep_previewer(opts),
+        sorter = sorters.empty(),
+      })
+      :find()
 end

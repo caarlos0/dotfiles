@@ -14,9 +14,6 @@ return {
       vim.api.nvim_win_set_config(win, { focusable = false })
     end,
   },
-  keys = {
-    { "<leader>un", "<cmd>lua require('notify').dismiss()<cr>" },
-  },
   config = function()
     vim.notify = require("notify")
   end,

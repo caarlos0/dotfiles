@@ -186,18 +186,15 @@ return {
     vim.highlight.priorities.semantic_tokens = 95
 
     -- set up diagnostic signs
-    local icons = {
-      Error = "",
-      Warn = "",
-      Info = "",
-      Question = "",
-      Hint = "󰌶",
-      Debug = "",
-      Trace = "✎",
-    }
-    for name, icon in pairs(icons) do
-      name = "DiagnosticSign" .. name
-      vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-    end
+    vim.diagnostic.config({
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = "",
+          [vim.diagnostic.severity.WARN] = "",
+          [vim.diagnostic.severity.INFO] = "",
+          [vim.diagnostic.severity.HINT] = "󰌶",
+        },
+      },
+    })
   end,
 }

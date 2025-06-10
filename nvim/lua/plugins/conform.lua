@@ -9,7 +9,6 @@ return {
       json = { "jq" },
       lua = { "stylua" },
       markdown = { "prettier" },
-      nix = { "nixfmt" },
       sh = { "shfmt" },
       sql = { "pg_format", "sql_formatter" },
       templ = { "templ" },
