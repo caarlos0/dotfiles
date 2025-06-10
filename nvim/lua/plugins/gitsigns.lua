@@ -8,4 +8,6 @@ return {
   keys = {
     { "<leader>gd", "<cmd>Gitsigns preview_hunk<cr>" },
   },
+  event = "BufEnter",
+  config = true,
 }

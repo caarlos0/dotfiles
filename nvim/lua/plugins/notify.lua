@@ -1,6 +1,5 @@
 return {
   "rcarriga/nvim-notify",
-  setup = true,
   opts = {
     render = "compact",
     stages = "static",
@@ -19,6 +18,6 @@ return {
     { "<leader>un", "<cmd>lua require('notify').dismiss()<cr>" },
   },
   config = function()
-    vim.notify = notify
+    vim.notify = require("notify")
   end,
 }
