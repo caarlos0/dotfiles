@@ -1,0 +1,3 @@
+$!/bin/bash
+# vim: set ft=sh
+python3 -m http.server --bind 0 --directory . 8000

@@ -1,0 +1,9 @@
+version: 1
+git_protocol: ssh
+editor: nvim
+aliases:
+  clone: repo clone
+  co: pr checkout
+  pr: pr create --web
+  pv: pr view --web
+  v: repo view --web

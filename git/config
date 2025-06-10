@@ -1,0 +1,115 @@
+[advice]
+	addEmptyPathspec = false
+
+[alias]
+	changed = "show --pretty=\"format:\" --name-only"
+	co = "checkout"
+	commend = "commit -s --amend --no-edit"
+	commit = "commit -s"
+	count = "shortlog -sn"
+	fm = "fetch-merge"
+	g = "grep --break --heading --line-number"
+	gi = "grep --break --heading --line-number -i"
+	lt = "log --tags --decorate --simplify-by-decoration --oneline"
+	please = "push --force-with-lease"
+	unshallow = "fetch --prune --tags --unshallow"
+
+[apply]
+	whitespace = "nowarn"
+
+[branch]
+	sort = "-committerdate"
+
+[color]
+	branch = "auto"
+	diff = "auto"
+	status = "auto"
+	ui = true
+
+[commit]
+	gpgSign = true
+
+[core]
+	autocrlf = "input"
+	compression = -1
+	editor = "nvim"
+	precomposeunicode = true
+	whitespace = "trailing-space,space-before-tab"
+
+[credential "https://gist.github.com"]
+	helper = "gh auth git-credential"
+
+[credential "https://github.com"]
+	helper = "gh auth git-credential"
+
+[diff]
+	algorithm = "histogram"
+	colorMoved = "plain"
+	mnemonicPrefix = true
+	renames = true
+
+[fetch]
+	all = true
+	prune = true
+
+[filter "lfs"]
+	clean = "git-lfs clean -- %f"
+	process = "git-lfs filter-process"
+	required = true
+	smudge = "git-lfs smudge -- %f"
+
+[format]
+	signOff = true
+
+[gpg]
+	format = "ssh"
+
+[gpg "openpgp"]
+	program = "gpg"
+
+[gpg "ssh"]
+	allowedSignersFile = "~/.ssh/allowed_signers"
+
+[grep]
+	extendRegexp = true
+	lineNumber = true
+
+[help]
+	autocorrect = 1
+
+[init]
+	defaultBranch = "main"
+
+[log]
+	showSignature = false
+
+[merge]
+	conflictStyle = "zdiff3"
+
+[pull]
+	ff = "only"
+
+[push]
+	autoSetupRemote = true
+	default = "simple"
+	followTags = true
+
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+
+[rerere]
+	autoUpdate = true
+	enabled = true
+
+[submodule]
+	fetchJobs = 4
+
+[tag]
+	sort = "version:refname"
+
+[user]
+	email = "caarlos0@users.noreply.github.com"
+	name = "Carlos Alexandro Becker"
+	signingKey = "~/.ssh/id_ed25519"
