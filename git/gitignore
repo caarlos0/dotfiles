@@ -106,8 +106,3 @@ result-*
 ###
 # custom stuff
 coverage.txt
-
-### opencode
-.opencode.json
-.opencode/
-OpenCode.md

@@ -1,4 +1,6 @@
+set -x GOPATH ~/Developer/Go
 fish_add_path -p ~/Developer/Go/bin
+
 fish_add_path -p ~/.cargo/bin/
 fish_add_path -p ~/.bin/
 fish_add_path -a /opt/homebrew/bin/
@@ -70,9 +72,6 @@ status is-interactive; and begin
     alias ls lsd
     alias lt 'lsd --tree'
 
-    # Interactive shell initialisation
-    fzf --fish | source
-
     # disable fish greeting
     set fish_greeting
     fish_config theme choose gruvbox
@@ -96,6 +95,9 @@ status is-interactive; and begin
     end
 
     zoxide init fish | source
+
+    fzf --fish | source
+    set -x FZF_DEFAULT_OPTS '--color bg:#1b1b1b,bg+:#3c3836,fg:#ebdbb2,fg+:#ebdbb2,header:#fb4934,hl:#fb4934,hl+:#fb4934,info:#d3869b,marker:#83a598,pointer:#ebdbb2,prompt:#d3869b,selected-bg:#665c54,spinner:#ebdbb2'
 end
 
 if test -f ~/.localrc.fish

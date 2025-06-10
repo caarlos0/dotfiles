@@ -6,23 +6,41 @@ ln -sf $PWD/bin/* ~/.bin/
 # tmux
 mkdir -p ~/.config/tmux/plugins
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-ln -sf $PWD/tmux.conf ~/.config/tmux/tmux.conf
+ln -sf $PWD/tmux/tmux.conf ~/.config/tmux/tmux.conf
+# TODO: init tmux
 
 # shell
 mkdir -p ~/.config/fish/themes
-fisher install jorgebucaran/hydro
 ln -sf $PWD/fish/* ~/.config/fish/
+fisher install jorgebucaran/hydro
 
 # terms
 mkdir -p ~/.config/ghostty
-ln -sf $PWD/ghostty.config ~/.config/ghostty/config
+ln -sf $PWD/ghostty/config ~/.config/ghostty/config
 
 # ssh 
 mkdir -p ~/.ssh
 ln -sf $PWD/ssh/* ~/.ssh/
 
-# apps
-mkdir -p ~/.hammerspoon
-ln -sf $PWD/hammerspoon.lua /Users/carlos/.hammerspoon/init.lua
+# neovim
 ln -sf $PWD/nvim ~/.config/nvim
-ln -sf $PWD/gitconfig ~/.config/git/config
+# TODO: init plugins
+
+# other apps
+ln -sf $PWD/.editorconfig ~/.editorconfig
+mkdir -p ~/.hammerspoon
+ln -sf $PWD/hammerspoon/init.lua /Users/carlos/.hammerspoon/init.lua
+mkdir -p ~/.config/git
+ln -sf $PWD/git/config ~/.config/git/config
+ln -sf $PWD/git/gitignore ~/.config/git/ignore
+mkdir -p ~/.config/gh
+ln -sf $PWD/gh/config.yml ~/.config/gh/config.yml
+mkdir -p ~/.config/gh-dash
+ln -sf $PWD/gh-dash/config ~/.config/gh-dash/config.yml
+mkdir -p ~/.config/fd
+ln -sf $PWD/fd/ignore ~/.config/fd/ignore
+
+if [[ $OSTYPE == 'darwin'* ]]
+    then
+    brew bundle
+    fi
