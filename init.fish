@@ -11,6 +11,7 @@ fisher install jorgebucaran/hydro
 ln -sf $PWD/gruvbox-dark.theme ~/.config/fish/themes/gruvbox.theme
 ln -sf $PWD/config.fish ~/.config/fish/config.fish
 ln -sf $PWD/functions/* ~/.config/fish/functions/
+fish_add_path -a $PWD/bin
 
 # terms
 mkdir -p ~/.config/ghostty
@@ -21,3 +22,5 @@ mkdir -p ~/.hammerspoon
 ln -sf $PWD/hammerspoon.lua /Users/carlos/.hammerspoon/init.lua
 ln -sf $PWD/nvim ~/.config/nvim
 ln -sf $PWD/gitconfig ~/.config/git/config
+
+ln -sf $PWD/bin/*
