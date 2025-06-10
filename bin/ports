@@ -1,6 +1,4 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p lsof
-# vim: set ft=bash
+#!/bin/bash
 # manage processes by the ports they are using
 case "$1" in
 ls)

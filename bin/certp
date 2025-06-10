@@ -1,6 +1,4 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p openssl
-# vim: set ft=bash
+#!/bin/bash
 # prints the certificate of a given domain
 set -e
 if test $# -gt 0; then
