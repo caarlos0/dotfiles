@@ -7,8 +7,10 @@ ln -sf $PWD/tmux.conf ~/.config/tmux/tmux.conf
 
 # shell
 mkdir -p ~/.config/fish/themes
+fisher install jorgebucaran/hydro
 ln -sf $PWD/gruvbox-dark.theme ~/.config/fish/themes/gruvbox.theme
 ln -sf $PWD/config.fish ~/.config/fish/config.fish
+ln -sf $PWD/functions/* ~/.config/fish/functions/
 
 # terms
 mkdir -p ~/.config/ghostty

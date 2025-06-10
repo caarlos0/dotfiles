@@ -1,4 +1,4 @@
-function c -d "quick cd into $PROJECTS"
+function c -d "quick cd into ~/Developer"
     switch $argv[1]
         case ''
             cd $PROJECTS
@@ -11,7 +11,7 @@ function __c_complete
     set arg (commandline -ct)
     set saved_pwd $PWD
 
-    builtin cd $PROJECTS
+    builtin cd ~/Developer
     and complete -C "cd $arg"
 
     builtin cd $saved_pwd
