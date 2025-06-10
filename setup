@@ -1,7 +1,6 @@
 #!/bin/bash
 # bins
-mkdir -p ~/.bin
-ln -sf $PWD/bin/* ~/.bin/
+ln -sf $PWD/bin ~/.bin
 
 # tmux
 mkdir -p ~/.config/tmux/plugins
@@ -13,7 +12,6 @@ ln -sf $PWD/tmux/tmux.conf ~/.config/tmux/tmux.conf
 mkdir -p ~/.config/fish/themes
 ln -sf $PWD/fish/* ~/.config/fish/
 fisher install jorgebucaran/hydro
-fish_config theme choose gruvbox-dark
 
 # terms
 mkdir -p ~/.config/ghostty

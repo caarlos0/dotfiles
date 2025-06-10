@@ -74,7 +74,7 @@ status is-interactive; and begin
 
     # disable fish greeting
     set fish_greeting
-    fish_config theme choose gruvbox
+    fish_config theme choose gruvbox-dark
     set hydro_color_pwd brcyan
     set hydro_color_git brmagenta
     set hydro_color_error brred
