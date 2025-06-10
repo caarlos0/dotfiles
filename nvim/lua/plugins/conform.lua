@@ -1,5 +1,5 @@
 return {
-  'stevearc/conform.nvim',
+  "stevearc/conform.nvim",
   opts = {
     formatters_by_ft = {
       css = { "prettier" },
@@ -19,10 +19,10 @@ return {
       -- let only the lsp take care of these.
       go = {},
       rust = {},
-      zig ={},
+      zig = {},
     },
     format_after_save = {
       lsp_fallback = true,
     },
-  }
+  },
 }

@@ -1,8 +1,9 @@
 return {
-  'nvim-telescope/telescope.nvim', branch = '0.1.x',
-  dependencies = { 
-    'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope-github.nvim',
+  "nvim-telescope/telescope.nvim",
+  branch = "0.1.x",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope-github.nvim",
   },
   opts = {
     defaults = {
@@ -50,7 +51,7 @@ return {
       end
     end
 
-    local telescope = require('telescope')
+    local telescope = require("telescope")
     telescope.load_extension("gh")
     telescope.load_extension("harpoon")
   end,
@@ -60,7 +61,7 @@ return {
     end
     return {
       {
-        '<C-p>', 
+        "<C-p>",
         function()
           require("telescope.builtin").find_files(ivy({
             find_command = {
@@ -71,74 +72,74 @@ return {
               "--hidden",
             },
           }))
-        end
+        end,
       },
       {
-        '<leader>of',
-        function() 
-          require("telescope.builtin").oldfiles({only_cwd=true})
-        end
+        "<leader>of",
+        function()
+          require("telescope.builtin").oldfiles({ only_cwd = true })
+        end,
       },
       {
-        '<leader>lg',
-        function() 
+        "<leader>lg",
+        function()
           require("config.telescope-multi")()
-        end
+        end,
       },
       {
-        '<leader>fb',
-        function() 
+        "<leader>fb",
+        function()
           require("telescope.builtin").buffers(ivy())
-        end
+        end,
       },
       {
-        '<leader>fh',
-        function() 
+        "<leader>fh",
+        function()
           require("telescope.builtin").help_tags(ivy())
-        end
+        end,
       },
       {
-        '<leader>fc',
-        function() 
+        "<leader>fc",
+        function()
           require("telescope.builtin").commands(ivy())
-        end
+        end,
       },
       {
-        '<leader>fr',
-        function() 
+        "<leader>fr",
+        function()
           require("telescope.builtin").resume(ivy())
-        end
+        end,
       },
       {
-        '<leader>fq',
-        function() 
+        "<leader>fq",
+        function()
           require("telescope.builtin").quickfix(ivy())
-        end
+        end,
       },
       {
-        '<leader>/',
-        function() 
+        "<leader>/",
+        function()
           require("telescope.builtin").current_buffer_fuzzy_find(ivy())
-        end
+        end,
       },
       {
-        '<leader>xx',
-        function() 
+        "<leader>xx",
+        function()
           require("telescope.builtin").diagnostics(ivy())
-        end
+        end,
       },
       {
-        '<leader>ghi',
-        function() 
-          require('telescope').extensions.gh.issues(ivy())
-        end
+        "<leader>ghi",
+        function()
+          require("telescope").extensions.gh.issues(ivy())
+        end,
       },
       {
-        '<leader>fj',
-        function() 
-          require('telescope').extensions.harpoon.marks(ivy())
-        end
+        "<leader>fj",
+        function()
+          require("telescope").extensions.harpoon.marks(ivy())
+        end,
       },
     }
-  end
+  end,
 }

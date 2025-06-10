@@ -1,9 +1,9 @@
-return { 
+return {
   "ellisonleao/gruvbox.nvim",
   priority = 1000,
   config = function()
     local bg0 = "#1b1b1b"
-    require('gruvbox').setup({
+    require("gruvbox").setup({
       contrast = "hard",
       overrides = {
         GruvboxBg0 = { fg = bg0 },
@@ -23,5 +23,5 @@ return {
     -- https://github.com/nvim-lualine/lualine.nvim/issues/1312
     vim.api.nvim_set_hl(0, "StatusLine", { reverse = false })
     vim.api.nvim_set_hl(0, "StatusLineNC", { reverse = false })
-  end
+  end,
 }

@@ -18,7 +18,7 @@ fisher install jorgebucaran/hydro
 mkdir -p ~/.config/ghostty
 ln -sf $PWD/ghostty/config ~/.config/ghostty/config
 
-# ssh 
+# ssh
 mkdir -p ~/.ssh
 ln -sf $PWD/ssh/* ~/.ssh/
 

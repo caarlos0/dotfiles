@@ -1,4 +1,4 @@
 return {
-  'norcalli/nvim-colorizer.lua',
-  setup = true
+  "norcalli/nvim-colorizer.lua",
+  setup = true,
 }

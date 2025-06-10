@@ -1,10 +1,10 @@
 return {
-  'saghen/blink.cmp',
-  dependencies = { 
-    'rafamadriz/friendly-snippets',
-    'giuxtaposition/blink-cmp-copilot',
+  "saghen/blink.cmp",
+  dependencies = {
+    "rafamadriz/friendly-snippets",
+    "giuxtaposition/blink-cmp-copilot",
   },
-  version = '1.*',
+  version = "1.*",
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
@@ -120,31 +120,31 @@ return {
     completion = {
       accept = { auto_brackets = { enabled = true } },
 
-    keyword = {
-      range = "full",
-    },
+      keyword = {
+        range = "full",
+      },
 
-    trigger = {
-      show_on_insert_on_trigger_character = true,
-      show_on_trigger_character = true,
-      show_on_keyword = true,
-    },
+      trigger = {
+        show_on_insert_on_trigger_character = true,
+        show_on_trigger_character = true,
+        show_on_keyword = true,
+      },
 
-    documentation = {
-      auto_show = true,
-      auto_show_delay_ms = 250,
-      treesitter_highlighting = true,
-    },
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 250,
+        treesitter_highlighting = true,
+      },
 
-    menu = {
-      draw = {
-        columns = {
-          { "kind_icon", "label", gap = 1 },
-          { "kind" },
+      menu = {
+        draw = {
+          columns = {
+            { "kind_icon", "label", gap = 1 },
+            { "kind" },
+          },
         },
       },
     },
   },
-  },
-  opts_extend = { "sources.default" }
+  opts_extend = { "sources.default" },
 }

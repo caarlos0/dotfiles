@@ -35,10 +35,10 @@ return {
       end
     end
 
-    table.insert(keys, { '<A-h>', nav(1), desc = "Harpoon go to file 1" })
-    table.insert(keys, { '<A-j>', nav(2), desc = "Harpoon go to file 2" })
-    table.insert(keys, { '<A-k>', nav(3), desc = "Harpoon go to file 3" })
-    table.insert(keys, { '<A-l>', nav(4), desc = "Harpoon go to file 4" })
+    table.insert(keys, { "<A-h>", nav(1), desc = "Harpoon go to file 1" })
+    table.insert(keys, { "<A-j>", nav(2), desc = "Harpoon go to file 2" })
+    table.insert(keys, { "<A-k>", nav(3), desc = "Harpoon go to file 3" })
+    table.insert(keys, { "<A-l>", nav(4), desc = "Harpoon go to file 4" })
 
     return keys
   end,

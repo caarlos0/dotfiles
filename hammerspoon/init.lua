@@ -126,9 +126,9 @@ end
 ---needs to be a global var otherwise it gets garbage collected apparently
 ---@diagnostic disable-next-line: lowercase-global
 appwatcher = hs.application.watcher
-    .new(function(appName, event, app)
-      if event == hs.application.watcher.launched then
-        handleAppLaunch(app, appName)
-      end
-    end)
-    :start()
+  .new(function(appName, event, app)
+    if event == hs.application.watcher.launched then
+      handleAppLaunch(app, appName)
+    end
+  end)
+  :start()

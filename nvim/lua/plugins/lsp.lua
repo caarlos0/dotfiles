@@ -1,8 +1,6 @@
 return {
-  'neovim/nvim-lspconfig',
-  dependencies = {
-
-  },
+  "neovim/nvim-lspconfig",
+  dependencies = {},
   config = function()
     local keymaps = require("lsp_keymaps")
     require("lsp_autocommands").setup()
@@ -201,5 +199,5 @@ return {
       name = "DiagnosticSign" .. name
       vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
     end
-  end
+  end,
 }
