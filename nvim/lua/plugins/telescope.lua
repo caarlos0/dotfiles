@@ -50,8 +50,9 @@ return {
       },
     },
   },
-  config = function()
+  config = function(_, opts)
     local telescope = require("telescope")
+    telescope.setup(opts)
     telescope.load_extension("gh")
     telescope.load_extension("harpoon")
   end,
