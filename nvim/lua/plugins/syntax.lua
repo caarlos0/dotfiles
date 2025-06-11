@@ -5,13 +5,25 @@ return {
   cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    "nvim-treesitter/nvim-treesitter-context",
     "RRethy/nvim-treesitter-endwise",
+    "windwp/nvim-autopairs",
+    "folke/todo-comments.nvim",
+    "folke/ts-comments.nvim",
+    "lukas-reineke/indent-blankline.nvim",
+    "wansmer/treesj",
   },
   keys = {
     { "<c-space>", desc = "Increment Selection" },
     { "<bs>",      desc = "Decrement Selection", mode = "x" },
+    {
+      "<leader>gS",
+      function()
+        require("treesj").toggle()
+      end,
+      desc = "Toggle split/join",
+    },
   },
-  opts_extend = { "ensure_installed" },
   ---@type TSConfig
   ---@diagnostic disable-next-line: missing-fields
   opts = {
@@ -147,6 +159,23 @@ return {
   },
   ---@param opts TSConfig
   config = function(_, opts)
+    require("todo-comments").setup()
+    require("ts-comments").setup({
+      lang = {
+        gomod = "// %s",
+        gowork = "// %s",
+      },
+    })
+    require("treesitter-context").setup({
+      multiline_threshold = 1,
+    })
+    require("nvim-autopairs").setup({ check_ts = true })
+    require("ibl").setup({
+      indent = { char = "│" },
+      exclude = { filetypes = { "help" } },
+      scope = { enabled = false },
+    })
+    require("treesj").setup()
     require("nvim-treesitter.configs").setup(opts)
   end,
 }
