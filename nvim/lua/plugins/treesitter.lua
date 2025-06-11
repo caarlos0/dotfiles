@@ -3,6 +3,10 @@ return {
   version = false, -- last release is way too old and doesn't work on Windows
   build = ":TSUpdate",
   cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    "RRethy/nvim-treesitter-endwise",
+  },
   keys = {
     { "<c-space>", desc = "Increment Selection" },
     { "<bs>",      desc = "Decrement Selection", mode = "x" },

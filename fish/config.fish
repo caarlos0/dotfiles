@@ -1,3 +1,4 @@
+set -x EDITOR nvim
 set -x GOPATH ~/Developer/Go
 fish_add_path -p ~/Developer/Go/bin
 
