@@ -25,9 +25,7 @@ link $PWD/tmux/tmux.conf ~/.config/tmux/tmux.conf
 tmux source ~/.config/tmux/tmux.conf
 
 # shell
-mkdir -p ~/.config/fish/themes
 link $PWD/fish/* ~/.config/fish/
-fish -c 'fisher install jorgebucaran/hydro'
 
 # terms
 link $PWD/ghostty/config ~/.config/ghostty/config

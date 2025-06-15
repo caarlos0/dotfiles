@@ -76,12 +76,7 @@ status is-interactive; and begin
     # disable fish greeting
     set fish_greeting
     fish_config theme choose gruvbox-dark
-    set hydro_color_pwd brcyan
-    set hydro_color_git brmagenta
-    set hydro_color_error brred
-    set hydro_color_prompt brgreen
-    set hydro_color_duration bryellow
-    set hydro_multiline true
+    fish_config prompt choose astronaut
 
     # traps the shell quit and switch to the last session if it's the last pane
     # if last session is not available anymore, switch to default
