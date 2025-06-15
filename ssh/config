@@ -1,0 +1,39 @@
+Include ~/.ssh/config.local
+
+Host *
+  SendEnv COLORTERM
+  SetEnv TERM="xterm-256color"
+  IdentityFile ~/.ssh/id_ed25519
+  IgnoreUnknown UseKeychain
+  UseKeyChain yes
+
+Host aur.archlinux.org
+  IdentityFile ~/.ssh/aur
+
+Host dev
+  ForwardAgent yes
+  RemoteForward [localhost]:2224 [127.0.0.1]:2224
+  RemoteForward [localhost]:2225 [127.0.0.1]:2225
+  RemoteForward [localhost]:2226 [127.0.0.1]:2226
+  RemoteCommand tmux new -A -s default
+  RequestTTY    yes
+
+Host github.com
+  ControlMaster auto
+  ControlPath ~/.ssh/github.sock
+  ControlPersist 5m
+Host localhost
+  StrictHostKeyChecking false
+  UserKnownHostsFile /dev/null
+
+Host *
+  ForwardAgent no
+  AddKeysToAgent no
+  Compression no
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+  HashKnownHosts no
+  UserKnownHostsFile ~/.ssh/known_hosts
+  ControlMaster no
+  ControlPath ~/.ssh/master-%r@%n:%p
+  ControlPersist no

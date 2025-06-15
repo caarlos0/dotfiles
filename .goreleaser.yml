@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://goreleaser.com/static/schema-pro.json
 version: 2
-project_name: dotfiles.nix
+project_name: dotfiles
 builds:
   - skip: true
 changelog:
