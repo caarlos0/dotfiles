@@ -1,7 +1,6 @@
 set -x EDITOR nvim
 set -x GOPATH ~/Developer/Go
 fish_add_path -p ~/Developer/Go/bin
-
 fish_add_path -p ~/.cargo/bin/
 fish_add_path -p ~/.bin/
 fish_add_path -a /opt/homebrew/bin/
@@ -68,7 +67,7 @@ status is-interactive; and begin
     alias fd 'fd --hidden'
     alias la 'lsd -A'
     alias ll 'lsd -l'
-    alias lla '/sd -lA'
+    alias lla 'lsd -lA'
     alias llt 'lsd -l --tree'
     alias ls lsd
     alias lt 'lsd --tree'
