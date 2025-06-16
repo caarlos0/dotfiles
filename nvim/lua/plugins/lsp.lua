@@ -1,7 +1,38 @@
 return {
   "neovim/nvim-lspconfig",
-  dependencies = {},
+  dependencies = {
+    {
+      "mason-org/mason.nvim",
+      opts = {},
+    },
+    {
+      "mason-org/mason-lspconfig.nvim",
+      opts = {
+        ensure_installed = {
+          "bashls",
+          "clangd",
+          "cssls",
+          "dockerls",
+          "gopls",
+          "html",
+          "htmx",
+          "jsonls",
+          "lua_ls",
+          "rust_analyzer",
+          "taplo",
+          "templ",
+          "tailwindcss",
+          "terraformls",
+          "tflint",
+          "ts_ls",
+          "yamlls",
+          "zls",
+        },
+      },
+    },
+  },
   config = function()
+    require("mason").setup()
     local keymaps = require("lsp_keymaps")
     require("lsp_autocommands").setup()
 
@@ -98,7 +129,6 @@ return {
       "cssls",
       "dockerls",
       "jsonls",
-      "nil_ls",
       "rust_analyzer",
       "taplo",
       "templ",
