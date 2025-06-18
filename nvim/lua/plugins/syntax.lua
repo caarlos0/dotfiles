@@ -8,6 +8,7 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     "RRethy/nvim-treesitter-endwise",
     "windwp/nvim-autopairs",
+    "windwp/nvim-ts-autotag",
     "folke/todo-comments.nvim",
     "folke/ts-comments.nvim",
     "lukas-reineke/indent-blankline.nvim",
@@ -160,6 +161,7 @@ return {
   ---@param opts TSConfig
   config = function(_, opts)
     require("todo-comments").setup()
+    require("nvim-ts-autotag").setup()
     require("ts-comments").setup({
       lang = {
         gomod = "// %s",
