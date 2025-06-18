@@ -1,32 +1,72 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  version = false, -- last release is way too old and doesn't work on Windows
+  branch = "master",
+  lazy = false,
   build = ":TSUpdate",
-  cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+  main = "nvim-treesitter.configs",
   dependencies = {
+    {
+      "lukas-reineke/indent-blankline.nvim",
+      main = "ibl",
+      opts = {
+        indent = { char = "│" },
+        exclude = { filetypes = { "help" } },
+        scope = { enabled = false },
+      },
+    },
+    {
+      "wansmer/treesj",
+      opts = {},
+      keys = {
+        {
+          "<leader>gS",
+          function()
+            require("treesj").toggle()
+          end,
+          desc = "Toggle split/join",
+        },
+      },
+    },
+    {
+      "windwp/nvim-autopairs",
+      opts = {
+        check_ts = true,
+      },
+    },
+    {
+      "windwp/nvim-ts-autotag",
+      opts = {},
+    },
+    {
+      "kylechui/nvim-surround",
+      opts = {},
+    },
+    {
+      "folke/todo-comments.nvim",
+      opts = {},
+    },
+    {
+      "folke/ts-comments.nvim",
+      opts = {
+        lang = {
+          gomod = "// %s",
+          gowork = "// %s",
+        },
+      },
+    },
+    {
+      "nvim-treesitter/nvim-treesitter-context",
+      opts = {
+        multiline_threshold = 1,
+      },
+    },
     "nvim-treesitter/nvim-treesitter-textobjects",
-    "nvim-treesitter/nvim-treesitter-context",
     "RRethy/nvim-treesitter-endwise",
-    "windwp/nvim-autopairs",
-    "windwp/nvim-ts-autotag",
-    "folke/todo-comments.nvim",
-    "folke/ts-comments.nvim",
-    "lukas-reineke/indent-blankline.nvim",
-    "wansmer/treesj",
   },
   keys = {
     { "<c-space>", desc = "Increment Selection" },
     { "<bs>",      desc = "Decrement Selection", mode = "x" },
-    {
-      "<leader>gS",
-      function()
-        require("treesj").toggle()
-      end,
-      desc = "Toggle split/join",
-    },
   },
-  ---@type TSConfig
-  ---@diagnostic disable-next-line: missing-fields
   opts = {
     ensure_installed = {
       "arduino",
@@ -158,26 +198,4 @@ return {
       },
     },
   },
-  ---@param opts TSConfig
-  config = function(_, opts)
-    require("todo-comments").setup()
-    require("nvim-ts-autotag").setup()
-    require("ts-comments").setup({
-      lang = {
-        gomod = "// %s",
-        gowork = "// %s",
-      },
-    })
-    require("treesitter-context").setup({
-      multiline_threshold = 1,
-    })
-    require("nvim-autopairs").setup({ check_ts = true })
-    require("ibl").setup({
-      indent = { char = "│" },
-      exclude = { filetypes = { "help" } },
-      scope = { enabled = false },
-    })
-    require("treesj").setup()
-    require("nvim-treesitter.configs").setup(opts)
-  end,
 }
