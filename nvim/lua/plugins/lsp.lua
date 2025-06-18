@@ -8,6 +8,7 @@ return {
     {
       "mason-org/mason-lspconfig.nvim",
       opts = {
+        automatic_enable = false,
         ensure_installed = {
           "bashls",
           "clangd",
