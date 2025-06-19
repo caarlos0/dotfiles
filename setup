@@ -25,7 +25,9 @@ link $PWD/tmux/tmux.conf ~/.config/tmux/tmux.conf
 tmux source ~/.config/tmux/tmux.conf
 
 # shell
-link $PWD/fish/* ~/.config/fish/
+link $PWD/fish/functions ~/.config/fish/functions
+link $PWD/fish/themes ~/.config/fish/themes
+link $PWD/fish/config.fish ~/.config/fish/config.fish
 
 # terms
 link $PWD/ghostty/config ~/.config/ghostty/config
