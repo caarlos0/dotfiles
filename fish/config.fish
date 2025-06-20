@@ -72,6 +72,10 @@ status is-interactive; and begin
     alias ls lsd
     alias lt 'lsd --tree'
 
+    # nvim
+    alias vim=nvim
+    alias vi=nvim
+
     # disable fish greeting
     set fish_greeting
     fish_config theme choose gruvbox-dark
