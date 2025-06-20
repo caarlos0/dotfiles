@@ -48,7 +48,16 @@ link $PWD/gh/config.yml ~/.config/gh/config.yml
 link $PWD/gh-dash/config ~/.config/gh-dash/config.yml
 link $PWD/fd/ignore ~/.config/fd/ignore
 
-if [[ $OSTYPE == 'darwin'* ]]
-    then
-    brew bundle
-    fi
+if [[ $OSTYPE == 'darwin'* ]] then
+  brew bundle
+fi
+
+# Fish setup
+if ! grep -q fish /etc/shells; then
+  echo "Adding $(which fish) to /etc/shells - will ask sudo password"
+  which fish | sudo tee -a /etc/shells
+fi
+if ! finger $USER | grep -q 'Shell: .*fish'; then
+  echo "Setting $(which fish) as the default shell - will ask user password"
+  chsh -s $(which fish)
+fi

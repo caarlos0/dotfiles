@@ -20,10 +20,8 @@ version here!
 ./setup
 ```
 
-You may also need to run:
+## Releasing
 
 ```bash
-which fish | sudo tee -a /etc/shells
-chsh -s $(which fish)
+./scripts/release.sh
 ```
-
