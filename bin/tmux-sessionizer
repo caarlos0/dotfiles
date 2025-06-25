@@ -5,8 +5,6 @@
 #
 # Stole and modified from: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/bin/tmux-sessionizer
 
-set PROJECTS ~/Developer
-
 # increase frecency
 function increase
     set selected "$argv[1]"

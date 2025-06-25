@@ -1,4 +1,5 @@
 set -x EDITOR nvim
+set -x PROJECTS ~/Developer
 set -x GOPATH ~/Developer/Go
 fish_add_path -p ~/Developer/Go/bin
 fish_add_path -p ~/.cargo/bin/
