@@ -40,9 +40,10 @@ brew "neovim"
 brew "nmap"
 brew "pgcli"
 brew "poetry"
+brew "pstree"
 brew "rio", link: false
 brew "ripgrep"
-brew "rust"
+brew "rustup"
 brew "scc"
 brew "shellcheck"
 brew "stern"
@@ -55,6 +56,7 @@ brew "tmux"
 brew "uv"
 brew "watch"
 brew "wget"
+brew "zig"
 brew "zoxide"
 brew "caarlos0/tap/svu"
 brew "charmbracelet/tap/freeze"
@@ -102,6 +104,6 @@ mas "Lungo", id: 1263070803
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Parcel", id: 639968404
-mas "Reeder", id: 6475002485
+mas "Reeder", id: 1529448980
 mas "Tailscale", id: 1475387142
 mas "Today", id: 6443714928
