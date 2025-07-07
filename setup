@@ -14,15 +14,17 @@ link() {
 # bins
 link $PWD/bin ~/.bin
 
-# tmux
-if [ -d ~/.config/tmux/plugins/tpm ]; then
-  echo "Skipping TPM, already installed."
-else
-  mkdir -p ~/.config/tmux/plugins
-  git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+if which tmux; then
+  # tmux
+  if [ -d ~/.config/tmux/plugins/tpm ]; then
+    echo "Skipping TPM, already installed."
+  else
+    mkdir -p ~/.config/tmux/plugins
+    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+  fi
+  link $PWD/tmux/tmux.conf ~/.config/tmux/tmux.conf
+  tmux source ~/.config/tmux/tmux.conf
 fi
-link $PWD/tmux/tmux.conf ~/.config/tmux/tmux.conf
-tmux source ~/.config/tmux/tmux.conf
 
 # shell
 link $PWD/fish/functions ~/.config/fish/functions
@@ -36,8 +38,10 @@ link $PWD/ghostty/config ~/.config/ghostty/config
 link $PWD/ssh/* ~/.ssh/
 
 # neovim
-link $PWD/nvim ~/.config/nvim
-nvim --headless "+Lazy! sync" +qa &>/dev/null
+if which nvim; then
+  link $PWD/nvim ~/.config/nvim
+  nvim --headless "+Lazy! sync" +qa &>/dev/null
+fi
 
 # other apps
 link $PWD/.editorconfig ~/.editorconfig
