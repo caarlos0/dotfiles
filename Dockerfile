@@ -12,7 +12,6 @@ RUN apk add -U \
   hey \
   htop \
   mtr \
-  neovim \
   postgresql-client \
   redis \
   ripgrep \
