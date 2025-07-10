@@ -1,0 +1,78 @@
+#!/bin/bash
+set -euo pipefail
+
+# curl -s https://github.com/maaslalani/glyphs/blob/main/glyphs.json | jq -r '.[] | .icon + "\t" + .name'
+echo "𝕏	Twitter
+⌘	Command
+∞	Infinity
+♡	Heart
+✓	Checkmark
+✕	Crossmark
+† Cross
+⋯	Ellipsis
+⋮	Vertical Ellipsis
+↑	Arrow Up
+→	Arrow Right
+↓	Arrow Down
+←	Arrow Left
+↗︎	Arrow Top-Right
+↘	Arrow Bottom-Right
+↙	Arrow Bottom-Left
+↖	Arrow Top-Left
+⤶	Arrow Bottom-Left Curved
+⤷	Arrow Bottom-Right Curved
+↺	Arrow Counter-Clockwise
+↻	Arrow Clockwise
+•	Bullet Filled
+◦	Bullet Empty
+★	Star Filled
+☆	Star Empty
+✢	Star
+✦	Sparkle Filled
+✧	Sparkle Empty
+❖	Diamond
+＊	Flower
+✱	Asterisk
+✿	Flower
+☼	Sun
+❄	Snowflake
+☾	Moon
+ϟ	Lightning
+℃	Celcius
+℉	Farenheit
+№	Number
+⁜	Star
+●	Circle Filled
+○	Circle Empty
+©	Copyright
+®	Trademark
+☰	Horizontal Lines
+₿	Bitcoin
+♦	Diamond Filled
+♢	Diamond Empty
+☯	Yin-yang
+☮	Peace
+☻	Smile Filled
+☺	Smile Empty
+ッ	Sokuon
+🜂	Triangle
+🜄	Triangle Upside-Down
+❝	Quote Open
+❞	Quote Close
+⚐	Flag
+✌︎	Peace
+☝︎	Point Up
+☞	Point Right
+☟	Point Down
+☜	Point Left
+ⴵ	Hourglass
+⋈	Hourglass
+∴	Therefore
+∵	Because
+∷	Because
+½	Fraction Half
+⅓	Fraction Third
+¼	Fraction Fourth" |
+  fzf --cycle |
+  awk '{print $1}' |
+  pbcopy
