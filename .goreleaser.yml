@@ -7,22 +7,7 @@ changelog:
   sort: asc
   use: github
   divider: "---"
-  filters:
-    exclude:
-      - "^.*chore\\(nix\\):+.*$"
   groups:
-    - title: "nix"
-      regexp: "^.*\\(nix\\):+.*$"
-      order: 200
-      groups:
-        - title: improvements
-          regexp: "^feat.*$"
-          order: 100
-        - title: fixes
-          regexp: "^fix.*$"
-          order: 200
-        - title: other
-          order: 9999
     - title: "darwin"
       regexp: "^.*\\((darwin|macos)\\):+.*$"
       order: 201
@@ -36,7 +21,7 @@ changelog:
         - title: other
           order: 9999
     - title: "linux"
-      regexp: "^.*\\((linux|nixos)\\):+.*$"
+      regexp: "^.*\\((linux)\\):+.*$"
       order: 202
       groups:
         - title: improvements
@@ -72,7 +57,7 @@ changelog:
         - title: other
           order: 9999
     - title: "system"
-      regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs)\\):+.*$"
+      regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs|brew)\\):+.*$"
       order: 100
       groups:
         - title: improvements
