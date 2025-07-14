@@ -27,7 +27,7 @@ palette = "0=#1b1b1b"
 background = "#1b1b1b"
 
 font-family = "TX-02"
-font-size = 14
+font-size = 12
 font-feature = zero
 font-feature = calt
 font-feature = liga
