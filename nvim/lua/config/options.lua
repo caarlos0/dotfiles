@@ -2,7 +2,7 @@ vim.opt.compatible = false
 vim.opt.termsync = true
 -- vim.opt.clipboard = "unnamedplus"
 vim.opt.hidden = true
-vim.opt.updatetime = 1000 -- faster update times, default 4000
+vim.opt.updatetime = 250 -- faster update times, default 4000
 vim.opt.mouse = ""
 vim.opt.inccommand = "split"
 vim.opt.splitbelow = true
@@ -12,8 +12,8 @@ vim.opt.textwidth = 0
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 4
-vim.opt.tabstop = 4
+vim.opt.softtabstop = 2
+vim.opt.tabstop = 2
 vim.opt.signcolumn = "yes"
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 10
@@ -36,7 +36,7 @@ vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.spelllang = { "en_us" }
 vim.opt.spellfile = vim.uv.os_homedir() .. "/.spell.add"
 vim.opt.laststatus = 2
-vim.opt.cursorline = false
+vim.opt.cursorline = true
 -- vim.opt.cursorlineopt = "number"
 -- vim.opt.list = true
 -- vim.opt.listchars = "eol:↲,tab:» ,trail:·,extends:<,precedes:>,conceal:┊,nbsp:␣"
@@ -44,6 +44,7 @@ vim.opt.grepprg = "rg --vimgrep --smart-case --follow"
 vim.opt.background = "dark"
 vim.opt.termguicolors = true
 vim.opt.shortmess:append("c")
+vim.opt.timeoutlen = 300 -- time to wait for mapped sequence to complete (ms)
 
 vim.g.fugitive_legacy_commands = 0
 
