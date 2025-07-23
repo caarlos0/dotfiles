@@ -95,7 +95,7 @@ return {
         copilot = {
           name = "copilot",
           module = "blink-cmp-copilot",
-          score_offset = -10,
+          -- score_offset = -10,
           min_keyword_length = 0,
           async = true,
           override = {
