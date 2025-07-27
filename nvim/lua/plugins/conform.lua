@@ -26,18 +26,4 @@ return {
       lsp_fallback = true,
     },
   },
-  dependencies = {
-    { "mason-org/mason.nvim" },
-    {
-      "LittleEndianRoot/mason-conform",
-      opts = {
-        automatic_installation = false,
-        ensure_installed = {
-          "prettier",
-          "stylua",
-          "shfmt",
-        },
-      },
-    },
-  },
 }

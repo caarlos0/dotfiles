@@ -1,40 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPost", "BufNewFile" },
-  dependencies = {
-    {
-      "mason-org/mason.nvim",
-      opts = {},
-    },
-    {
-      "mason-org/mason-lspconfig.nvim",
-      opts = {
-        automatic_enable = false,
-        ensure_installed = {
-          "bashls",
-          "clangd",
-          "cssls",
-          "dockerls",
-          "gopls",
-          "html",
-          "htmx",
-          "jsonls",
-          "lua_ls",
-          "rust_analyzer",
-          "taplo",
-          "templ",
-          "tailwindcss",
-          "terraformls",
-          "tflint",
-          "ts_ls",
-          "yamlls",
-          "zls",
-        },
-      },
-    },
-  },
   config = function()
-    require("mason").setup()
     local keymaps = require("lsp_keymaps")
     require("lsp_autocommands").setup()
 
