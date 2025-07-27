@@ -1,13 +1,9 @@
-return {
-  "lewis6991/gitsigns.nvim",
-  opts = {
-    preview_config = {
-      border = "none",
-    },
+require("gitsigns").setup({
+  preview_config = {
+    border = "none",
   },
-  keys = {
-    { "<leader>gd", "<cmd>Gitsigns preview_hunk<cr>" },
-  },
-  event = "BufEnter",
-  config = true,
-}
+})
+
+vim.keymap.set("n", "<leader>gd", function()
+  require("gitsigns").preview_hunk()
+end, { desc = "Preview Git hunk" })
