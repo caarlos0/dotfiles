@@ -30,7 +30,7 @@ vim.pack.add({
   { src = "https://github.com/nvim-telescope/telescope-github.nvim" },
   {
     src = "https://github.com/nvim-telescope/telescope.nvim",
-    version = vim.version.range("0.1.*"),
+    -- version = vim.version.range("0.1.*"),
   },
 
   { src = "https://github.com/christoomey/vim-tmux-navigator" },
@@ -348,3 +348,5 @@ require("blink.cmp").setup({
     },
   },
 })
+
+require("auto-hlsearch").setup()

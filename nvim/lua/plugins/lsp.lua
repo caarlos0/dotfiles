@@ -1,4 +1,3 @@
-local keymaps = require("lsp_keymaps")
 require("lsp_autocommands").setup()
 
 local capabilities = require("blink.cmp").get_lsp_capabilities({
@@ -14,7 +13,46 @@ local capabilities = require("blink.cmp").get_lsp_capabilities({
 ---@param bufnr number Buffer number
 ---@diagnostic disable: unused-local
 local on_attach = function(client, bufnr)
-  keymaps.on_attach(bufnr)
+  --- Add a normal keymap.
+  ---@param lhs string Keymap
+  ---@param rhs function Action
+  local keymap = function(lhs, rhs)
+    vim.keymap.set("n", lhs, rhs, {
+      noremap = true,
+      silent = true,
+      buffer = bufnr,
+    })
+  end
+
+  local telescope = function(action)
+    return function()
+      local ivy = require("telescope.themes").get_ivy()
+      require("telescope.builtin")["lsp_" .. action](ivy)
+    end
+  end
+
+  keymap("gd", telescope("definitions"))
+  keymap("grr", telescope("references"))
+  keymap("gO", telescope("document_symbols"))
+  keymap("gri", telescope("implementations"))
+  keymap("gD", vim.lsp.buf.declaration)
+  keymap("K", vim.lsp.buf.hover)
+  keymap("<leader>D", telescope("type_definitions"))
+  keymap("grl", vim.lsp.codelens.run)
+  keymap("gl", vim.diagnostic.open_float)
+  keymap("[d", function()
+    vim.diagnostic.jump({ count = -1 })
+    vim.cmd("norm zz")
+  end)
+  keymap("]d", function()
+    vim.diagnostic.jump({ count = 1 })
+    vim.cmd("norm zz")
+  end)
+
+  keymap("<leader>v", function()
+    vim.cmd("vsplit | lua vim.lsp.buf.definition()")
+    vim.cmd("norm zz")
+  end)
 end
 
 local lspconfig = require("lspconfig")
