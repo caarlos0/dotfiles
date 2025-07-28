@@ -44,15 +44,6 @@ M.on_attach = function(bufnr)
     vim.cmd("vsplit | lua vim.lsp.buf.definition()")
     vim.cmd("norm zz")
   end, bufnr)
-
-  keymap("<leader>ls", function()
-    -- XXX: remove soon
-    vim.notify("Use gO instead")
-  end, bufnr)
-  keymap("gi", function()
-    -- XXX: remove soon
-    vim.notify("Use gri instead")
-  end, bufnr)
 end
 
 return M
