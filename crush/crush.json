@@ -42,6 +42,8 @@
       "view",
       "ls",
       "grep",
+      "fetch",
+      "write",
       "edit"
     ]
   }
