@@ -32,7 +32,7 @@ link $PWD/fish/themes ~/.config/fish/themes
 link $PWD/fish/config.fish ~/.config/fish/config.fish
 
 # terms
-link $PWD/ghostty/config ~/.config/ghostty/config
+link $PWD/ghostty ~/.config/ghostty
 
 # ssh
 link $PWD/ssh/* ~/.ssh/
@@ -52,7 +52,7 @@ link $PWD/gh/config.yml ~/.config/gh/config.yml
 link $PWD/gh-dash/config ~/.config/gh-dash/config.yml
 link $PWD/fd/ignore ~/.config/fd/ignore
 
-if [[ $OSTYPE == 'darwin'* ]] then
+if [[ $OSTYPE == 'darwin'* ]]; then
   brew bundle
 fi
 
@@ -63,5 +63,5 @@ if ! grep -q fish /etc/shells; then
 fi
 if ! finger $USER | grep -q 'Shell: .*fish'; then
   echo "Setting $(which fish) as the default shell - will ask user password"
-  chsh -s $(which fish)
+  chsh -s "$(which fish)"
 fi
