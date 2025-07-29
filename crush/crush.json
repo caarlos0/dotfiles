@@ -1,0 +1,48 @@
+{
+  "$schema": "file:///Users/carlos/Developer/charmbracelet/crush/schema.json",
+  "lsp": {
+    "Go": {
+      "command": "gopls"
+    },
+    "TypeScript": {
+      "command": "typescript-language-server",
+      "args": [
+        "--stdio"
+      ]
+    },
+    "Bash": {
+      "command": "bash-language-server",
+      "args": [
+        "start"
+      ]
+    }
+  },
+  "mcp": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "$(echo Bearer $GITHUB_TOKEN)"
+      }
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "goreleaser": {
+      "type": "stdio",
+      "command": "goreleaser",
+      "args": [
+        "mcp"
+      ]
+    }
+  },
+  "permissions": {
+    "allowed_tools": [
+      "view",
+      "ls",
+      "grep",
+      "edit"
+    ]
+  }
+}
