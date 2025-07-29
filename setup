@@ -12,7 +12,7 @@ link() {
 }
 
 # bins
-link $PWD/bin ~/.bin
+link "$PWD"/bin ~/.bin
 
 if which tmux; then
   # tmux
@@ -22,35 +22,35 @@ if which tmux; then
     mkdir -p ~/.config/tmux/plugins
     git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
   fi
-  link $PWD/tmux/tmux.conf ~/.config/tmux/tmux.conf
+  link "$PWD"/tmux/tmux.conf ~/.config/tmux/tmux.conf
   tmux source ~/.config/tmux/tmux.conf
 fi
 
 # shell
-link $PWD/fish/functions ~/.config/fish/functions
-link $PWD/fish/themes ~/.config/fish/themes
-link $PWD/fish/config.fish ~/.config/fish/config.fish
+link "$PWD"/fish/functions ~/.config/fish/functions
+link "$PWD"/fish/themes ~/.config/fish/themes
+link "$PWD"/fish/config.fish ~/.config/fish/config.fish
 
 # terms
-link $PWD/ghostty ~/.config/ghostty
+link "$PWD"/ghostty ~/.config/ghostty
 
 # ssh
-link $PWD/ssh/* ~/.ssh/
+link "$PWD"/ssh/* ~/.ssh/
 
 # neovim
 if which nvim; then
-  link $PWD/nvim ~/.config/nvim
+  link "$PWD"/nvim ~/.config/nvim
   nvim --headless "+Lazy! sync" +qa &>/dev/null
 fi
 
 # other apps
-link $PWD/.editorconfig ~/.editorconfig
-link $PWD/hammerspoon/init.lua /Users/carlos/.hammerspoon/init.lua
-link $PWD/git/config ~/.config/git/config
-link $PWD/git/gitignore ~/.config/git/ignore
-link $PWD/gh/config.yml ~/.config/gh/config.yml
-link $PWD/gh-dash/config ~/.config/gh-dash/config.yml
-link $PWD/fd/ignore ~/.config/fd/ignore
+link "$PWD"/.editorconfig ~/.editorconfig
+link "$PWD"/hammerspoon/init.lua /Users/carlos/.hammerspoon/init.lua
+link "$PWD"/git/config ~/.config/git/config
+link "$PWD"/git/gitignore ~/.config/git/ignore
+link "$PWD"/gh/config.yml ~/.config/gh/config.yml
+link "$PWD"/gh-dash/config ~/.config/gh-dash/config.yml
+link "$PWD"/fd/ignore ~/.config/fd/ignore
 
 if [[ $OSTYPE == 'darwin'* ]]; then
   brew bundle
@@ -61,7 +61,7 @@ if ! grep -q fish /etc/shells; then
   echo "Adding $(which fish) to /etc/shells - will ask sudo password"
   which fish | sudo tee -a /etc/shells
 fi
-if ! finger $USER | grep -q 'Shell: .*fish'; then
+if ! finger "$USER" | grep -q 'Shell: .*fish'; then
   echo "Setting $(which fish) as the default shell - will ask user password"
   chsh -s "$(which fish)"
 fi
