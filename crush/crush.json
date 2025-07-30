@@ -1,11 +1,29 @@
 {
-  "$schema": "file:///Users/carlos/Developer/charmbracelet/crush/schema.json",
+  "$schema": "https://charm.land/crush.json",
   "lsp": {
     "Go": {
       "command": "gopls"
     },
     "TypeScript": {
       "command": "typescript-language-server",
+      "args": [
+        "--stdio"
+      ]
+    },
+    "HTML": {
+      "command": "vscode-html-languageserver",
+      "args": [
+        "--stdio"
+      ]
+    },
+    "CSS": {
+      "command": "vscode-css-languageserver",
+      "args": [
+        "--stdio"
+      ]
+    },
+    "Markdown": {
+      "command": "vscode-markdown-languageserver",
       "args": [
         "--stdio"
       ]
