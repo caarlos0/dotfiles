@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-tag="$(date +%Y).$(expr $(date +%m) + 0).$(expr $(date +%d) + 0)"
+tag="$(date +%Y.%-m.%-d)"
 git tag -m "$tag" "$tag"
 git push --tags
 goreleaser release --clean
