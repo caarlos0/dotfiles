@@ -57,6 +57,9 @@
   },
   "permissions": {
     "allowed_tools": [
+      "mcp_github_get_issue",
+      "mcp_github_get_issue_comments",
+      "multiedit",
       "view",
       "ls",
       "grep",
@@ -64,5 +67,26 @@
       "write",
       "edit"
     ]
+  },
+  "providers": {
+    "ollama": {
+      "type": "openai",
+      "base_url": "http://localhost:11434/v1",
+      "models": [
+        {
+          "id": "qwen3:8b",
+          "name": "qwen3:8b",
+          "cost_per_1m_in": 0,
+          "cost_per_1m_out": 0,
+          "cost_per_1m_in_cached": 0,
+          "cost_per_1m_out_cached": 0,
+          "supports_attachments": false,
+          "can_reason": false,
+          "has_reasoning_efforts": false,
+          "default_max_tokens": 4000,
+          "context_window": 40960
+        }
+      ]
+    }
   }
 }
