@@ -1,0 +1,23 @@
+#!/bin/bash
+# go test only the changed packages.
+set -euo pipefail
+
+pkgs() {
+  fd '.*_test.go' . --hidden --type f --extension go |
+    sort |
+    uniq |
+    while read -r file; do
+      while [ "$file" != "." ]; do
+        file="$(dirname "$file")"
+        echo "./$file/..."
+      done
+    done |
+    sed 's;././;./;g' |
+    sort |
+    uniq |
+    fzf -m --cycle -1 |
+    tr '\n' ' '
+}
+
+# shellcheck disable=SC2086,SC2046,SC2048
+go test $(pkgs) $*
