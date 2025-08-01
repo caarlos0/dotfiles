@@ -26,7 +26,7 @@ brew "go-task"
 brew "gofumpt"
 brew "golangci-lint"
 brew "gopls"
-brew "graphviz"
+brew "graphviz", link: false
 brew "helm"
 brew "htop"
 brew "hugo"
@@ -46,6 +46,7 @@ brew "pgcli"
 brew "poetry"
 brew "prettier"
 brew "pstree"
+brew "quill"
 brew "redis"
 brew "ripgrep"
 brew "rust-analyzer"
@@ -68,10 +69,12 @@ brew "vscode-langservers-extracted"
 brew "watch"
 brew "wget"
 brew "yaml-language-server"
+brew "yarn"
 brew "zig"
 brew "zoxide"
 brew "caarlos0/tap/svu"
 brew "caarlos0/tap/timer"
+brew "charmbracelet/tap/crush"
 brew "charmbracelet/tap/freeze"
 brew "charmbracelet/tap/glow"
 brew "charmbracelet/tap/gum"
@@ -111,6 +114,7 @@ cask "zoom"
 mas "1Password for Safari", id: 1569813296
 mas "Capture", id: 6458535284
 mas "Color Picker", id: 1545870783
+mas "Consent-O-Matic", id: 1606897889
 mas "Debit & Credit", id: 882637653
 mas "HEIC Converter", id: 1294126402
 mas "Keynote", id: 409183694
@@ -119,5 +123,6 @@ mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Parcel", id: 639968404
 mas "Reeder", id: 1529448980
+mas "StopTheMadness", id: 1376402589
 mas "Tailscale", id: 1475387142
 mas "Today", id: 6443714928
