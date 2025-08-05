@@ -48,6 +48,10 @@ vim.keymap.set("n", "go", function()
   vim.notify("Opening PR...")
 end, opts)
 
+vim.keymap.set("n", "cc", function()
+  vim.cmd("silent! Git commit -s")
+end, opts)
+
 vim.keymap.set("n", "gq", function()
   vim.cmd("silent! close")
 end, opts)
