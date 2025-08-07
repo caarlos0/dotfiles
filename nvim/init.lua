@@ -41,7 +41,7 @@ vim.opt.background = "dark"
 vim.opt.termguicolors = true
 vim.opt.shortmess:append("c")
 vim.opt.timeoutlen = 300
-vim.opt.winborder = "rounded"
+vim.opt.winborder = "none"
 
 vim.hl.priorities.semantic_tokens = 10
 vim.g.fugitive_legacy_commands = 0
@@ -176,6 +176,7 @@ keymap("v", "p", '"_dP', opts)
 
 -- Move text up and down
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
+keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 
 ---
 --- UI
