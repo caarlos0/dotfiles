@@ -26,7 +26,7 @@ keymap("n", "<A-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<A-Right>", ":vertical resize +2<CR>", opts)
 
 -- buffer killing
-keymap("n", "<leader>q", ":Bdelete<CR>", opts)          -- delete current buffer
+keymap("n", "<leader>q", ":bdelete<CR>", opts)          -- delete current buffer
 keymap("n", "<leader>bad", ":%bd!<cr>:intro<cr>", opts) -- delete all buffers
 -- delete surrounding buffers, make sure to keep the cursor position
 keymap("n", "<leader>bsd", function()
@@ -71,8 +71,8 @@ keymap("n", "<leader>d", '"_d', opts)
 keymap("n", "<leader>D", '"_D', opts)
 
 -- git
-keymap("n", "<leader>gs", "<cmd>tab Git<cr>", opts)
-keymap("n", "<F9>", "<cmd>Git mergetool<cr>", opts)
+keymap("n", "<leader>gs", ":tab Git<cr>", opts)
+keymap("n", "<F9>", ":tab Git mergetool<cr>", opts)
 
 -- Insert --
 -- in insert mode, adds new undo points after , . ! and ?.

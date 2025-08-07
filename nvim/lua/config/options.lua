@@ -45,6 +45,8 @@ vim.opt.background = "dark"
 vim.opt.termguicolors = true
 vim.opt.shortmess:append("c")
 vim.opt.timeoutlen = 300 -- time to wait for mapped sequence to complete (ms)
+vim.opt.winborder = "rounded"
+vim.hl.priorities.semantic_tokens = 10
 
 vim.g.fugitive_legacy_commands = 0
 

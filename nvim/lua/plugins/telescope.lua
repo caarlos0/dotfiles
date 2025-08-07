@@ -97,14 +97,6 @@ vim.keymap.set("n", "<leader>/", function()
   builtin.current_buffer_fuzzy_find(ivy())
 end, opts)
 
-vim.keymap.set("n", "<leader>xx", function()
-  builtin.diagnostics(ivy())
-end, opts)
-
 vim.keymap.set("n", "<leader>ghi", function()
   telescope.extensions.gh.issues(ivy())
-end, opts)
-
-vim.keymap.set("n", "<leader>fj", function()
-  telescope.extensions.harpoon.marks(ivy())
 end, opts)

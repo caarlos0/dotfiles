@@ -3,21 +3,23 @@ require("config.keymaps")
 require("config.autocommands")
 
 vim.pack.add({
+  -- UI
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/ellisonleao/gruvbox.nvim" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
   { src = "https://github.com/stevearc/dressing.nvim" },
   { src = "https://github.com/rcarriga/nvim-notify" },
   { src = "https://github.com/christoomey/vim-tmux-navigator" },
-  { src = "https://github.com/rgroli/other.nvim" },
-  { src = "https://github.com/danymat/neogen" },
   { src = "https://github.com/asiryk/auto-hlsearch.nvim" },
   { src = "https://github.com/famiu/bufdelete.nvim" },
   { src = "https://github.com/norcalli/nvim-colorizer.lua" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/akinsho/git-conflict.nvim" },
+  { src = "https://github.com/yorickpeterse/nvim-pqf" },
 
-  -- lsp, formatting, and completions
+  -- CODING
+  { src = "https://github.com/rgroli/other.nvim" },
+  { src = "https://github.com/danymat/neogen" },
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/zbirenbaum/copilot.lua" },
@@ -57,10 +59,11 @@ vim.pack.add({
 })
 
 local opts = { noremap = true, silent = true }
+local keymap = vim.keymap.set
 
-require("plugins.lsp")
-require("plugins.telescope")
-require("plugins.syntax")
+---
+--- UI
+---
 
 local bg0 = "#1b1b1b"
 require("gruvbox").setup({
@@ -137,7 +140,46 @@ require("gitsigns").setup({
     border = "none",
   },
 })
-vim.keymap.set("n", "<leader>gd", "<cmd>Gitsigns preview_hunk<cr>", opts)
+vim.keymap.set("n", "<leader>gd", ":Gitsigns preview_hunk<cr>", opts)
+
+require("auto-hlsearch").setup({})
+require("git-conflict").setup({})
+
+-- setup diagnostics
+vim.diagnostic.config({
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
+
+keymap("n", "<leader>xx", vim.diagnostic.setqflist, opts)
+
+-- set up diagnostic signs
+local severity = vim.diagnostic.severity
+local signs = {
+  [severity.ERROR] = "",
+  [severity.WARN] = "",
+  [severity.INFO] = "",
+  [severity.HINT] = "󰌶",
+}
+vim.diagnostic.config({
+  signs = {
+    text = signs,
+  },
+})
+
+require("pqf").setup({
+  signs = {
+    error = { text = signs[severity.ERROR], hl = "DiagnosticSignError" },
+    warning = { text = signs[severity.WARN], hl = "DiagnosticSignWarn" },
+    info = { text = signs[severity.INFO], hl = "DiagnosticSignInfo" },
+    hint = { text = signs[severity.HINT], hl = "DiagnosticSignHint" },
+  },
+})
+
+---
+--- CODING
+---
 
 require("other-nvim").setup({
   mappings = {
@@ -164,15 +206,12 @@ require("other-nvim").setup({
     },
   },
 })
+vim.keymap.set("n", "<leader>oo", ":Other<cr>", opts)
+vim.keymap.set("n", "<leader>ov", ":OtherVSplit<cr>", opts)
+vim.keymap.set("n", "<leader>os", ":OtherSplit<cr>", opts)
 
-vim.keymap.set("n", "<leader>oo", "<cmd>Other<cr>", opts)
-vim.keymap.set("n", "<leader>ov", "<cmd>OtherVSplit<cr>", opts)
-vim.keymap.set("n", "<leader>os", "<cmd>OtherSplit<cr>", opts)
-
-require("neogen").setup({
-  snippet_engine = "nvim",
-})
-vim.keymap.set("n", "gco", "<cmd>Neogen<cr>", opts)
+require("neogen").setup({ snippet_engine = "nvim" })
+vim.keymap.set("n", "gco", ":Neogen<cr>", opts)
 
 require("conform").setup({
   formatters_by_ft = {
@@ -346,13 +385,191 @@ require("blink.cmp").setup({
   },
 })
 
-require("auto-hlsearch").setup()
+--
+--
+-- Filetype autocmds
+--
+--
 
-vim.keymap.set("n", "<leader>q", ":bdelete!<cr>", {
-  noremap = true,
-  silent = true,
-  buffer = vim.api.nvim_get_current_buf(),
-  desc = "Close buffer",
+local function copen()
+  if vim.fn.getqflist({ size = 0 }).size > 1 then
+    vim.cmd("copen")
+  else
+    vim.cmd("cclose")
+  end
+end
+
+local function cclear()
+  vim.fn.setqflist({}, "r")
+end
+
+local auft = vim.api.nvim_create_augroup("FiletypeSettings", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  group = auft,
+  pattern = "fugitive",
+  callback = function()
+    local Job = require("plenary.job")
+    local bufnr = vim.api.nvim_get_current_buf()
+
+    local function async_git(args, success_msg, error_msg)
+      ---@diagnostic disable-next-line: missing-fields
+      Job:new({
+        command = "git",
+        args = args,
+        on_exit = function(_, status)
+          if status == 0 then
+            vim.notify(success_msg, vim.log.levels.INFO)
+          else
+            vim.notify(error_msg, vim.log.levels.ERROR)
+          end
+        end,
+      }):start()
+    end
+
+    vim.cmd("normal )k=")
+
+    local buf_opts = { noremap = true, silent = true, buffer = bufnr }
+    keymap("n", "gp", function()
+      async_git({ "push", "--quiet" }, "Pushed!", "Push failed!")
+      vim.cmd("silent! close")
+      vim.notify("Pushing...")
+    end, buf_opts)
+
+    keymap("n", "gP", function()
+      async_git({ "pull", "--rebase" }, "Pulled!", "Pull failed!")
+      vim.cmd("silent! close")
+      vim.notify("Pulling...")
+    end, buf_opts)
+
+    keymap("n", "go", function()
+      async_git({ "ppr" }, "Pushed and opened PR URL!", "Failed to push or open PR")
+      vim.cmd("silent! close")
+      vim.notify("Opening PR...")
+    end, buf_opts)
+
+    keymap("n", "cc", ":silent! Git commit -s<cr>", buf_opts)
+    keymap("n", "gq", ":silent! close<cr>", buf_opts)
+  end,
 })
 
-require("git-conflict").setup()
+vim.api.nvim_create_autocmd("FileType", {
+  group = auft,
+  pattern = "gitcommit",
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.textwidth = 72
+  end,
+})
+
+local get_gopls = function(bufnr)
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+  for _, c in ipairs(clients) do
+    if c.name == "gopls" then
+      return c
+    end
+  end
+  vim.notify("gopls not found", vim.log.levels.WARN)
+  return nil
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = auft,
+  pattern = "go",
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+
+    vim.opt_local.formatoptions:append("jo")
+    vim.opt_local.makeprg = "go build ./..."
+    vim.opt_local.errorformat = "%A%f:%l:%c: %m,%-G%.%#"
+
+    vim.api.nvim_buf_create_user_command(bufnr, "GoModTidy", function()
+      local gopls = get_gopls(bufnr)
+      if gopls == nil then
+        return
+      end
+
+      vim.cmd([[ noautocmd wall ]])
+      vim.notify("go mod tidy: running...")
+
+      local uri = vim.uri_from_bufnr(bufnr)
+      local arguments = { { URIs = { uri } } }
+
+      local err = gopls:request_sync("workspace/executeCommand", {
+        command = "gopls.tidy",
+        arguments = arguments,
+      }, 30000, bufnr)
+
+      if err ~= nil and type(err[1]) == "table" then
+        vim.notify("go mod tidy: " .. vim.inspect(err), vim.log.levels.ERROR)
+        return
+      end
+
+      vim.notify("go mod tidy: done!")
+    end, { desc = "go mod tidy" })
+
+    local buf_opts = { noremap = true, silent = true, buffer = bufnr }
+    keymap("n", "<F1>", function()
+      vim.notify("Building...")
+      cclear()
+      vim.schedule(function()
+        vim.cmd("make")
+        copen()
+        vim.notify("Done!")
+      end)
+    end, buf_opts)
+
+    keymap("n", "<F2>", function()
+      vim.notify("Installing...")
+      vim.fn.jobstart("go install ./...")
+    end, buf_opts)
+
+    keymap("n", "<F6>", vim.cmd.GoModTidy, buf_opts)
+
+    keymap("n", "<F7>", function()
+      vim.notify("Running golangci-lint...")
+      cclear()
+      vim.fn.jobstart("golangci-lint run --max-issues-per-linter=0 --max-same-issues=0", {
+        stdout_buffered = true,
+        on_stdout = function(_, data)
+          if data and #data > 1 then
+            vim.schedule(function()
+              vim.fn.setqflist({}, " ", { lines = data })
+              copen()
+              vim.notify("Done!")
+            end)
+          end
+        end,
+      })
+    end, buf_opts)
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = auft,
+  pattern = { "gomod", "gosum" },
+  callback = function()
+    vim.opt_local.autoread = true
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.api.nvim_create_autocmd("CursorHold", {
+      group = vim.api.nvim_create_augroup("Autoread", { clear = true }),
+      buffer = bufnr,
+      callback = function()
+        vim.cmd("silent! checktime")
+      end,
+    })
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = auft,
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.textwidth = 80
+    vim.opt_local.formatoptions:remove("ct")
+  end,
+})
+
+require("plugins.lsp")
+require("plugins.telescope")
+require("plugins.syntax")

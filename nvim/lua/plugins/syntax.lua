@@ -27,7 +27,7 @@ require("treesitter-context").setup({
   multiline_threshold = 1,
 })
 
-
+---@diagnostic disable-next-line: missing-fields
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "arduino",

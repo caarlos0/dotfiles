@@ -201,34 +201,3 @@ lspconfig.lua_ls.setup({
     },
   },
 })
-
-local float_config = {
-  focusable = true,
-  style = "minimal",
-  border = "none",
-  source = "if_many",
-}
-
--- setup diagnostics
-vim.diagnostic.config({
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
-  float = float_config,
-})
-
-vim.lsp.buf.hover(float_config)
-vim.lsp.buf.signature_help(float_config)
-vim.highlight.priorities.semantic_tokens = 95
-
--- set up diagnostic signs
-vim.diagnostic.config({
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = "",
-      [vim.diagnostic.severity.WARN] = "",
-      [vim.diagnostic.severity.INFO] = "",
-      [vim.diagnostic.severity.HINT] = "󰌶",
-    },
-  },
-})
