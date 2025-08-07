@@ -1,5 +1,73 @@
-require("config.options")
-require("config.keymaps")
+vim.opt.compatible = false
+vim.opt.termsync = true
+vim.opt.hidden = true
+vim.opt.updatetime = 250
+vim.opt.mouse = ""
+vim.opt.inccommand = "nosplit"
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.wrap = false
+vim.opt.textwidth = 0
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.tabstop = 2
+vim.opt.signcolumn = "yes"
+vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 10
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.smoothscroll = true
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath("data") .. "undodir"
+vim.opt.hlsearch = false
+vim.opt.ignorecase = true
+vim.opt.incsearch = true
+vim.opt.ruler = true
+vim.opt.wildmenu = true
+vim.opt.autoread = true
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.colorcolumn = "80"
+vim.opt.backspace = { "indent", "eol", "start" }
+vim.opt.spelllang = { "en_us" }
+vim.opt.spellfile = vim.uv.os_homedir() .. "/.spell.add"
+vim.opt.laststatus = 2
+vim.opt.cursorline = true
+vim.opt.grepprg = "rg --vimgrep --smart-case --follow"
+vim.opt.background = "dark"
+vim.opt.termguicolors = true
+vim.opt.shortmess:append("c")
+vim.opt.timeoutlen = 300
+vim.opt.winborder = "rounded"
+
+vim.hl.priorities.semantic_tokens = 10
+vim.g.fugitive_legacy_commands = 0
+
+vim.cmd([[
+inoreabbrev Goreleaser GoReleaser
+inoreabbrev gorelesaer goreleaser
+inoreabbrev carlos0 caarlos0
+inoreabbrev descriptoin description
+inoreabbrev fucn func
+inoreabbrev sicne since
+inoreabbrev emtpy empty
+inoreabbrev udpate update
+inoreabbrev dont don't
+inoreabbrev wont won't
+inoreabbrev cant can't
+inoreabbrev lenght length
+inoreabbrev Lenght Length
+
+" ptbr
+inoreabbrev neh né
+inoreabbrev soh só
+inoreabbrev nao não
+inoreabbrev sao são
+]])
+
 require("config.autocommands")
 
 vim.pack.add({
@@ -61,6 +129,54 @@ vim.pack.add({
 local opts = { noremap = true, silent = true }
 local keymap = vim.keymap.set
 
+--Remap space as leader key
+keymap("", "<Space>", "<Nop>", opts)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+-- quicklists
+keymap("n", "<leader>co", ":copen<CR>", opts)
+keymap("n", "<leader>cc", ":cclose<CR>", opts)
+
+-- write, buffer killing
+keymap("n", "<leader>q", ":bdelete<CR>", opts)
+keymap("n", "<leader>bad", ":%bd!<cr>:intro<cr>", opts)
+keymap("n", "<leader>w", ":write<CR>", opts)
+
+-- zz
+keymap("n", "n", "nzzzv", opts)
+keymap("n", "N", "Nzzzv", opts)
+keymap("n", "<C-u>", "<C-u>zz", opts)
+keymap("n", "<C-d>", "<C-d>zz", opts)
+keymap("n", "<C-o>", "<C-o>zz", opts)
+keymap("n", "<C-i>", "<C-i>zz", opts)
+
+-- system clipboard integration
+keymap({ "n", "v" }, "<leader>y", '"+y', opts)
+
+-- copy the current file path
+keymap("n", "<leader>py", ':let @" = expand("%:p")<CR>', opts)
+
+-- delete to blackhole
+keymap({ "n", "v" }, "<leader>d", '"_d', opts)
+
+-- git
+keymap("n", "<leader>gs", ":tab Git<cr>", opts)
+keymap("n", "<F9>", ":tab Git mergetool<cr>", opts)
+keymap("n", "<leader>gd", ":Gitsign preview_hunk_inline<cr>", opts)
+
+-- indent
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
+
+-- If I visually select words and paste from clipboard, don't replace my
+-- clipboard with the selected word, instead keep my old word in the
+-- clipboard
+keymap("v", "p", '"_dP', opts)
+
+-- Move text up and down
+keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
+
 ---
 --- UI
 ---
@@ -93,19 +209,10 @@ local notify = require("notify")
 notify.setup({
   render = "compact",
   stages = "static",
-  timeout = 2000,
-  max_height = function()
-    return math.floor(vim.o.lines * 0.75)
-  end,
-  max_width = function()
-    return math.floor(vim.o.columns * 0.75)
-  end,
-  on_open = function(win)
-    vim.api.nvim_win_set_config(win, { focusable = false })
-  end,
 })
 vim.notify = notify
 
+local section_c = { "%=", { "filename", file_status = false, path = 1 } }
 require("lualine").setup({
   options = {
     theme = "gruvbox",
@@ -113,34 +220,13 @@ require("lualine").setup({
     section_separators = "",
   },
   sections = {
-    lualine_c = {
-      "%=",
-      {
-        "filename",
-        file_status = false,
-        path = 1,
-      },
-    },
+    lualine_c = section_c,
   },
   inactive_sections = {
-    lualine_c = {
-      "%=",
-      {
-        "filename",
-        file_status = false,
-        path = 1,
-      },
-    },
+    lualine_c = section_c,
     lualine_x = { "location" },
   },
 })
-
-require("gitsigns").setup({
-  preview_config = {
-    border = "none",
-  },
-})
-vim.keymap.set("n", "<leader>gd", ":Gitsigns preview_hunk<cr>", opts)
 
 require("auto-hlsearch").setup({})
 require("git-conflict").setup({})
@@ -206,12 +292,12 @@ require("other-nvim").setup({
     },
   },
 })
-vim.keymap.set("n", "<leader>oo", ":Other<cr>", opts)
-vim.keymap.set("n", "<leader>ov", ":OtherVSplit<cr>", opts)
-vim.keymap.set("n", "<leader>os", ":OtherSplit<cr>", opts)
+keymap("n", "<leader>oo", ":Other<cr>", opts)
+keymap("n", "<leader>ov", ":OtherVSplit<cr>", opts)
+keymap("n", "<leader>os", ":OtherSplit<cr>", opts)
 
 require("neogen").setup({ snippet_engine = "nvim" })
-vim.keymap.set("n", "gco", ":Neogen<cr>", opts)
+keymap("n", "gco", ":Neogen<cr>", opts)
 
 require("conform").setup({
   formatters_by_ft = {
@@ -248,7 +334,6 @@ require("copilot").setup({
 require("blink.cmp").setup({
   keymap = { preset = "default" },
   appearance = {
-    -- use_nvim_cmp_as_default = true,
     nerd_font_variant = "mono",
     kind_icons = {
       Array = "",
@@ -357,23 +442,19 @@ require("blink.cmp").setup({
   },
   completion = {
     accept = { auto_brackets = { enabled = true } },
-
     keyword = {
       range = "full",
     },
-
     trigger = {
       show_on_insert_on_trigger_character = true,
       show_on_trigger_character = true,
       show_on_keyword = true,
     },
-
     documentation = {
       auto_show = true,
       auto_show_delay_ms = 250,
       treesitter_highlighting = true,
     },
-
     menu = {
       draw = {
         columns = {
@@ -432,19 +513,16 @@ vim.api.nvim_create_autocmd("FileType", {
     keymap("n", "gp", function()
       async_git({ "push", "--quiet" }, "Pushed!", "Push failed!")
       vim.cmd("silent! close")
-      vim.notify("Pushing...")
     end, buf_opts)
 
     keymap("n", "gP", function()
       async_git({ "pull", "--rebase" }, "Pulled!", "Pull failed!")
       vim.cmd("silent! close")
-      vim.notify("Pulling...")
     end, buf_opts)
 
     keymap("n", "go", function()
       async_git({ "ppr" }, "Pushed and opened PR URL!", "Failed to push or open PR")
       vim.cmd("silent! close")
-      vim.notify("Opening PR...")
     end, buf_opts)
 
     keymap("n", "cc", ":silent! Git commit -s<cr>", buf_opts)
@@ -468,7 +546,6 @@ local get_gopls = function(bufnr)
       return c
     end
   end
-  vim.notify("gopls not found", vim.log.levels.WARN)
   return nil
 end
 
@@ -489,7 +566,6 @@ vim.api.nvim_create_autocmd("FileType", {
       end
 
       vim.cmd([[ noautocmd wall ]])
-      vim.notify("go mod tidy: running...")
 
       local uri = vim.uri_from_bufnr(bufnr)
       local arguments = { { URIs = { uri } } }
@@ -503,30 +579,24 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.notify("go mod tidy: " .. vim.inspect(err), vim.log.levels.ERROR)
         return
       end
-
-      vim.notify("go mod tidy: done!")
     end, { desc = "go mod tidy" })
 
     local buf_opts = { noremap = true, silent = true, buffer = bufnr }
     keymap("n", "<F1>", function()
-      vim.notify("Building...")
       cclear()
       vim.schedule(function()
         vim.cmd("make")
         copen()
-        vim.notify("Done!")
       end)
     end, buf_opts)
 
     keymap("n", "<F2>", function()
-      vim.notify("Installing...")
       vim.fn.jobstart("go install ./...")
     end, buf_opts)
 
     keymap("n", "<F6>", vim.cmd.GoModTidy, buf_opts)
 
     keymap("n", "<F7>", function()
-      vim.notify("Running golangci-lint...")
       cclear()
       vim.fn.jobstart("golangci-lint run --max-issues-per-linter=0 --max-same-issues=0", {
         stdout_buffered = true,
@@ -535,7 +605,6 @@ vim.api.nvim_create_autocmd("FileType", {
             vim.schedule(function()
               vim.fn.setqflist({}, " ", { lines = data })
               copen()
-              vim.notify("Done!")
             end)
           end
         end,
