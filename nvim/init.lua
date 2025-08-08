@@ -178,6 +178,11 @@ keymap("v", "p", '"_dP', opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 
+-- in insert mode, adds new undo points after more some chars:
+for _, lhs in ipairs({ "-", "_", ",", ".", ";", ":", "/", "!", "?" }) do
+  keymap("i", lhs, lhs .. "<c-g>u", opts)
+end
+
 ---
 --- UI
 ---
