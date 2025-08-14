@@ -218,6 +218,7 @@ notify.setup({
 })
 vim.notify = notify
 
+local section_b = { "branch", "diff", { "diagnostics", sources = { "nvim_workspace_diagnostic" } } }
 local section_c = { "%=", { "filename", file_status = false, path = 1 } }
 require("lualine").setup({
   options = {
@@ -226,6 +227,7 @@ require("lualine").setup({
     section_separators = "",
   },
   sections = {
+    lualine_b = section_b,
     lualine_c = section_c,
   },
   inactive_sections = {
