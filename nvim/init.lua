@@ -139,8 +139,8 @@ keymap("n", "<leader>co", ":copen<CR>", opts)
 keymap("n", "<leader>cc", ":cclose<CR>", opts)
 
 -- write, buffer killing
-keymap("n", "<leader>q", ":bdelete<CR>", opts)
-keymap("n", "<leader>bad", ":%bd!<cr>:intro<cr>", opts)
+keymap("n", "<leader>q", ":Bdelete<CR>", opts)
+keymap("n", "<leader>bad", ":%Bwipeout!<cr>:intro<cr>", opts)
 keymap("n", "<leader>w", ":write<CR>", opts)
 
 -- zz
@@ -237,6 +237,7 @@ require("lualine").setup({
 })
 
 require("auto-hlsearch").setup({})
+require("gitsigns").setup({})
 require("git-conflict").setup({})
 
 -- setup diagnostics
@@ -544,6 +545,18 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.spell = true
     vim.opt_local.textwidth = 72
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = auft,
+  pattern = "qf",
+  callback = function()
+    keymap("n", "<leader>q", ":bdelete<CR>", {
+      buffer = vim.api.nvim_get_current_buf(),
+      noremap = true,
+      silent = true,
+    })
   end,
 })
 
