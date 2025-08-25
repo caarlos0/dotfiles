@@ -550,7 +550,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("FileType", {
   group = auft,
-  pattern = "qf",
+  pattern = { "qf", "help" },
   callback = function()
     keymap("n", "<leader>q", ":bdelete<CR>", {
       buffer = vim.api.nvim_get_current_buf(),
@@ -631,22 +631,6 @@ vim.api.nvim_create_autocmd("FileType", {
         end,
       })
     end, buf_opts)
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  group = auft,
-  pattern = { "gomod", "gosum" },
-  callback = function()
-    vim.opt_local.autoread = true
-    local bufnr = vim.api.nvim_get_current_buf()
-    vim.api.nvim_create_autocmd("CursorHold", {
-      group = vim.api.nvim_create_augroup("Autoread", { clear = true }),
-      buffer = bufnr,
-      callback = function()
-        vim.cmd("silent! checktime")
-      end,
-    })
   end,
 })
 
