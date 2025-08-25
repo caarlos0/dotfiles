@@ -1,37 +1,77 @@
 {
   "$schema": "https://charm.land/crush.json",
   "lsp": {
+    "Python": {
+      "command": "pylsp",
+      "filetypes": [
+        "py"
+      ]
+    },
     "Go": {
-      "command": "gopls"
+      "command": "gopls",
+      "filetypes": [
+        "go",
+        "mod",
+        "sum",
+        "work"
+      ]
     },
     "TypeScript": {
       "command": "typescript-language-server",
       "args": [
         "--stdio"
+      ],
+      "filetypes": [
+        "ts",
+        "tsx",
+        "js",
+        "jsx",
+        "mjs",
+        "cjs"
       ]
     },
     "HTML": {
       "command": "vscode-html-languageserver",
       "args": [
         "--stdio"
+      ],
+      "filetypes": [
+        "html",
+        "htm"
       ]
     },
     "CSS": {
       "command": "vscode-css-languageserver",
       "args": [
         "--stdio"
+      ],
+      "filetypes": [
+        "css",
+        "scss",
+        "sass",
+        "less"
       ]
     },
     "Markdown": {
       "command": "vscode-markdown-languageserver",
       "args": [
         "--stdio"
+      ],
+      "filetypes": [
+        "md",
+        "markdown"
       ]
     },
     "Bash": {
       "command": "bash-language-server",
       "args": [
         "start"
+      ],
+      "filetypes": [
+        "sh",
+        "bash",
+        "zsh",
+        "ksh"
       ]
     }
   },
@@ -39,6 +79,7 @@
     "github": {
       "type": "http",
       "url": "https://api.githubcopilot.com/mcp/",
+      "timeout": 30,
       "headers": {
         "Authorization": "$(echo Bearer $GITHUB_TOKEN)"
       }
