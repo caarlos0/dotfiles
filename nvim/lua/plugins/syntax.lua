@@ -4,11 +4,6 @@ require("ibl").setup({
   scope = { enabled = false },
 })
 
-require("treesj").setup()
-vim.keymap.set("n", "<leader>gS", function()
-  require("treesj").toggle()
-end, { desc = "Toggle split/join" })
-
 require("nvim-autopairs").setup({
   check_ts = true,
 })

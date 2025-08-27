@@ -68,8 +68,6 @@ inoreabbrev nao não
 inoreabbrev sao são
 ]])
 
-require("config.autocommands")
-
 vim.pack.add({
   -- UI
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
@@ -493,9 +491,47 @@ local function cclear()
   vim.fn.setqflist({}, "r")
 end
 
-local auft = vim.api.nvim_create_augroup("FiletypeSettings", { clear = true })
+-- Opens the directory of the current file in Finder/file explorer.
+vim.api.nvim_create_user_command("Finder", "!open %:h", {})
+
 vim.api.nvim_create_autocmd("FileType", {
-  group = auft,
+  pattern = "gitcommit",
+  command = "startinsert",
+})
+
+-- ensure the parent folder exists, so it gets properly added to the lsp
+-- context and everything just works.
+vim.api.nvim_create_autocmd("BufNewFile", {
+  pattern = "*",
+  callback = function()
+    local dir = vim.fn.expand("<afile>:p:h")
+    if vim.fn.isdirectory(dir) == 0 then
+      vim.fn.mkdir(dir, "p")
+      vim.cmd([[ :e % ]])
+    end
+  end,
+})
+
+-- Highlight on yank
+-- See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd("TextYankPost", {
+  pattern = "*",
+  callback = function()
+    vim.hl.on_yank()
+  end,
+})
+
+-- Open help window in a vertical split to the right.
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = { "*.txt" },
+  callback = function()
+    if vim.o.filetype == "help" then
+      vim.cmd.wincmd("L")
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
   pattern = "fugitive",
   callback = function()
     local Job = require("plenary.job")
@@ -540,7 +576,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = auft,
   pattern = "gitcommit",
   callback = function()
     vim.opt_local.spell = true
@@ -549,7 +584,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = auft,
   pattern = { "qf", "help" },
   callback = function()
     keymap("n", "<leader>q", ":bdelete<CR>", {
@@ -571,7 +605,6 @@ local get_gopls = function(bufnr)
 end
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = auft,
   pattern = "go",
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
@@ -619,7 +652,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
     keymap("n", "<F7>", function()
       cclear()
-      vim.fn.jobstart("golangci-lint run --max-issues-per-linter=0 --max-same-issues=0", {
+      vim.fn.jobstart("golangci-lint run --max-issues-per-linter=0 --max-same-issues=0 --new", {
         stdout_buffered = true,
         on_stdout = function(_, data)
           if data and #data > 1 then
@@ -635,7 +668,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = auft,
   pattern = "markdown",
   callback = function()
     vim.opt_local.spell = true
@@ -647,3 +679,7 @@ vim.api.nvim_create_autocmd("FileType", {
 require("plugins.lsp")
 require("plugins.telescope")
 require("plugins.syntax")
+
+local treesj = require("treesj")
+treesj.setup({ use_default_keymaps = false })
+keymap("n", "<leader>st", treesj.toggle, opts)
