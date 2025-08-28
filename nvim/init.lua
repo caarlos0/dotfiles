@@ -621,14 +621,14 @@ require("fzf-lua").setup({
     split = "botright new",
   },
 })
-keymap("n", "<C-p>", ":FzfLua combine pickers=oldfiles;git_files<CR>", opts)
-keymap("n", "<leader>of", ":FzfLua oldfiles<CR>", opts)
+keymap("n", "<C-p>", ":FzfLua combine pickers=oldfiles;git_files;files cwd_only=true<CR>", opts)
+keymap("n", "<leader>of", ":FzfLua oldfiles cwd_only=true<CR>", opts)
 keymap("n", "<leader>lg", ":FzfLua live_grep<CR>", opts)
 keymap("n", "<leader>fh", ":FzfLua helptags<CR>", opts)
 keymap("n", "<leader>fc", ":FzfLua commands<CR>", opts)
 keymap("n", "<leader>fr", ":FzfLua resume<CR>", opts)
 keymap("n", "<leader>fq", ":FzfLua quickfix<CR>", opts)
 keymap("n", "<leader>/", ":FzfLua grep_curbuf<CR>", opts)
-keymap("n", "<leader>fb", ":FzfLua buffers<CR>", opts)
+keymap("n", "<leader>fb", ":FzfLua buffers cwd_only=true<CR>", opts)
 
 require("plugins.lsp")
