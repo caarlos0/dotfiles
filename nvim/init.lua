@@ -81,7 +81,7 @@ vim.pack.add({
   { src = "https://github.com/norcalli/nvim-colorizer.lua" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/akinsho/git-conflict.nvim" },
-  { src = "https://github.com/yorickpeterse/nvim-pqf" },
+  { src = "https://github.com/ibhagwan/fzf-lua" },
 
   -- CODING
   { src = "https://github.com/rgroli/other.nvim" },
@@ -105,11 +105,6 @@ vim.pack.add({
   { src = "https://github.com/tpope/vim-sleuth" },
   { src = "https://github.com/tpope/vim-speeddating" },
 
-  -- telescope
-  { src = "https://github.com/nvim-lua/plenary.nvim" },
-  { src = "https://github.com/nvim-telescope/telescope-github.nvim" },
-  { src = "https://github.com/nvim-telescope/telescope.nvim" }, -- version = vim.version.range("0.1.*"),
-
   -- treesitter and friends
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
@@ -118,7 +113,6 @@ vim.pack.add({
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/kylechui/nvim-surround" },
   { src = "https://github.com/folke/todo-comments.nvim" },
-  { src = "https://github.com/folke/ts-comments.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" },
   { src = "https://github.com/RRethy/nvim-treesitter-endwise" },
@@ -261,44 +255,7 @@ vim.diagnostic.config({
   },
 })
 
-require("pqf").setup({
-  signs = {
-    error = { text = signs[severity.ERROR], hl = "DiagnosticSignError" },
-    warning = { text = signs[severity.WARN], hl = "DiagnosticSignWarn" },
-    info = { text = signs[severity.INFO], hl = "DiagnosticSignInfo" },
-    hint = { text = signs[severity.HINT], hl = "DiagnosticSignHint" },
-  },
-})
-
----
---- CODING
----
-
-require("other-nvim").setup({
-  mappings = {
-    "golang",
-    {
-      pattern = "go.mod$",
-      target = "go.sum",
-      context = "sum",
-    },
-    {
-      pattern = "go.sum$",
-      target = "go.mod",
-      context = "mod",
-    },
-    {
-      pattern = "go.work$",
-      target = "go.work.sum",
-      context = "sum",
-    },
-    {
-      pattern = "go.work.sum$",
-      target = "go.work",
-      context = "mod",
-    },
-  },
-})
+require("other-nvim").setup({})
 keymap("n", "<leader>oo", ":Other<cr>", opts)
 keymap("n", "<leader>ov", ":OtherVSplit<cr>", opts)
 keymap("n", "<leader>os", ":OtherSplit<cr>", opts)
@@ -473,12 +430,6 @@ require("blink.cmp").setup({
   },
 })
 
---
---
--- Filetype autocmds
---
---
-
 local function copen()
   if vim.fn.getqflist({ size = 0 }).size > 1 then
     vim.cmd("copen")
@@ -534,22 +485,18 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "fugitive",
   callback = function()
-    local Job = require("plenary.job")
     local bufnr = vim.api.nvim_get_current_buf()
 
     local function async_git(args, success_msg, error_msg)
-      ---@diagnostic disable-next-line: missing-fields
-      Job:new({
-        command = "git",
-        args = args,
-        on_exit = function(_, status)
-          if status == 0 then
+      vim.system({ "git", unpack(args) }, {}, function(obj)
+        vim.schedule(function()
+          if obj.code == 0 then
             vim.notify(success_msg, vim.log.levels.INFO)
           else
             vim.notify(error_msg, vim.log.levels.ERROR)
           end
-        end,
-      }):start()
+        end)
+      end)
     end
 
     vim.cmd("normal )k=")
@@ -636,20 +583,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { desc = "go mod tidy" })
 
     local buf_opts = { noremap = true, silent = true, buffer = bufnr }
-    keymap("n", "<F1>", function()
-      cclear()
-      vim.schedule(function()
-        vim.cmd("make")
-        copen()
-      end)
-    end, buf_opts)
-
-    keymap("n", "<F2>", function()
-      vim.fn.jobstart("go install ./...")
-    end, buf_opts)
-
     keymap("n", "<F6>", vim.cmd.GoModTidy, buf_opts)
-
     keymap("n", "<F7>", function()
       cclear()
       vim.fn.jobstart("golangci-lint run --max-issues-per-linter=0 --max-same-issues=0 --new", {
@@ -676,10 +610,25 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-require("plugins.lsp")
-require("plugins.telescope")
 require("plugins.syntax")
 
 local treesj = require("treesj")
 treesj.setup({ use_default_keymaps = false })
 keymap("n", "<leader>st", treesj.toggle, opts)
+
+require("fzf-lua").setup({
+  winopts = {
+    split = "botright new",
+  },
+})
+keymap("n", "<C-p>", ":FzfLua combine pickers=oldfiles;git_files<CR>", opts)
+keymap("n", "<leader>of", ":FzfLua oldfiles<CR>", opts)
+keymap("n", "<leader>lg", ":FzfLua live_grep<CR>", opts)
+keymap("n", "<leader>fh", ":FzfLua helptags<CR>", opts)
+keymap("n", "<leader>fc", ":FzfLua commands<CR>", opts)
+keymap("n", "<leader>fr", ":FzfLua resume<CR>", opts)
+keymap("n", "<leader>fq", ":FzfLua quickfix<CR>", opts)
+keymap("n", "<leader>/", ":FzfLua grep_curbuf<CR>", opts)
+keymap("n", "<leader>fb", ":FzfLua buffers<CR>", opts)
+
+require("plugins.lsp")
