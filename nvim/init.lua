@@ -255,7 +255,7 @@ vim.diagnostic.config({
   },
 })
 
-require("other-nvim").setup({})
+require("other-nvim").setup({ mappings = { "golang" } })
 keymap("n", "<leader>oo", ":Other<cr>", opts)
 keymap("n", "<leader>ov", ":OtherVSplit<cr>", opts)
 keymap("n", "<leader>os", ":OtherSplit<cr>", opts)
