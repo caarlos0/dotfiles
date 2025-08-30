@@ -61,5 +61,3 @@ keybind = cmd+9=text:\x029
 keybind = shift+cmd+d=text:\x02u
 keybind = ctrl+tab=text:\x02n
 keybind = shift+ctrl+tab=text:\x02p
-
-custom-shader = ~/.config/ghostty/cursor.glsl
