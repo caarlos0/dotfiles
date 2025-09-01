@@ -15,13 +15,6 @@ link() {
 link "$PWD"/bin ~/.bin
 
 if which tmux; then
-  # tmux
-  if [ -d ~/.config/tmux/plugins/tpm ]; then
-    echo "Skipping TPM, already installed."
-  else
-    mkdir -p ~/.config/tmux/plugins
-    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-  fi
   link "$PWD"/tmux/tmux.conf ~/.config/tmux/tmux.conf
   tmux source ~/.config/tmux/tmux.conf
 fi
