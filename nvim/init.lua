@@ -132,7 +132,7 @@ keymap("n", "<leader>cc", ":cclose<CR>", opts)
 
 -- write, buffer killing
 keymap("n", "<leader>q", ":Bdelete<CR>", opts)
-keymap("n", "<leader>bad", ":%Bwipeout!<cr>:intro<cr>", opts)
+keymap("n", "<leader>bad", ":%bwipeout!<cr>:intro<cr>", opts)
 keymap("n", "<leader>w", ":write<CR>", opts)
 
 -- zz
