@@ -100,6 +100,7 @@ status is-interactive; and begin
 
     zoxide init fish | source
     fzf --fish | source
+    direnv hook fish | source
 end
 
 if test -f ~/.localrc.fish

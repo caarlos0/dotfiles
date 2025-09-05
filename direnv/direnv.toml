@@ -1,2 +1,9 @@
 [global]
 load_dotenv = true
+
+[whitelist]
+prefix = [
+  "~/Developer/caarlos0/",
+  "~/Developer/charmbracelet/",
+  "~/Developer/goreleaser/"
+]
