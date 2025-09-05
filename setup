@@ -45,6 +45,7 @@ link "$PWD"/crush ~/.config/crush
 link "$PWD"/gh/config.yml ~/.config/gh/config.yml
 link "$PWD"/gh-dash/config ~/.config/gh-dash/config.yml
 link "$PWD"/fd/ignore ~/.config/fd/ignore
+link "$PWD"/direnv ~/.config/direnv
 
 if [[ $OSTYPE == 'darwin'* ]]; then
   brew bundle
