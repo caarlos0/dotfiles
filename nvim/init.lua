@@ -617,8 +617,15 @@ treesj.setup({ use_default_keymaps = false })
 keymap("n", "<leader>st", treesj.toggle, opts)
 
 require("fzf-lua").setup({
-  fzf_opts = { ["--cycle"] = true },
-  winopts = { split = "botright new" },
+  fzf_opts = {
+    ["--cycle"] = true,
+  },
+  winopts = {
+    split = "botright new",
+    treesitter = {
+      enabled = false,
+    },
+  },
 })
 keymap("n", "<C-p>", ":FzfLua global<CR>", opts)
 keymap("n", "<leader>of", ":FzfLua oldfiles cwd_only=true<CR>", opts)
