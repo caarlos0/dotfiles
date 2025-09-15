@@ -88,6 +88,10 @@ hotkey.bind(hyper, "M", function()
   hs.application.launchOrFocus("Claude")
 end)
 
+hotkey.bind(hyper, "N", function()
+  hs.application.launchOrFocus("zoom.us")
+end)
+
 local function handleAppLaunch(app, appName)
   local screen = hs.screen:primaryScreen():getUUID()
   local spaces = hs.spaces.allSpaces()[screen]
@@ -126,9 +130,9 @@ end
 ---needs to be a global var otherwise it gets garbage collected apparently
 ---@diagnostic disable-next-line: lowercase-global
 appwatcher = hs.application.watcher
-  .new(function(appName, event, app)
-    if event == hs.application.watcher.launched then
-      handleAppLaunch(app, appName)
-    end
-  end)
-  :start()
+    .new(function(appName, event, app)
+      if event == hs.application.watcher.launched then
+        handleAppLaunch(app, appName)
+      end
+    end)
+    :start()
