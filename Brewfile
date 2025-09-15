@@ -50,6 +50,7 @@ brew "moreutils"
 brew "msitools"
 brew "neovim", args: ["HEAD"]
 brew "nmap"
+brew "nushell"
 brew "pgcli"
 brew "poetry"
 brew "prettier"
