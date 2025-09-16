@@ -18,7 +18,7 @@ shell-integration = none
 cursor-style = block
 cursor-style-blink = true
 mouse-hide-while-typing = true
-theme = GruvboxDarkHard
+theme = "Gruvbox Dark Hard"
 clipboard-read = "allow"
 clipboard-paste-protection = false
 
