@@ -16,6 +16,7 @@ status is-interactive; and begin
     alias vimdiff 'nvim -d'
     alias ta 'tmux new -A -s default'
     alias freeze 'freeze -c full'
+    alias t task
 
     # git
     alias g git
@@ -38,7 +39,7 @@ status is-interactive; and begin
     alias gp 'git push origin HEAD'
     alias gpa 'git push origin --all'
     alias gpr 'git ppr'
-    alias grm 'go run ./...'
+    alias grm 'CGO_ENABLED=0 go run ./...'
     alias gs 'git status -sb'
     alias gw 'git switch'
     alias gwc 'git switch -c'
