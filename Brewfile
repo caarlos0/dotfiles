@@ -14,6 +14,7 @@ brew "btop"
 brew "coreutils"
 brew "cosign"
 brew "curl"
+brew "cyclonedx-gomod"
 brew "deno"
 brew "direnv"
 brew "entr"
@@ -114,6 +115,7 @@ cask "maccy"
 cask "monodraw"
 cask "ollama-app"
 cask "orbstack"
+cask "pinata"
 cask "rio"
 cask "signal"
 cask "slack"
@@ -134,7 +136,7 @@ mas "Keynote", id: 409183694
 mas "Lungo", id: 1263070803
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Parcel", id: 639968404
+mas "Parcel", id: 375589283
 mas "Reeder", id: 1529448980
 mas "StopTheMadness", id: 1376402589
 mas "Tailscale", id: 1475387142
