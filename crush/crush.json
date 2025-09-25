@@ -1,81 +1,53 @@
 {
   "$schema": "https://charm.land/crush.json",
   "lsp": {
-    "Python": {
-      "command": "pylsp",
-      "filetypes": [
-        "py"
-      ]
+    "pylsp": {},
+    "gopls": {
+      "options": {
+        "gofumpt": true,
+        "codelenses": {
+          "gc_details": true,
+          "generate": true,
+          "run_govulncheck": true,
+          "test": true,
+          "tidy": true,
+          "upgrade_dependency": true
+        },
+        "hints": {
+          "assignVariableTypes": true,
+          "compositeLiteralFields": true,
+          "compositeLiteralTypes": true,
+          "constantValues": true,
+          "functionTypeParameters": true,
+          "parameterNames": true,
+          "rangeVariableTypes": true
+        },
+        "analyses": {
+          "nilness": true,
+          "unusedparams": true,
+          "unusedvariable": true,
+          "unusedwrite": true,
+          "useany": true
+        },
+        "staticcheck": true,
+        "directoryFilters": [
+          "-.git",
+          "-node_modules"
+        ],
+        "semanticTokens": true
+      }
     },
-    "Go": {
-      "command": "gopls",
-      "filetypes": [
-        "go",
-        "mod",
-        "sum",
-        "work"
-      ]
-    },
-    "TypeScript": {
-      "command": "typescript-language-server",
-      "args": [
-        "--stdio"
-      ],
-      "filetypes": [
-        "ts",
-        "tsx",
-        "js",
-        "jsx",
-        "mjs",
-        "cjs"
-      ]
-    },
-    "HTML": {
-      "command": "vscode-html-languageserver",
-      "args": [
-        "--stdio"
-      ],
-      "filetypes": [
-        "html",
-        "htm"
-      ]
-    },
-    "CSS": {
-      "command": "vscode-css-languageserver",
-      "args": [
-        "--stdio"
-      ],
-      "filetypes": [
-        "css",
-        "scss",
-        "sass",
-        "less"
-      ]
-    },
-    "Markdown": {
-      "command": "vscode-markdown-languageserver",
-      "args": [
-        "--stdio"
-      ],
-      "filetypes": [
-        "md",
-        "markdown"
-      ]
-    },
-    "Bash": {
-      "command": "bash-language-server",
-      "args": [
-        "start"
-      ],
-      "filetypes": [
-        "sh",
-        "bash",
-        "zsh",
-        "ksh"
-      ]
-    }
+    "typescript-language-server": {},
+    "bash-language-server": {}
   },
   "mcp": {
+    "gopls": {
+      "type": "stdio",
+      "command": "gopls",
+      "args": [
+        "mcp"
+      ]
+    },
     "github": {
       "type": "http",
       "url": "https://api.githubcopilot.com/mcp/",
