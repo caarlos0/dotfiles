@@ -129,7 +129,6 @@ for _, lsp in ipairs({
   "bashls",
   "clangd",
   "cssls",
-  "dockerls",
   "jsonls",
   "rust_analyzer",
   "taplo",
