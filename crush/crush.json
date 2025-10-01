@@ -38,7 +38,8 @@
       }
     },
     "typescript-language-server": {},
-    "bash-language-server": {}
+    "bash-language-server": {},
+    "rust-analyzer": {}
   },
   "mcp": {
     "gopls": {
@@ -58,6 +59,7 @@
     },
     "context7": {
       "type": "sse",
+      "timeout": 30,
       "url": "https://mcp.context7.com/sse"
     },
     "goreleaser": {
