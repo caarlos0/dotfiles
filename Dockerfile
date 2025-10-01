@@ -4,17 +4,18 @@ RUN apk add -U \
   bind-tools 	\
   busybox-extras 	\
   curl \
+  direnv \
   fd \
   fish \
-  fish \
+  fish-tools \
   fzf \
   git \
   hey \
   htop \
+  lsd \
   mtr \
   postgresql-client \
   redis \
-  ripgrep \
   ripgrep \
   scc \
   sqlite \

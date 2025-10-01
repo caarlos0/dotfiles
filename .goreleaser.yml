@@ -3,6 +3,28 @@ version: 2
 project_name: dotfiles
 builds:
   - skip: true
+dockers_v2:
+  - images:
+      - caarlos0/debug
+    tags:
+      - latest
+      - "{{.Tag}}"
+    extra_files:
+      - setup
+      - bin
+      - crush
+      - direnv
+      - fd
+      - fish
+      - gh
+      - gh-dash
+      - ghostty
+      - git
+      - hammerspoon
+      - lua
+      - nvim
+      - ssh
+      - tmux
 changelog:
   sort: asc
   use: github
