@@ -445,6 +445,16 @@ end
 -- Opens the directory of the current file in Finder/file explorer.
 vim.api.nvim_create_user_command("Finder", "!open %:h", {})
 
+vim.api.nvim_create_autocmd({
+  "BufEnter",
+  "CursorHold",
+  "CursorHoldI",
+  "FocusGained",
+}, {
+  pattern = "*",
+  command = "if mode() != 'c' | checktime | endif",
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "gitcommit",
   command = "startinsert",
