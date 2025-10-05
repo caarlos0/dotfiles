@@ -23,6 +23,7 @@ dockers_v2:
       - hammerspoon
       - lua
       - nvim
+      - rio
       - ssh
       - tmux
 changelog:

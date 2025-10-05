@@ -26,6 +26,7 @@ link "$PWD"/fish/config.fish ~/.config/fish/config.fish
 
 # terms
 link "$PWD"/ghostty ~/.config/ghostty
+link "$PWD"/rio ~/.config/rio
 
 # ssh
 link "$PWD"/ssh/* ~/.ssh/

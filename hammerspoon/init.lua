@@ -57,7 +57,7 @@ hotkey.bind(hyper, "Y", function()
 end)
 
 hotkey.bind(hyper, "U", function()
-  hs.application.launchOrFocus("Ghostty")
+  hs.application.launchOrFocus("Rio")
 end)
 
 hotkey.bind(hyper, "I", function()
