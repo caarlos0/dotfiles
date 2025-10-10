@@ -36,3 +36,21 @@ colorspace = "rec2020"
 [navigation]
 use-split = false
 
+[bindings]
+keys = [
+  { key = "k", with = "super", esc = "\u0002p" },
+  { key = "t", with = "super", esc = "\u0002c" },
+  { key = "d", with = "super", esc = "\u0002i" },
+  { key = "1", with = "super", esc = "\u00021" },
+  { key = "2", with = "super", esc = "\u00022" },
+  { key = "3", with = "super", esc = "\u00023" },
+  { key = "4", with = "super", esc = "\u00024" },
+  { key = "5", with = "super", esc = "\u00025" },
+  { key = "6", with = "super", esc = "\u00026" },
+  { key = "7", with = "super", esc = "\u00027" },
+  { key = "8", with = "super", esc = "\u00028" },
+  { key = "9", with = "super", esc = "\u00029" },
+  { key = "d", with = "shift | super", esc = "\u0002u" },
+  { key = "tab", with = "control", esc = "\u0002n" },
+  { key = "tab", with = "shift | control", esc = "\u0002p" },
+]
