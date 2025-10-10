@@ -26,3 +26,13 @@ symbol-map = [
 [adaptive-theme]
 light = "GruvboxLight"
 dark = "GruvboxDarkHard"
+
+[window]
+mode = "Maximized"
+decorations = "Transparent"
+macos-use-shadow = true
+colorspace = "rec2020"
+
+[navigation]
+use-split = false
+
