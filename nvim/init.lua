@@ -493,6 +493,15 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  pattern = "git",
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local buf_opts = { noremap = true, silent = true, buffer = bufnr }
+    keymap("n", "gq", ":silent! close<cr>", buf_opts)
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
   pattern = "fugitive",
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
