@@ -58,9 +58,9 @@
       }
     },
     "context7": {
-      "type": "sse",
+      "type": "http",
       "timeout": 30,
-      "url": "https://mcp.context7.com/sse"
+      "url": "https://mcp.context7.com/mcp"
     },
     "goreleaser": {
       "type": "stdio",
