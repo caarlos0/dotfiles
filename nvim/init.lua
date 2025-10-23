@@ -381,7 +381,7 @@ require("blink.cmp").setup({
       copilot = {
         name = "copilot",
         module = "blink-cmp-copilot",
-        -- score_offset = -10,
+        score_offset = -10000,
         min_keyword_length = 0,
         async = true,
         override = {
