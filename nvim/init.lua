@@ -455,6 +455,13 @@ vim.api.nvim_create_autocmd({
   command = "if mode() != 'c' | checktime | endif",
 })
 
+-- resize splits if window got resized
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  callback = function()
+    vim.cmd("tabdo wincmd =")
+  end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "gitcommit",
   command = "startinsert",
