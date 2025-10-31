@@ -1,5 +1,11 @@
 {
   "$schema": "https://charm.land/crush.json",
+  "options": {
+    "attribution": {
+      "co_authored_by": true,
+      "generated_with": false
+    }
+  },
   "lsp": {
     "pylsp": {},
     "gopls": {
