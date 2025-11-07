@@ -14,6 +14,8 @@ switch $argv[1]
         echo 
     case cp duplicate
         echo 
+    case crush
+        echo ♥
     case diff
         echo 
     case mv
