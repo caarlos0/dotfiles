@@ -1,6 +1,9 @@
 {
   "$schema": "https://charm.land/crush.json",
   "options": {
+    "tui": {
+      "transparent": true
+    },
     "attribution": {
       "co_authored_by": true,
       "generated_with": false
@@ -70,16 +73,18 @@
     },
     "goreleaser": {
       "type": "stdio",
-      "command": "goreleaser",
-      "args": [
-        "mcp"
-      ]
+      "command": "/Users/carlos/Developer/Go/bin/goreleaser-mcp"
     }
   },
   "permissions": {
     "allowed_tools": [
       "mcp_github_get_issue",
       "mcp_github_get_issue_comments",
+      "mcp_goreleaser_check",
+      "lsp_references",
+      "lsp_diagnostics",
+      "sourcegraph",
+      "read_mcp_resource",
       "multiedit",
       "view",
       "ls",
@@ -90,6 +95,169 @@
     ]
   },
   "providers": {
+    "copilot": {
+      "type": "openai-compat",
+      "base_url": "https://api.githubcopilot.com",
+      "api_key": "$(cocopilot)",
+      "extra_headers": {
+        "Editor-Plugin-Version": "vscode/1.95.0",
+        "Editor-Version": "vscode/1.95.0"
+      },
+      "models": [
+        {
+          "id": "gpt-5",
+          "name": "OpenAI: GPT-5",
+          "cost_per_1m_in": 1.25,
+          "cost_per_1m_out": 10,
+          "cost_per_1m_in_cached": 0,
+          "cost_per_1m_out_cached": 0.125,
+          "context_window": 400000,
+          "default_max_tokens": 64000,
+          "can_reason": true,
+          "reasoning_levels": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "default_reasoning_effort": "medium",
+          "supports_attachments": true,
+          "options": {}
+        },
+        {
+          "id": "gpt-5-codex",
+          "name": "OpenAI: GPT-5 Codex",
+          "cost_per_1m_in": 1.25,
+          "cost_per_1m_out": 10,
+          "cost_per_1m_in_cached": 0,
+          "cost_per_1m_out_cached": 0.125,
+          "context_window": 400000,
+          "default_max_tokens": 64000,
+          "can_reason": true,
+          "reasoning_levels": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "default_reasoning_effort": "medium",
+          "supports_attachments": true,
+          "options": {}
+        },
+        {
+          "id": "gpt-5-mini",
+          "name": "OpenAI: GPT-5 Mini",
+          "cost_per_1m_in": 0.25,
+          "cost_per_1m_out": 2,
+          "cost_per_1m_in_cached": 0,
+          "cost_per_1m_out_cached": 0.03,
+          "context_window": 400000,
+          "default_max_tokens": 40000,
+          "can_reason": true,
+          "reasoning_levels": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "default_reasoning_effort": "medium",
+          "supports_attachments": true,
+          "options": {}
+        },
+        {
+          "id": "claude-haiku-4.5",
+          "name": "Anthropic: Claude Haiku 4.5",
+          "cost_per_1m_in": 1,
+          "cost_per_1m_out": 5,
+          "cost_per_1m_in_cached": 1.25,
+          "cost_per_1m_out_cached": 0.09999999999999999,
+          "context_window": 200000,
+          "default_max_tokens": 32000,
+          "can_reason": true,
+          "reasoning_levels": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "default_reasoning_effort": "medium",
+          "supports_attachments": true,
+          "options": {}
+        },
+        {
+          "id": "claude-opus-4.1",
+          "name": "Anthropic: Claude Opus 4.1",
+          "cost_per_1m_in": 15,
+          "cost_per_1m_out": 75,
+          "cost_per_1m_in_cached": 18.75,
+          "cost_per_1m_out_cached": 1.5,
+          "context_window": 200000,
+          "default_max_tokens": 16000,
+          "can_reason": true,
+          "reasoning_levels": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "default_reasoning_effort": "medium",
+          "supports_attachments": true,
+          "options": {}
+        },
+        {
+          "id": "claude-sonnet-4.5",
+          "name": "Anthropic: Claude Sonnet 4.5",
+          "cost_per_1m_in": 3,
+          "cost_per_1m_out": 15,
+          "cost_per_1m_in_cached": 3.75,
+          "cost_per_1m_out_cached": 0.3,
+          "context_window": 1000000,
+          "default_max_tokens": 32000,
+          "can_reason": true,
+          "reasoning_levels": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "default_reasoning_effort": "medium",
+          "supports_attachments": true,
+          "options": {}
+        },
+        {
+          "id": "gemini-2.5-pro",
+          "name": "Google: Gemini 2.5 Pro",
+          "cost_per_1m_in": 1.25,
+          "cost_per_1m_out": 10,
+          "cost_per_1m_in_cached": 1.625,
+          "cost_per_1m_out_cached": 0.125,
+          "context_window": 1048576,
+          "default_max_tokens": 32768,
+          "can_reason": true,
+          "reasoning_levels": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "default_reasoning_effort": "medium",
+          "supports_attachments": true,
+          "options": {}
+        },
+        {
+          "id": "grok-code-fast-1",
+          "name": "xAI: Grok Code Fast 1",
+          "cost_per_1m_in": 0.19999999999999998,
+          "cost_per_1m_out": 1.5,
+          "cost_per_1m_in_cached": 0,
+          "cost_per_1m_out_cached": 0.02,
+          "context_window": 256000,
+          "default_max_tokens": 5000,
+          "can_reason": true,
+          "reasoning_levels": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "default_reasoning_effort": "medium",
+          "supports_attachments": false,
+          "options": {}
+        }
+      ]
+    },
     "ollama": {
       "type": "openai",
       "base_url": "http://localhost:11434/v1",
