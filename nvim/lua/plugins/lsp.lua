@@ -24,19 +24,20 @@ local on_attach = function(client, bufnr)
     })
   end
 
-  local fzf = function(action)
+  local telescope = function(action)
     return function()
-      FzfLua["lsp_" .. action]()
+      local ivy = require("telescope.themes").get_ivy()
+      require("telescope.builtin")["lsp_" .. action](ivy)
     end
   end
 
-  keymap("gd", fzf("definitions"))
-  keymap("grr", fzf("references"))
-  keymap("gO", fzf("document_symbols"))
-  keymap("gri", fzf("implementations"))
+  keymap("gd", telescope("definitions"))
+  keymap("grr", telescope("references"))
+  keymap("gO", telescope("document_symbols"))
+  keymap("gri", telescope("implementations"))
   keymap("gD", vim.lsp.buf.declaration)
   keymap("K", vim.lsp.buf.hover)
-  keymap("<leader>D", fzf("typedefs"))
+  keymap("<leader>D", telescope("type_definitions"))
   keymap("grl", vim.lsp.codelens.run)
   keymap("gl", vim.diagnostic.open_float)
   keymap("[d", function()
@@ -49,7 +50,7 @@ local on_attach = function(client, bufnr)
   end)
 
   keymap("<leader>v", function()
-    vim.cmd("vsplit | FzfLua lsp_definitions jump1=true")
+    vim.cmd("vsplit | lua vim.lsp.buf.definition()")
     vim.cmd("norm zz")
   end)
 end
