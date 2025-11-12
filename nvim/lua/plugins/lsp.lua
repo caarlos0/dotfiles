@@ -131,6 +131,7 @@ for _, lsp in ipairs({
   "clangd",
   "cssls",
   "jsonls",
+  "pylsp",
   "rust_analyzer",
   "taplo",
   "templ",
