@@ -4,6 +4,7 @@
     "tui": {
       "transparent": true
     },
+    "initialize_as": "AGENTS.md",
     "attribution": {
       "trailer_style": "assisted-by",
       "generated_with": false
@@ -73,7 +74,7 @@
     },
     "goreleaser": {
       "type": "stdio",
-      "command": "/Users/carlos/Developer/Go/bin/goreleaser-mcp"
+      "command": "goreleaser-mcp"
     }
   },
   "permissions": {
