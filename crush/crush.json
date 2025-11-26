@@ -97,14 +97,6 @@
     ]
   },
   "providers": {
-    "anthropic": {
-      "api_key": "Bearer $(npx anthropic-api-key)",
-      "extra_headers": {
-        "anthropic-version": "2023-06-01",
-        "anthropic-beta": "oauth-2025-04-20"
-      },
-      "system_prompt_prefix": "You are Claude Code, Anthropic's official CLI for Claude."
-    },
     "copilot": {
       "type": "openai-compat",
       "base_url": "https://api.githubcopilot.com",
