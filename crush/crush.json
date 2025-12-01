@@ -52,6 +52,13 @@
     "rust-analyzer": {}
   },
   "mcp": {
+    "linear": {
+      "type": "http",
+      "url": "https://mcp.linear.app/mcp",
+      "headers": {
+        "Authorization": "$(echo Bearer $LINEAR_API_KEY)"
+      }
+    },
     "gopls": {
       "type": "stdio",
       "command": "gopls",
@@ -80,6 +87,7 @@
   "permissions": {
     "allowed_tools": [
       "agentic_fetch",
+      "mcp_linear_get_issue",
       "mcp_github_get_issue",
       "mcp_github_get_issue_comments",
       "mcp_goreleaser_check",
