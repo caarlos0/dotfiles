@@ -7,7 +7,7 @@ brew upgrade
 brew cleanup
 
 echo "Updating Brewfile..."
-rm Brewfile && brew bundle dump
+rm Brewfile && brew bundle dump --no-go
 
 echo "Updating Neovim..."
 nvim --headless +"lua vim.pack.update()" +qa &>/dev/null
