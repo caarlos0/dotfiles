@@ -22,7 +22,12 @@ Host github.com
   ControlMaster auto
   ControlPath ~/.ssh/github.sock
   ControlPersist 5m
+
 Host localhost
+  StrictHostKeyChecking false
+  UserKnownHostsFile /dev/null
+
+Match user ubnt host 192.168.*
   StrictHostKeyChecking false
   UserKnownHostsFile /dev/null
 
