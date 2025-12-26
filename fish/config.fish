@@ -19,6 +19,9 @@ status is-interactive; and begin
     alias freeze 'freeze -c full'
     alias t task
 
+    # go
+    alias gmt 'go mod tidy'
+
     # git
     alias g git
     alias ga 'git add'
@@ -36,7 +39,6 @@ status is-interactive; and begin
     alias glnext 'git log --oneline (git describe --tags --abbrev=0 @^)..@'
     alias gm 'git switch (git main-branch)'
     alias gms 'git switch (git main-branch); and git sync'
-    alias gmt 'go mod tidy'
     alias gp 'git push origin HEAD'
     alias gpa 'git push origin --all'
     alias gpr 'git ppr'
