@@ -507,8 +507,6 @@ vim.api.nvim_create_autocmd("FileType", {
       end)
     end
 
-    vim.cmd("normal )k=")
-
     local buf_opts = { noremap = true, silent = true, buffer = bufnr }
     keymap("n", "gp", function()
       async_git({ "push", "--quiet" }, "Pushed!", "Push failed!")
