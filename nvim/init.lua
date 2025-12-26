@@ -280,6 +280,7 @@ require("copilot").setup({
 require("blink.cmp").setup({
   keymap = { preset = "default" },
   appearance = {
+    use_nvim_cmp_as_default = true,
     nerd_font_variant = "mono",
     kind_icons = {
       Array = "",
@@ -337,7 +338,6 @@ require("blink.cmp").setup({
         draw = {
           columns = {
             { "kind_icon", "label", gap = 1 },
-            { "kind" },
           },
         },
       },
@@ -403,9 +403,13 @@ require("blink.cmp").setup({
     },
     menu = {
       draw = {
-        columns = {
-          { "kind_icon", "label", gap = 1 },
-          { "kind" },
+        padding = { 0, 1 },
+        components = {
+          kind_icon = {
+            text = function(ctx)
+              return " " .. ctx.kind_icon .. ctx.icon_gap .. " "
+            end,
+          },
         },
       },
     },
