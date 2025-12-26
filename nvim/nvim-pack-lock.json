@@ -41,10 +41,6 @@
       "rev": "6e3c66548035e50db7bd8e360a29aec6620c3641",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "gruvbox.nvim": {
-      "rev": "58a2cda2e953a99e2f87c12b7fb4602da4e0709c",
-      "src": "https://github.com/ellisonleao/gruvbox.nvim"
-    },
     "indent-blankline.nvim": {
       "rev": "005b56001b2cb30bfa61b7986bc50657816ba4ba",
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
@@ -108,6 +104,10 @@
     "other.nvim": {
       "rev": "1d48e090f6d1d53dda9fb5094af3f2006ebbb858",
       "src": "https://github.com/rgroli/other.nvim"
+    },
+    "oxocarbon.nvim": {
+      "rev": "9f85f6090322f39b11ae04a343d4eb9d12a86897",
+      "src": "https://github.com/nyoom-engineering/oxocarbon.nvim"
     },
     "plenary.nvim": {
       "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",

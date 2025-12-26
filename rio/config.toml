@@ -1,4 +1,5 @@
 confirm-before-quit = false
+theme = "OxocarbonDark"
 
 [editor]
 program = "neovim"
@@ -22,10 +23,6 @@ symbol-map = [
   # codicons
   {start = "ea60", end ="ebeb", font-family="JetBrainsMono Nerd Font Mono"},
 ]
-
-[adaptive-theme]
-light = "GruvboxLight"
-dark = "GruvboxDarkHard"
 
 [window]
 mode = "Maximized"
