@@ -8,13 +8,14 @@ brew "ansible"
 brew "bash-completion@2"
 brew "bash-language-server"
 brew "btop"
+brew "colima", restart_service: :changed
 brew "coreutils"
 brew "cosign"
-brew "cowsay"
 brew "curl"
 brew "cyclonedx-gomod"
 brew "deno"
 brew "direnv"
+brew "docker"
 brew "entr"
 brew "fd"
 brew "figlet"
@@ -50,7 +51,6 @@ brew "mas"
 brew "mole"
 brew "moreutils"
 brew "msitools"
-brew "ncdu"
 brew "neovim", args: ["HEAD"]
 brew "nmap"
 brew "nushell"
@@ -97,9 +97,7 @@ brew "charmbracelet/tap/mods"
 brew "charmbracelet/tap/vhs"
 brew "orlangure/tap/gocovsh"
 cask "1password"
-cask "appcleaner"
 cask "caffeine"
-cask "claude"
 cask "cleanshot"
 cask "deckset"
 cask "discord"
@@ -110,13 +108,11 @@ cask "ghostty"
 cask "goreleaser-pro"
 cask "hammerspoon"
 cask "imageoptim"
-cask "kitty"
 cask "ledger-wallet"
 cask "maccy"
 cask "mcp"
 cask "microsoft-remote-desktop"
 cask "monodraw"
-cask "orbstack"
 cask "pinata"
 cask "rio"
 cask "signal"
@@ -131,8 +127,6 @@ cask "vlc"
 cask "whatsapp"
 cask "zoom"
 mas "1Password for Safari", id: 1569813296
-mas "Capture", id: 6458535284
-mas "Color Picker", id: 1545870783
 mas "Consent-O-Matic", id: 1606897889
 mas "Debit & Credit", id: 882637653
 mas "HEIC Converter", id: 1294126402
@@ -144,4 +138,3 @@ mas "Parcel", id: 375589283
 mas "Reeder", id: 1529448980
 mas "StopTheMadness", id: 1376402589
 mas "Tailscale", id: 1475387142
-mas "Today", id: 6443714928
