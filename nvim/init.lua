@@ -1,7 +1,7 @@
 vim.opt.compatible = false
 vim.opt.termsync = true
 vim.opt.hidden = true
-vim.opt.updatetime = 250
+vim.opt.updatetime = 300
 vim.opt.mouse = ""
 vim.opt.inccommand = "nosplit"
 vim.opt.splitbelow = true
