@@ -31,101 +31,23 @@ changelog:
   use: github
   divider: "---"
   groups:
-    - title: "darwin"
+    - title: "macOS"
       regexp: "^.*\\((darwin|macos)\\):+.*$"
       order: 201
-      groups:
-        - title: improvements
-          regexp: "^feat.*$"
-          order: 100
-        - title: fixes
-          regexp: "^fix.*$"
-          order: 200
-        - title: other
-          order: 9999
-    - title: "linux"
+    - title: "Linux"
       regexp: "^.*\\((linux)\\):+.*$"
       order: 202
-      groups:
-        - title: improvements
-          regexp: "^feat.*$"
-          order: 100
-        - title: fixes
-          regexp: "^fix.*$"
-          order: 200
-        - title: other
-          order: 9999
-    - title: "editor"
-      regexp: "^.*\\((vim|nvim|neovim)\\):+.*$"
+    - title: "Coding"
+      regexp: "^.*\\((git|vim|nvim|neovim)\\):+.*$"
       order: 240
-      groups:
-        - title: improvements
-          regexp: "^feat.*$"
-          order: 100
-        - title: fixes
-          regexp: "^fix.*$"
-          order: 200
-        - title: other
-          order: 9999
-    - title: "tmux"
-      regexp: "^.*\\(tmux\\):+.*$"
+    - title: "Terminals"
+      regexp: "^.*\\((kitty|tmux|wezterm|rio|ghostty|alacritty)\\):+.*$"
       order: 250
-      groups:
-        - title: improvements
-          regexp: "^feat.*$"
-          order: 100
-        - title: fixes
-          regexp: "^fix.*$"
-          order: 200
-        - title: other
-          order: 9999
-    - title: "system"
+    - title: "System"
       regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs|brew)\\):+.*$"
       order: 100
-      groups:
-        - title: improvements
-          regexp: "^feat.*$"
-          order: 100
-        - title: fixes
-          regexp: "^fix.*$"
-          order: 200
-        - title: other
-          order: 9999
-    - title: "git"
-      regexp: "^.*\\((git|gh)\\):+.*$"
-      order: 300
-      groups:
-        - title: improvements
-          regexp: "^feat.*$"
-          order: 100
-        - title: fixes
-          regexp: "^fix.*$"
-          order: 200
-        - title: other
-          order: 9999
-    - title: "terminals"
-      regexp: "^.*\\((kitty|wezterm|rio|ghostty|alacritty)\\):+.*$"
-      order: 400
-      groups:
-        - title: improvements
-          regexp: "^feat.*$"
-          order: 100
-        - title: fixes
-          regexp: "^fix.*$"
-          order: 200
-        - title: other
-          order: 9999
-    - title: "ai"
+    - title: "AI"
       regexp: "^.*\\(ai|crush\\):+.*$"
       order: 500
-      groups:
-        - title: improvements
-          regexp: "^feat.*$"
-          order: 100
-        - title: fixes
-          regexp: "^fix.*$"
-          order: 200
-        - title: other
-          order: 9999
-    - title: other
+    - title: Others
       order: 999
