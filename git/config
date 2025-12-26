@@ -107,6 +107,7 @@
 	fetchJobs = 4
 
 [tag]
+	gpgSign = true
 	sort = "version:refname"
 
 [user]
