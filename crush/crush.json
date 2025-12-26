@@ -55,6 +55,28 @@
     "linear": {
       "type": "http",
       "url": "https://mcp.linear.app/mcp",
+      "disabled_tools": [
+        "create_comment",
+        "create_issue",
+        "create_issue_label",
+        "create_project",
+        "get_document",
+        "get_issue_status",
+        "get_project",
+        "get_team",
+        "get_user",
+        "list_documents",
+        "list_issue_labels",
+        "list_issue_statuses",
+        "list_issues",
+        "list_project_labels",
+        "list_projects",
+        "list_teams",
+        "list_users",
+        "search_documentation",
+        "update_issue",
+        "update_project"
+      ],
       "headers": {
         "Authorization": "$(echo Bearer $LINEAR_API_KEY)"
       }
@@ -71,6 +93,7 @@
       "url": "https://api.githubcopilot.com/mcp/",
       "timeout": 30,
       "headers": {
+        "X-MCP-Tools": "get_file_contents,pull_request_read,get_commit,get_me,issue_read",
         "Authorization": "$(echo Bearer $GITHUB_TOKEN)"
       }
     },
