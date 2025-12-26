@@ -333,8 +333,12 @@ require("blink.cmp").setup({
       end
       return {}
     end,
+    keymap = {
+      ["<Tab>"] = { "show", "accept" },
+    },
     completion = {
       menu = {
+        auto_show = true,
         draw = {
           columns = {
             { "kind_icon", "label", gap = 1 },
