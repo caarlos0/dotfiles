@@ -39,7 +39,7 @@ fi
 
 # other apps
 link "$PWD"/.editorconfig ~/.editorconfig
-link "$PWD"/hammerspoon/init.lua /Users/carlos/.hammerspoon/init.lua
+link "$PWD"/hammerspoon/init.lua ~/.hammerspoon/init.lua
 link "$PWD"/git/config ~/.config/git/config
 link "$PWD"/git/gitignore ~/.config/git/ignore
 link "$PWD"/crush ~/.config/crush
