@@ -36,7 +36,7 @@ Match user ubnt host 192.168.*
 Host *
   ForwardAgent no
   AddKeysToAgent no
-  Compression no
+  Compression yes
   ServerAliveInterval 60
   ServerAliveCountMax 3
   HashKnownHosts no
