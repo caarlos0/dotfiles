@@ -55,9 +55,7 @@ local on_attach = function(client, bufnr)
   end)
 end
 
-local lspconfig = require("lspconfig")
-require("lspconfig.ui.windows").default_options.border = "none"
-lspconfig.gopls.setup({
+vim.lsp.config("gopls", {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -96,8 +94,9 @@ lspconfig.gopls.setup({
     debounce_text_changes = 150,
   },
 })
+vim.lsp.enable("gopls")
 
-lspconfig.ts_ls.setup({
+vim.lsp.config("ts_ls", {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -125,6 +124,7 @@ lspconfig.ts_ls.setup({
     },
   },
 })
+vim.lsp.enable("ts_ls")
 
 for _, lsp in ipairs({
   "bashls",
@@ -139,21 +139,23 @@ for _, lsp in ipairs({
   "tflint",
   "zls",
 }) do
-  lspconfig[lsp].setup({
+  vim.lsp.config(lsp, {
     on_attach = on_attach,
     capabilities = capabilities,
   })
+  vim.lsp.enable(lsp)
 end
 
 for _, lsp in ipairs({ "html", "htmx" }) do
-  lspconfig[lsp].setup({
+  vim.lsp.config(lsp, {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "html", "templ" },
   })
+  vim.lsp.enable(lsp)
 end
 
-lspconfig.tailwindcss.setup({
+vim.lsp.config("tailwindcss", {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "html", "templ", "javascript" },
@@ -165,8 +167,9 @@ lspconfig.tailwindcss.setup({
     },
   },
 })
+vim.lsp.enable("tailwindcss")
 
-lspconfig.yamlls.setup({
+vim.lsp.config("yamlls", {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -178,12 +181,13 @@ lspconfig.yamlls.setup({
     },
   },
 })
+vim.lsp.enable("yamlls")
 
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ";", {})
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
-lspconfig.lua_ls.setup({
+vim.lsp.config("lua_ls", {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -201,3 +205,4 @@ lspconfig.lua_ls.setup({
     },
   },
 })
+vim.lsp.enable("lua_ls")
