@@ -1,6 +1,4 @@
-require("ibl").setup({
-  indent = { char = "│" },
-  exclude = { filetypes = { "help" } },
+require("blink.indent").setup({
   scope = { enabled = false },
 })
 

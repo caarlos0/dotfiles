@@ -13,6 +13,10 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
+    "blink.indent": {
+      "rev": "93ff30292d34116444ff9db5264f6ccd34f3f71f",
+      "src": "https://github.com/saghen/blink.indent"
+    },
     "bufdelete.nvim": {
       "rev": "f6bcea78afb3060b198125256f897040538bcb81",
       "src": "https://github.com/famiu/bufdelete.nvim"
@@ -41,10 +45,6 @@
       "rev": "6e3c66548035e50db7bd8e360a29aec6620c3641",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "indent-blankline.nvim": {
-      "rev": "005b56001b2cb30bfa61b7986bc50657816ba4ba",
-      "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
-    },
     "lualine.nvim": {
       "rev": "b8c23159c0161f4b89196f74ee3a6d02cdc3a955",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
@@ -68,10 +68,6 @@
     "nvim-notify": {
       "rev": "397c7c1184745fca649e5104de659e6392ef5a4d",
       "src": "https://github.com/rcarriga/nvim-notify"
-    },
-    "nvim-pqf": {
-      "rev": "148ee2ca8b06d83fd9bf6f9b9497724ad39a07d6",
-      "src": "https://github.com/yorickpeterse/nvim-pqf"
     },
     "nvim-surround": {
       "rev": "c271c9082886a24866353764cf96c9d957e95b2b",
