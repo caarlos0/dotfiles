@@ -57,7 +57,7 @@ hotkey.bind(hyper, "Y", function()
 end)
 
 hotkey.bind(hyper, "U", function()
-  hs.application.launchOrFocus("Rio")
+  hs.application.launchOrFocus("Ghostty")
 end)
 
 hotkey.bind(hyper, "I", function()
@@ -82,14 +82,6 @@ end)
 
 hotkey.bind(hyper, "K", function()
   hs.application.launchOrFocus("Mail")
-end)
-
-hotkey.bind(hyper, "M", function()
-  hs.application.launchOrFocus("Claude")
-end)
-
-hotkey.bind(hyper, "N", function()
-  hs.application.launchOrFocus("zoom.us")
 end)
 
 local function handleAppLaunch(app, appName)
