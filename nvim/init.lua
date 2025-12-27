@@ -60,6 +60,7 @@ inoreabbrev wont won't
 inoreabbrev cant can't
 inoreabbrev lenght length
 inoreabbrev Lenght Length
+inoreabbrev weigth weight
 
 " ptbr
 inoreabbrev neh né
