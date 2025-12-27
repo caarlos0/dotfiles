@@ -41,7 +41,7 @@ vim.opt.background = "dark"
 vim.opt.termguicolors = true
 vim.opt.shortmess:append("c")
 vim.opt.timeoutlen = 300
-vim.opt.winborder = "none"
+vim.opt.winborder = "rounded"
 
 vim.hl.priorities.semantic_tokens = 10
 vim.g.fugitive_legacy_commands = 0
@@ -321,7 +321,10 @@ require("blink.cmp").setup({
       Variable = "",
     },
   },
-  signature = { enabled = true },
+  signature = {
+    enabled = true,
+    window = { border = "rounded" },
+  },
   cmdline = {
     enabled = true,
     sources = function()
@@ -405,8 +408,10 @@ require("blink.cmp").setup({
       auto_show = true,
       auto_show_delay_ms = 250,
       treesitter_highlighting = false,
+      window = { border = "rounded" },
     },
     menu = {
+      border = "none",
       draw = {
         padding = { 0, 1 },
         components = {
