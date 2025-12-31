@@ -76,7 +76,6 @@ vim.pack.add({
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
   { src = "https://github.com/stevearc/dressing.nvim" },
   { src = "https://github.com/rcarriga/nvim-notify" },
-  { src = "https://github.com/christoomey/vim-tmux-navigator" },
   { src = "https://github.com/asiryk/auto-hlsearch.nvim" },
   { src = "https://github.com/famiu/bufdelete.nvim" },
   { src = "https://github.com/norcalli/nvim-colorizer.lua" },
@@ -173,6 +172,31 @@ keymap("v", "p", '"_dP', opts)
 -- Move text up and down
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
+
+-- tmux-aware navigation with Alt+hjkl
+local function winnav(direction)
+  local tmux_directions = { h = "L", j = "D", k = "U", l = "R" }
+  local win_directions = { h = "h", j = "j", k = "k", l = "l" }
+  local current_win = vim.fn.winnr()
+  vim.cmd("wincmd " .. win_directions[direction])
+  -- If we're in tmux and didn't move to a different window, navigate tmux pane
+  if vim.env.TMUX and vim.fn.winnr() == current_win then
+    vim.fn.system("tmux select-pane -" .. tmux_directions[direction])
+  end
+end
+
+keymap("n", "<M-h>", function()
+  winnav("h")
+end, opts)
+keymap("n", "<M-j>", function()
+  winnav("j")
+end, opts)
+keymap("n", "<M-k>", function()
+  winnav("k")
+end, opts)
+keymap("n", "<M-l>", function()
+  winnav("l")
+end, opts)
 
 -- in insert mode, adds new undo points after more some chars:
 for _, lhs in ipairs({ "-", "_", ",", ".", ";", ":", "/", "!", "?" }) do

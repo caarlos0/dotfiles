@@ -156,10 +156,6 @@
     "vim-speeddating": {
       "rev": "c17eb01ebf5aaf766c53bab1f6592710e5ffb796",
       "src": "https://github.com/tpope/vim-speeddating"
-    },
-    "vim-tmux-navigator": {
-      "rev": "c45243dc1f32ac6bcf6068e5300f3b2b237e576a",
-      "src": "https://github.com/christoomey/vim-tmux-navigator"
     }
   }
 }
