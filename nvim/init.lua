@@ -110,7 +110,6 @@ vim.pack.add({
 
   -- treesitter and friends
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-  { src = "https://github.com/saghen/blink.indent" },
   { src = "https://github.com/wansmer/treesj" },
   { src = "https://github.com/windwp/nvim-autopairs" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },

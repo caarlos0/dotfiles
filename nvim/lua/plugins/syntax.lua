@@ -1,7 +1,3 @@
-require("blink.indent").setup({
-  scope = { enabled = false },
-})
-
 require("nvim-autopairs").setup({
   check_ts = true,
 })
