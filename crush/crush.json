@@ -105,6 +105,14 @@
     "goreleaser": {
       "type": "stdio",
       "command": "goreleaser-mcp"
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ]
     }
   },
   "permissions": {
