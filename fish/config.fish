@@ -83,7 +83,7 @@ status is-interactive; and begin
 
     # disable fish greeting
     set fish_greeting
-    fish_config theme choose oxocarbon-dark
+    fish_config theme choose vesper
 
     # Based on astronaut, but only shows user@host when connected via SSH,
     # uses '$' as prompt symbol instead of '❯', and supports transient prompts.
@@ -152,7 +152,7 @@ status is-interactive; and begin
 
     set -x HOMEBREW_NO_AUTO_UPDATE 1
     set -x HOMEBREW_NO_ENV_HINTS 1
-    set -x FZF_DEFAULT_OPTS '--color bg:#161616,bg+:#262626,fg:#dde1e6,fg+:#f2f4f8,header:#ee5396,hl:#42be65,hl+:#42be65,info:#be95ff,marker:#78a9ff,pointer:#78a9ff,prompt:#be95ff,selected-bg:#393939,spinner:#78a9ff'
+    set -x FZF_DEFAULT_OPTS '--color bg:#101010,bg+:#161616,fg:#ffffff,fg+:#ffffff,header:#ffc799,hl:#99ffe4,hl+:#99ffe4,info:#a0a0a0,marker:#ffc799,pointer:#ffc799,prompt:#ffc799,selected-bg:#232323,spinner:#ffc799'
 
     zoxide init fish | source
     fzf --fish | source

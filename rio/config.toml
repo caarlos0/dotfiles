@@ -1,5 +1,6 @@
 confirm-before-quit = false
-theme = "OxocarbonDark"
+# https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/refs/heads/master/rio/Vesper.toml
+theme = "Vesper"
 
 [editor]
 program = "neovim"

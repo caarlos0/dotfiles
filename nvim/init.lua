@@ -72,7 +72,7 @@ inoreabbrev sao são
 vim.pack.add({
   -- UI
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
-  { src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
+  { src = "https://github.com/datsfilipe/vesper.nvim" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
   { src = "https://github.com/stevearc/dressing.nvim" },
   { src = "https://github.com/rcarriga/nvim-notify" },
@@ -206,7 +206,7 @@ end
 --- UI
 ---
 
-vim.cmd.colorscheme("oxocarbon")
+vim.cmd.colorscheme("vesper")
 require("dressing").setup({ input = { insert_only = true } })
 
 local notify = require("notify")
@@ -220,7 +220,7 @@ local section_b = { "branch", "diff", { "diagnostics", sources = { "nvim_workspa
 local section_c = { "%=", { "filename", file_status = false, path = 1 } }
 require("lualine").setup({
   options = {
-    theme = "oxocarbon",
+    theme = "auto",
     component_separators = "",
     section_separators = "",
   },
