@@ -2,6 +2,7 @@
   "$schema": "https://charm.land/crush.json",
   "options": {
     "skills_paths": [
+      "~/.config/crush/skills",
       "~/Developer/forks/anthropic-skills/skills"
     ],
     "tui": {
