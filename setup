@@ -37,12 +37,15 @@ if which nvim; then
   nvim --headless "+Lazy! sync" +qa &>/dev/null
 fi
 
+# crush
+link "$PWD"/crush ~/.config/crush
+git clone https://github.com/anthropics/skills ~/Developer/forks/anthropic-skills
+
 # other apps
 link "$PWD"/.editorconfig ~/.editorconfig
 link "$PWD"/hammerspoon/init.lua ~/.hammerspoon/init.lua
 link "$PWD"/git/config ~/.config/git/config
 link "$PWD"/git/gitignore ~/.config/git/ignore
-link "$PWD"/crush ~/.config/crush
 link "$PWD"/gh/config.yml ~/.config/gh/config.yml
 link "$PWD"/gh-dash/config ~/.config/gh-dash/config.yml
 link "$PWD"/fd/ignore ~/.config/fd/ignore
