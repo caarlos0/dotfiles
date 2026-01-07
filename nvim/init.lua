@@ -347,6 +347,9 @@ require("blink.cmp").setup({
   signature = {
     enabled = true,
     window = { border = "rounded" },
+    trigger = {
+      show_on_insert = true,
+    },
   },
   cmdline = {
     enabled = true,
