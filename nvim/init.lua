@@ -81,6 +81,8 @@ vim.pack.add({
   { src = "https://github.com/norcalli/nvim-colorizer.lua" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/akinsho/git-conflict.nvim" },
+  { src = "https://github.com/max397574/better-escape.nvim" },
+
   -- telescope
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   { src = "https://github.com/nvim-telescope/telescope-github.nvim" },
@@ -237,6 +239,22 @@ require("lualine").setup({
 require("auto-hlsearch").setup({})
 require("gitsigns").setup({})
 require("git-conflict").setup({})
+
+-- Returns true if a USB device matching the pattern is connected
+local function has_usb_device(pattern)
+  local handle = io.popen("ioreg -p IOUSB -l 2>/dev/null | grep -i '" .. pattern .. "'")
+  if handle then
+    local result = handle:read("*a")
+    handle:close()
+    return result and #result > 0
+  end
+  return false
+end
+
+if not has_usb_device("Moonlander") then
+  vim.notify("Setting up better escape")
+  require("better_escape").setup()
+end
 
 -- setup diagnostics
 vim.diagnostic.config({

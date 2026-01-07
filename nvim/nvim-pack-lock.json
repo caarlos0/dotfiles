@@ -4,6 +4,10 @@
       "rev": "77502069b22e48ab7736fe9cf53e1fdac1923bca",
       "src": "https://github.com/asiryk/auto-hlsearch.nvim"
     },
+    "better-escape.nvim": {
+      "rev": "19a38aab94961016430905ebec30d272a01e9742",
+      "src": "https://github.com/max397574/better-escape.nvim"
+    },
     "blink-cmp-copilot": {
       "rev": "439cff78780c033aa23cf061d7315314b347e3c1",
       "src": "https://github.com/giuxtaposition/blink-cmp-copilot"
