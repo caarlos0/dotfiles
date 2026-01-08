@@ -269,8 +269,6 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
-keymap("n", "<leader>xx", vim.diagnostic.setqflist, opts)
-
 -- set up diagnostic signs
 local severity = vim.diagnostic.severity
 local signs = {
@@ -284,6 +282,12 @@ vim.diagnostic.config({
     text = signs,
   },
 })
+
+keymap("n", "<leader>xx", function()
+  vim.diagnostic.setqflist({
+    severity = severity.ERROR,
+  })
+end, opts)
 
 require("other-nvim").setup({ mappings = { "golang" } })
 keymap("n", "<leader>oo", ":Other<cr>", opts)

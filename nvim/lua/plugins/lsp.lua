@@ -1,4 +1,5 @@
 require("lsp_autocommands").setup()
+local severity = vim.diagnostic.severity
 
 local capabilities = require("blink.cmp").get_lsp_capabilities({
   workspace = {
@@ -41,11 +42,17 @@ local on_attach = function(client, bufnr)
   keymap("grl", vim.lsp.codelens.run)
   keymap("gl", vim.diagnostic.open_float)
   keymap("[d", function()
-    vim.diagnostic.jump({ count = -1 })
+    vim.diagnostic.jump({
+      severity = severity.ERROR,
+      count = -1,
+    })
     vim.cmd("norm zz")
   end)
   keymap("]d", function()
-    vim.diagnostic.jump({ count = 1 })
+    vim.diagnostic.jump({
+      severity = severity.ERROR,
+      count = 1,
+    })
     vim.cmd("norm zz")
   end)
 
