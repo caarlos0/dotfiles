@@ -240,15 +240,21 @@ require("auto-hlsearch").setup({})
 require("gitsigns").setup({})
 require("git-conflict").setup({})
 
--- Returns true if a USB device matching the pattern is connected
+-- Returns true if a USB device matching the pattern is connected (macOS only)
 local function has_usb_device(pattern)
-  local handle = io.popen("ioreg -p IOUSB -l 2>/dev/null | grep -i '" .. pattern .. "'")
-  if handle then
-    local result = handle:read("*a")
-    handle:close()
-    return result and #result > 0
-  end
-  return false
+  local ok, result = pcall(function()
+    if vim.uv.os_uname().sysname ~= "Darwin" then
+      return false
+    end
+    local handle = io.popen("ioreg -p IOUSB -l 2>/dev/null | grep -i '" .. pattern .. "'")
+    if handle then
+      local output = handle:read("*a")
+      handle:close()
+      return output and #output > 0
+    end
+    return false
+  end)
+  return ok and result or false
 end
 
 if not has_usb_device("Moonlander") then
