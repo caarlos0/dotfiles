@@ -160,6 +160,8 @@ keymap({ "n", "v" }, "<leader>d", '"_d', opts)
 keymap("n", "<leader>gs", ":tab Git<cr>", opts)
 keymap("n", "<F9>", ":tab Git mergetool<cr>", opts)
 keymap("n", "<leader>gd", ":Gitsign preview_hunk_inline<cr>", opts)
+keymap("n", "[h", ":Gitsigns prev_hunk | zz<cr>", opts)
+keymap("n", "]h", ":Gitsigns next_hunk | zz<cr>", opts)
 
 -- indent
 keymap("v", "<", "<gv", opts)
