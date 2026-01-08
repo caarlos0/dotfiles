@@ -211,6 +211,17 @@ end
 ---
 
 vim.cmd.colorscheme("vesper")
+
+-- Use undercurl for diagnostic underlines
+local function hi_diag_underline(level)
+  local link = vim.api.nvim_get_hl(0, { name = "Diagnostic" .. level })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderline" .. level, { undercurl = true, sp = link.fg })
+end
+
+for _, level in ipairs({ "Error", "Warn", "Info", "Hint" }) do
+  hi_diag_underline(level)
+end
+
 require("dressing").setup({ input = { insert_only = true } })
 
 local notify = require("notify")
