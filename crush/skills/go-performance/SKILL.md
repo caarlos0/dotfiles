@@ -1,9 +1,9 @@
 ---
-name: go-pprof
-description: Analyze Go program performance and memory usage using pprof. Use when asked to profile Go code, find performance bottlenecks, analyze memory allocations, detect memory leaks, or optimize CPU/memory usage.
+name: go-performance
+description: Analyze and optimize Go program performance. Use when asked to profile Go code, find performance bottlenecks, analyze memory allocations, detect memory leaks, write benchmarks, or optimize CPU/memory usage.
 ---
 
-# Go Performance Profiling with pprof
+# Go Performance
 
 ## Workflow
 
