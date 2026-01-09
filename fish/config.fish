@@ -18,6 +18,7 @@ status is-interactive; and begin
     alias ta 'tmux new -A -s default'
     alias freeze 'freeze -c full'
     alias t task
+    alias htop btop
 
     # go
     alias gmt 'go mod tidy'

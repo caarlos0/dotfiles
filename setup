@@ -44,6 +44,7 @@ git clone https://github.com/anthropics/skills ~/Developer/forks/anthropic-skill
 # other apps
 link "$PWD"/.editorconfig ~/.editorconfig
 link "$PWD"/hammerspoon/init.lua ~/.hammerspoon/init.lua
+link "$PWD"/btop/btop.conf ~/.config/btop/btop.conf
 link "$PWD"/git/config ~/.config/git/config
 link "$PWD"/git/gitignore ~/.config/git/ignore
 link "$PWD"/gh/config.yml ~/.config/gh/config.yml
