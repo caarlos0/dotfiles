@@ -13,11 +13,11 @@ description: Analyze Go program performance and memory usage using pprof. Use wh
 
 ## Quick Reference
 
-| Profile | Test Flag | HTTP Endpoint |
-|---------|-----------|---------------|
-| CPU | `-cpuprofile` | `/debug/pprof/profile` |
-| Heap | `-memprofile` | `/debug/pprof/heap` |
-| Goroutine | - | `/debug/pprof/goroutine` |
+| Profile   | Test Flag     | HTTP Endpoint            |
+| --------- | ------------- | ------------------------ |
+| CPU       | `-cpuprofile` | `/debug/pprof/profile`   |
+| Heap      | `-memprofile` | `/debug/pprof/heap`      |
+| Goroutine | -             | `/debug/pprof/goroutine` |
 
 ## Key Commands
 
@@ -42,6 +42,7 @@ go tool pprof -focus='mypackage.*' cpu.prof
 
 ## Tips
 
+- Write a benchmark first to reproduce/confirm/measure the issue
 - Focus on quick wins first: easy fixes with high impact
 - If hotspots are in external libraries, still analyze - source is in `$GOPATH`
 - CPU profiles need 30+ seconds for meaningful data
