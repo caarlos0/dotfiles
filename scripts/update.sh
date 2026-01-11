@@ -10,7 +10,8 @@ echo "Updating Brewfile..."
 rm Brewfile && brew bundle dump --no-go
 
 echo "Updating Neovim..."
-nvim --headless +"lua vim.pack.update({force = true})" +qa &>/dev/null
+plugins=$(jq '.plugins | keys[]' ./nvim/nvim-pack-lock.json | tr '\n' ', ')
+nvim --headless +"lua vim.pack.update({${plugins}},{force = true})" +qa &>/dev/null
 
 if [ "$(git symbolic-ref --short HEAD)" = "main" ]; then
   echo "Commiting changes..."
