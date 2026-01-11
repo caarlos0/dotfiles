@@ -493,6 +493,14 @@ require("blink.cmp").setup({
   },
 })
 
+-- resets vim snippet engine on ESC.
+vim.keymap.set({ "i", "s" }, "<ESC>", function()
+  if vim.snippet then
+    vim.snippet.stop()
+  end
+  return "<ESC>"
+end, { expr = true })
+
 local function copen()
   if vim.fn.getqflist({ size = 0 }).size > 1 then
     vim.cmd("copen")
