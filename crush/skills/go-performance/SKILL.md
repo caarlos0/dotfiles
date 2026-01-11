@@ -48,3 +48,20 @@ go tool pprof -focus='mypackage.*' cpu.prof
 - CPU profiles need 30+ seconds for meaningful data
 - For memory leaks: compare heap profiles at two points in time
 - Use `-base` flag to find regressions between profiles
+
+## Writing benchmarks
+
+Every time we work on some performance issue, we should:
+
+- make sure there is a benchmark
+- if there isn't one, we create it, calling the function that we aim to improve
+
+Then, we create a second benchmark, and a new production function with the
+changes we want.
+
+This way we can quickly run and compare both benchmarks.
+
+Once we're happy with the changes, we replace the old function and old benchmark
+with the new ones.
+
+Commit messages should always have the benchmark results in them.
