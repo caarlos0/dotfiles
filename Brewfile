@@ -101,12 +101,14 @@ brew "orlangure/tap/gocovsh"
 cask "1password"
 cask "caffeine"
 cask "cleanshot"
+cask "copilot-cli"
 cask "deckset"
 cask "discord"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 cask "gcloud-cli"
 cask "ghostty"
+cask "google-chrome"
 cask "goreleaser-pro"
 cask "hammerspoon"
 cask "imageoptim"
@@ -131,6 +133,7 @@ cask "zoom"
 mas "1Password for Safari", id: 1569813296
 mas "Consent-O-Matic", id: 1606897889
 mas "Debit & Credit", id: 882637653
+mas "Habits", id: 1514915737
 mas "HEIC Converter", id: 1294126402
 mas "Keynote", id: 409183694
 mas "Lungo", id: 1263070803
