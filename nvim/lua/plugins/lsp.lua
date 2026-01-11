@@ -62,9 +62,15 @@ local on_attach = function(client, bufnr)
   end)
 end
 
-vim.lsp.config("gopls", {
-  capabilities = capabilities,
-  on_attach = on_attach,
+local function setup_lsp(name, config)
+  config = config or {}
+  config.capabilities = config.capabilities or capabilities
+  config.on_attach = config.on_attach or on_attach
+  vim.lsp.config(name, config)
+  vim.lsp.enable(name)
+end
+
+setup_lsp("gopls", {
   settings = {
     gopls = {
       gofumpt = true,
@@ -101,11 +107,8 @@ vim.lsp.config("gopls", {
     debounce_text_changes = 150,
   },
 })
-vim.lsp.enable("gopls")
 
-vim.lsp.config("ts_ls", {
-  capabilities = capabilities,
-  on_attach = on_attach,
+setup_lsp("ts_ls", {
   settings = {
     javascript = {
       inlayHints = {
@@ -131,7 +134,6 @@ vim.lsp.config("ts_ls", {
     },
   },
 })
-vim.lsp.enable("ts_ls")
 
 for _, lsp in ipairs({
   "bashls",
@@ -146,25 +148,16 @@ for _, lsp in ipairs({
   "tflint",
   "zls",
 }) do
-  vim.lsp.config(lsp, {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-  vim.lsp.enable(lsp)
+  setup_lsp(lsp)
 end
 
 for _, lsp in ipairs({ "html", "htmx" }) do
-  vim.lsp.config(lsp, {
-    capabilities = capabilities,
-    on_attach = on_attach,
+  setup_lsp(lsp, {
     filetypes = { "html", "templ" },
   })
-  vim.lsp.enable(lsp)
 end
 
-vim.lsp.config("tailwindcss", {
-  on_attach = on_attach,
-  capabilities = capabilities,
+setup_lsp("tailwindcss", {
   filetypes = { "html", "templ", "javascript" },
   settings = {
     tailwindCSS = {
@@ -174,11 +167,8 @@ vim.lsp.config("tailwindcss", {
     },
   },
 })
-vim.lsp.enable("tailwindcss")
 
-vim.lsp.config("yamlls", {
-  capabilities = capabilities,
-  on_attach = on_attach,
+setup_lsp("yamlls", {
   settings = {
     yaml = {
       schemaStore = {
@@ -188,11 +178,8 @@ vim.lsp.config("yamlls", {
     },
   },
 })
-vim.lsp.enable("yamlls")
 
-vim.lsp.config("lua_ls", {
-  capabilities = capabilities,
-  on_attach = on_attach,
+setup_lsp("lua_ls", {
   settings = {
     Lua = {
       completion = {
@@ -211,4 +198,3 @@ vim.lsp.config("lua_ls", {
     },
   },
 })
-vim.lsp.enable("lua_ls")
