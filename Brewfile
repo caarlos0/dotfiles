@@ -95,6 +95,7 @@ brew "charmbracelet/tap/mods"
 brew "charmbracelet/tap/vhs"
 brew "orlangure/tap/gocovsh"
 cask "1password"
+cask "appcleaner"
 cask "caffeine"
 cask "cleanshot"
 cask "copilot-cli"
@@ -130,7 +131,6 @@ cask "zoom"
 mas "1Password for Safari", id: 1569813296
 mas "Consent-O-Matic", id: 1606897889
 mas "Debit & Credit", id: 882637653
-mas "Habits", id: 1514915737
 mas "HEIC Converter", id: 1294126402
 mas "Keynote", id: 409183694
 mas "Lungo", id: 1263070803
