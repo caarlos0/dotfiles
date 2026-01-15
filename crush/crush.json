@@ -64,6 +64,8 @@
         "create_issue",
         "create_issue_label",
         "create_project",
+        "create_document",
+        "update_document",
         "get_document",
         "get_issue_status",
         "get_project",
