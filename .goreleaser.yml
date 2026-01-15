@@ -44,7 +44,7 @@ changelog:
       regexp: "^.*\\((kitty|tmux|wezterm|rio|ghostty|alacritty)\\):+.*$"
       order: 250
     - title: "System"
-      regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs|brew)\\):+.*$"
+      regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs|brew|homebrew)\\):+.*$"
       order: 100
     - title: "AI"
       regexp: "^.*\\(ai|crush\\):+.*$"
