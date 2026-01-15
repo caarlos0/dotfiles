@@ -116,3 +116,5 @@ end
 if test -f ~/.localrc.fish
     source ~/.localrc.fish
 end
+
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
