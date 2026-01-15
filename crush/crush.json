@@ -87,13 +87,6 @@
         "Authorization": "$(echo Bearer $LINEAR_API_KEY)"
       }
     },
-    "gopls": {
-      "type": "stdio",
-      "command": "gopls",
-      "args": [
-        "mcp"
-      ]
-    },
     "github": {
       "type": "http",
       "url": "https://api.githubcopilot.com/mcp/",
