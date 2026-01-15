@@ -596,8 +596,18 @@ vim.api.nvim_create_autocmd("FileType", {
       end)
     end
 
+    local function branch()
+      return vim.fn.system("git rev-parse --abbrev-ref HEAD"):gsub("\n", "")
+    end
+
     local buf_opts = { noremap = true, silent = true, buffer = bufnr }
     keymap("n", "gp", function()
+      if branch() == "main" then
+        local choice = vim.fn.confirm("Pushing to main - are you sure?", "&Yes\n&No", 2)
+        if choice ~= 1 then
+          return
+        end
+      end
       async_git({ "push", "--quiet" }, "Pushed!", "Push failed!")
       vim.cmd("silent! close")
     end, buf_opts)
@@ -608,6 +618,10 @@ vim.api.nvim_create_autocmd("FileType", {
     end, buf_opts)
 
     keymap("n", "go", function()
+      if branch() == "main" then
+        vim.notify("Cannot open PR from main branch!", vim.log.levels.ERROR)
+        return
+      end
       async_git({ "ppr" }, "Pushed and opened PR URL!", "Failed to push or open PR")
       vim.cmd("silent! close")
     end, buf_opts)
