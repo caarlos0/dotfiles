@@ -130,6 +130,9 @@ keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- bufs
+keymap("n", "<leader>n", ":enew<CR>", opts)
+
 -- quicklists
 keymap("n", "<leader>co", ":copen<CR>", opts)
 keymap("n", "<leader>cc", ":cclose<CR>", opts)
