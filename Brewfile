@@ -49,6 +49,7 @@ brew "mole"
 brew "moreutils"
 brew "msitools"
 brew "neovim", args: ["HEAD"]
+brew "nixfmt"
 brew "nmap"
 brew "nushell"
 brew "pgcli"
