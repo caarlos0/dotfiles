@@ -18,6 +18,9 @@ version here!
 
 ```bash
 ./setup
+
+# And maybe:
+./macos/set-defaults.sh
 ```
 
 ## Releasing
