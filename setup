@@ -14,11 +14,6 @@ link() {
 # bins
 link "$PWD"/bin ~/.bin
 
-if which tmux; then
-  link "$PWD"/tmux/tmux.conf ~/.config/tmux/tmux.conf
-  tmux source ~/.config/tmux/tmux.conf
-fi
-
 # shell
 link "$PWD"/fish/functions ~/.config/fish/functions
 link "$PWD"/fish/themes ~/.config/fish/themes

@@ -6,6 +6,7 @@
 auto-update-channel = tip
 window-decoration = true
 window-theme = "dark"
+macos-titlebar-style = tabs
 window-save-state = always
 window-padding-balance = true
 # makes it maximizes the window
@@ -13,13 +14,18 @@ window-height = 9999
 window-width = 9999
 confirm-close-surface = true
 macos-option-as-alt = true
-macos-titlebar-style = "hidden"
-shell-integration = none
+shell-integration = fish
+shell-integration-features = no-cursor,title
+copy-on-select = clipboard
 cursor-style = block
 cursor-style-blink = true
 mouse-hide-while-typing = true
 clipboard-read = "allow"
 clipboard-paste-protection = false
+window-inherit-working-directory=true
+unfocused-split-opacity = 0.85
+split-divider-color = #7e7e7e
+unfocused-split-fill = #1a1a1a
 
 font-family = "TX-02"
 font-size = 12
@@ -42,19 +48,15 @@ font-codepoint-map = U+ea60-U+ebeb=JetBrainsMono Nerd Font Mono
 
 theme = "Vesper"
 
-# tmux keymaps
-keybind = cmd+k=text:\x02p
-keybind = cmd+t=text:\x02c
-keybind = cmd+d=text:\x02i
-keybind = cmd+digit_1=text:\x021
-keybind = cmd+digit_2=text:\x022
-keybind = cmd+digit_3=text:\x023
-keybind = cmd+digit_4=text:\x024
-keybind = cmd+digit_5=text:\x025
-keybind = cmd+digit_6=text:\x026
-keybind = cmd+digit_7=text:\x027
-keybind = cmd+digit_8=text:\x028
-keybind = cmd+digit_9=text:\x029
-keybind = shift+cmd+d=text:\x02u
-keybind = ctrl+tab=text:\x02n
-keybind = shift+ctrl+tab=text:\x02p
+# navigate between splits (vim-style)
+# super+h requires remapping "Hide Ghostty" in macOS keyboard settings
+keybind = super+h=goto_split:left
+keybind = super+j=goto_split:bottom
+keybind = super+k=goto_split:top
+keybind = super+l=goto_split:right
+
+# resize splits
+keybind = super+right=resize_split:right,50
+keybind = super+down=resize_split:down,50
+keybind = super+left=resize_split:left,50
+keybind = super+up=resize_split:up,50

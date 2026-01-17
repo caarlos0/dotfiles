@@ -179,16 +179,9 @@ keymap("v", "p", '"_dP', opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 
--- tmux-aware navigation with Alt+hjkl
 local function winnav(direction)
-  local tmux_directions = { h = "L", j = "D", k = "U", l = "R" }
   local win_directions = { h = "h", j = "j", k = "k", l = "l" }
-  local current_win = vim.fn.winnr()
   vim.cmd("wincmd " .. win_directions[direction])
-  -- If we're in tmux and didn't move to a different window, navigate tmux pane
-  if vim.env.TMUX and vim.fn.winnr() == current_win then
-    vim.fn.system("tmux select-pane -" .. tmux_directions[direction])
-  end
 end
 
 keymap("n", "<M-h>", function()
