@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://dlvhdr.github.io/gh-dash/configuration/gh-dash/schema.json
+# yaml-language-server: $schema=https://gh-dash.dev/schema.json
 prSections:
   - title: My Pull Requests
     filters: is:open author:@me
@@ -59,4 +59,4 @@ keybindings:
     - key: M
       command: >
         gh pr review --repo {{.RepoName}} {{.PrNumber}} --approve &&
-        gh pr comment --repo {{.RepoName}} {{.PrNumber}} --body "@dependabot squash and merge"
+        gh pr merge --repo {{.RepoName}} {{.PrNumber}} --admin --squash --delete-branch
