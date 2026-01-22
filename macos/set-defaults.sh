@@ -23,8 +23,8 @@ echo "  › Use AirDrop over every interface"
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 echo "  › Set a really fast key repeat"
-defaults write NSGlobalDomain KeyRepeat -int 2
-defaults write NSGlobalDomain InitialKeyRepeat -int 15
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
 echo "  › Always show scrollbars"
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
@@ -39,14 +39,23 @@ defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+echo "  › Disable web automatic spelling correction"
+defaults write -g WebAutomaticSpellingCorrectionEnabled -bool false
+
 echo "  › Set dark interface style"
 defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+
+echo "  › Set accent color to graphite"
+defaults write -g AppleAccentColor -int 0
 
 echo "  › Save to disk by default, instead of iCloud"
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 echo "  › Keep menu bar visible"
 defaults write NSGlobalDomain _HIHideMenuBar -bool false
+
+echo "  › Show Bluetooth icon in menu bar"
+defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
 
 echo "  › Set springing delay to 0"
 defaults write -g "com.apple.springing.delay" -float 0.0
