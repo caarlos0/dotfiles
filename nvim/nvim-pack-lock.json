@@ -121,10 +121,6 @@
       "rev": "186084dee5e9c8eec40f6e39481c723dd567cb05",
       "src": "https://github.com/wansmer/treesj"
     },
-    "ts-comments.nvim": {
-      "rev": "123a9fb12e7229342f807ec9e6de478b1102b041",
-      "src": "https://github.com/folke/ts-comments.nvim"
-    },
     "vesper.nvim": {
       "rev": "1717b1ad657c94bec3fc2bdebb0c55452d9fe46d",
       "src": "https://github.com/datsfilipe/vesper.nvim"
