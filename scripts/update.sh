@@ -4,14 +4,14 @@ set -euo pipefail
 echo "Updating Homebrew..."
 brew update
 brew upgrade
+brew upgrade neovim --fetch-HEAD
 brew cleanup
 
 echo "Updating Brewfile..."
 rm Brewfile && brew bundle dump --no-go
 
-echo "Updating Neovim..."
-plugins=$(jq '.plugins | keys[]' ./nvim/nvim-pack-lock.json | tr '\n' ', ')
-nvim --headless +"lua vim.pack.update({${plugins}},{force = true})" +qa &>/dev/null
+echo "Updating Neovim plugins..."
+nvim --headless +"lua vim.pack.update(nil, { force = true })" +qa &>/dev/null
 
 if [ "$(git symbolic-ref --short HEAD)" = "main" ]; then
   echo "Commiting changes..."
