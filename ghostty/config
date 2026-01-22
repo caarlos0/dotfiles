@@ -23,12 +23,12 @@ mouse-hide-while-typing = true
 clipboard-read = "allow"
 clipboard-paste-protection = false
 window-inherit-working-directory=true
-unfocused-split-opacity = 0.85
+unfocused-split-opacity = 0.75
 split-divider-color = #7e7e7e
 unfocused-split-fill = #1a1a1a
 
 font-family = "TX-02"
-font-size = 12
+font-size = 14
 font-feature = zero
 font-feature = calt
 font-feature = liga
