@@ -111,14 +111,20 @@ vim.pack.add({
   { src = "https://github.com/tpope/vim-speeddating" },
 
   -- treesitter and friends
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  {
+    src = "https://github.com/nvim-treesitter/nvim-treesitter",
+    version = "master",
+  },
   { src = "https://github.com/wansmer/treesj" },
   { src = "https://github.com/windwp/nvim-autopairs" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/kylechui/nvim-surround" },
   { src = "https://github.com/folke/todo-comments.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
+  {
+    src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+    version = "master",
+  },
   { src = "https://github.com/RRethy/nvim-treesitter-endwise" },
 })
 
@@ -716,7 +722,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- require("plugins.syntax")
+require("plugins.syntax")
 
 local treesj = require("treesj")
 treesj.setup({ use_default_keymaps = false })
