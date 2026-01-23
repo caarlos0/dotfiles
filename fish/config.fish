@@ -3,6 +3,7 @@ set -x PROJECTS ~/Developer
 set -x GOPATH ~/Developer/Go
 fish_add_path -p ~/Developer/Go/bin
 fish_add_path -p ~/.cargo/bin/
+fish_add_path -p ~/.local/bin/
 fish_add_path -p ~/.bin/
 fish_add_path -a /opt/homebrew/bin/
 fish_add_path -a /opt/homebrew/sbin
