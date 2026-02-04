@@ -5,6 +5,7 @@ fish_add_path -p ~/Developer/Go/bin
 fish_add_path -p ~/.cargo/bin/
 fish_add_path -p ~/.local/bin/
 fish_add_path -p ~/.bin/
+fish_add_path -p ~/.orbstack/bin
 fish_add_path -a /opt/homebrew/bin/
 fish_add_path -a /opt/homebrew/sbin
 fish_add_path -a /Applications/Postgres.app/Contents/Versions/latest/bin/
@@ -104,5 +105,3 @@ end
 if test -f ~/.localrc.fish
     source ~/.localrc.fish
 end
-
-source ~/.orbstack/shell/init2.fish 2>/dev/null || :
