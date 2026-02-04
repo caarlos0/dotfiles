@@ -15,7 +15,6 @@
     }
   },
   "lsp": {
-    "pylsp": {},
     "gopls": {
       "options": {
         "gofumpt": true,
@@ -50,10 +49,7 @@
         ],
         "semanticTokens": true
       }
-    },
-    "typescript-language-server": {},
-    "bash-language-server": {},
-    "rust-analyzer": {}
+    }
   },
   "mcp": {
     "linear": {
