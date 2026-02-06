@@ -20,8 +20,9 @@ function p --description "Switch to a project directory"
         set -l scores (printf '%s\n' $results | awk '{print $1}')
         if test (count $scores) -ge 1
             set -l top $scores[1]
-            set -l second (test (count $scores) -ge 2 && echo $scores[2] || echo 0)
-            if test $second -eq 0 -o (math "$top / $second") -ge $ratio_threshold
+            set -l second 0
+            test (count $scores) -ge 2 && set second $scores[2]
+            if test $second -eq 0; or test (math "$top / $second") -ge $ratio_threshold
                 set selected (echo $results[1] | awk '{print $2}')
             end
         end
