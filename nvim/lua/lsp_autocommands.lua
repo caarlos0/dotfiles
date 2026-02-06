@@ -81,7 +81,7 @@ M.setup = function()
         return
       end
       if client:supports_method(ms.textDocument_codeLens, vim.api.nvim_get_current_buf()) then
-        vim.lsp.codelens.clear(client.id)
+        vim.lsp.codelens.enable(false, { bufnr = 0 })
       end
     end,
     group = group,
@@ -121,7 +121,7 @@ M.setup = function()
   vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
     callback = function()
       if has_clients_with_method(0, ms.textDocument_codeLens) then
-        vim.lsp.codelens.refresh({ bufnr = 0 })
+        vim.lsp.codelens.enable(true, { bufnr = 0 })
       end
     end,
     group = group,
