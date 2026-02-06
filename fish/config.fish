@@ -1,6 +1,10 @@
 set -x EDITOR nvim
 set -x PROJECTS ~/Developer
 set -x GOPATH ~/Developer/Go
+set -x HOMEBREW_NO_AUTO_UPDATE 1
+set -x HOMEBREW_NO_ENV_HINTS 1
+set -x FZF_DEFAULT_OPTS '--color bg:#101010,bg+:#161616,fg:#ffffff,fg+:#ffffff,header:#ffc799,hl:#99ffe4,hl+:#99ffe4,info:#a0a0a0,marker:#ffc799,pointer:#ffc799,prompt:#ffc799,selected-bg:#232323,spinner:#ffc799'
+
 fish_add_path -p ~/Developer/Go/bin
 fish_add_path -p ~/.cargo/bin/
 fish_add_path -p ~/.local/bin/
@@ -83,7 +87,6 @@ status is-interactive; and begin
 
     # disable fish greeting
     set fish_greeting
-    fish_config theme choose vesper
 
     # enable transient prompt to declutter the terminal
     set -g fish_transient_prompt 1
@@ -92,10 +95,6 @@ status is-interactive; and begin
     function postexec_test --on-event fish_postexec
         echo
     end
-
-    set -x HOMEBREW_NO_AUTO_UPDATE 1
-    set -x HOMEBREW_NO_ENV_HINTS 1
-    set -x FZF_DEFAULT_OPTS '--color bg:#101010,bg+:#161616,fg:#ffffff,fg+:#ffffff,header:#ffc799,hl:#99ffe4,hl+:#99ffe4,info:#a0a0a0,marker:#ffc799,pointer:#ffc799,prompt:#ffc799,selected-bg:#232323,spinner:#ffc799'
 
     zoxide init fish | source
     fzf --fish | source
