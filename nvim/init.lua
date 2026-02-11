@@ -30,7 +30,6 @@ vim.opt.ruler = true
 vim.opt.wildmenu = true
 vim.opt.autoread = true
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.colorcolumn = "80"
 vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.spelllang = { "en_us" }
 vim.opt.spellfile = vim.uv.os_homedir() .. "/.spell.add"
@@ -72,7 +71,7 @@ inoreabbrev sao são
 vim.pack.add({
   -- UI
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
-  { src = "https://github.com/datsfilipe/vesper.nvim" },
+  { src = "https://github.com/catppuccin/nvim", as = "catppuccin" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
   { src = "https://github.com/stevearc/dressing.nvim" },
   { src = "https://github.com/rcarriga/nvim-notify" },
@@ -212,7 +211,27 @@ end
 --- UI
 ---
 
-vim.cmd.colorscheme("vesper")
+require("catppuccin").setup({
+  flavour = "mocha",
+  color_overrides = {
+    mocha = {
+      base = "#000000",
+      mantle = "#000000",
+      crust = "#000000",
+    },
+  },
+  integrations = {
+    cmp = true,
+    gitsigns = true,
+    markdown = true,
+    native_lsp = { enabled = true },
+    notify = true,
+    telescope = true,
+    treesitter = true,
+    treesitter_context = true,
+  },
+})
+vim.cmd.colorscheme("catppuccin")
 
 -- Use undercurl for diagnostic underlines
 local function hi_diag_underline(level)

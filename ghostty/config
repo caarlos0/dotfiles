@@ -24,8 +24,8 @@ clipboard-read = "allow"
 clipboard-paste-protection = false
 window-inherit-working-directory=true
 unfocused-split-opacity = 0.75
-split-divider-color = #7e7e7e
-unfocused-split-fill = #1a1a1a
+split-divider-color = #313244
+unfocused-split-fill = #000000
 
 font-family = "TX-02"
 font-size = 14
@@ -46,7 +46,8 @@ font-codepoint-map = U+e5fa-U+e6b1=JetBrainsMono Nerd Font Mono
 # codicons
 font-codepoint-map = U+ea60-U+ebeb=JetBrainsMono Nerd Font Mono
 
-theme = "Vesper"
+theme = "Catppuccin Mocha"
+background = #000000
 
 # navigate between splits (vim-style)
 # super+h requires remapping "Hide Ghostty" in macOS keyboard settings

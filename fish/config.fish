@@ -3,7 +3,7 @@ set -x PROJECTS ~/Developer
 set -x GOPATH ~/Developer/Go
 set -x HOMEBREW_NO_AUTO_UPDATE 1
 set -x HOMEBREW_NO_ENV_HINTS 1
-set -x FZF_DEFAULT_OPTS '--color bg:#101010,bg+:#161616,fg:#ffffff,fg+:#ffffff,header:#ffc799,hl:#99ffe4,hl+:#99ffe4,info:#a0a0a0,marker:#ffc799,pointer:#ffc799,prompt:#ffc799,selected-bg:#232323,spinner:#ffc799'
+set -x FZF_DEFAULT_OPTS '--color bg:#000000,bg+:#1e1e2e,fg:#cdd6f4,fg+:#cdd6f4,header:#f38ba8,hl:#f38ba8,hl+:#f38ba8,info:#cba6f7,marker:#f5e0dc,pointer:#f5e0dc,prompt:#cba6f7,spinner:#f5e0dc'
 
 fish_add_path -p ~/Developer/Go/bin
 fish_add_path -p ~/.cargo/bin/
