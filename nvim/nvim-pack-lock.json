@@ -62,7 +62,7 @@
       "src": "https://github.com/norcalli/nvim-colorizer.lua"
     },
     "nvim-lspconfig": {
-      "rev": "66fd02ad1c7ea31616d3ca678fa04e6d0b360824",
+      "rev": "d1597791f8196519439b3a036b59b09023981e1d",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-notify": {
