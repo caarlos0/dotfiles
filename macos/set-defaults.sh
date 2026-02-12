@@ -29,6 +29,9 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 10
 echo "  › Always show scrollbars"
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 
+echo "  › Tint window background with wallpaper color"
+defaults write NSGlobalDomain AppleReduceDesktopTinting -bool false
+
 echo "  › Increase the window resize speed for Cocoa applications"
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.1
 
@@ -83,6 +86,15 @@ defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
 
 echo "  › Enable WebKit developer extras"
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+
+echo "  › Reduce motion"
+defaults write com.apple.universalaccess reduceMotion -bool true
+
+echo "  › Disable transparency"
+defaults write com.apple.universalaccess reduceTransparency -bool true
+
+echo "  › Set solid black wallpaper"
+osascript -e 'tell application "System Events" to tell every desktop to set picture to "/System/Library/Desktop Pictures/Solid Colors/Black.png"'
 
 #############################
 
