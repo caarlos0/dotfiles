@@ -3,8 +3,12 @@
 set -e
 
 if gh repo set-default --view 2>&1 | grep -qw set-default; then
-  gh repo set-default "$(git remote get-url upstream 2>/dev/null || git remote get-url origin 2>/dev/null)"
+  # tries to set upstream, if fails, sets origin.
+  gh repo set-default upstream 2>/dev/null ||
+    gh repo set-default origin 2>/dev/null
 fi
 
+# force-pass `--repo` because it doesn't work inside worktrees otherwise.
+# see: https://github.com/cli/cli/issues/1837
 git push origin HEAD &&
-  gh pr create -w --assignee="@me"
+  gh pr create -w --assignee="@me" --repo "$(gh repo set-default --view)"
