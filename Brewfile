@@ -125,6 +125,8 @@ cask "whatsapp"
 cask "zoom"
 mas "1Password for Safari", id: 1569813296
 mas "Consent-O-Matic", id: 1606897889
+mas "Control Panel for Twitter", id: 1668516167
+mas "Control Panel for YouTube", id: 6478456678
 mas "Debit & Credit", id: 882637653
 mas "HEIC Converter", id: 1294126402
 mas "Keynote", id: 409183694
