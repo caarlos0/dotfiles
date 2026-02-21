@@ -63,6 +63,16 @@ end
 local M = {}
 
 M.setup = function()
+  local default_handler = vim.lsp.handlers[ms.window_showMessage]
+  vim.lsp.handlers[ms.window_showMessage] = function(err, result, ctx, config)
+    -- Ignores annoying gopls inlayhints error when it can't find package
+    -- metadata for a file.
+    if result and result.message and result.message:match("no package metadata for file") then
+      return
+    end
+    return default_handler(err, result, ctx, config)
+  end
+
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
