@@ -22,11 +22,11 @@
       "src": "https://github.com/famiu/bufdelete.nvim"
     },
     "conform.nvim": {
-      "rev": "c2526f1cde528a66e086ab1668e996d162c75f4f",
+      "rev": "e969e302bced7ffb9a0a0323629f31feb0ca35a6",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "copilot.lua": {
-      "rev": "dd3e345d59051464573d821b042f0a0c82410b5d",
+      "rev": "5c01badd42049a63ac9e5d6c8ea85aaf66cb940f",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
     "dressing.nvim": {
@@ -66,7 +66,7 @@
       "src": "https://github.com/norcalli/nvim-colorizer.lua"
     },
     "nvim-lspconfig": {
-      "rev": "44acfe887d4056f704ccc4f17513ed41c9e2b2e6",
+      "rev": "5a855bcfec7973767a1a472335684bbd71d2fa2b",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-notify": {
@@ -74,7 +74,7 @@
       "src": "https://github.com/rcarriga/nvim-notify"
     },
     "nvim-surround": {
-      "rev": "1098d7b3c34adcfa7feb3289ee434529abd4afd1",
+      "rev": "b2f5ff27e603e0a756bd1926c476d2f219e6d42a",
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
