@@ -25,26 +25,19 @@ dockers_v2:
       - nvim
       - rio
       - ssh
-      - tmux
 changelog:
   sort: asc
   use: github
   divider: "---"
   groups:
-    - title: "macOS"
-      regexp: "^.*\\((darwin|macos)\\):+.*$"
-      order: 201
-    - title: "Linux"
-      regexp: "^.*\\((linux)\\):+.*$"
-      order: 202
     - title: "Coding"
       regexp: "^.*\\((git|vim|nvim|neovim)\\):+.*$"
       order: 240
     - title: "Terminals"
-      regexp: "^.*\\((kitty|tmux|wezterm|rio|ghostty|alacritty)\\):+.*$"
+      regexp: "^.*\\((kitty|wezterm|rio|ghostty|alacritty)\\):+.*$"
       order: 250
     - title: "System"
-      regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs|brew|homebrew)\\):+.*$"
+      regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs|brew|homebrew|darwin|macos|linux)\\):+.*$"
       order: 100
     - title: "AI"
       regexp: "^.*\\(ai|crush\\):+.*$"
