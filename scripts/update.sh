@@ -8,7 +8,7 @@ brew upgrade neovim --fetch-HEAD
 brew cleanup
 
 echo "Updating Brewfile..."
-rm Brewfile && brew bundle dump --no-go
+rm Brewfile && brew bundle dump --no-go --no-uv
 
 echo "Updating Neovim plugins..."
 nvim --headless +"lua vim.pack.update(nil, { force = true })" +qa &>/dev/null
