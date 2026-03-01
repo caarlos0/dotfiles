@@ -18,7 +18,8 @@ link "$PWD"/bin ~/.bin
 link "$PWD"/fish/functions ~/.config/fish/functions
 link "$PWD"/fish/themes ~/.config/fish/themes
 link "$PWD"/fish/config.fish ~/.config/fish/config.fish
-fish -c "fish_config theme choose catppuccin-mocha"
+fish -c "fish_config theme choose catppuccin-mocha" ||
+  echo "catppuccin-mocha theme not found, skipping"
 
 # terms
 link "$PWD"/ghostty ~/.config/ghostty
