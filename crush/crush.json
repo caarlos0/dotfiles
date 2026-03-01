@@ -53,6 +53,7 @@
   },
   "mcp": {
     "linear": {
+      "disabled": false,
       "type": "http",
       "url": "https://mcp.linear.app/mcp",
       "disabled_tools": [
@@ -87,12 +88,14 @@
       "type": "http",
       "url": "https://api.githubcopilot.com/mcp/",
       "timeout": 30,
+      "disabled": true,
       "headers": {
         "X-MCP-Tools": "get_file_contents,pull_request_read,get_commit,get_me,issue_read",
         "Authorization": "$(echo Bearer $GITHUB_TOKEN)"
       }
     },
     "context7": {
+      "disabled": true,
       "type": "http",
       "timeout": 30,
       "url": "https://mcp.context7.com/mcp"
