@@ -29,6 +29,9 @@ changelog:
   sort: asc
   use: github
   divider: "---"
+  filters:
+    exclude:
+      - "^chore.*"
   groups:
     - title: "Coding"
       regexp: "^.*\\((git|vim|nvim|neovim)\\):+.*$"
