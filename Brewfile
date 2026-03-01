@@ -137,4 +137,3 @@ mas "Parcel", id: 375589283
 mas "Reeder", id: 1529448980
 mas "StopTheMadness", id: 1376402589
 mas "Tailscale", id: 1475387142
-uv "harbor", with: ["crush-harbor-agentfile:///Users/carlos/Developer/charmbracelet/crush"]
