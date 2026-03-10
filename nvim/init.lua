@@ -185,20 +185,31 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 
 local function winnav(direction)
-  local win_directions = { h = "h", j = "j", k = "k", l = "l" }
-  vim.cmd("wincmd " .. win_directions[direction])
+  local before = vim.fn.winnr()
+  vim.cmd("wincmd " .. direction)
+  if vim.fn.winnr() == before then
+    local map = { h = "left", j = "bottom", k = "top", l = "right" }
+    vim.fn.system({
+      "osascript",
+      "-e",
+      string.format(
+        'tell application "Ghostty" to perform action "goto_split:%s" on focused terminal of selected tab of front window',
+        map[direction]
+      ),
+    })
+  end
 end
 
-keymap("n", "<M-h>", function()
+keymap("n", "<D-h>", function()
   winnav("h")
 end, opts)
-keymap("n", "<M-j>", function()
+keymap("n", "<D-j>", function()
   winnav("j")
 end, opts)
-keymap("n", "<M-k>", function()
+keymap("n", "<D-k>", function()
   winnav("k")
 end, opts)
-keymap("n", "<M-l>", function()
+keymap("n", "<D-l>", function()
   winnav("l")
 end, opts)
 
