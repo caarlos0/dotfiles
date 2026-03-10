@@ -33,6 +33,10 @@
       "rev": "2d7c2db2507fa3c4956142ee607431ddb2828639",
       "src": "https://github.com/stevearc/dressing.nvim"
     },
+    "fff.nvim": {
+      "rev": "ac8df4c9e4926d23f196f30be052518454dfe251",
+      "src": "https://github.com/dmtrKovalenko/fff.nvim"
+    },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
@@ -106,18 +110,6 @@
     "other.nvim": {
       "rev": "1d48e090f6d1d53dda9fb5094af3f2006ebbb858",
       "src": "https://github.com/rgroli/other.nvim"
-    },
-    "plenary.nvim": {
-      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
-      "src": "https://github.com/nvim-lua/plenary.nvim"
-    },
-    "telescope-github.nvim": {
-      "rev": "cdd3ce7d317729709821d33820c619be21b22948",
-      "src": "https://github.com/nvim-telescope/telescope-github.nvim"
-    },
-    "telescope.nvim": {
-      "rev": "5255aa27c422de944791318024167ad5d40aad20",
-      "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "todo-comments.nvim": {
       "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",

@@ -70,8 +70,11 @@ inoreabbrev sao são
 
 vim.pack.add({
   -- UI
+  {
+    src = "https://github.com/catppuccin/nvim",
+    as = "catppuccin",
+  },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
-  { src = "https://github.com/catppuccin/nvim", as = "catppuccin" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
   { src = "https://github.com/stevearc/dressing.nvim" },
   { src = "https://github.com/rcarriga/nvim-notify" },
@@ -82,10 +85,8 @@ vim.pack.add({
   { src = "https://github.com/akinsho/git-conflict.nvim" },
   { src = "https://github.com/max397574/better-escape.nvim" },
 
-  -- telescope
-  { src = "https://github.com/nvim-lua/plenary.nvim" },
-  { src = "https://github.com/nvim-telescope/telescope-github.nvim" },
-  { src = "https://github.com/nvim-telescope/telescope.nvim" },
+  -- ctrl-p
+  { src = "https://github.com/dmtrKovalenko/fff.nvim" },
 
   -- CODING
   { src = "https://github.com/rgroli/other.nvim" },
@@ -125,6 +126,14 @@ vim.pack.add({
     version = "master",
   },
   { src = "https://github.com/RRethy/nvim-treesitter-endwise" },
+})
+
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(event)
+    if event.data.updated then
+      require("fff.download").download_binary()
+    end
+  end,
 })
 
 local opts = { noremap = true, silent = true }
@@ -226,7 +235,6 @@ require("catppuccin").setup({
     markdown = true,
     native_lsp = { enabled = true },
     notify = true,
-    telescope = true,
     treesitter = true,
     treesitter_context = true,
   },
@@ -747,86 +755,17 @@ local treesj = require("treesj")
 treesj.setup({ use_default_keymaps = false })
 keymap("n", "<leader>st", treesj.toggle, opts)
 
-local telescope = require("telescope")
-telescope.setup({
-  defaults = {
-    pickers = {
-      find_files = {
-        theme = "ivy",
-      },
-    },
-    prompt_prefix = "   ",
-    selection_caret = " ❯ ",
-    entry_prefix = "   ",
-    multi_icon = "+ ",
-    path_display = { "filename_first" },
-    vimgrep_arguments = {
-      "rg",
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
-      "--column",
-      "--smart-case",
-      "--sort=path",
-    },
-  },
+local fff = require("fff")
+fff.setup({
+  prompt = "   ",
 })
-telescope.load_extension("gh")
 
-local function ivy(iopts)
-  return require("telescope.themes").get_ivy(iopts)
-end
-
-local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<C-p>", function()
-  builtin.find_files(ivy({
-    find_command = {
-      "fd",
-      "--type",
-      "f",
-      "--strip-cwd-prefix",
-      "--hidden",
-    },
-  }))
-end, opts)
-
-keymap("n", "<leader>of", function()
-  builtin.oldfiles(ivy({
-    only_cwd = true,
-  }))
+keymap("n", "<C-P>", function()
+  fff.find_files()
 end, opts)
 
 keymap("n", "<leader>lg", function()
-  builtin.live_grep(ivy())
-end, opts)
-
-keymap("n", "<leader>fb", function()
-  builtin.buffers(ivy())
-end, opts)
-
-keymap("n", "<leader>fh", function()
-  builtin.help_tags(ivy())
-end, opts)
-
-keymap("n", "<leader>fc", function()
-  builtin.commands(ivy())
-end, opts)
-
-keymap("n", "<leader>fr", function()
-  builtin.resume(ivy())
-end, opts)
-
-keymap("n", "<leader>fq", function()
-  builtin.quickfix(ivy())
-end, opts)
-
-keymap("n", "<leader>/", function()
-  builtin.current_buffer_fuzzy_find(ivy())
-end, opts)
-
-keymap("n", "<leader>ghi", function()
-  telescope.extensions.gh.issues(ivy())
+  fff.live_grep()
 end, opts)
 
 require("plugins.lsp")
