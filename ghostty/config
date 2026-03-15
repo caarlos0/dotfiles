@@ -4,7 +4,7 @@
 #
 
 auto-update = off
-auto-update-channel = tip
+# auto-update-channel = tip
 window-decoration = true
 window-theme = "dark"
 macos-titlebar-style = tabs
