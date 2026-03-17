@@ -52,8 +52,12 @@
     }
   },
   "mcp": {
+    "fff": {
+      "type": "stdio",
+      "command": "fff-mcp"
+    },
     "linear": {
-      "disabled": false,
+      "disabled": true,
       "type": "http",
       "url": "https://mcp.linear.app/mcp",
       "disabled_tools": [
@@ -107,6 +111,9 @@
   },
   "permissions": {
     "allowed_tools": [
+      "fff_multi_grep",
+      "fff_grep",
+      "fff_find_files",
       "agentic_fetch",
       "mcp_linear_get_issue",
       "mcp_github_get_issue",
