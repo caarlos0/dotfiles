@@ -629,14 +629,13 @@ vim.api.nvim_create_autocmd("FileType", {
       end)
     end
 
-    local function is_main()
-      local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD"):gsub("\n", "")
-      return branch == "main" or branch == "master"
+    local function branch()
+      return vim.fn.system("git rev-parse --abbrev-ref HEAD"):gsub("\n", "")
     end
 
     local buf_opts = { noremap = true, silent = true, buffer = bufnr }
     keymap("n", "gp", function()
-      if is_main() then
+      if branch() == "main" then
         local choice = vim.fn.confirm("Pushing to main - are you sure?", "&Yes\n&No", 2)
         if choice ~= 1 then
           return
@@ -652,7 +651,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end, buf_opts)
 
     keymap("n", "go", function()
-      if is_main() then
+      if branch() == "main" then
         vim.notify("Cannot open PR from main branch!", vim.log.levels.ERROR)
         return
       end
