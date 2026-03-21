@@ -1,13 +1,13 @@
+# https://rioterm.com/docs/config
 confirm-before-quit = false
-# https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/refs/heads/master/rio/Vesper.toml
-theme = "Vesper"
+theme = "catppuccin"
 
 [editor]
-program = "neovim"
+program = "nvim"
 args = []
 
 [fonts]
-size = 12
+size = 13
 family = "TX-02"
 features = ["zero","calt","liga"]
 symbol-map = [
