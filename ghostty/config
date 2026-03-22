@@ -9,11 +9,9 @@ window-decoration = true
 window-theme = "dark"
 macos-titlebar-style = tabs
 macos-window-buttons = hidden
-window-save-state = always
+window-save-state = never
 window-padding-balance = true
-# makes it maximizes the window
-window-height = 9999
-window-width = 9999
+maximize = true
 confirm-close-surface = true
 macos-option-as-alt = true
 shell-integration = fish
