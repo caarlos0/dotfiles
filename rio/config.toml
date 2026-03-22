@@ -10,6 +10,7 @@ args = []
 size = 13
 family = "TX-02"
 features = ["zero","calt","liga"]
+extras = [{family="JetBrainsMono Nerd Font Mono"}]
 symbol-map = [
   # powerline & powerline-extras
   {start = "e0b0", end ="e0b3", font-family="JetBrainsMono Nerd Font Mono"},
@@ -27,6 +28,7 @@ symbol-map = [
 
 [window]
 mode = "Maximized"
-decorations = "Transparent"
+decorations = "Enabled"
 macos-use-shadow = true
 colorspace = "rec2020"
+macos-use-unified-titlebar = true
