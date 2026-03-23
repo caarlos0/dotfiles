@@ -39,8 +39,8 @@ brew "imagemagick"
 brew "ipcalc"
 brew "jj"
 brew "jq"
-brew "kubernetes-cli"
 brew "kubectx"
+brew "kubernetes-cli"
 brew "lsd"
 brew "lua-language-server"
 brew "makensis"
@@ -139,3 +139,4 @@ mas "Reeder", id: 1529448980
 mas "StopTheMadness", id: 1376402589
 mas "Tailscale", id: 1475387142
 mas "Vimari", id: 1480933944
+mas "Xcode", id: 497799835
