@@ -33,10 +33,6 @@
       "rev": "2d7c2db2507fa3c4956142ee607431ddb2828639",
       "src": "https://github.com/stevearc/dressing.nvim"
     },
-    "fff.nvim": {
-      "rev": "dd56a3a8a8a5a85522badaf6485f28c8f7a7c840",
-      "src": "https://github.com/dmtrKovalenko/fff.nvim"
-    },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"

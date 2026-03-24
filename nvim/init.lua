@@ -86,7 +86,6 @@ vim.pack.add({
   { src = "https://github.com/max397574/better-escape.nvim" },
 
   -- pickers
-  { src = "https://github.com/dmtrKovalenko/fff.nvim" },
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   { src = "https://github.com/nvim-telescope/telescope-github.nvim" },
   { src = "https://github.com/nvim-telescope/telescope.nvim" },
@@ -129,14 +128,6 @@ vim.pack.add({
     version = "master",
   },
   { src = "https://github.com/RRethy/nvim-treesitter-endwise" },
-})
-
-vim.api.nvim_create_autocmd("PackChanged", {
-  callback = function(event)
-    if event.data.updated then
-      require("fff.download").download_binary()
-    end
-  end,
 })
 
 local opts = { noremap = true, silent = true }
@@ -744,19 +735,6 @@ local treesj = require("treesj")
 treesj.setup({ use_default_keymaps = false })
 keymap("n", "<leader>st", treesj.toggle, opts)
 
-local fff = require("fff")
-fff.setup({
-  prompt = "   ",
-})
-
-keymap("n", "<C-P>", function()
-  fff.find_files()
-end, opts)
-
-keymap("n", "<leader>lg", function()
-  fff.live_grep()
-end, opts)
-
 local telescope = require("telescope")
 telescope.setup({
   defaults = {
@@ -789,6 +767,27 @@ local builtin = require("telescope.builtin")
 local function ivy(iopts)
   return require("telescope.themes").get_ivy(iopts)
 end
+vim.keymap.set("n", "<C-p>", function()
+  builtin.find_files(ivy({
+    find_command = {
+      "fd",
+      "--type",
+      "f",
+      "--strip-cwd-prefix",
+      "--hidden",
+    },
+  }))
+end, opts)
+
+keymap("n", "<leader>of", function()
+  builtin.oldfiles(ivy({
+    only_cwd = true,
+  }))
+end)
+
+keymap("n", "<leader>lg", function()
+  builtin.live_grep(ivy())
+end, opts)
 
 keymap("n", "<leader>fb", function()
   builtin.buffers(ivy())
