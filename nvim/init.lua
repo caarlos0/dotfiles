@@ -115,7 +115,7 @@ vim.pack.add({
   -- treesitter and friends
   {
     src = "https://github.com/nvim-treesitter/nvim-treesitter",
-    version = "master",
+    version = "main",
   },
   { src = "https://github.com/wansmer/treesj" },
   { src = "https://github.com/windwp/nvim-autopairs" },
@@ -125,7 +125,7 @@ vim.pack.add({
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
   {
     src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-    version = "master",
+    version = "main",
   },
   { src = "https://github.com/RRethy/nvim-treesitter-endwise" },
 })
