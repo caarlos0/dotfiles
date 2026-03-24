@@ -139,4 +139,3 @@ mas "Reeder", id: 1529448980
 mas "StopTheMadness", id: 1376402589
 mas "Tailscale", id: 1475387142
 mas "Vimari", id: 1480933944
-mas "Xcode", id: 497799835

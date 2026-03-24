@@ -96,9 +96,11 @@ for arg in $argv
 end
 
 if test "$list" = true
+    set -l prefix (project_name)-
     git worktree list | while read -l line
         set -l parts (string match -r '^(\S+)\s+(\S+)' $line)
-        printf "%s%s%s\t%s\t%s\n" (set_color --bold) (basename $parts[2]) (set_color normal) $parts[3] $parts[2]
+        set -l name (string replace -- $prefix '' (basename $parts[2]))
+        printf "%s%s%s\t%s\t%s\n" (set_color --bold) $name (set_color normal) $parts[3] $parts[2]
     end | column -t -s \t
 else if test "$delete" = true
     if test -z "$name"
