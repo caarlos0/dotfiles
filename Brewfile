@@ -49,7 +49,8 @@ brew "mas"
 brew "mole"
 brew "moreutils"
 brew "msitools"
-brew "neovim", args: ["HEAD"]
+brew "tree-sitter"
+brew "neovim"
 brew "nixfmt"
 brew "nmap"
 brew "pgcli"
@@ -76,6 +77,7 @@ brew "taplo"
 brew "telnet"
 brew "templ"
 brew "terminal-notifier"
+brew "tippecanoe"
 brew "tmux"
 brew "tree-sitter-cli"
 brew "typescript-language-server"
@@ -125,7 +127,6 @@ cask "tomatobar"
 cask "vlc"
 cask "whatsapp"
 cask "zoom"
-mas "1Password for Safari", id: 1569813296
 mas "Consent-O-Matic", id: 1606897889
 mas "Control Panel for Twitter", id: 1668516167
 mas "Control Panel for YouTube", id: 6478456678
@@ -140,3 +141,4 @@ mas "Reeder", id: 1529448980
 mas "StopTheMadness", id: 1376402589
 mas "Tailscale", id: 1475387142
 mas "Vimari", id: 1480933944
+cargo "cargo-zigbuild"
