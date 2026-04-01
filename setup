@@ -27,6 +27,10 @@ link "$PWD"/rio ~/.config/rio
 
 # ssh
 link "$PWD"/ssh/* ~/.ssh/
+if [[ $OSTYPE == 'darwin'* ]] && [ -f ~/.ssh/id_ed25519 ]; then
+  ssh-add --apple-use-keychain ~/.ssh/id_ed25519 ||
+    echo "Could not add SSH key to keychain, skipping"
+fi
 
 # neovim
 if which nvim; then
