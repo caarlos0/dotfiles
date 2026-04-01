@@ -84,6 +84,7 @@ vim.pack.add({
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/akinsho/git-conflict.nvim" },
   { src = "https://github.com/max397574/better-escape.nvim" },
+  { src = "https://github.com/3rd/image.nvim" },
 
   -- pickers
   { src = "https://github.com/nvim-lua/plenary.nvim" },
@@ -298,6 +299,8 @@ if not has_usb_device("Moonlander") then
   vim.notify("Setting up better escape")
   require("better_escape").setup()
 end
+
+require("image").setup({})
 
 -- setup diagnostics
 vim.diagnostic.config({
