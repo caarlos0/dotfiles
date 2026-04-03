@@ -1,15 +1,21 @@
 #!/bin/bash
 set -euo pipefail
 
+info() { echo -e "  \033[38;5;252m $*\033[0m"; }
+success() { echo -e "  \033[32m\033[1m󰌶 $*\033[0m"; }
+warn() { echo -e "  \033[38;5;137m󰀪 $*\033[0m"; }
+
 link() {
   mkdir -p "$(dirname "$2")"
   if [ -e "$2" ]; then
-    echo "Skipping $2, already exists."
+    warn "Skipping $2, already exists."
   else
     ln -sf "$1" "$2"
-    echo "Linked $1 to $2"
+    success "Linked $1 to $2"
   fi
 }
+
+info "Setting caarlos0/dotfiles up"
 
 # bins
 link "$PWD"/bin ~/.bin
@@ -19,21 +25,21 @@ link "$PWD"/fish/functions ~/.config/fish/functions
 link "$PWD"/fish/themes ~/.config/fish/themes
 link "$PWD"/fish/config.fish ~/.config/fish/config.fish
 fish -c "fish_config theme choose catppuccin-mocha" ||
-  echo "catppuccin-mocha theme not found, skipping"
+  warn "catppuccin-mocha theme not found, skipping"
+
+# ssh
+link "$PWD"/ssh/* ~/.ssh/
+if [[ $OSTYPE == 'darwin'* ]] && [ -f ~/.ssh/id_ed25519 ]; then
+  ssh-add --apple-use-keychain ~/.ssh/id_ed25519 &>/dev/null ||
+    warn "Could not add SSH key to keychain, skipping"
+fi
 
 # terms
 link "$PWD"/ghostty ~/.config/ghostty
 link "$PWD"/rio ~/.config/rio
 
-# ssh
-link "$PWD"/ssh/* ~/.ssh/
-if [[ $OSTYPE == 'darwin'* ]] && [ -f ~/.ssh/id_ed25519 ]; then
-  ssh-add --apple-use-keychain ~/.ssh/id_ed25519 ||
-    echo "Could not add SSH key to keychain, skipping"
-fi
-
 # neovim
-if which nvim; then
+if which nvim &>/dev/null; then
   link "$PWD"/nvim ~/.config/nvim
   nvim --headless "+Lazy! sync" +qa &>/dev/null
 fi
@@ -67,15 +73,17 @@ link "$PWD"/fd/ignore ~/.config/fd/ignore
 link "$PWD"/direnv ~/.config/direnv
 
 if [[ $OSTYPE == 'darwin'* ]]; then
-  brew bundle
+  brew bundle &>/dev/null
 fi
 
 # Fish setup
 if ! grep -q fish /etc/shells; then
-  echo "Adding $(which fish) to /etc/shells - will ask sudo password"
+  info "Adding $(which fish) to /etc/shells - will ask sudo password"
   which fish | sudo tee -a /etc/shells
 fi
 if ! finger "$USER" | grep -q 'Shell: .*fish'; then
-  echo "Setting $(which fish) as the default shell - will ask user password"
+  info "Setting $(which fish) as the default shell - will ask user password"
   chsh -s "$(which fish)"
 fi
+
+success "All done!"
