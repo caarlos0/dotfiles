@@ -38,9 +38,22 @@ if which nvim; then
   nvim --headless "+Lazy! sync" +qa &>/dev/null
 fi
 
-# crush
-link "$PWD"/crush ~/.config/crush
-git clone https://github.com/anthropics/skills ~/Developer/forks/anthropic-skills
+# copilot
+if which copilot &>/dev/null; then
+  if ! copilot plugin list | grep -q superpowers-marketplace; then
+    copilot plugin install superpowers@superpowers-marketplace
+    copilot plugin marketplace add obra/superpowers-marketplace
+    success "Installed obra/superpowers"
+  fi
+fi
+
+# skills
+mkdir -p ~/.agents/skills
+git clone https://github.com/anthropics/skills ~/.agents/anthropic-skills &>/dev/null ||
+  (cd ~/.agents/anthropic-skills && git pull origin main &>/dev/null)
+for skill in ~/.agents/anthropic-skills/skills/* "$PWD"/skills/*; do
+  link "$skill" ~/.agents/skills/"$(basename "$skill")"
+done
 
 # other apps
 link "$PWD"/.editorconfig ~/.editorconfig
