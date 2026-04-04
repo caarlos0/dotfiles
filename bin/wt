@@ -59,10 +59,15 @@ function switch_to -a dir
     end
 end
 
-function create_worktree -a name
+function create_worktree -a name -a base_ref
     set -l wt_path (worktree_path $name)
-    log "Creating worktree at $wt_path..."
-    git worktree add $wt_path
+    if test -n "$base_ref"
+        log "Creating worktree at $wt_path from $base_ref..."
+        git worktree add $wt_path -b $name $base_ref
+    else
+        log "Creating worktree at $wt_path..."
+        git worktree add $wt_path
+    end
     or fail "failed to create worktree '$name'"
 end
 
@@ -83,6 +88,7 @@ ensure_repo
 set -l name ""
 set -l delete false
 set -l list false
+set -l from_main false
 
 for arg in $argv
     switch $arg
@@ -90,6 +96,8 @@ for arg in $argv
             set delete true
         case --list -l
             set list true
+        case --main -m
+            set from_main true
         case '*'
             set name $arg
     end
@@ -132,7 +140,11 @@ else
         log "Worktree '$name' already exists."
         switch_to $existing
     else
-        create_worktree $name
+        if test "$from_main" = true
+            create_worktree $name origin/main
+        else
+            create_worktree $name
+        end
         and switch_to (worktree_path $name)
     end
 end
