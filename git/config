@@ -43,6 +43,7 @@
 	helper = "gh auth git-credential"
 
 [diff]
+  external = difft
 	algorithm = "histogram"
 	colorMoved = "plain"
 	mnemonicPrefix = true
