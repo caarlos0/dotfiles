@@ -132,6 +132,7 @@ mas "Control Panel for Twitter", id: 1668516167
 mas "Control Panel for YouTube", id: 6478456678
 mas "Debit & Credit", id: 882637653
 mas "HEIC Converter", id: 1294126402
+mas "Infuse", id: 1136220934
 mas "Keynote", id: 409183694
 mas "Lungo", id: 1263070803
 mas "Numbers", id: 409203825
