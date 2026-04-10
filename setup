@@ -51,6 +51,10 @@ if which copilot &>/dev/null; then
     copilot plugin marketplace add obra/superpowers-marketplace
     success "Installed obra/superpowers"
   fi
+  if ! copilot plugin list | grep -q doublecheck; then
+    copilot plugin install doublecheck@awesome-copilot
+    success "Installed awesome-copilot/doublecheck"
+  fi
 fi
 
 # skills
