@@ -57,11 +57,18 @@ if which copilot &>/dev/null; then
   fi
 fi
 
+clone_or_update() {
+  local name="$1"
+  local url="$2"
+  git clone "$url" ~/.agents/"$name" &>/dev/null ||
+    (cd ~/.agents/"$name" && git pull origin main &>/dev/null)
+}
+
 # skills
 mkdir -p ~/.agents/skills
-git clone https://github.com/anthropics/skills ~/.agents/anthropic-skills &>/dev/null ||
-  (cd ~/.agents/anthropic-skills && git pull origin main &>/dev/null)
-for skill in ~/.agents/anthropic-skills/skills/* "$PWD"/skills/*; do
+clone_or_update anthropic-skills https://github.com/anthropics/skills
+clone_or_update caveman https://github.com/JuliusBrussee/caveman
+for skill in ~/.agents/anthropic-skills/skills/* ~/.agents/caveman/skills/* "$PWD"/skills/*; do
   link "$skill" ~/.agents/skills/"$(basename "$skill")"
 done
 
