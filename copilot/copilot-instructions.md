@@ -1,0 +1,20 @@
+# Copilot Instructions
+
+## General Principles
+
+- **Verify before fixing**: Confirm bug is triggerable by user before fixing. No fixes for theoretical issues in unreachable code paths.
+- **Understand before changing**: Understand why existing code works before modifying. No redesigning APIs, protocols, or data flows unless asked.
+- **Run and verify**: Run scripts/code after modifying to confirm they work. Prove correctness, don't assume.
+- **Keep it simple**: Prefer straightforward solutions. No defensive code (retries, timeouts, guards) without evidence problem exists. Less code is better.
+
+## Commit Conventions
+
+- [Conventional Commits](https://www.conventionalcommits.org/) with scope when applicable (e.g., `fix(git): ...`, `feat(fish): ...`).
+- One logical change per commit.
+- Commits signed off (`-s` flag) — configured in gitconfig.
+
+## This Repository
+
+- **Apply configs**: `./setup` — symlinks dotfiles to `$HOME`.
+- **Release**: `./scripts/release.sh` — tags with date format `YYYY.M.D`, runs goreleaser to build Docker debug image.
+- Shell: **fish**. Editor: **neovim**.
