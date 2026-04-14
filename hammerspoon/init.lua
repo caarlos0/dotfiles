@@ -68,8 +68,31 @@ hotkey.bind(hyper, "O", function()
   hs.application.launchOrFocus("Notes")
 end)
 
+-- rotate through chat apps (only advances if current chat app is focused)
+local chatApps = {
+  "Microsoft Teams",
+  "Slack",
+  "Discord",
+  "Telegram",
+  "WhatsApp",
+}
+local chatIndex = 1
 hotkey.bind(hyper, "P", function()
-  hs.application.launchOrFocus("Discord")
+  local frontApp = hs.application.frontmostApplication()
+  local frontName = frontApp and frontApp:name() or ""
+  local isChatApp = false
+  for _, app in ipairs(chatApps) do
+    if frontName == app then
+      isChatApp = true
+      break
+    end
+  end
+  if not isChatApp then
+    chatIndex = 1
+  elseif frontName == chatApps[chatIndex] then
+    chatIndex = (chatIndex % #chatApps) + 1
+  end
+  hs.application.launchOrFocus(chatApps[chatIndex])
 end)
 
 hotkey.bind(hyper, "H", function()
