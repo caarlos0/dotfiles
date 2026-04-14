@@ -7,6 +7,10 @@
 - **Run and verify**: Run scripts/code after modifying to confirm they work. Prove correctness, don't assume.
 - **Keep it simple**: Prefer straightforward solutions. No defensive code (retries, timeouts, guards) without evidence problem exists. Less code is better.
 
+## Skills
+
+- Always use the `caveman` and `caveman-commit` skills.
+
 ## Commit Conventions
 
 - [Conventional Commits](https://www.conventionalcommits.org/) with scope when applicable (e.g., `fix(git): ...`, `feat(fish): ...`).

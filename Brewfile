@@ -112,10 +112,10 @@ cask "hammerspoon"
 cask "imageoptim"
 cask "ledger-wallet"
 cask "goreleaser/tap/mcp"
+cask "microsoft-teams"
 cask "monodraw"
 cask "orbstack"
 cask "caarlos0/tap/pinata"
-cask "rio"
 cask "signal"
 cask "slack"
 cask "soulver"
@@ -125,6 +125,7 @@ cask "tomatobar"
 cask "vlc"
 cask "whatsapp"
 cask "zoom"
+mas "Azure VPN Client", id: 1553936137
 mas "Consent-O-Matic", id: 1606897889
 mas "Control Panel for Twitter", id: 1668516167
 mas "Control Panel for YouTube", id: 6478456678
