@@ -3,6 +3,28 @@ local hotkey = require("hs.hotkey")
 -- hyper key
 local hyper = { "alt", "ctrl", "cmd", "shift" }
 
+-- cycles through a list of apps, resetting to the first if the focused app isn't in the list
+local function appCycler(apps)
+  local index = 1
+  return function()
+    local frontApp = hs.application.frontmostApplication()
+    local frontName = frontApp and frontApp:name() or ""
+    local inList = false
+    for _, app in ipairs(apps) do
+      if frontName == app then
+        inList = true
+        break
+      end
+    end
+    if not inList then
+      index = 1
+    elseif frontName == apps[index] then
+      index = (index % #apps) + 1
+    end
+    hs.application.launchOrFocus(apps[index])
+  end
+end
+
 -- disable anymations
 hs.window.animationDuration = 0
 
@@ -56,53 +78,17 @@ hotkey.bind(hyper, "Y", function()
   hs.application.launchOrFocus("Music")
 end)
 
-hotkey.bind(hyper, "U", function()
+hotkey.bind(hyper, "U", appCycler({ "Notes", "Reminders" }))
+
+hotkey.bind(hyper, "I", appCycler({ "Mail", "Calendar" }))
+hotkey.bind(hyper, "P", appCycler({ "Messages", "Telegram", "WhatsAp" }))
+
+hotkey.bind(hyper, "J", function()
   hs.application.launchOrFocus("Ghostty")
 end)
 
-hotkey.bind(hyper, "I", function()
+hotkey.bind(hyper, "K", function()
   hs.application.launchOrFocus("Safari")
 end)
 
-hotkey.bind(hyper, "O", function()
-  hs.application.launchOrFocus("Notes")
-end)
-
--- rotate through chat apps (only advances if current chat app is focused)
-local chatApps = {
-  "Microsoft Teams",
-  "Slack",
-  "Discord",
-  "Telegram",
-  "WhatsApp",
-}
-local chatIndex = 1
-hotkey.bind(hyper, "P", function()
-  local frontApp = hs.application.frontmostApplication()
-  local frontName = frontApp and frontApp:name() or ""
-  local isChatApp = false
-  for _, app in ipairs(chatApps) do
-    if frontName == app then
-      isChatApp = true
-      break
-    end
-  end
-  if not isChatApp then
-    chatIndex = 1
-  elseif frontName == chatApps[chatIndex] then
-    chatIndex = (chatIndex % #chatApps) + 1
-  end
-  hs.application.launchOrFocus(chatApps[chatIndex])
-end)
-
-hotkey.bind(hyper, "H", function()
-  hs.application.launchOrFocus("Reminders")
-end)
-
-hotkey.bind(hyper, "J", function()
-  hs.application.launchOrFocus("Calendar")
-end)
-
-hotkey.bind(hyper, "K", function()
-  hs.application.launchOrFocus("Mail")
-end)
+hotkey.bind(hyper, "L", appCycler({ "Microsoft Teams", "Slack" }))
