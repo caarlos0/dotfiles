@@ -43,7 +43,7 @@ changelog:
       regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs|brew|homebrew|darwin|macos|linux)\\):+.*$"
       order: 100
     - title: "AI"
-      regexp: "^.*\\(ai|crush\\):+.*$"
+      regexp: "^.*\\(ai|copilot\\):+.*$"
       order: 500
     - title: Others
       order: 999
