@@ -33,15 +33,20 @@ function list_worktrees
     and echo $selected
 end
 
+function sanitize_name -a name
+    string replace -a '/' '-' -- $name
+end
+
 function worktree_path -a name
-    echo $worktree_base/(project_name)-$name
+    echo $worktree_base/(project_name)-(sanitize_name $name)
 end
 
 function find_worktree -a name
-    set -l prefixed (project_name)-$name
+    set -l sanitized (sanitize_name $name)
+    set -l prefixed (project_name)-$sanitized
     git worktree list --porcelain | grep '^worktree ' | string replace 'worktree ' '' | while read -l wt
         set -l base (basename $wt)
-        if test "$base" = "$name" -o "$base" = "$prefixed"
+        if test "$base" = "$name" -o "$base" = "$sanitized" -o "$base" = "$prefixed"
             echo $wt
             return 0
         end
@@ -66,7 +71,7 @@ function create_worktree -a name -a base_ref
         git worktree add $wt_path -b $name $base_ref
     else
         log "Creating worktree at $wt_path..."
-        git worktree add $wt_path
+        git worktree add $wt_path -b $name
     end
     or fail "failed to create worktree '$name'"
 end
