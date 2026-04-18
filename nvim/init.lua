@@ -378,7 +378,9 @@ keymap("n", "<leader>xx", function()
   })
 end, opts)
 
-require("other-nvim").setup({ mappings = { "golang" } })
+require("other-nvim").setup({
+  mappings = { "golang", "rust", "react" },
+})
 keymap("n", "<leader>oo", ":Other<cr>", opts)
 keymap("n", "<leader>ov", ":OtherVSplit<cr>", opts)
 keymap("n", "<leader>os", ":OtherSplit<cr>", opts)
