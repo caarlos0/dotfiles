@@ -91,4 +91,4 @@ hotkey.bind(hyper, "K", function()
   hs.application.launchOrFocus("Safari")
 end)
 
-hotkey.bind(hyper, "L", appCycler({ "Microsoft Teams", "Slack" }))
+hotkey.bind(hyper, "L", appCycler({ "Slack", "Microsoft Teams" }))
