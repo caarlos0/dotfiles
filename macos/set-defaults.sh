@@ -197,9 +197,11 @@ defaults write com.apple.dock size-immutable -bool true
 #############################
 
 echo ""
-echo "› Ghostty:"
+echo "› Terminals:"
 echo "  › Remap 'Hide Ghostty' to F11 (so Super+H can be used for split navigation)"
 defaults write com.mitchellh.ghostty NSUserKeyEquivalents -dict-add "Hide Ghostty" "\\UF70E"
+echo "  › Remap 'Hide rio' to F11 (so Super+H can be used for split navigation)"
+defaults write com.raphaelamorim.rio NSUserKeyEquivalents -dict-add "Hide rio" "\\UF70E"
 
 #############################
 

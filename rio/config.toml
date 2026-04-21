@@ -3,8 +3,11 @@ confirm-before-quit = false
 theme = "catppuccin"
 
 [editor]
-program = "nvim"
+program = "vim"
 args = []
+
+[effects]
+trail-cursor = true
 
 [fonts]
 size = 13
@@ -32,3 +35,19 @@ decorations = "Enabled"
 macos-use-shadow = true
 colorspace = "rec2020"
 macos-use-unified-titlebar = true
+
+[bindings]
+keys = [
+  # navigate between splits (vim-style)
+  # super+h requires remapping "Hide rio" in macOS keyboard settings
+  {key="h" , with="super", action="SelectPrevSplit"},
+  {key="j" , with="super", action="SelectPrevSplit"},
+  {key="k" , with="super", action="SelectNextSplit"},
+  {key="l" , with="super", action="SelectNextSplit"},
+
+  # resize splits
+  {key="right" , with="super", action="MoveDividerLeft"},
+  {key="down" , with="super", action="MoveDividerUp"},
+  {key="up" , with="super", action="MoveDividerDown"},
+  {key="left" , with="super", action="MoveDividerRight"},
+]
