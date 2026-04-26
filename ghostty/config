@@ -28,7 +28,7 @@ split-divider-color = #313244
 unfocused-split-fill = #000000
 
 font-family = "TX-02"
-font-size = 14
+font-size = 13
 font-feature = zero
 font-feature = calt
 font-feature = liga

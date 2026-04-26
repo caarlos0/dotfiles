@@ -40,14 +40,14 @@ macos-use-unified-titlebar = true
 keys = [
   # navigate between splits (vim-style)
   # super+h requires remapping "Hide rio" in macOS keyboard settings
-  {key="h" , with="super", action="SelectPrevSplit"},
-  {key="j" , with="super", action="SelectPrevSplit"},
-  {key="k" , with="super", action="SelectNextSplit"},
-  {key="l" , with="super", action="SelectNextSplit"},
+  {key="h" , with="super", action="SelectSplitLeft"},
+  {key="j" , with="super", action="SelectSplitDown"},
+  {key="k" , with="super", action="SelectSplitUp"},
+  {key="l" , with="super", action="SelectSplitRight"},
 
   # resize splits
-  {key="right" , with="super", action="MoveDividerLeft"},
-  {key="down" , with="super", action="MoveDividerUp"},
-  {key="up" , with="super", action="MoveDividerDown"},
-  {key="left" , with="super", action="MoveDividerRight"},
+  {key="right" , with="super", action="MoveDividerRight"},
+  {key="down" , with="super", action="MoveDividerDown"},
+  {key="up" , with="super", action="MoveDividerUp"},
+  {key="left" , with="super", action="MoveDividerLeft"},
 ]
