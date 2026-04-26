@@ -22,7 +22,7 @@ vim.opt.smoothscroll = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
-vim.opt.undodir = vim.fn.stdpath("data") .. "undodir"
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
@@ -327,27 +327,20 @@ require("auto-hlsearch").setup({})
 require("gitsigns").setup({})
 require("git-conflict").setup({})
 
--- Returns true if a USB device matching the pattern is connected (macOS only)
-local function has_usb_device(pattern)
-  local ok, result = pcall(function()
-    if vim.uv.os_uname().sysname ~= "Darwin" then
-      return false
-    end
-    local handle = io.popen("ioreg -p IOUSB -l 2>/dev/null | grep -i '" .. pattern .. "'")
-    if handle then
-      local output = handle:read("*a")
-      handle:close()
-      return output and #output > 0
-    end
-    return false
-  end)
-  return ok and result or false
-end
-
-if not has_usb_device("Moonlander") then
-  vim.notify("Setting up better escape")
-  require("better_escape").setup()
-end
+-- Toggle jk-as-escape on demand. Off by default so the laptop keyboard's
+-- muscle-memory doesn't fight an external Moonlander.
+local esc_jk_enabled = false
+vim.api.nvim_create_user_command("ToggleEscJK", function()
+  if esc_jk_enabled then
+    pcall(vim.keymap.del, "i", "jk")
+    esc_jk_enabled = false
+    vim.notify("esc-jk: off")
+  else
+    require("better_escape").setup()
+    esc_jk_enabled = true
+    vim.notify("esc-jk: on")
+  end
+end, { desc = "Toggle better-escape jk->Esc mapping" })
 
 require("image").setup({})
 
