@@ -24,9 +24,11 @@ status is-interactive; and begin
     alias freeze 'freeze -c full'
     alias t task
     alias htop btop
+    alias cop 'copilot --yolo'
 
     # go
     alias gmt 'go mod tidy'
+    alias grm 'CGO_ENABLED=0 go run ./...'
 
     # git
     alias g git
@@ -48,7 +50,6 @@ status is-interactive; and begin
     alias gp 'git push origin HEAD'
     alias gpa 'git push origin --all'
     alias gpr 'git ppr'
-    alias grm 'CGO_ENABLED=0 go run ./...'
     alias gs 'git status -sb'
     alias gw 'git switch'
     alias gwc 'git switch -c'
