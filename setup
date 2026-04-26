@@ -7,10 +7,12 @@ warn() { echo -e "  \033[38;5;137m󰀪 $*\033[0m"; }
 
 link() {
   mkdir -p "$(dirname "$2")"
-  if [ -e "$2" ]; then
-    warn "Skipping $2, already exists."
+  if [ -L "$2" ]; then
+    ln -sfn "$1" "$2"
+  elif [ -e "$2" ]; then
+    warn "Skipping $2, real file exists (move it aside to link)."
   else
-    ln -sf "$1" "$2"
+    ln -s "$1" "$2"
     success "Linked $1 to $2"
   fi
 }
@@ -28,7 +30,9 @@ fish -c "fish_config theme choose catppuccin-mocha" ||
   warn "catppuccin-mocha theme not found, skipping"
 
 # ssh
-link "$PWD"/ssh/* ~/.ssh/
+for f in "$PWD"/ssh/*; do
+  link "$f" ~/.ssh/"$(basename "$f")"
+done
 if [[ $OSTYPE == 'darwin'* ]] && [ -f ~/.ssh/id_ed25519 ]; then
   ssh-add --apple-use-keychain ~/.ssh/id_ed25519 &>/dev/null ||
     warn "Could not add SSH key to keychain, skipping"
@@ -69,6 +73,7 @@ mkdir -p ~/.agents/skills
 clone_or_update anthropic-skills https://github.com/anthropics/skills
 clone_or_update caveman https://github.com/JuliusBrussee/caveman
 for skill in ~/.agents/anthropic-skills/skills/* ~/.agents/caveman/skills/* "$PWD"/skills/*; do
+  [ -d "$skill" ] || continue
   link "$skill" ~/.agents/skills/"$(basename "$skill")"
 done
 
