@@ -5,7 +5,7 @@
       "src": "https://github.com/asiryk/auto-hlsearch.nvim"
     },
     "better-escape.nvim": {
-      "rev": "11660bc303772d9a34861a3f2d06f473752b4f69",
+      "rev": "3f4bc0b326606264ff75967f59091b5ddada0554",
       "src": "https://github.com/max397574/better-escape.nvim"
     },
     "blink-cmp-copilot": {
@@ -22,11 +22,11 @@
       "src": "https://github.com/famiu/bufdelete.nvim"
     },
     "conform.nvim": {
-      "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
+      "rev": "dca1a190aa85f9065979ef35802fb77131911106",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "copilot.lua": {
-      "rev": "aeca454727486d488a6ecbcde30db72e741e3524",
+      "rev": "3b95c93d804077dd409d62a6da53a8c92ac8f415",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
     "dressing.nvim": {
@@ -70,7 +70,7 @@
       "src": "https://github.com/norcalli/nvim-colorizer.lua"
     },
     "nvim-lspconfig": {
-      "rev": "e146efacbafed3789ac568abcc5a981c5decaa58",
+      "rev": "01b503f395cfb81053cc6b4826fe8f06d54b76f6",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-notify": {
@@ -104,7 +104,7 @@
       "src": "https://github.com/windwp/nvim-ts-autotag"
     },
     "nvim-web-devicons": {
-      "rev": "c72328a5494b4502947a022fe69c0c47e53b6aa6",
+      "rev": "8069e89df2d7259704286a5906a11c5b27d5b440",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "other.nvim": {
@@ -120,7 +120,7 @@
       "src": "https://github.com/nvim-telescope/telescope-github.nvim"
     },
     "telescope.nvim": {
-      "rev": "028d9a0695a0cc4cfa893889f8c408ed7ccc8adc",
+      "rev": "506338434fec5ad19cb1f8d45bf92d66c4917393",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "todo-comments.nvim": {
