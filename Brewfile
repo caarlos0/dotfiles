@@ -1,5 +1,4 @@
 tap "caarlos0/tap"
-tap "charmbracelet/tap"
 tap "goreleaser/tap"
 tap "homebrew/bundle"
 tap "orlangure/tap"
