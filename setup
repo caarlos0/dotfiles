@@ -60,9 +60,13 @@ if which copilot &>/dev/null; then
     success "Installed awesome-copilot/doublecheck"
   fi
 fi
-mkdir -p ~/.copilot/agents/
+mkdir -p ~/.copilot/{agents,skills}/
 wget -qcO ~/.copilot/agents/caarlos0.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/caarlos0.md
 wget -qcO ~/.copilot/agents/merencia.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/merencia.md
+for skill in "$PWD"/skills/*; do
+  [ -d "$skill" ] || continue
+  link "$skill" ~/.copilot/skills/"$(basename "$skill")"
+done
 
 # other apps
 link "$PWD"/.editorconfig ~/.editorconfig
