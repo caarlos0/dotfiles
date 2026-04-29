@@ -60,22 +60,9 @@ if which copilot &>/dev/null; then
     success "Installed awesome-copilot/doublecheck"
   fi
 fi
-
-clone_or_update() {
-  local name="$1"
-  local url="$2"
-  git clone "$url" ~/.agents/"$name" &>/dev/null ||
-    (cd ~/.agents/"$name" && git pull origin main &>/dev/null)
-}
-
-# skills
-mkdir -p ~/.agents/skills
-clone_or_update anthropic-skills https://github.com/anthropics/skills
-clone_or_update caveman https://github.com/JuliusBrussee/caveman
-for skill in ~/.agents/anthropic-skills/skills/* ~/.agents/caveman/skills/* "$PWD"/skills/*; do
-  [ -d "$skill" ] || continue
-  link "$skill" ~/.agents/skills/"$(basename "$skill")"
-done
+mkdir -p ~/.copilot/agents/
+wget -qcO ~/.copilot/agents/caarlos0.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/caarlos0.md
+wget -qcO ~/.copilot/agents/merencia.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/merencia.md
 
 # other apps
 link "$PWD"/.editorconfig ~/.editorconfig
