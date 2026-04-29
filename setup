@@ -39,7 +39,7 @@ if [[ $OSTYPE == 'darwin'* ]] && [ -f ~/.ssh/id_ed25519 ]; then
 fi
 
 # terms
-link "$PWD"/ghostty ~/.config/ghostty
+link "$PWD"/ghostty/config ~/.config/ghostty/config
 link "$PWD"/rio ~/.config/rio
 
 # neovim
