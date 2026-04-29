@@ -4,7 +4,7 @@ set -euo pipefail
 echo "Updating Homebrew..."
 brew update
 brew upgrade
-brew upgrade neovim --fetch-HEAD
+brew autoremove
 brew cleanup
 
 echo "Updating Brewfile..."
