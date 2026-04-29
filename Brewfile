@@ -123,10 +123,8 @@ cask "soulver"
 cask "caarlos0/tap/svu"
 cask "telegram"
 cask "tomatobar"
-cask "visual-studio-code"
 cask "vlc"
 cask "whatsapp"
-cask "zoom"
 mas "Azure VPN Client", id: 1553936137
 mas "Consent-O-Matic", id: 1606897889
 mas "Control Panel for Twitter", id: 1668516167
