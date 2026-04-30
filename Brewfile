@@ -93,3 +93,20 @@ cask "caarlos0/tap/svu"
 cask "telegram"
 cask "vlc"
 cask "whatsapp"
+mas "Azure VPN Client", id: 1553936137
+mas "Consent-O-Matic", id: 1606897889
+mas "Control Panel for Twitter", id: 1668516167
+mas "Control Panel for YouTube", id: 6478456678
+mas "Debit & Credit", id: 882637653
+mas "HEIC Converter", id: 1294126402
+mas "Infuse", id: 1136220934
+mas "Keynote", id: 361285480
+mas "Lungo", id: 1263070803
+mas "Numbers", id: 361304891
+mas "Okta Verify", id: 490179405
+mas "Pages", id: 361309726
+mas "Parcel", id: 375589283
+mas "Reeder", id: 1529448980
+mas "StopTheMadness", id: 1376402589
+mas "Tailscale", id: 1475387142
+mas "Vimari", id: 1480933944
