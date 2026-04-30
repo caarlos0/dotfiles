@@ -11,7 +11,7 @@ trail-cursor = true
 
 [fonts]
 size = 13
-family = "TX-02"
+family = "Berkeley Mono"
 features = ["zero","calt","liga"]
 extras = [{family="JetBrainsMono Nerd Font Mono"}]
 symbol-map = [

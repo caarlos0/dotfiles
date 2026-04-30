@@ -27,7 +27,7 @@ unfocused-split-opacity = 0.75
 split-divider-color = #313244
 unfocused-split-fill = #000000
 
-font-family = "TX-02"
+font-family = "Berkeley Mono"
 font-size = 13
 font-feature = zero
 font-feature = calt
