@@ -12,7 +12,8 @@ dockers_v2:
     extra_files:
       - setup
       - bin
-      - crush
+      - btop
+      - copilot
       - direnv
       - fd
       - fish
@@ -21,9 +22,9 @@ dockers_v2:
       - ghostty
       - git
       - hammerspoon
-      - lua
-      - nvim
       - rio
+      - nvim
+      - skills
       - ssh
 changelog:
   sort: asc
