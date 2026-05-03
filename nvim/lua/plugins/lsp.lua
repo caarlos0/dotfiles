@@ -170,6 +170,10 @@ setup_lsp("tailwindcss", {
 })
 
 setup_lsp("yamlls", {
+  on_attach = function(client, bufnr)
+    client.server_capabilities.documentFormattingProvider = false
+    on_attach(client, bufnr)
+  end,
   settings = {
     yaml = {
       schemaStore = {
