@@ -51,10 +51,10 @@ background = #000000
 
 # navigate between splits (vim-style)
 # super+h requires remapping "Hide Ghostty" in macOS keyboard settings
-keybind = super+h=goto_split:left
-keybind = super+j=goto_split:bottom
-keybind = super+k=goto_split:top
-keybind = super+l=goto_split:right
+keybind = unconsumed:super+h=goto_split:left
+keybind = unconsumed:super+j=goto_split:bottom
+keybind = unconsumed:super+k=goto_split:top
+keybind = unconsumed:super+l=goto_split:right
 
 # resize splits
 keybind = super+right=resize_split:right,50
