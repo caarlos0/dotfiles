@@ -7,10 +7,6 @@
 - **Run and verify**: Run scripts/code after modifying to confirm they work. Prove correctness, don't assume.
 - **Keep it simple**: Prefer straightforward solutions. No defensive code (retries, timeouts, guards) without evidence problem exists. Less code is better.
 
-## Skills
-
-- Always use the `caveman` and `caveman-commit` skills.
-
 ## Commit Conventions
 
 - [Conventional Commits](https://www.conventionalcommits.org/) with scope when applicable (e.g., `fix(git): ...`, `feat(fish): ...`).
@@ -21,9 +17,3 @@
 ## Git Workflow
 
 - **Always merge, never rebase, when integrating an upstream branch (e.g. `main`) into a feature branch.** Use `git merge` or `git pull --no-rebase`. Never run `git pull --rebase`, `git rebase <upstream>`, or a bare `git pull` (the local default may be rebase). Branches preserve merge topology intentionally; rebasing flattens history and forces reflog recovery.
-
-## This Repository
-
-- **Apply configs**: `./setup` — symlinks dotfiles to `$HOME`.
-- **Release**: `./scripts/release.sh` — tags with date format `YYYY.M.D`, runs goreleaser to build Docker debug image.
-- Shell: **fish**. Editor: **neovim**.
