@@ -86,6 +86,60 @@ function remove_worktree -a name
     and log "Worktree '$name' removed."
 end
 
+function is_merged -a branch -a target
+    # regular merge
+    git merge-base --is-ancestor $branch $target 2>/dev/null
+    and return 0
+
+    # squash merge: build a synthetic squash commit and check ancestry
+    set -l mb (git merge-base $target $branch 2>/dev/null)
+    or return 1
+    set -l tree (git rev-parse "$branch^{tree}" 2>/dev/null)
+    or return 1
+    set -l sc (git commit-tree $tree -p $mb -m _ 2>/dev/null)
+    or return 1
+    git merge-base --is-ancestor $sc $target 2>/dev/null
+end
+
+function cleanup_worktrees
+    set -l default_branch (git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | string replace 'refs/remotes/origin/' '')
+    if test -z "$default_branch"
+        set default_branch main
+    end
+
+    set -l current_wt (git rev-parse --show-toplevel 2>/dev/null)
+    set -l main_wt (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
+    set -l removed 0
+    set -l wt_path ""
+
+    for line in (git worktree list --porcelain)
+        if string match -q 'worktree *' $line
+            set wt_path (string replace 'worktree ' '' $line)
+        else if string match -q 'branch *' $line
+            if test -n "$wt_path" -a "$wt_path" != "$main_wt" -a "$wt_path" != "$current_wt"
+                set -l branch (string replace 'branch refs/heads/' '' $line)
+                if is_merged $branch origin/$default_branch
+                    log "Removing merged worktree '$branch'..."
+                    git worktree remove $wt_path --force
+                    and begin
+                        git branch -d $branch 2>/dev/null
+                        set removed (math $removed + 1)
+                    end
+                end
+            end
+            set wt_path ""
+        end
+    end
+
+    git worktree prune 2>/dev/null
+
+    if test $removed -eq 0
+        log "No merged worktrees to clean up."
+    else
+        log "Cleaned up $removed worktree(s)."
+    end
+end
+
 # ---
 
 ensure_repo
@@ -93,6 +147,7 @@ ensure_repo
 set -l name ""
 set -l delete false
 set -l list false
+set -l cleanup false
 set -l from_main false
 
 for arg in $argv
@@ -101,6 +156,8 @@ for arg in $argv
             set delete true
         case --list -l
             set list true
+        case --cleanup -c
+            set cleanup true
         case --main -m
             set from_main true
         case '*'
@@ -126,6 +183,8 @@ else if test -z "$name"
     if test -n "$selected"
         switch_to $selected
     end
+else if test "$name" = cleanup -o "$cleanup" = true
+    cleanup_worktrees
 else if test "$name" = -
     # switch back to main repo or previous worktree
     if set -q WT_PREVIOUS
