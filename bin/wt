@@ -44,12 +44,29 @@ end
 function find_worktree -a name
     set -l sanitized (sanitize_name $name)
     set -l prefixed (project_name)-$sanitized
-    git worktree list --porcelain | grep '^worktree ' | string replace 'worktree ' '' | while read -l wt
-        set -l base (basename $wt)
-        if test "$base" = "$name" -o "$base" = "$sanitized" -o "$base" = "$prefixed"
-            echo $wt
-            return 0
+    set -l wt_path ""
+    set -l dir_match ""
+
+    for line in (git worktree list --porcelain)
+        if string match -q 'worktree *' $line
+            set wt_path (string replace 'worktree ' '' $line)
+            set -l base (basename $wt_path)
+            if test "$base" = "$name" -o "$base" = "$sanitized" -o "$base" = "$prefixed"
+                set dir_match $wt_path
+            end
+        else if string match -q 'branch *' $line
+            set -l branch (string replace 'branch refs/heads/' '' $line)
+            if test "$branch" = "$name"
+                echo $wt_path
+                return 0
+            end
+            set wt_path ""
         end
+    end
+
+    if test -n "$dir_match"
+        echo $dir_match
+        return 0
     end
     return 1
 end
@@ -166,11 +183,21 @@ for arg in $argv
 end
 
 if test "$list" = true
-    set -l prefix (project_name)-
-    git worktree list | while read -l line
-        set -l parts (string match -r '^(\S+)\s+(\S+)' $line)
-        set -l name (string replace -- $prefix '' (basename $parts[2]))
-        printf "%s%s%s\t%s\t%s\n" (set_color --bold) $name (set_color normal) $parts[3] $parts[2]
+    set -l wt_path ""
+    set -l wt_head ""
+    for line in (git worktree list --porcelain)
+        if string match -q 'worktree *' $line
+            set wt_path (string replace 'worktree ' '' $line)
+        else if string match -q 'HEAD *' $line
+            set wt_head (string sub -l 7 (string replace 'HEAD ' '' $line))
+        else if string match -q 'branch *' $line
+            set -l branch (string replace 'branch refs/heads/' '' $line)
+            printf "%s%s%s\t%s\t%s\n" (set_color --bold) $branch (set_color normal) $wt_head $wt_path
+            set wt_path ""
+        else if test "$line" = detached
+            printf "%s%s%s\t%s\t%s\n" (set_color --bold) "(detached)" (set_color normal) $wt_head $wt_path
+            set wt_path ""
+        end
     end | column -t -s \t
 else if test "$delete" = true
     if test -z "$name"
