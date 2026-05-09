@@ -91,6 +91,12 @@ function create_worktree -a name -a base_ref
         git worktree add $wt_path -b $name
     end
     or fail "failed to create worktree '$name'"
+
+    set -l src_nm (git rev-parse --show-toplevel)/node_modules
+    if test -d $src_nm
+        ln -s $src_nm $wt_path/node_modules
+        log "Symlinked node_modules"
+    end
 end
 
 function remove_worktree -a name

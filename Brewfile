@@ -76,6 +76,7 @@ cask "discord"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 cask "ghostty"
+cask "gimp"
 cask "google-chrome"
 cask "goreleaser/tap/goreleaser-pro"
 cask "hammerspoon"
@@ -103,6 +104,7 @@ mas "Infuse", id: 1136220934
 mas "Keynote", id: 361285480
 mas "Lungo", id: 1263070803
 mas "Numbers", id: 361304891
+mas "Okta Extension App", id: 1439967473
 mas "Okta Verify", id: 490179405
 mas "Pages", id: 361309726
 mas "Parcel", id: 375589283
