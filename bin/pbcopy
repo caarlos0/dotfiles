@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-set -eo pipefail
-if test -n "$SSH_TTY"; then
-  nc -c -w1 localhost 2224
-elif test "$(uname)" = Darwin; then
-  /usr/bin/pbcopy
-fi
