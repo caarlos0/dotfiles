@@ -18,7 +18,7 @@ Rules:
 - Don't reorder imports.
 - Don't add abstractions. Remove them when they have one caller.
 - Prefer statements over nested expressions (no nested ternaries, no clever chains).
-- Delete comments that restate the code. Keep comments that explain _why_.
+- Delete comments that restate the code. Comments should explain _why_, not _what_. This includes comments that just paraphrase the signature or make tautological claims.
 - Stdlib over a dependency. Don't add a `require`/`import` of a new package to save three lines.
 - Don't expose things that don't need to be exposed, default should be private.
 - Clear up repeated code if possible.
