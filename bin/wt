@@ -33,25 +33,19 @@ function list_worktrees
     and echo $selected
 end
 
-function sanitize_name -a name
-    string replace -a '/' '-' -- $name
-end
-
 function worktree_path -a name
-    echo $worktree_base/(project_name)-(sanitize_name $name)
+    echo $worktree_base/(project_name)/$name
 end
 
 function find_worktree -a name
-    set -l sanitized (sanitize_name $name)
-    set -l prefixed (project_name)-$sanitized
+    set -l expected (worktree_path $name)
     set -l wt_path ""
     set -l dir_match ""
 
     for line in (git worktree list --porcelain)
         if string match -q 'worktree *' $line
             set wt_path (string replace 'worktree ' '' $line)
-            set -l base (basename $wt_path)
-            if test "$base" = "$name" -o "$base" = "$sanitized" -o "$base" = "$prefixed"
+            if test "$wt_path" = "$expected"
                 set dir_match $wt_path
             end
         else if string match -q 'branch *' $line
