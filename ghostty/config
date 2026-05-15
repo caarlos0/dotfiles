@@ -49,7 +49,7 @@ theme = "Catppuccin Mocha"
 background = #000000
 
 # tmux keymaps
-keybind = cmd+k=text:\x02p
+keybind = cmd+p=text:\x02p
 keybind = cmd+t=text:\x02c
 keybind = cmd+d=text:\x02i
 keybind = cmd+digit_1=text:\x021
