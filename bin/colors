@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+# Print all 256 ANSI colors with their number and a swatch in that color.
+for i in {0..255}; do
+	printf '\033[48;5;%dm     \033[0m %3d  ' "$i" "$i"
+	if (( (i + 1) % 8 == 0 )); then
+		printf '\n'
+	fi
+done
+printf '\n'
