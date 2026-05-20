@@ -22,6 +22,7 @@ Rules:
 - Stdlib over a dependency. Don't add a `require`/`import` of a new package to save three lines.
 - Don't expose things that don't need to be exposed, default should be private.
 - Clear up repeated code if possible.
+- Use DRY when it makes sense, even if it means touch code that was already there
 
 After:
 

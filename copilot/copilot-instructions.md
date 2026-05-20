@@ -12,7 +12,7 @@
 - [Conventional Commits](https://www.conventionalcommits.org/) with scope when applicable (e.g., `fix(git): ...`, `feat(fish): ...`).
 - One logical change per commit.
 - Commits signed off (`-s` flag) — configured in gitconfig.
-- **Don't commit speculative or exploratory work unless explicitly asked.** When the user says "yes" to a suggested change, treat it as approval for the change — not for committing or pushing. Wait for an explicit "commit" (or `/caveman-commit`) before creating commits.
+- **Don't commit speculative or exploratory work unless explicitly asked.** When the user says "yes" to a suggested change, treat it as approval for the change — not for committing or pushing. Wait for an explicit "commit" before creating commits.
 
 ## Git Workflow
 
