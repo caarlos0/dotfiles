@@ -204,14 +204,14 @@ else if test "$delete" = true
         fail "usage: wt <name> --delete"
     end
     remove_worktree $name
+else if test "$cleanup" = true -o "$name" = cleanup
+    cleanup_worktrees
 else if test -z "$name"
     # no args: interactive picker
     set -l selected (list_worktrees)
     if test -n "$selected"
         switch_to $selected
     end
-else if test "$name" = cleanup -o "$cleanup" = true
-    cleanup_worktrees
 else if test "$name" = -
     # switch back to main repo or previous worktree
     if set -q WT_PREVIOUS
