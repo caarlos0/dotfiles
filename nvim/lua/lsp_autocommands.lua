@@ -97,24 +97,6 @@ M.setup = function()
     group = group,
   })
 
-  vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    callback = function()
-      ---@type fun(client: vim.lsp.Client, bufnr: number)
-      local format = function(client, bufnr)
-        if client.server_capabilities.documentFormattingProvider then
-          vim.lsp.buf.format({
-            bufnr = bufnr,
-            -- for some reason gopls started timing out on big projects recently...
-            timeout_ms = 5000,
-            id = client.id,
-          })
-        end
-      end
-      on_clients(vim.api.nvim_get_current_buf(), ms.textDocument_codeAction, format)
-    end,
-    group = group,
-  })
-
   vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     callback = function()
       local bufnr = vim.api.nvim_get_current_buf()
