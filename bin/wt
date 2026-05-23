@@ -93,11 +93,37 @@ function create_worktree -a name -a base_ref
     end
 end
 
+function has_uncommitted -a wt_path
+    set -l dirty (git -C $wt_path status --porcelain 2>/dev/null)
+    test -n "$dirty"
+end
+
+function has_unpushed -a wt_path
+    set -l sha (git -C $wt_path rev-parse HEAD 2>/dev/null)
+    or return 1
+    set -l remotes (git -C $wt_path branch -r --contains $sha 2>/dev/null)
+    test -z "$remotes"
+end
+
 function remove_worktree -a name
     set -l wt_path (find_worktree $name)
     if test -z "$wt_path"
         fail "worktree '$name' not found"
     end
+
+    set -l reasons
+    has_uncommitted $wt_path; and set -a reasons "uncommitted changes"
+    has_unpushed $wt_path; and set -a reasons "unpushed commits"
+
+    if test (count $reasons) -gt 0
+        log "Worktree '$name' has "(string join " and " $reasons)"."
+        read -l -P "Remove anyway? [y/N] " confirm
+        if not string match -qir '^y' -- $confirm
+            log "Aborted."
+            return 1
+        end
+    end
+
     log "Removing worktree $wt_path..."
     git worktree remove $wt_path --force
     and log "Worktree '$name' removed."
@@ -127,6 +153,7 @@ function cleanup_worktrees
     set -l current_wt (git rev-parse --show-toplevel 2>/dev/null)
     set -l main_wt (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
     set -l removed 0
+    set -l skipped 0
     set -l wt_path ""
 
     for line in (git worktree list --porcelain)
@@ -136,11 +163,16 @@ function cleanup_worktrees
             if test -n "$wt_path" -a "$wt_path" != "$main_wt" -a "$wt_path" != "$current_wt"
                 set -l branch (string replace 'branch refs/heads/' '' $line)
                 if is_merged $branch origin/$default_branch
-                    log "Removing merged worktree '$branch'..."
-                    git worktree remove $wt_path --force
-                    and begin
-                        git branch -d $branch 2>/dev/null
-                        set removed (math $removed + 1)
+                    if has_uncommitted $wt_path
+                        log "Skipping '$branch': uncommitted changes."
+                        set skipped (math $skipped + 1)
+                    else
+                        log "Removing merged worktree '$branch'..."
+                        git worktree remove $wt_path --force
+                        and begin
+                            git branch -d $branch 2>/dev/null
+                            set removed (math $removed + 1)
+                        end
                     end
                 end
             end
@@ -150,10 +182,14 @@ function cleanup_worktrees
 
     git worktree prune 2>/dev/null
 
-    if test $removed -eq 0
-        log "No merged worktrees to clean up."
-    else
+    if test $removed -gt 0
         log "Cleaned up $removed worktree(s)."
+    end
+    if test $skipped -gt 0
+        log "Skipped $skipped worktree(s) with uncommitted changes."
+    end
+    if test $removed -eq 0 -a $skipped -eq 0
+        log "No merged worktrees to clean up."
     end
 end
 
