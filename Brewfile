@@ -48,6 +48,7 @@ brew "pgcli"
 brew "prettier"
 brew "pstree"
 brew "python-lsp-server"
+brew "qpdf"
 brew "ripgrep"
 brew "rust-analyzer"
 brew "rustup"
@@ -59,18 +60,21 @@ brew "stylua"
 brew "syft"
 brew "taplo"
 brew "telnet"
+brew "tmux"
 brew "tree-sitter-cli"
 brew "typescript-language-server"
+brew "unar"
 brew "vscode-langservers-extracted"
 brew "watch"
 brew "wget"
 brew "yaml-language-server"
+brew "zig"
 brew "zoxide"
 brew "orlangure/tap/gocovsh"
 cask "appcleaner"
 cask "caffeine"
 cask "cleanshot"
-cask "copilot-cli"
+cask "copilot-cli@prerelease"
 cask "deckset"
 cask "discord"
 cask "font-jetbrains-mono"
@@ -87,15 +91,17 @@ cask "microsoft-teams"
 cask "monodraw"
 cask "orbstack"
 cask "caarlos0/tap/pinata"
+cask "qlmarkdown"
 cask "rio"
 cask "slack"
 cask "soulver"
 cask "caarlos0/tap/svu"
 cask "telegram"
+cask "utm"
 cask "vlc"
 cask "whatsapp"
+cask "zen"
 mas "Azure VPN Client", id: 1553936137
-mas "Consent-O-Matic", id: 1606897889
 mas "Control Panel for Twitter", id: 1668516167
 mas "Control Panel for YouTube", id: 6478456678
 mas "Debit & Credit", id: 882637653
@@ -109,6 +115,4 @@ mas "Okta Verify", id: 490179405
 mas "Pages", id: 361309726
 mas "Parcel", id: 375589283
 mas "Reeder", id: 1529448980
-mas "StopTheMadness", id: 1376402589
 mas "Tailscale", id: 1475387142
-mas "Vimari", id: 1480933944
