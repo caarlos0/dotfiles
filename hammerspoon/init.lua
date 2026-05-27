@@ -25,6 +25,12 @@ local function appCycler(apps)
   end
 end
 
+local function launchOrFocus(app)
+  return function()
+    hs.application.launchOrFocus(app)
+  end
+end
+
 -- disable anymations
 hs.window.animationDuration = 0
 
@@ -74,21 +80,10 @@ hotkey.bind(hyper, "'", function()
   win:centerOnScreen()
 end)
 
-hotkey.bind(hyper, "Y", function()
-  hs.application.launchOrFocus("Music")
-end)
-
-hotkey.bind(hyper, "U", appCycler({ "Notes", "Reminders" }))
-
-hotkey.bind(hyper, "I", appCycler({ "Mail", "Calendar" }))
-hotkey.bind(hyper, "P", appCycler({ "Messages", "Telegram", "WhatsAp" }))
-
-hotkey.bind(hyper, "J", function()
-  hs.application.launchOrFocus("Ghostty")
-end)
-
-hotkey.bind(hyper, "K", function()
-  hs.application.launchOrFocus("Safari")
-end)
-
-hotkey.bind(hyper, "L", appCycler({ "Slack", "Microsoft Teams" }))
+hotkey.bind(hyper, "Y", launchOrFocus("Music"))
+hotkey.bind(hyper, "U", appCycler({ "Mail" }))
+hotkey.bind(hyper, "I", appCycler({ "Calendar" }))
+hotkey.bind(hyper, "P", appCycler({ "Slack", "Microsoft Teams" }))
+hotkey.bind(hyper, "J", launchOrFocus("Ghostty"))
+hotkey.bind(hyper, "K", appCycler({ "Brave Origin Nightly", "Safari" }))
+hotkey.bind(hyper, "H", appCycler({ "Notes", "Reminders" }))
