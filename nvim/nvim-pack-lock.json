@@ -22,11 +22,11 @@
       "src": "https://github.com/famiu/bufdelete.nvim"
     },
     "conform.nvim": {
-      "rev": "18aeab3d63d350dcf44d64c462cc489a3412af40",
+      "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "copilot.lua": {
-      "rev": "7b89909d0647c89298de880255b287b01b7e5d34",
+      "rev": "1d457ad5f267b8ef855a6b8b3fe152403cb00947",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
     "dressing.nvim": {
@@ -54,7 +54,7 @@
       "src": "https://github.com/danymat/neogen"
     },
     "nvim": {
-      "rev": "8edd468af4d63212b84d69b2ddb5ffc9023ef5eb",
+      "rev": "0303a7208dba448c459767486a38a6ec05c4216b",
       "src": "https://github.com/catppuccin/nvim"
     },
     "nvim-autopairs": {
@@ -66,7 +66,7 @@
       "src": "https://github.com/norcalli/nvim-colorizer.lua"
     },
     "nvim-lspconfig": {
-      "rev": "a4ed4e761c400849e8c9f8bda33e5083f890268c",
+      "rev": "9573948c38bfabeec353ae7dd7d3ffec4c506a6b",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-notify": {
@@ -100,7 +100,7 @@
       "src": "https://github.com/windwp/nvim-ts-autotag"
     },
     "nvim-web-devicons": {
-      "rev": "0d7d35fa946837b8738b17c18d1faa1ac351e7f9",
+      "rev": "dfbfaa967a6f7ec50789bead7ef87e336c1fa63c",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "other.nvim": {
@@ -124,7 +124,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "treesj": {
-      "rev": "5fa4e7ba3517f8fe743bb4488f9e9c7ce83330fc",
+      "rev": "79aedb401bbdc7e4202f7881eab5f6feb2105b0a",
       "src": "https://github.com/wansmer/treesj"
     },
     "vim-abolish": {
