@@ -45,10 +45,6 @@
       "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "image.nvim": {
-      "rev": "44e07129cd0ea0c60afa7a1991d35b5765b51a6b",
-      "src": "https://github.com/3rd/image.nvim"
-    },
     "lualine.nvim": {
       "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
       "src": "https://github.com/nvim-lualine/lualine.nvim"

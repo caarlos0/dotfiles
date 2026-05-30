@@ -84,7 +84,6 @@ vim.pack.add({
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/akinsho/git-conflict.nvim" },
   { src = "https://github.com/max397574/better-escape.nvim" },
-  { src = "https://github.com/3rd/image.nvim" },
 
   -- pickers
   { src = "https://github.com/nvim-lua/plenary.nvim" },
@@ -348,8 +347,6 @@ vim.api.nvim_create_user_command("ToggleEscJK", function()
     vim.notify("esc-jk: on")
   end
 end, { desc = "Toggle better-escape jk->Esc mapping" })
-
-require("image").setup({})
 
 -- setup diagnostics
 vim.diagnostic.config({
