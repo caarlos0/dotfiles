@@ -1,7 +1,6 @@
 tap "caarlos0/tap", trusted: true
 tap "goreleaser/tap", trusted: true
 tap "homebrew/bundle"
-tap "orlangure/tap", trusted: true
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Static checker for GitHub Actions workflow files
@@ -144,8 +143,6 @@ brew "yaml-language-server"
 brew "zig"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
-# Go Coverage in your terminal: a tool for exploring Go Coverage reports from the command line
-brew "orlangure/tap/gocovsh"
 # Application uninstaller
 cask "appcleaner"
 # Utility that prevents the system from going to sleep
@@ -202,8 +199,6 @@ cask "vlc"
 cask "whatsapp"
 # Connect to Windows
 cask "windows-app"
-# Gecko based web browser
-cask "zen"
 mas "Azure VPN Client", id: 1553936137
 mas "Control Panel for Twitter", id: 1668516167
 mas "Control Panel for YouTube", id: 6478456678
