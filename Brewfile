@@ -109,6 +109,8 @@ brew "rust-analyzer"
 brew "rustup"
 # Fast and accurate code counter with complexity and COCOMO estimates
 brew "scc"
+# Shared compilation cache for Rust (and others)
+brew "sccache"
 # Autoformat shell script source code
 brew "shfmt"
 # Non-interactive SSH password auth
