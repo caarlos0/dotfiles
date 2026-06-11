@@ -72,13 +72,16 @@ function bold(s) {
 function paint(code, s) {
   return (ansi && code != "") ? "\033[" code "m" s "\033[0m" : s
 }
+function link(url, s) {
+  return ansi ? "\033]8;;" url "\033\\" s "\033]8;;\033\\" : s
+}
 function color(i, v, mine,    code) {
   code = ""
   if (i == 1) code = mine ? "1;33" : "2"            # order
   else if (i == 2) code = mine ? "1;33" : "36"      # PR number
   else if (i == 3) code = mine ? "1;33" : ""        # author
   else if (i == 4) code = mine ? "1" : ""           # title
-  else if (i == 5) code = "2;4"                     # url
+  else if (i == 5) return link(v, paint("2;4", v))  # url (clickable)
   return paint(code, v)
 }
 '

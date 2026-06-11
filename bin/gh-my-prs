@@ -86,6 +86,9 @@ function bold(s) {
 function paint(code, s) {
   return (ansi && code != "") ? "\033[" code "m" s "\033[0m" : s
 }
+function link(url, s) {
+  return ansi ? "\033]8;;" url "\033\\" s "\033]8;;\033\\" : s
+}
 function color(i, v,    code) {
   code = ""
   if (i == 1) code = (v == "draft") ? "2" : "36"
@@ -104,7 +107,7 @@ function color(i, v,    code) {
   } else if (i == 6) {
     if (v == "-") code = "2"
     else code = "1;31"
-  } else if (i == 7) code = "2;4"
+  } else if (i == 7) return link(v, paint("2;4", v))
   return paint(code, v)
 }
 '
