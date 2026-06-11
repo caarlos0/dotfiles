@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+# pstree, but rooted at the owning shell of a process.
+#
+# Takes a process name or a PID, walks up the parent chain until the
+# top-most shell that owns it (e.g. your interactive shell), and
+# pstrees from there so you see that shell's subtree only.
+#
+# $1 - a PID or a (partial) process name.
+#
+# Examples
+#
+#   ppstree 1234
+#   ppstree fish
+set -e
+
+if [ -z "$1" ]; then
+  echo "usage: ppstree <pid|name>" >&2
+  exit 1
+fi
+
+# is $1 a shell? (login shells show up as e.g. "-fish")
+is_shell() {
+  case "$(ps -o comm= -p "$1" 2>/dev/null | sed 's|.*/||; s/^-//')" in
+  sh | bash | zsh | fish | dash | ksh | tcsh | csh) return 0 ;;
+  *) return 1 ;;
+  esac
+}
+
+# owning shell of $1: climb to the top-most shell in the ancestry,
+# stopping before its non-shell parent (e.g. tmux/terminal/init).
+root_of() {
+  pid="$1"
+  while :; do
+    ppid="$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d ' ')"
+    case "$ppid" in
+    "" | 0 | 1) break ;;
+    esac
+    if is_shell "$pid" && ! is_shell "$ppid"; then
+      break
+    fi
+    pid="$ppid"
+  done
+  echo "$pid"
+}
+
+if echo "$1" | grep -qE '^[0-9]+$'; then
+  pids="$1"
+else
+  pids="$(pgrep -i "$1" || true)"
+fi
+
+if [ -z "$pids" ]; then
+  echo "ppstree: no process found for '$1'" >&2
+  exit 1
+fi
+
+roots=""
+for pid in $pids; do
+  roots="$roots $(root_of "$pid")"
+done
+
+# dedupe while keeping order.
+roots="$(echo "$roots" | tr ' ' '\n' | grep -v '^$' | awk '!seen[$0]++')"
+
+# shellcheck disable=SC2086
+exec pstree $roots
