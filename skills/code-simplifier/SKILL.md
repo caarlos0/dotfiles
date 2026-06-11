@@ -9,6 +9,15 @@ Before:
 
 - Run the test suite. If it's red before you start, stop and report.
 - Read AGENTS.md / CONTRIBUTING.md / nearby code. Match existing conventions, don't import outside ones.
+- For each language present in the changed files, read the matching guide in `languages/` and apply it on top of the rules below. Map by extension:
+  - `.ts`, `.tsx`, `.mts`, `.cts` → `languages/typescript.md`
+  - `.js`, `.jsx`, `.mjs`, `.cjs` → `languages/javascript.md`
+  - `.go` → `languages/go.md`
+  - `.rs` → `languages/rust.md`
+  - `.py`, `.pyi` → `languages/python.md`
+  - `.css`, `.scss`, `.sass` → `languages/css.md`
+  - Any other language: apply the general rules below only.
+  - The guide is loaded relative to this SKILL.md. If a guide is missing, proceed with the general rules.
 
 Rules:
 
