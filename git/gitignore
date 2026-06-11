@@ -106,3 +106,4 @@ result-*
 ###
 # custom stuff
 coverage.txt
+.gh-cache
