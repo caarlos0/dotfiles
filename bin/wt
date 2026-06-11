@@ -25,10 +25,24 @@ function ensure_repo
 end
 
 function list_worktrees
-    set -l selected (git worktree list --porcelain | \
-		grep '^worktree ' | \
-		string replace 'worktree ' '' | \
-		fzf --prompt "worktree> ")
+    set -l lines
+    set -l wt_path ""
+    for line in (git worktree list --porcelain)
+        if string match -q 'worktree *' $line
+            set wt_path (string replace 'worktree ' '' $line)
+        else if string match -q 'branch *' $line
+            set -l branch (string replace 'branch refs/heads/' '' $line)
+            set -a lines "$wt_path"\t"$branch"
+            set wt_path ""
+        else if test "$line" = detached
+            set -a lines "$wt_path"\t(basename $wt_path)" (detached)"
+            set wt_path ""
+        end
+    end
+
+    set -l selected (printf '%s\n' $lines | \
+        fzf --prompt "worktree> " --with-nth 2 --delimiter \t | \
+        string split -f1 \t)
     test -n "$selected"
     and echo $selected
 end
@@ -87,7 +101,7 @@ function create_worktree -a name -a base_ref
     or fail "failed to create worktree '$name'"
 
     set -l src_nm (git rev-parse --show-toplevel)/node_modules
-    if test -d $src_nm
+    if test -d $src_nm; and not test -f (git rev-parse --show-toplevel)/pnpm-lock.yaml
         ln -s $src_nm $wt_path/node_modules
         log "Symlinked node_modules"
     end
@@ -152,45 +166,70 @@ function cleanup_worktrees
 
     set -l current_wt (git rev-parse --show-toplevel 2>/dev/null)
     set -l main_wt (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
-    set -l removed 0
-    set -l skipped 0
-    set -l wt_path ""
 
+    set -l clean_lines
+    set -l other_lines
+    set -l wt_path ""
     for line in (git worktree list --porcelain)
         if string match -q 'worktree *' $line
             set wt_path (string replace 'worktree ' '' $line)
         else if string match -q 'branch *' $line
+            set -l branch (string replace 'branch refs/heads/' '' $line)
             if test -n "$wt_path" -a "$wt_path" != "$main_wt" -a "$wt_path" != "$current_wt"
-                set -l branch (string replace 'branch refs/heads/' '' $line)
-                if is_merged $branch origin/$default_branch
-                    if has_uncommitted $wt_path
-                        log "Skipping '$branch': uncommitted changes."
-                        set skipped (math $skipped + 1)
-                    else
-                        log "Removing merged worktree '$branch'..."
-                        git worktree remove $wt_path --force
-                        and begin
-                            git branch -d $branch 2>/dev/null
-                            set removed (math $removed + 1)
-                        end
-                    end
+                set -l markers
+                is_merged $branch origin/$default_branch; or set -a markers "not merged"
+                has_uncommitted $wt_path; and set -a markers "uncommitted changes"
+                has_unpushed $wt_path; and set -a markers "unpushed commits"
+                if test (count $markers) -eq 0
+                    set -a clean_lines "$branch"\t"$wt_path"\t"$branch "(set_color green)"[merged]"(set_color normal)
+                else
+                    set -a other_lines "$branch"\t"$wt_path"\t"$branch "(set_color red)"["(string join "] [" $markers)"]"(set_color normal)
                 end
             end
+            set wt_path ""
+        else if test "$line" = detached
             set wt_path ""
         end
     end
 
-    git worktree prune 2>/dev/null
+    set -l all_lines $clean_lines $other_lines
+    if test (count $all_lines) -eq 0
+        log "No worktrees to clean up."
+        return 0
+    end
 
-    if test $removed -gt 0
-        log "Cleaned up $removed worktree(s)."
+    set -l fzf_args --multi --sync --ansi --with-nth 3 --delimiter \t \
+        --prompt "cleanup> " \
+        --header "tab: toggle  enter: remove selected  esc: cancel"
+
+    set -l n (count $clean_lines)
+    if test $n -gt 0
+        set -l bind ""
+        for i in (seq 1 $n)
+            set bind "$bind+pos($i)+select"
+        end
+        set bind (string sub -s 2 "$bind")
+        set -a fzf_args --bind "load:$bind+pos(1)"
     end
-    if test $skipped -gt 0
-        log "Skipped $skipped worktree(s) with uncommitted changes."
+
+    set -l selected (printf '%s\n' $all_lines | fzf $fzf_args)
+    if test -z "$selected"
+        log "Nothing selected."
+        return 0
     end
-    if test $removed -eq 0 -a $skipped -eq 0
-        log "No merged worktrees to clean up."
+
+    set -l removed 0
+    for sel in $selected
+        set -l branch (string split -f1 \t -- $sel)
+        set -l path (string split -f2 \t -- $sel)
+        log "Removing worktree '$branch'..."
+        if git worktree remove $path --force
+            git branch -D $branch 2>/dev/null
+            set removed (math $removed + 1)
+        end
     end
+    git worktree prune 2>/dev/null
+    log "Removed $removed worktree(s)."
 end
 
 # ---
@@ -219,22 +258,24 @@ for arg in $argv
 end
 
 if test "$list" = true
+    set -l main_wt (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
     set -l wt_path ""
-    set -l wt_head ""
     for line in (git worktree list --porcelain)
         if string match -q 'worktree *' $line
             set wt_path (string replace 'worktree ' '' $line)
-        else if string match -q 'HEAD *' $line
-            set wt_head (string sub -l 7 (string replace 'HEAD ' '' $line))
         else if string match -q 'branch *' $line
-            set -l branch (string replace 'branch refs/heads/' '' $line)
-            printf "%s%s%s\t%s\t%s\n" (set_color --bold) $branch (set_color normal) $wt_head $wt_path
+            if test "$wt_path" != "$main_wt"
+                set -l branch (string replace 'branch refs/heads/' '' $line)
+                printf "%s%s%s\n" (set_color --bold) $branch (set_color normal)
+            end
             set wt_path ""
         else if test "$line" = detached
-            printf "%s%s%s\t%s\t%s\n" (set_color --bold) "(detached)" (set_color normal) $wt_head $wt_path
+            if test "$wt_path" != "$main_wt"
+                printf "%s%s%s\n" (set_color --bold) "(detached)" (set_color normal)
+            end
             set wt_path ""
         end
-    end | column -t -s \t
+    end
 else if test "$delete" = true
     if test -z "$name"
         fail "usage: wt <name> --delete"
