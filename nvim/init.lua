@@ -811,6 +811,8 @@ telescope.setup({
       "--column",
       "--smart-case",
       "--sort=path",
+      "--hidden",
+      "--glob=!**/.git/*",
     },
   },
 })
