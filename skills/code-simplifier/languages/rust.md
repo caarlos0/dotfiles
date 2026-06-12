@@ -29,7 +29,7 @@ Behavior-preserving simplifications idiomatic to Rust. Apply only what fits the 
 - Remove needless `return`, `;`-then-`return`, and explicit `.into()`/`as` casts the compiler infers.
 - Drop lifetimes the compiler can elide.
 - Delete `#[allow(...)]` that no longer suppresses anything.
-- Hunt for code the change orphaned: the compiler's `dead_code`/`unused` warnings and `cargo clippy` flag unused items. Delete it — don't silence it with `#[allow(dead_code)]`.
+- Hunt for dead code (orphaned by the change, or already stale in these files): the compiler's `dead_code`/`unused` warnings and `cargo clippy` flag unused items. Delete it — don't silence it with `#[allow(dead_code)]`.
 
 ## Avoid
 

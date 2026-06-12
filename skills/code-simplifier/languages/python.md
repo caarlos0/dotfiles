@@ -23,7 +23,7 @@ Behavior-preserving simplifications idiomatic to Python (3.9+). Apply only what 
 ## Cleanup
 
 - Remove unused imports, variables, and debug `print`s.
-- Hunt for code the change orphaned: `ruff`/`pyflakes` flag unused imports and locals; `vulture` finds dead functions and classes. Delete what's truly dead.
+- Hunt for dead code (orphaned by the change, or already stale in these files): `ruff`/`pyflakes` flag unused imports and locals; `vulture` finds dead functions and classes. Delete what's truly dead.
 - Collapse `x = x` style no-ops and redundant `else` after `return`.
 - Delete comments that restate code; keep the *why*.
 - Use `enumerate`/`items()` instead of indexing into the thing you're iterating.

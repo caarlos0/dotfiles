@@ -27,7 +27,7 @@ Behavior-preserving simplifications idiomatic to TypeScript. Apply only what fit
 
 ## Cleanup
 
-- Hunt for code the change orphaned: `tsc` with `noUnusedLocals`/`noUnusedParameters` flags unused locals and params; `knip`/`ts-prune` find unused exports and files. Delete what's truly dead.
+- Hunt for dead code (orphaned by the change, or already stale in these files): `tsc` with `noUnusedLocals`/`noUnusedParameters` flags unused locals and params; `knip`/`ts-prune` find unused exports and files. Delete what's truly dead.
 
 ## Avoid
 

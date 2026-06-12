@@ -22,7 +22,7 @@ Behavior-preserving simplifications idiomatic to modern JavaScript (ES2020+). Ap
 ## Cleanup
 
 - Delete dead branches, unused variables, and console logging left from debugging.
-- Hunt for code the change orphaned: eslint's `no-unused-vars`/`no-unreachable` flag locals and dead branches; `knip` finds unused exports and files. Delete what's truly dead.
+- Hunt for dead code (orphaned by the change, or already stale in these files): eslint's `no-unused-vars`/`no-unreachable` flag locals and dead branches; `knip` finds unused exports and files. Delete what's truly dead.
 - Collapse an IIFE that no longer needs its own scope.
 - Replace promise `.then` chains with `async`/`await` only when it's clearly shorter and the file already uses async.
 
