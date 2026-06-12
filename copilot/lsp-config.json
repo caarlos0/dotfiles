@@ -1,0 +1,42 @@
+{
+  "lspServers": {
+    "go": {
+      "command": "gopls",
+      "args": [
+        "serve"
+      ],
+      "fileExtensions": {
+        ".go": "go",
+        ".sum": "gosum",
+        ".mod": "gomod"
+      }
+    },
+    "typescript": {
+      "command": "typescript-language-server",
+      "args": [
+        "--stdio"
+      ],
+      "fileExtensions": {
+        ".ts": "typescript",
+        ".tsx": "typescriptreact",
+        ".js": "javascript",
+        ".jsx": "javascriptreact",
+        ".mjs": "javascript",
+        ".cjs": "javascript",
+        ".mts": "typescript",
+        ".cts": "typescript"
+      }
+    },
+    "rust": {
+      "command": "rustup",
+      "args": [
+        "run",
+        "stable",
+        "rust-analyzer"
+      ],
+      "fileExtensions": {
+        ".rs": "rust"
+      }
+    }
+  }
+}

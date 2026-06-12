@@ -84,6 +84,8 @@ link "$PWD"/gh-dash/config.yml ~/.config/gh-dash/config.yml
 link "$PWD"/fd/ignore ~/.config/fd/ignore
 link "$PWD"/direnv ~/.config/direnv
 link "$PWD"/copilot/copilot-instructions.md ~/.copilot/copilot-instructions.md
+link "$PWD"/copilot/lsp-config.json ~/.copilot/lsp-config.json
+link "$PWD"/copilot/mcp-config.json ~/.copilot/mcp-config.json
 
 if [[ $OSTYPE == 'darwin'* ]]; then
   brew bundle &>/dev/null

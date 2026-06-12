@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "goreleaser": {
+      "tools": [
+        "*"
+      ],
+      "type": "stdio",
+      "command": "goreleaser-mcp",
+      "args": []
+    },
+    "stripe": {
+      "type": "http",
+      "url": "https://mcp.stripe.com",
+      "headers": {},
+      "tools": [
+        "*"
+      ]
+    }
+  }
+}
