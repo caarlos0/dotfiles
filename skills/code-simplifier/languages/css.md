@@ -21,7 +21,7 @@ Behavior-preserving simplifications for CSS (and preprocessors like SCSS). Apply
 - Remove redundant/overridden declarations within the same rule.
 - Drop vendor prefixes that autoprefixer or current browser targets make unnecessary.
 - Delete `!important` that's no longer needed after specificity is sorted — but don't remove one load-bearing `!important` without checking.
-- Remove dead selectors and empty rule blocks.
+- Remove dead selectors and empty rule blocks — including rules orphaned when your change drops or renames a class/selector. Confirm nothing in the markup/components still references them before deleting.
 - Reduce over-qualified selectors (`ul li a` → `nav a`) and deep nesting in SCSS (keep ≤3 levels).
 
 ## Avoid

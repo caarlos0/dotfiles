@@ -28,6 +28,7 @@ Behavior-preserving simplifications idiomatic to Go. Apply only what fits the su
 
 - Delete comments that restate the code; keep `// why`.
 - Remove unused struct fields, params, and named returns that add nothing.
+- Hunt for code the change orphaned: the compiler flags unused imports and locals; `staticcheck` and `deadcode` (golang.org/x/tools) catch unused funcs, types, and fields. Delete what's truly dead.
 
 ## Avoid
 

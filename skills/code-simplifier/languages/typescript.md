@@ -25,6 +25,10 @@ Behavior-preserving simplifications idiomatic to TypeScript. Apply only what fit
 - Remove redundant `async`/`await` (e.g. `return await x` where no try/catch — but keep it inside try blocks where it changes stack traces/catch behavior).
 - Drop non-null assertions `!` when a guard or optional chaining expresses intent more safely.
 
+## Cleanup
+
+- Hunt for code the change orphaned: `tsc` with `noUnusedLocals`/`noUnusedParameters` flags unused locals and params; `knip`/`ts-prune` find unused exports and files. Delete what's truly dead.
+
 ## Avoid
 
 - Don't add a runtime dependency (lodash, ramda) to save a few lines stdlib/`Array` already covers.
