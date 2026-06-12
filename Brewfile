@@ -103,8 +103,6 @@ brew "python-lsp-server"
 brew "qpdf"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
-# Experimental Rust compiler front-end for IDEs
-brew "rust-analyzer"
 # Rust toolchain installer
 brew "rustup"
 # Fast and accurate code counter with complexity and COCOMO estimates

@@ -136,13 +136,19 @@ setup_lsp("ts_ls", {
   },
 })
 
+-- rust-analyzer is run through rustup so it always matches the active toolchain.
+-- The bare `rust-analyzer` on PATH is a rustup proxy that doesn't forward, so
+-- invoke it explicitly via `rustup run`.
+setup_lsp("rust_analyzer", {
+  cmd = { "rustup", "run", "stable", "rust-analyzer" },
+})
+
 for _, lsp in ipairs({
   "bashls",
   "clangd",
   "cssls",
   "jsonls",
   "pylsp",
-  "rust_analyzer",
   "taplo",
   "templ",
   "terraformls",

@@ -91,6 +91,10 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   brew bundle &>/dev/null
 fi
 
+# Rust components are managed by rustup so they match the active toolchain.
+rustup component add rust-analyzer rust-src rustfmt clippy &>/dev/null ||
+  warn "Could not add rust components (is rustup set up?)"
+
 # Fish setup
 if ! grep -q fish /etc/shells; then
   info "Adding $(which fish) to /etc/shells - will ask sudo password"
