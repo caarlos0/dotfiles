@@ -178,9 +178,11 @@ function cleanup_worktrees
             set -l branch (string replace 'branch refs/heads/' '' $line)
             if test -n "$wt_path" -a "$wt_path" != "$main_wt" -a "$wt_path" != "$current_wt"
                 set -l markers
-                is_merged $branch origin/$default_branch; or set -a markers "not merged"
+                if not is_merged $branch origin/$default_branch
+                    set -a markers "not merged"
+                    has_unpushed $wt_path; and set -a markers "unpushed commits"
+                end
                 has_uncommitted $wt_path; and set -a markers "uncommitted changes"
-                has_unpushed $wt_path; and set -a markers "unpushed commits"
                 if test (count $markers) -eq 0
                     set -a clean_lines "$branch"\t"$wt_path"\t"$branch "(set_color green)"[merged]"(set_color normal)
                 else
