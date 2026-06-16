@@ -148,14 +148,15 @@ function is_merged -a branch -a target
     git merge-base --is-ancestor $branch $target 2>/dev/null
     and return 0
 
-    # squash merge: build a synthetic squash commit and check ancestry
+    # squash merge: build a synthetic squash commit and check whether its
+    # patch is already present in target (git cherry marks it with "-")
     set -l mb (git merge-base $target $branch 2>/dev/null)
     or return 1
     set -l tree (git rev-parse "$branch^{tree}" 2>/dev/null)
     or return 1
     set -l sc (git commit-tree $tree -p $mb -m _ 2>/dev/null)
     or return 1
-    git merge-base --is-ancestor $sc $target 2>/dev/null
+    string match -q -- '-*' (git cherry $target $sc 2>/dev/null)
 end
 
 function cleanup_worktrees
