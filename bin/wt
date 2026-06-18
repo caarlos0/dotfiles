@@ -89,9 +89,16 @@ function switch_to -a dir
     end
 end
 
+function branch_exists -a name
+    git show-ref --verify --quiet refs/heads/$name
+end
+
 function create_worktree -a name -a base_ref
     set -l wt_path (worktree_path $name)
-    if test -n "$base_ref"
+    if branch_exists $name
+        log "Creating worktree at $wt_path from existing branch $name..."
+        git worktree add $wt_path $name
+    else if test -n "$base_ref"
         log "Creating worktree at $wt_path from $base_ref..."
         git worktree add $wt_path -b $name $base_ref
     else
