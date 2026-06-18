@@ -12,7 +12,6 @@ dockers_v2:
     extra_files:
       - setup
       - bin
-      - btop
       - copilot
       - direnv
       - fd

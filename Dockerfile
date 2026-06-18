@@ -11,7 +11,7 @@ RUN apk add -U \
   fzf \
   git \
   hey \
-  btop \
+  htop \
   lsd \
   mtr \
   postgresql-client \

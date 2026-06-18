@@ -4,7 +4,7 @@
 switch $argv[1]
     case ack fd find fzf grep rg
         echo 
-    case atop htop btop top
+    case atop htop top
         echo 
     case bash fish zsh sh ash
         echo 

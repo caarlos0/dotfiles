@@ -30,7 +30,6 @@ alias vimdiff 'nvim -d'
 alias ta 'tmux new -A -s default'
 alias freeze 'freeze -c full'
 alias t task
-alias htop btop
 alias cop 'copilot --yolo'
 
 # go

@@ -15,8 +15,8 @@ brew "ansible"
 brew "asciinema"
 # Language Server for Bash
 brew "bash-language-server"
-# Resource monitor. C++ version and continuation of bashtop and bpytop
-brew "btop"
+# Improved top (interactive process viewer)
+brew "htop"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Container Signing
