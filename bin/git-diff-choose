@@ -1,19 +1,12 @@
 #!/bin/bash
 # Stolen from Ayman
 
-# Exit on error
 set -euo pipefail
 
 FILES=$(git diff --name-only)
 
 choose() {
-  FILE=$(echo "$FILES" | gum choose --cursor " ")
-
-  if [ -z "$FILE" ]; then
-    echo "No file selected"
-    exit 1
-  fi
-
+  FILE=$(echo "$FILES" | fzf --prompt " " --preview 'git diff --color=always -- {}') || exit 0
   git diff -- "$FILE"
 }
 
