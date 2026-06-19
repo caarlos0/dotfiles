@@ -3,12 +3,12 @@ set -euo pipefail
 
 echo "Updating Homebrew..."
 brew update
-brew upgrade
+brew upgrade --yes
 brew autoremove
 brew cleanup
 
 echo "Updating Brewfile..."
-brew bundle dump --no-go --no-uv --no-cargo --force
+brew bundle dump --no-go --no-uv --no-cargo --no-npm --force
 
 echo "Updating Neovim plugins..."
 nvim --headless +"lua vim.pack.update(nil, { force = true })" +qa &>/dev/null
