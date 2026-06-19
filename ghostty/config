@@ -51,6 +51,7 @@ background = #000000
 # tmux keymaps
 keybind = cmd+p=text:\x02p
 keybind = cmd+t=text:\x02c
+keybind = cmd+w=text:\x02x
 keybind = cmd+d=text:\x02i
 keybind = cmd+digit_1=text:\x021
 keybind = cmd+digit_2=text:\x022
