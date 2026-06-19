@@ -19,6 +19,14 @@ function project_name
     end
 end
 
+function default_branch
+    set -l branch (git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | string replace 'refs/remotes/origin/' '')
+    if test -z "$branch"
+        set branch main
+    end
+    echo $branch
+end
+
 function ensure_repo
     git rev-parse --git-dir >/dev/null 2>&1
     or fail "not inside a git repository"
@@ -84,6 +92,7 @@ function switch_to -a dir
         echo "$dir"
     else
         log "Switching to $dir"
+        set -gx WT_PREVIOUS (git rev-parse --show-toplevel 2>/dev/null)
         cd $dir
         exec fish
     end
@@ -167,10 +176,7 @@ function is_merged -a branch -a target
 end
 
 function cleanup_worktrees
-    set -l default_branch (git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | string replace 'refs/remotes/origin/' '')
-    if test -z "$default_branch"
-        set default_branch main
-    end
+    set -l default_branch (default_branch)
 
     set -l current_wt (git rev-parse --show-toplevel 2>/dev/null)
     set -l main_wt (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
@@ -319,7 +325,7 @@ else
         switch_to $existing
     else
         if test "$from_main" = true
-            create_worktree $name origin/main
+            create_worktree $name origin/(default_branch)
         else
             create_worktree $name
         end
