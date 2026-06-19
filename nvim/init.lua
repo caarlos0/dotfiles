@@ -594,7 +594,15 @@ end
 -- Opens the directory of the current file in Finder/file explorer.
 vim.api.nvim_create_user_command("Finder", "!open %:h", {})
 
-vim.api.nvim_create_autocmd({
+-- All autocommands below share one cleared augroup so re-sourcing this file
+-- replaces the handlers instead of stacking duplicates.
+local augroup = vim.api.nvim_create_augroup("init", { clear = true })
+local function autocmd(event, opts)
+  opts.group = opts.group or augroup
+  return vim.api.nvim_create_autocmd(event, opts)
+end
+
+autocmd({
   "BufEnter",
   "CursorHold",
   "CursorHoldI",
@@ -605,20 +613,20 @@ vim.api.nvim_create_autocmd({
 })
 
 -- resize splits if window got resized
-vim.api.nvim_create_autocmd({ "VimResized" }, {
+autocmd({ "VimResized" }, {
   callback = function()
     vim.cmd("tabdo wincmd =")
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = "gitcommit",
   command = "startinsert",
 })
 
 -- ensure the parent folder exists, so it gets properly added to the lsp
 -- context and everything just works.
-vim.api.nvim_create_autocmd("BufNewFile", {
+autocmd("BufNewFile", {
   pattern = "*",
   callback = function()
     local dir = vim.fn.expand("<afile>:p:h")
@@ -631,7 +639,7 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 
 -- Highlight on yank
 -- See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
+autocmd("TextYankPost", {
   pattern = "*",
   callback = function()
     vim.hl.on_yank()
@@ -639,7 +647,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Open help window in a vertical split to the right.
-vim.api.nvim_create_autocmd("BufWinEnter", {
+autocmd("BufWinEnter", {
   pattern = { "*.txt" },
   callback = function()
     if vim.o.filetype == "help" then
@@ -648,7 +656,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = "git",
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
@@ -657,7 +665,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = "fugitive",
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
@@ -695,7 +703,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = "gitcommit",
   callback = function()
     vim.opt_local.spell = true
@@ -703,7 +711,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = { "qf", "help" },
   callback = function()
     keymap("n", "<leader>q", ":bdelete<CR>", {
@@ -724,7 +732,7 @@ local get_gopls = function(bufnr)
   return nil
 end
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = "go",
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
@@ -774,7 +782,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = "markdown",
   callback = function()
     vim.opt_local.spell = true
