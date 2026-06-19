@@ -79,10 +79,11 @@ M.setup = function()
       if client == nil then
         return
       end
-      if client:supports_method(ms.textDocument_codeLens, vim.api.nvim_get_current_buf()) then
-        vim.lsp.inlay_hint.enable(true)
+      if client:supports_method(ms.textDocument_inlayHint, args.buf) then
+        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
       end
     end,
+    group = group,
   })
   vim.api.nvim_create_autocmd("LspDetach", {
     callback = function(args)
