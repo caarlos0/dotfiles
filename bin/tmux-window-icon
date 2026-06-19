@@ -1,0 +1,313 @@
+#!/usr/bin/env fish
+# Print the Nerd Font glyph for a tmux tab: the current branch's PR status when the
+# branch has a pull request, otherwise the icon for the running command.
+#
+# Meant for tmux window-status-format, taking the pane path and current command.
+# The surrounding format supplies the spacing and resets fg afterwards so a PR
+# status color does not bleed into the window name, e.g.:
+#   "... #I #(tmux-window-icon #{pane_current_path} #{pane_current_command}) #[fg=#89b4fa]#{b:...} ..."
+#
+# tmux re-expands every window's status line on each redraw (status-interval),
+# so this stays cheap: it reads a short-lived cache and refreshes the status in
+# a detached background process via `gh`, never blocking the status bar or
+# hammering the GitHub API. Non-git / non-GitHub / no-PR tabs print nothing.
+
+set -g ttl 30
+set -g cache_dir "$HOME/.cache/tmux-window-icon"
+
+# Glyphs + colors (Catppuccin Mocha, matching tmux.conf).
+# Nerd Font: f058 check-circle, f057 times-circle, f111 circle, e0a0 branch, f071 warning.
+set -g glyph_pass (printf '\uf058')
+set -g glyph_fail (printf '\uf057')
+set -g glyph_pending (printf '\uf111')
+set -g glyph_merged (printf '\ue0a0')
+set -g glyph_conflicts (printf '\uf071')
+set -g color_pass '#a6e3a1'
+set -g color_fail '#f38ba8'
+set -g color_pending '#f9e2af'
+set -g color_merged '#cba6f7'
+set -g color_conflicts '#fab387'
+
+# Return a styled glyph for one of the known states, or nothing. The switch never
+# echoes its input, so it can only ever produce a known PR-status glyph.
+function emit --argument-names state
+    switch $state
+        case pass
+            printf '#[fg=%s]%s' $color_pass $glyph_pass
+        case fail
+            printf '#[fg=%s]%s' $color_fail $glyph_fail
+        case pending
+            printf '#[fg=%s]%s' $color_pending $glyph_pending
+        case merged
+            printf '#[fg=%s]%s' $color_merged $glyph_merged
+        case conflicts
+            printf '#[fg=%s]%s' $color_conflicts $glyph_conflicts
+    end
+end
+
+function age --argument-names f
+    set -l m (stat -f %m $f 2>/dev/null)
+    test -n "$m"; and math (date +%s) - $m
+end
+
+# Nerd Font icon for a command name (merged from bin/icons), or nothing.
+function command_icon
+    switch $argv[1]
+        case ack fd find fzf grep rg
+            echo 
+        case atop htop top
+            echo 
+        case bash fish zsh sh ash
+            echo 
+        case bat cat
+            echo 
+        case clx
+            echo 
+        case copilot
+            echo 
+        case cp duplicate
+            echo 
+        case diff
+            echo 
+        case mv
+            echo 󰉒
+        case curl http pint lynx wget w3m
+            echo 
+        case docker docker-compose podman
+            echo 
+        case lf ls nnn ranger lsd
+            echo 
+        case elixir mix
+            echo 
+        case gh gh-dash
+            echo 
+        case git lazygit tig
+            echo 
+        case glow
+            echo 
+        case go goreleaser
+            echo 
+        case java mvn
+            echo 
+        case less more
+            echo 
+        case lua
+            echo 
+        case man
+            echo 
+        case nano pico
+            echo 
+        case node
+            echo 
+        case npm pnpm
+            echo 
+        case 'nix*'
+            echo 󱄅
+        case vim vi
+            echo 
+        case nvim
+            echo 
+        case python pip
+            echo 
+        case rm
+            echo 
+        case rsync
+            echo 
+        case rust cargo rustup
+            echo 
+        case ruby irb
+            echo 
+        case scp ssh
+            echo 󰣀
+        case sleep
+            echo 
+        case sudo
+            echo 
+        case tail
+            echo 
+        case task make
+            echo 
+        case tmux
+            echo 
+        case youtube-dl
+            echo 
+        case age bw gpg op pass pinentry
+            echo 
+        case ansible
+            echo 
+        case bun
+            echo 
+        case composer
+            echo 
+        case deno
+            echo 󰟓
+        case dig nslookup ping traceroute mtr nc netcat nmap tcpdump
+            echo 󰛳
+        case du df ncdu dust
+            echo 
+        case eslint
+            echo 
+        case ffmpeg mpv yt-dlp
+            echo 
+        case helm
+            echo ⎈
+        case imagemagick magick convert
+            echo 
+        case jq yq
+            echo 󰘦
+        case mongo mongosh
+            echo 
+        case mysql mariadb
+            echo 
+        case openssl
+            echo 
+        case psql
+            echo 
+        case redis-cli
+            echo 
+        case screen
+            echo 
+        case sqlite sqlite3
+            echo 
+        case swift
+            echo 
+        case tar zip unzip gzip gunzip
+            echo 
+        case terraform tofu tflint
+            echo 
+        case time
+            echo 
+        case tsc
+            echo 
+        case watch
+            echo 
+        case xcodebuild
+            echo 
+        case yarn
+            echo 
+        case zig
+            echo 
+    end
+end
+
+# --- background worker: tmux-window-icon --refresh <top> <rev> <statefile> <lockdir>
+if test "$argv[1]" = --refresh
+    set -l top $argv[2]
+    set -l rev $argv[3]
+    set -l statefile $argv[4]
+    set -l lockdir $argv[5]
+
+    # Only ever write inside the cache dir, so a misaligned call can't litter repos.
+    string match -q -- "$cache_dir/*" $statefile
+    or begin
+        rm -rf $lockdir
+        exit 0
+    end
+
+    cd $top 2>/dev/null
+    or begin
+        rm -rf $lockdir
+        exit 0
+    end
+
+    set -l state none
+    # No branch arg: `gh pr view <branch>` matches only the base repo and misses
+    # cross-repo (fork) PRs; bare gh uses the current branch (we cd'd into $top).
+    # Precedence: merged > conflicts > failing/pending/passing checks.
+    set -l pr (gh pr view --json state,mergeable -q '.state, .mergeable' 2>/dev/null)
+    switch "$pr[1]"
+        case MERGED
+            set state merged
+        case OPEN CLOSED
+            if test "$pr[2]" = CONFLICTING
+                set state conflicts
+            else
+                set -l buckets (gh pr checks --json bucket -q '.[].bucket' 2>/dev/null)
+                if test (count $buckets) -gt 0
+                    if contains fail $buckets; or contains cancel $buckets
+                        set state fail
+                    else if contains pending $buckets
+                        set state pending
+                    else if contains pass $buckets
+                        set state pass
+                    end
+                end
+            end
+    end
+
+    set -l tmp "$statefile.tmp.$fish_pid"
+    printf '%s\n%s' $rev $state >$tmp
+    mv -f $tmp $statefile
+    rm -rf $lockdir
+    exit 0
+end
+
+# --- fast path (called by tmux with a pane path and the current command) ---
+# Last arg is the command (for the icon fallback); the rest is the path.
+set -l cmd
+set -l dir
+if test (count $argv) -ge 2
+    set cmd $argv[-1]
+    set dir (string join ' ' -- $argv[1..-2])
+else
+    set dir (string join ' ' -- $argv)
+end
+# PR status, only when the pane's directory is inside a git repo.
+set -l out
+set -l info
+test -n "$dir"; and set info (git -C "$dir" rev-parse HEAD --show-toplevel --abbrev-ref HEAD 2>/dev/null)
+if test (count $info) -ge 3
+    set -l head $info[1]
+    set -l top $info[2]
+    set -l branch $info[3]
+
+    # Revision signature: HEAD plus the push target, so commits, branch switches
+    # and `git push` all invalidate the cache (the upstream ref moves on push).
+    set -l up (git -C "$dir" rev-parse --verify --quiet '@{upstream}' 2>/dev/null)
+    set -l rev (string join - $head $up)
+
+    mkdir -p $cache_dir 2>/dev/null
+    # filename-safe cache key from repo path + branch (no subprocess: pure builtin)
+    set -l key (string replace -r -a '[^A-Za-z0-9._-]' _ -- "$top#$branch")
+    set -l statefile "$cache_dir/$key.state"
+    set -l lockdir "$cache_dir/$key.lock"
+
+    # cache file is rev then state
+    set -l cached
+    test -f $statefile; and set cached (cat $statefile)
+    test (count $cached) -ge 2; and set out (emit $cached[2])
+
+    # refresh when the cache is missing, stale (TTL), or for a different revision
+    set -l need_refresh 1
+    set -l st (age $statefile)
+    if test (count $cached) -ge 2; and test "$cached[1]" = "$rev"; and test -n "$st"; and test $st -lt $ttl
+        set need_refresh 0
+    end
+
+    if test $need_refresh -eq 1
+        set -l locked 0
+        if mkdir $lockdir 2>/dev/null
+            set locked 1
+        else
+            set -l lt (age $lockdir)
+            if test -n "$lt"; and test $lt -gt 120
+                rm -rf $lockdir
+                and mkdir $lockdir 2>/dev/null
+                and set locked 1
+            end
+        end
+        if test $locked -eq 1
+            set -l self (status filename)
+            # Redirect ALL std streams: tmux runs #() over a socketpair, so an
+            # inherited stdin would keep the socket open and tmux would show
+            # "<'...' not ready>" until the slow gh call finishes. Detach fully.
+            $self --refresh $top $rev $statefile $lockdir </dev/null >/dev/null 2>&1 &
+            disown 2>/dev/null
+        end
+    end
+end
+
+# Show the PR status glyph if we have one; otherwise the icon for the command.
+# Only ever a known glyph (PR status or command icon) or nothing reaches stdout.
+test -z "$out"; and test -n "$cmd"; and set out (command_icon $cmd)
+printf '%s' $out
