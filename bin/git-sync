@@ -27,8 +27,8 @@ function push_to_fork
 end
 
 set branch (git symbolic-ref --short HEAD)
-set remote (git remote | grep upstream)
-if test -z $remote
+set remote (git remote | string match upstream)
+if test -z "$remote"
 	set remote origin
 end
 

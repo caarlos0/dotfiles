@@ -6,8 +6,8 @@ end
 set main_branch (git main-branch)
 
 log "Removing merged branches..."
-set branches (git branch --merged | grep -v "^\*" | grep -v $main_branch | tr -d '\n')
-if test -n $branches
+set branches (git branch --merged | grep -v "^\*" | grep -vE "^[ *]+$main_branch\$" | tr -d '\n')
+if test -n "$branches"
 	echo "$branches" | xargs git branch -d
 end
 

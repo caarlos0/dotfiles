@@ -1,8 +1,9 @@
 #!/bin/sh
 set -e
 
-name=$(gh api "users/$1" | jq -r .name)
-email=$(gh api "users/$1" | jq -r .email)
+user=$(gh api "users/$1")
+name=$(echo "$user" | jq -r .name)
+email=$(echo "$user" | jq -r .email)
 
 if [ "$email" = "null" ]; then
   email="$1@users.noreply.github.com"
