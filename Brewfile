@@ -15,8 +15,6 @@ brew "ansible"
 brew "asciinema"
 # Language Server for Bash
 brew "bash-language-server"
-# Improved top (interactive process viewer)
-brew "htop"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Container Signing
@@ -29,6 +27,8 @@ brew "direnv"
 brew "entr"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
+# Play, record, convert, and stream select audio and video codecs
+brew "ffmpeg"
 # Banner-like program prints strings as ASCII art
 brew "figlet"
 # User-friendly command-line shell for UNIX-like operating systems
@@ -57,6 +57,8 @@ brew "golangci-lint"
 brew "gopls"
 # Graph visualization software from AT&T and Bell Labs
 brew "graphviz"
+# Improved top (interactive process viewer)
+brew "htop"
 # Configurable static site generator
 brew "hugo"
 # Command-line benchmarking tool
@@ -107,7 +109,7 @@ brew "ripgrep"
 brew "rustup"
 # Fast and accurate code counter with complexity and COCOMO estimates
 brew "scc"
-# Shared compilation cache for Rust (and others)
+# Used as a compiler wrapper and avoids compilation when possible
 brew "sccache"
 # Autoformat shell script source code
 brew "shfmt"
@@ -139,6 +141,8 @@ brew "watch"
 brew "wget"
 # Language Server for Yaml Files
 brew "yaml-language-server"
+# Feature-rich command-line audio/video downloader
+brew "yt-dlp"
 # Programming language designed for robustness, optimality, and clarity
 brew "zig"
 # Shell extension to navigate your filesystem faster
@@ -214,3 +218,4 @@ mas "Pages", id: 361309726
 mas "Parcel", id: 375589283
 mas "Reeder", id: 1529448980
 mas "Tailscale", id: 1475387142
+npm "tuistory"
