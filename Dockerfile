@@ -25,8 +25,8 @@ RUN apk add -U \
   wget \
   zoxide
 
-RUN /bin/sh -c echo "Set disable_coredump false" | tee -a /etc/sudo.conf
-RUN sed 's;/bin/ash;/usr/bin/fish;g' /etc/passwd
+RUN echo "Set disable_coredump false" | tee -a /etc/sudo.conf
+RUN sed -i 's;/bin/ash;/usr/bin/fish;g' /etc/passwd
 WORKDIR /dotfiles
 COPY . .
 RUN /bin/sh -c 'touch /bin/chsh && chmod +x /bin/chsh && ./setup'
