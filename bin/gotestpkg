@@ -20,4 +20,4 @@ pkgs() {
 }
 
 # shellcheck disable=SC2086,SC2046,SC2048
-go test $(pkgs) $*
+go test $(pkgs) "$@"

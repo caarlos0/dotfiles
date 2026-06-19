@@ -12,7 +12,7 @@ if test $# -gt 0; then
         -coverpkg="$1" \
         -covermode=atomic \
         -coverprofile=coverage.txt \
-        $*
+        "$@"
 else
 	echo "first arg must be a package, e.g. ./..."
 	exit 1

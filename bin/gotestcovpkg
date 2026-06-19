@@ -11,7 +11,7 @@ if test $# -gt 0; then
         -coverpkg="$1" \
         -covermode=atomic \
         -coverprofile=coverage.txt \
-        $*
+        "$@"
     TERM=xterm-256color GOCOVSH_THEME=mocha gocovsh --profile coverage.txt
 else
 	echo "first arg must be a package, e.g. ./..."
