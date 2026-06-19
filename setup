@@ -22,17 +22,14 @@ info "Setting caarlos0/dotfiles up"
 # bins
 link "$PWD"/bin ~/.bin
 
-if which tmux; then
+if which tmux &>/dev/null; then
   link "$PWD"/tmux/tmux.conf ~/.config/tmux/tmux.conf
-  tmux source ~/.config/tmux/tmux.conf
+  tmux source ~/.config/tmux/tmux.conf 2>/dev/null || true
 fi
 
 # shell
 link "$PWD"/fish/functions ~/.config/fish/functions
-link "$PWD"/fish/themes ~/.config/fish/themes
 link "$PWD"/fish/config.fish ~/.config/fish/config.fish
-fish -c "fish_config theme choose catppuccin-mocha" ||
-  warn "catppuccin-mocha theme not found, skipping"
 
 # ssh
 for f in "$PWD"/ssh/*; do
@@ -50,24 +47,19 @@ link "$PWD"/rio ~/.config/rio
 # neovim
 if which nvim &>/dev/null; then
   link "$PWD"/nvim ~/.config/nvim
-  nvim --headless "+Lazy! sync" +qa &>/dev/null
+  nvim --headless +"lua vim.pack.update(nil, { force = true })" +qa &>/dev/null
 fi
 
 # copilot
 if which copilot &>/dev/null; then
-  if ! copilot plugin list | grep -q superpowers-marketplace; then
-    copilot plugin install superpowers@superpowers-marketplace
-    copilot plugin marketplace add obra/superpowers-marketplace
-    success "Installed obra/superpowers"
-  fi
   if ! copilot plugin list | grep -q doublecheck; then
     copilot plugin install doublecheck@awesome-copilot
     success "Installed awesome-copilot/doublecheck"
   fi
 fi
 mkdir -p ~/.copilot/{agents,skills}/
-wget -qcO ~/.copilot/agents/caarlos0.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/caarlos0.md
-wget -qcO ~/.copilot/agents/merencia.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/merencia.md
+curl -fsSL -o ~/.copilot/agents/caarlos0.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/caarlos0.md
+curl -fsSL -o ~/.copilot/agents/merencia.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/merencia.md
 for skill in "$PWD"/skills/*; do
   [ -d "$skill" ] || continue
   link "$skill" ~/.copilot/skills/"$(basename "$skill")"
