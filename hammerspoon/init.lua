@@ -40,39 +40,31 @@ end)
 
 hs.alert.show("Config loaded")
 
--- middle left
-hs.hotkey.bind(hyper, "Left", function()
-  hs.window.focusedWindow():moveToUnit({ 0, 0, 0.5, 1 })
-end)
+-- moves the focused window to a screen-relative rect (no-op if nothing is focused)
+local function moveTo(unit)
+  return function()
+    local win = hs.window.focusedWindow()
+    if win then
+      win:moveToUnit(unit)
+    end
+  end
+end
 
--- middle right
-hs.hotkey.bind(hyper, "Right", function()
-  hs.window.focusedWindow():moveToUnit({ 0.5, 0, 0.5, 1 })
-end)
-
--- middle up
-hs.hotkey.bind(hyper, "Up", function()
-  hs.window.focusedWindow():moveToUnit({ 0, 0, 1, 0.5 })
-end)
-
--- middle down
-hs.hotkey.bind(hyper, "Down", function()
-  hs.window.focusedWindow():moveToUnit({ 0, 0.5, 1, 0.5 })
-end)
-
--- maximize
-hotkey.bind(hyper, ";", function()
-  hs.window.focusedWindow():moveToUnit({ 0, 0, 1, 1 })
-end)
+hs.hotkey.bind(hyper, "Left", moveTo({ 0, 0, 0.5, 1 })) -- middle left
+hs.hotkey.bind(hyper, "Right", moveTo({ 0.5, 0, 0.5, 1 })) -- middle right
+hs.hotkey.bind(hyper, "Up", moveTo({ 0, 0, 1, 0.5 })) -- middle up
+hs.hotkey.bind(hyper, "Down", moveTo({ 0, 0.5, 1, 0.5 })) -- middle down
+hotkey.bind(hyper, ";", moveTo({ 0, 0, 1, 1 })) -- maximize
 
 -- centralize at 80% screen size
 hotkey.bind(hyper, "'", function()
   local win = hs.window.focusedWindow()
+  if not win then
+    return
+  end
+
   local f = win:frame()
   local max = win:screen():frame()
-
-  f.x = max.x * 0.8
-  f.y = max.y * 0.8
   f.w = max.w * 0.8
   f.h = max.h * 0.8
 
