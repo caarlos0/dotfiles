@@ -1,0 +1,25 @@
+#!/bin/sh
+# Mimic blinking bell tabs. Ghostty ignores SGR 5 (real blink), so instead we
+# toggle the @bell_blink user option every half second and refresh the status
+# line; the window-status format reads @bell_blink to alternate the bell's look.
+#
+# Runs only while at least one window still has a bell flag (cleared when the
+# window is visited). Single-instance guarded via @bell_blinking so repeated
+# alert-bell hooks don't spawn parallel loops.
+#
+# https://github.com/ghostty-org/ghostty/discussions/4258
+
+[ "$(tmux show-option -gqv @bell_blinking)" = "1" ] && exit 0
+tmux set-option -g @bell_blinking 1
+
+state=0
+while tmux list-windows -a -F '#{window_bell_flag}' 2>/dev/null | grep -q '^1$'; do
+  state=$((1 - state))
+  tmux set-option -g @bell_blink "$state"
+  tmux refresh-client -S 2>/dev/null
+  sleep 0.5
+done
+
+tmux set-option -g @bell_blink 0
+tmux set-option -g @bell_blinking 0
+tmux refresh-client -S 2>/dev/null
