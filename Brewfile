@@ -183,6 +183,8 @@ cask "monodraw"
 cask "orbstack"
 # GitHub Actions pinner.
 cask "caarlos0/tap/pinata"
+# A tiny terminal radar for your GitHub pull requests.
+cask "caarlos0/tap/prowl", trusted: true
 # Quick Look generator for Markdown files
 cask "qlmarkdown"
 # Hardware-accelerated GPU terminal emulator
