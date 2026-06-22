@@ -79,7 +79,7 @@ function command_icon
             echo 
         case elixir mix
             echo 
-        case gh gh-dash
+        case gh gh-dash prowl
             echo 
         case git lazygit tig
             echo 
@@ -307,7 +307,9 @@ if test (count $info) -ge 3
     end
 end
 
-# Show the PR status glyph if we have one; otherwise the icon for the command.
-# Only ever a known glyph (PR status or command icon) or nothing reaches stdout.
+# Show the PR status glyph if we have one; otherwise the icon for the command,
+# falling back to a generic terminal glyph (Nerd Font f489) when nothing matches.
+# Only ever a known glyph (PR status or command icon) or the terminal default reaches stdout.
 test -z "$out"; and test -n "$cmd"; and set out (command_icon $cmd)
+test -z "$out"; and set out (printf '\uf489')
 printf '%s' $out
