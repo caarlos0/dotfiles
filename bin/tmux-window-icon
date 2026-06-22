@@ -79,7 +79,9 @@ function command_icon
             echo 
         case elixir mix
             echo 
-        case gh gh-dash prowl
+        case prowl
+            printf '\U000f03d2' # nf-md-owl
+        case gh gh-dash
             echo 
         case git lazygit tig
             echo 
