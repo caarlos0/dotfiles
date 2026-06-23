@@ -7,7 +7,7 @@ program = "vim"
 args = []
 
 [effects]
-trail-cursor = true
+trail-cursor = false
 
 [fonts]
 size = 13
@@ -40,8 +40,9 @@ use-split = false
 
 [bindings]
 keys = [
-  { key = "k", with = "super", esc = "\u0002p" },
+  { key = "p", with = "super", esc = "\u0002p" },
   { key = "t", with = "super", esc = "\u0002c" },
+  { key = "w", with = "super", esc = "\u0002x" },
   { key = "d", with = "super", esc = "\u0002i" },
   { key = "1", with = "super", esc = "\u00021" },
   { key = "2", with = "super", esc = "\u00022" },
