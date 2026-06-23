@@ -1,6 +1,6 @@
 ---
 name: code-simplifier
-description: Simplify recently-changed code without changing behavior. Use only when explicitly invoked (e.g. "simplify", "clean up", "refactor").
+description: Simplify recently-changed code without changing behavior. Use by default whenever implementing anything, and when explicitly invoked (e.g. "simplify", "clean up", "refactor").
 ---
 
 Scope: only files changed in the current session or `git diff` against the base branch. Do not wander into unrelated code. The exceptions, both tied to your change: code it leaves unused (see "Unused code") and stale references to behavior it removed (see "Stale references") may be cleaned up even when they live outside the diff.
@@ -22,6 +22,8 @@ Before:
 Rules:
 
 - Preserve behavior exactly. No API, signature, or output changes.
+- Apply YAGNI: don't build for hypothetical future needs. Solve the problem in front of you, nothing more.
+- Prefer a clear one-liner over multiple lines when it stays readable. Don't sacrifice clarity for brevity.
 - One concern per pass (rename OR extract OR flatten — not all three).
 - Don't touch tests unless the user asked.
 - Don't reorder imports.
