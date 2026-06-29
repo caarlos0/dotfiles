@@ -18,6 +18,7 @@ fish_add_path -p ~/.local/bin/
 fish_add_path -p ~/.bin/
 fish_add_path -a /opt/homebrew/bin/
 fish_add_path -a /opt/homebrew/sbin
+fish_add_path -p /opt/homebrew/opt/rustup/bin/
 fish_add_path -a /Applications/Postgres.app/Contents/Versions/latest/bin/
 fish_add_path -a ~/Applications/Ghostty.app/Contents/MacOS/
 fish_add_path -a ~/.orbstack/bin
