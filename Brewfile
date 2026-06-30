@@ -15,6 +15,8 @@ brew "ansible"
 brew "asciinema"
 # Language Server for Bash
 brew "bash-language-server"
+# Incredibly fast JavaScript runtime, bundler, test runner, and package manager
+brew "bun"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Container Signing
@@ -85,6 +87,8 @@ brew "mas"
 brew "mole"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
+# NCurses Disk Usage
+brew "ncdu"
 # Incremental parsing library
 brew "tree-sitter"
 # Ambitious Vim-fork focused on extensibility and agility
@@ -133,12 +137,16 @@ brew "tree-sitter-cli"
 brew "typescript-language-server"
 # Command-line unarchiving tools supporting multiple formats
 brew "unar"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
 # Language servers for HTML, CSS, JavaScript, and JSON extracted from vscode
 brew "vscode-langservers-extracted"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Internet file retriever
 brew "wget"
+# Generate your Xcode project from a spec file and your folder structure
+brew "xcodegen"
 # Language Server for Yaml Files
 brew "yaml-language-server"
 # Feature-rich command-line audio/video downloader
@@ -197,6 +205,8 @@ cask "soulver"
 cask "caarlos0/tap/svu"
 # Messaging app with a focus on speed and security
 cask "telegram"
+# A tiny TUI that lists, filters and kills the processes running in every tmux pane.
+cask "caarlos0/tap/ttop", trusted: true
 # Virtual machines UI using QEMU
 cask "utm"
 # Multimedia player
