@@ -55,6 +55,10 @@ if which copilot &>/dev/null; then
   mkdir -p ~/.copilot/{agents,skills}/
   curl -fsSL -o ~/.copilot/agents/caarlos0.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/caarlos0.md
   curl -fsSL -o ~/.copilot/agents/merencia.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/merencia.md
+  for agent in "$PWD"/agents/*; do
+    [ -f "$agent" ] || continue
+    link "$agent" ~/.copilot/agents/"$(basename "$agent")"
+  done
   for skill in "$PWD"/skills/*; do
     [ -d "$skill" ] || continue
     link "$skill" ~/.copilot/skills/"$(basename "$skill")"

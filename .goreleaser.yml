@@ -11,6 +11,7 @@ dockers_v2:
       - "{{.Tag}}"
     extra_files:
       - setup
+      - agents
       - bin
       - copilot
       - direnv
