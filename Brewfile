@@ -159,6 +159,8 @@ brew "zoxide"
 cask "appcleaner"
 # Utility that prevents the system from going to sleep
 cask "caffeine"
+# Terminal-based AI coding assistant
+cask "claude-code"
 # Screen capturing tool
 cask "cleanshot"
 # Brings the power of Copilot coding agent directly to your terminal
@@ -223,7 +225,7 @@ mas "HEIC Converter", id: 1294126402
 mas "Infuse", id: 1136220934
 mas "Keynote", id: 361285480
 mas "Lungo", id: 1263070803
-mas "Microsoft Excel 2", id: 462058435
+mas "Microsoft Excel", id: 462058435
 mas "Numbers", id: 361304891
 mas "Okta Extension App", id: 1439967473
 mas "Okta Verify", id: 490179405
