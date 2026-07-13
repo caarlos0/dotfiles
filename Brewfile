@@ -135,6 +135,8 @@ brew "tmux"
 brew "tree-sitter-cli"
 # Language Server Protocol implementation for TypeScript wrapping tsserver
 brew "typescript-language-server"
+# Markup-based typesetting system
+brew "typst"
 # Command-line unarchiving tools supporting multiple formats
 brew "unar"
 # Extremely fast Python package installer and resolver, written in Rust
@@ -172,7 +174,7 @@ cask "discord"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
-cask "ghostty"
+cask "ghostty@tip"
 # Free and open-source image editor
 cask "gimp"
 # Web browser
@@ -181,6 +183,8 @@ cask "google-chrome"
 cask "goreleaser/tap/goreleaser-pro"
 # Desktop automation application
 cask "hammerspoon"
+# CLI for managing Hevy routines via the public Hevy API
+cask "caarlos0/tap/hevy", trusted: true
 # Tool to optimise images to a smaller size
 cask "imageoptim"
 # GoReleaser MCP server
