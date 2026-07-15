@@ -23,6 +23,8 @@ Behavior-preserving simplifications idiomatic to Rust. Apply only what fits the 
 - Derive (`Debug`, `Clone`, `Default`, `PartialEq`) instead of hand-written impls that do the obvious thing.
 - Use `Default::default()` / struct update syntax `..Default::default()` instead of setting every field.
 - `if let` chains and `matches!()` for boolean checks.
+- Reach for `std` before hand-rolling: build paths with `Path`/`PathBuf` and `Path::join` (never hardcode `/`/`\` or splice separators), read env with `std::env` (don't re-case keys — env names are case-insensitive on Windows), and use `MAIN_SEPARATOR`/`Path::components` over string surgery.
+- Prefer the `#[cfg(...)]` attribute over `if cfg!(...)` for platform-specific code: `#[cfg]` compiles the branch out entirely, while `cfg!()` keeps every branch and requires each to compile on every target.
 
 ## Cleanup
 
@@ -33,7 +35,7 @@ Behavior-preserving simplifications idiomatic to Rust. Apply only what fits the 
 
 ## Avoid
 
-- Don't add a crate for what `std` (`std::fmt`, `itertools`-like via `Iterator`) already covers.
+- Don't add a crate — or hand-roll your own code — for what `std` already covers (`std::fmt`, `itertools`-like via `Iterator`, path/env handling, platform separators).
 - Don't introduce traits/generics with one implementor to "abstract".
 - Don't change `pub` API signatures or trait bounds.
 - Keep `rustfmt` formatting; run `clippy` and honor its behavior-preserving suggestions.

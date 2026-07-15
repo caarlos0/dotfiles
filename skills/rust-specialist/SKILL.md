@@ -84,6 +84,15 @@ When refactoring existing code, identify the primary pain point (bugs, slowness,
 - When a simple `match` or `if let` suffices, do not reach for a macro or trait object "for extensibility" that will never be used.
 - Readable code for a competent Rust developer should be understandable in minutes, not hours.
 
+## Standard Library and Portability
+
+- **Reach for `std` first.** Prefer the standard library over external crates whenever it covers the need. A dependency is only justified when `std` genuinely can't do the job or does it far worse — state that justification explicitly.
+- **Don't reinvent what `std` already solves**, especially cross-platform concerns that are easy to get subtly wrong:
+  - Paths: build them with `Path`/`PathBuf` and `Path::join`; never hardcode `/` or `\` or hand-roll separator logic. Use `std::path::MAIN_SEPARATOR`, `Path::components`, `Path::extension`, and friends instead of string surgery.
+  - Environment: read via `std::env::var`/`vars`; respect platform rules (env var names are case-insensitive on Windows, case-sensitive on Unix) rather than upper/lower-casing keys yourself.
+  - Lean on `std` for line endings, temp dirs (`std::env::temp_dir`), and similar platform quirks rather than reimplementing them.
+- **Prefer the `#[cfg(...)]` attribute over `if cfg!(...)` for platform-specific code.** `#[cfg]` conditionally *compiles* code, so a platform-specific branch is removed entirely and need only be valid on its own target. `if cfg!(...)` keeps every branch in the source and requires all of them to compile on every target (it evaluates to a compile-time constant the optimizer then drops). Use `cfg!()` only when all branches genuinely compile everywhere.
+
 ## Code Review Checklist
 
 Apply these checks to every piece of Rust code (new or changed). Structure feedback around the categories below.
@@ -114,6 +123,7 @@ Apply these checks to every piece of Rust code (new or changed). Structure feedb
 - [ ] Traits used for extension points and polymorphism; concrete types preferred for simple cases.
 - [ ] Error handling follows library vs. application conventions (thiserror/anyhow).
 - [ ] Lifetimes are explicit only where required; over-constraining avoided.
+- [ ] Standard library preferred over external crates or hand-rolled code where it suffices; no bespoke path/separator/env logic that `std` provides. Platform-specific code uses `#[cfg(...)]`, not `if cfg!(...)`.
 
 **DRY & Simplicity**
 - [ ] Duplication removed via functions/traits/generics unless removal harms clarity or performance (documented).
