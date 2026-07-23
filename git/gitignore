@@ -45,6 +45,9 @@ vendor/
 go.work
 go.work.sum
 
+# pnpm
+.pnpm-store/
+
 ####
 # macOS.gitignore
 # General
