@@ -83,8 +83,6 @@ brew "lsd"
 brew "lua-language-server"
 # Mac App Store command-line interface
 brew "mas"
-# Deep clean and optimize your Mac
-brew "mole"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
 # NCurses Disk Usage
@@ -161,8 +159,6 @@ brew "zoxide"
 cask "appcleaner"
 # Utility that prevents the system from going to sleep
 cask "caffeine"
-# Terminal-based AI coding assistant
-cask "claude-code"
 # Screen capturing tool
 cask "cleanshot"
 # Brings the power of Copilot coding agent directly to your terminal
@@ -191,6 +187,8 @@ cask "imageoptim"
 cask "goreleaser/tap/mcp"
 # Meet, chat, call, and collaborate in just one place
 cask "microsoft-teams"
+# Tool to control external monitor brightness & volume
+cask "monitorcontrol"
 # Tool to create text-based art
 cask "monodraw"
 # Replacement for Docker Desktop
