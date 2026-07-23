@@ -7,7 +7,7 @@ Scope: only files changed in the current session or `git diff` against the base 
 
 Before:
 
-- Run the test suite. If it's red before you start, stop and report.
+- If the worktree is clean before the task, assume tests pass and skip the baseline run. If it is already dirty, run only the smallest targeted test needed to distinguish pre-existing failures from regressions; never default to the full suite.
 - Read AGENTS.md / CONTRIBUTING.md / nearby code. Match existing conventions, don't import outside ones.
 - For each language present in the changed files, read the matching guide in `languages/` and apply it on top of the rules below. Map by extension:
   - `.ts`, `.tsx`, `.mts`, `.cts` → `languages/typescript.md`
@@ -61,7 +61,7 @@ A change outdates more than code. Comments, docstrings, and names that explain a
 
 After:
 
-- Run the tests again. They must still pass.
+- Don't rerun tests already completed successfully for the current task. Run the smallest targeted test only when this simplification needs validation that existing test results do not cover; never default to the full suite.
 - If the diff grew past ~50 lines or crossed unrelated files, stop and surface it before continuing.
 - Never commit. Leave staging and the commit message to the human.
 - Make sure any repository linters pass — including no new unused-code warnings.
