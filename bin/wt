@@ -10,6 +10,26 @@ function fail
     exit 1
 end
 
+function usage
+    echo "NAME:
+  wt - manage git worktrees under $worktree_base/<project>/<name>
+
+USAGE:
+  wt [<name>] [options]
+
+ARGUMENTS:
+  <name>            switch to worktree <name>, creating it if it doesn't exist
+  -                 switch back to the previous worktree or the main repository
+  (none)            pick a worktree interactively with fzf
+
+OPTIONS:
+  --main,-m         create the worktree from origin/<default branch>
+  --delete,-d       remove the worktree <name>
+  --list,-l         list worktrees
+  --cleanup,-c      interactively remove merged worktrees
+  --help,-h         show help"
+end
+
 function project_name
     set -l remote_url (git remote get-url origin 2>/dev/null)
     if test -n "$remote_url"
@@ -249,6 +269,11 @@ function cleanup_worktrees
 end
 
 # ---
+
+if contains -- --help $argv; or contains -- -h $argv
+    usage
+    exit 0
+end
 
 ensure_repo
 
