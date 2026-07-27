@@ -146,13 +146,13 @@ function command_icon
         case dig nslookup ping traceroute mtr nc netcat nmap tcpdump
             echo 󰛳
         case du df ncdu dust
-            echo 
+            echo 󰋊
         case eslint
             echo 
         case ffmpeg mpv yt-dlp
             echo 
         case helm
-            echo ⎈
+            echo 󰠳
         case imagemagick magick convert
             echo 
         case jq yq
