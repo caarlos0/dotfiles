@@ -1,6 +1,8 @@
 # https://rioterm.com/docs/config
 confirm-before-quit = false
 theme = "catppuccin"
+# matches ghostty's macos-option-as-alt = true, needed for tmux's M-hjkl
+option-as-alt = "both"
 
 [editor]
 program = "vim"
