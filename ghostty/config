@@ -36,14 +36,26 @@ font-feature = liga
 # powerline & powerline-extras
 font-codepoint-map = U+e0b0-U+e0b3,U+e0b4-U+e0c8,U+e0cc-U+e0d4,U+e0ca=JetBrainsMono Nerd Font Mono
 
-# font-awesome
-font-codepoint-map = U+f000-U+f2e0,U+e200-U+e2a9=JetBrainsMono Nerd Font Mono
+# font-awesome & font-awesome-extension
+font-codepoint-map = U+ed00-U+f2ff,U+e200-U+e2a9=JetBrainsMono Nerd Font Mono
 
 # seti-ui
-font-codepoint-map = U+e5fa-U+e6b1=JetBrainsMono Nerd Font Mono
+font-codepoint-map = U+e5fa-U+e6b7=JetBrainsMono Nerd Font Mono
+
+# devicons
+font-codepoint-map = U+e700-U+e8ef=JetBrainsMono Nerd Font Mono
 
 # codicons
-font-codepoint-map = U+ea60-U+ebeb=JetBrainsMono Nerd Font Mono
+font-codepoint-map = U+ea60-U+ec1e=JetBrainsMono Nerd Font Mono
+
+# font-logos
+font-codepoint-map = U+f300-U+f381=JetBrainsMono Nerd Font Mono
+
+# octicons
+font-codepoint-map = U+f400-U+f533=JetBrainsMono Nerd Font Mono
+
+# material design icons
+font-codepoint-map = U+f0001-U+f1af0=JetBrainsMono Nerd Font Mono
 
 theme = "Catppuccin Mocha"
 background = #000000

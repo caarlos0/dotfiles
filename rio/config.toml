@@ -22,13 +22,21 @@ symbol-map = [
   {start = "e0b4", end ="e0c8", font-family="JetBrainsMono Nerd Font Mono"},
   {start = "e0cc", end ="e0d4", font-family="JetBrainsMono Nerd Font Mono"},
   {start = "e0ca", end ="e0ca", font-family="JetBrainsMono Nerd Font Mono"},
-  # font-awesome
-  {start = "f000", end ="f2e0", font-family="JetBrainsMono Nerd Font Mono"},
-  {start = "f200", end ="e2a9", font-family="JetBrainsMono Nerd Font Mono"},
+  # font-awesome & font-awesome-extension
+  {start = "ed00", end ="f2ff", font-family="JetBrainsMono Nerd Font Mono"},
+  {start = "e200", end ="e2a9", font-family="JetBrainsMono Nerd Font Mono"},
   # seti-ui
-  {start = "e5fa", end ="e6b1", font-family="JetBrainsMono Nerd Font Mono"},
+  {start = "e5fa", end ="e6b7", font-family="JetBrainsMono Nerd Font Mono"},
+  # devicons
+  {start = "e700", end ="e8ef", font-family="JetBrainsMono Nerd Font Mono"},
   # codicons
-  {start = "ea60", end ="ebeb", font-family="JetBrainsMono Nerd Font Mono"},
+  {start = "ea60", end ="ec1e", font-family="JetBrainsMono Nerd Font Mono"},
+  # font-logos
+  {start = "f300", end ="f381", font-family="JetBrainsMono Nerd Font Mono"},
+  # octicons
+  {start = "f400", end ="f533", font-family="JetBrainsMono Nerd Font Mono"},
+  # material design icons
+  {start = "f0001", end ="f1af0", font-family="JetBrainsMono Nerd Font Mono"},
 ]
 
 [window]
