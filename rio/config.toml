@@ -50,6 +50,13 @@ use-split = false
 
 [bindings]
 keys = [
+  # Ghostty's legacy key encoder sends CSI 27;2;13~ for shift+enter out of the
+  # box (see its function_keys.zig table), which tmux resolves to S-Enter. Rio
+  # only disambiguates shift+enter when the app turns on the kitty keyboard
+  # protocol, and tmux never asks for it, so without this it sends a bare \r
+  # and shift+enter is indistinguishable from enter. Send ghostty's exact
+  # sequence to keep the two emulators behavior-equivalent.
+  { key = "enter", with = "shift", esc = "\u001b[27;2;13~" },
   { key = "p", with = "super", esc = "\u0002p" },
   { key = "t", with = "super", esc = "\u0002c" },
   { key = "w", with = "super", esc = "\u0002x" },
