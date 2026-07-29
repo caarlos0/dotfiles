@@ -4,9 +4,10 @@ set -x GOPATH ~/Developer/Go
 set -x HOMEBREW_NO_AUTO_UPDATE 1
 set -x HOMEBREW_NO_ENV_HINTS 1
 
-# Share Rust compilation across worktrees/projects via sccache.
+# Cache Rust compilation across worktrees/projects while limiting aggregate
+# compiler concurrency. Each worktree keeps its own target directory.
 # CARGO_INCREMENTAL=0 is required: sccache can't cache incremental builds.
-set -x RUSTC_WRAPPER sccache
+set -x RUSTC_WRAPPER rustc-wrapper
 set -x CARGO_INCREMENTAL 0
 set -x SCCACHE_CACHE_SIZE 20G
 
