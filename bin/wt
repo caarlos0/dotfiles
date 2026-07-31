@@ -26,7 +26,7 @@ OPTIONS:
   --main,-m         create the worktree from origin/<default branch>
   --delete,-d       remove the worktree <name>
   --list,-l         list worktrees
-  --cleanup,-c      interactively remove merged worktrees
+  --cleanup,-c      interactively remove merged/closed worktrees
   --help,-h         show help"
 end
 
@@ -195,14 +195,40 @@ function is_merged -a branch -a target
     string match -q -- '-*' (git cherry $target $sc 2>/dev/null)
 end
 
+function is_new_worktree -a branch -a target
+    # branch has no commits of its own: never committed to and still on its base
+    test (count (git reflog show $branch 2>/dev/null)) -le 1
+    and git merge-base --is-ancestor $branch $target 2>/dev/null
+end
+
+function pr_state_file -a dir -a branch
+    echo $dir/(string escape --style=url -- $branch | string replace -a / %2F)
+end
+
+function fetch_pr_states -a dir
+    command -q gh; or return 0
+    set -l branches $argv[2..-1]
+    test (count $branches) -gt 0; or return 0
+    for branch in $branches
+        set -l out (pr_state_file $dir $branch)
+        gh pr view $branch --json state --jq .state >$out 2>/dev/null &
+    end
+    wait
+end
+
+function pr_state -a dir -a branch
+    set -l out (pr_state_file $dir $branch)
+    test -f $out; and string trim <$out
+end
+
 function cleanup_worktrees
-    set -l default_branch (default_branch)
+    set -l target origin/(default_branch)
 
     set -l current_wt (git rev-parse --show-toplevel 2>/dev/null)
     set -l main_wt (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
 
-    set -l clean_lines
-    set -l other_lines
+    set -l paths
+    set -l branches
     set -l wt_path ""
     for line in (git worktree list --porcelain)
         if string match -q 'worktree *' $line
@@ -210,17 +236,8 @@ function cleanup_worktrees
         else if string match -q 'branch *' $line
             set -l branch (string replace 'branch refs/heads/' '' $line)
             if test -n "$wt_path" -a "$wt_path" != "$main_wt" -a "$wt_path" != "$current_wt"
-                set -l markers
-                if not is_merged $branch origin/$default_branch
-                    set -a markers "not merged"
-                    has_unpushed $wt_path; and set -a markers "unpushed commits"
-                end
-                has_uncommitted $wt_path; and set -a markers "uncommitted changes"
-                if test (count $markers) -eq 0
-                    set -a clean_lines "$branch"\t"$wt_path"\t"$branch "(set_color green)"[merged]"(set_color normal)
-                else
-                    set -a other_lines "$branch"\t"$wt_path"\t"$branch "(set_color red)"["(string join "] [" $markers)"]"(set_color normal)
-                end
+                set -a paths $wt_path
+                set -a branches $branch
             end
             set wt_path ""
         else if test "$line" = detached
@@ -228,12 +245,78 @@ function cleanup_worktrees
         end
     end
 
-    set -l all_lines $clean_lines $other_lines
-    if test (count $all_lines) -eq 0
+    if test (count $paths) -eq 0
         log "No worktrees to clean up."
         return 0
     end
 
+    set -l new_flags
+    set -l pr_branches
+    for i in (seq (count $paths))
+        if is_new_worktree $branches[$i] $target
+            set -a new_flags true
+        else
+            set -a new_flags false
+            set -a pr_branches $branches[$i]
+        end
+    end
+
+    set -l tmpdir (mktemp -d)
+    fetch_pr_states $tmpdir $pr_branches
+
+    set -l clean_lines
+    set -l other_lines
+    for i in (seq (count $paths))
+        set -l wt_path $paths[$i]
+        set -l branch $branches[$i]
+        set -l markers
+        set -l color red
+        set -l removable false
+
+        if test $new_flags[$i] = true
+            set -a markers new
+            set color yellow
+        else
+            switch (pr_state $tmpdir $branch)
+                case MERGED
+                    set removable true
+                    set -a markers "PR merged"
+                case CLOSED
+                    set removable true
+                    set -a markers "PR closed"
+                case OPEN
+                    set -a markers "PR open"
+                    has_unpushed $wt_path; and set -a markers "unpushed commits"
+                case '*'
+                    if is_merged $branch $target
+                        set removable true
+                        set -a markers merged
+                    else
+                        set -a markers "not merged"
+                        has_unpushed $wt_path; and set -a markers "unpushed commits"
+                    end
+            end
+        end
+
+        if has_uncommitted $wt_path
+            set -a markers "uncommitted changes"
+            set removable false
+            set color red
+        end
+
+        test $removable = true; and set color green
+
+        set -l label "$branch "(set_color $color)"["(string join "] [" $markers)"]"(set_color normal)
+        if test $removable = true
+            set -a clean_lines "$branch"\t"$wt_path"\t"$label"
+        else
+            set -a other_lines "$branch"\t"$wt_path"\t"$label"
+        end
+    end
+
+    rm -rf $tmpdir
+
+    set -l all_lines $clean_lines $other_lines
     set -l fzf_args --multi --sync --ansi --with-nth 3 --delimiter \t \
         --prompt "cleanup> " \
         --header "tab: toggle  enter: remove selected  esc: cancel"
