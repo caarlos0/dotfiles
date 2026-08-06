@@ -124,6 +124,7 @@ Apply these checks to every piece of Rust code (new or changed). Structure feedb
 - [ ] Error handling follows library vs. application conventions (thiserror/anyhow).
 - [ ] Lifetimes are explicit only where required; over-constraining avoided.
 - [ ] Standard library preferred over external crates or hand-rolled code where it suffices; no bespoke path/separator/env logic that `std` provides. Platform-specific code uses `#[cfg(...)]`, not `if cfg!(...)`.
+- [ ] Items used only by tests are `#[cfg(test)]`-gated (or live inside the `#[cfg(test)] mod tests` block), so they are not compiled into the shipped library. Exceptions that cannot be gated: FFI/`#[napi]` exports, `impl Trait for Type` methods, and struct fields / enum variants — use `#[expect(dead_code)]` for a test-only field. Beware: a crate- or module-level `#![allow(dead_code)]` hides these, so grep rather than relying on the compiler.
 
 **DRY & Simplicity**
 - [ ] Duplication removed via functions/traits/generics unless removal harms clarity or performance (documented).
