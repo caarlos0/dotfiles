@@ -24,7 +24,7 @@ version here!
 ```
 
 Machine-specific bits (`Brewfile.<host>`, `hammerspoon/apps.<host>.lua`) are
-picked by `hostname -s`: `darkmatter` is personal, `supernova` is work.
+picked by `hostname -s`: `darkmatter` is personal, `quasar` is work.
 
 ## Releasing
 
