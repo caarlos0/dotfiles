@@ -82,6 +82,7 @@ link "$PWD"/copilot/mcp-config.json ~/.copilot/mcp-config.json
 
 if [[ $OSTYPE == 'darwin'* ]]; then
   brew bundle &>/dev/null
+  brew cleanup --scrub --prune 0
 fi
 
 # Rust components are managed by rustup so they match the active toolchain.
