@@ -90,7 +90,12 @@ link "$PWD"/copilot/mcp-config.json ~/.copilot/mcp-config.json
 
 if [[ $OSTYPE == 'darwin'* ]]; then
   if [ -f "$PWD"/Brewfile."$host" ]; then
-    brew bundle --file="$PWD"/Brewfile."$host" &>/dev/null
+    info "Installing packages from Brewfile.$host - may ask for your password"
+    # Keep brew's "Installing X" lines (they explain any password prompt), but
+    # drop already-installed entries and mas' Spotlight indexing noise. awk
+    # always exits 0, so pipefail still reports brew's own failures.
+    brew bundle --file="$PWD"/Brewfile."$host" 2>&1 |
+      awk 'NF && !/^Using / && !/indexed in Spotlight|Indexing now|MAS_NO_AUTO_INDEX/'
   else
     warn "No Brewfile.$host, skipping brew bundle."
   fi
@@ -103,7 +108,7 @@ rustup component add rust-analyzer rust-src rustfmt clippy &>/dev/null ||
 # Fish setup
 if ! grep -q fish /etc/shells; then
   info "Adding $(which fish) to /etc/shells - will ask sudo password"
-  which fish | sudo tee -a /etc/shells
+  which fish | sudo -p "Password for %u (needed to write to /etc/shells): " tee -a /etc/shells
 fi
 if ! finger "$USER" | grep -q 'Shell: .*fish'; then
   info "Setting $(which fish) as the default shell - will ask user password"
