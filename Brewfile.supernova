@@ -9,20 +9,14 @@ brew "actionlint"
 brew "alejandra"
 # Command-line interface for SQLite
 brew "sqlite"
-# Automate deployment, configuration, and upgrading
-brew "ansible"
 # Record and share terminal sessions
 brew "asciinema"
 # Microsoft Azure CLI 2.0
 brew "azure-cli"
 # Language Server for Bash
 brew "bash-language-server"
-# Incredibly fast JavaScript runtime, bundler, test runner, and package manager
-brew "bun"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
-# Container Signing
-brew "cosign"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Load/unload environment variables based on $PWD
@@ -33,8 +27,6 @@ brew "entr"
 brew "fd"
 # Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
-# Banner-like program prints strings as ASCII art
-brew "figlet"
 # User-friendly command-line shell for UNIX-like operating systems
 brew "fish"
 # Command-line fuzzy finder written in Go
@@ -47,8 +39,6 @@ brew "git"
 brew "git-lfs"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
-# GNU Privacy Guard (OpenPGP)
-brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # Task is a task runner/build tool that aims to be simpler and easier to use
@@ -59,26 +49,12 @@ brew "gofumpt"
 brew "golangci-lint"
 # Language server for the Go language
 brew "gopls"
-# Graph visualization software from AT&T and Bell Labs
-brew "graphviz"
 # Improved top (interactive process viewer)
 brew "htop"
-# Configurable static site generator
-brew "hugo"
-# Command-line benchmarking tool
-brew "hyperfine"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
-# Calculate various network masks, etc. from a given IP address
-brew "ipcalc"
-# Git-compatible distributed version control system
-brew "jj"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
-# Tool that can switch between kubectl contexts easily and create aliases
-brew "kubectx"
-# Kubernetes command-line interface
-brew "kubernetes-cli"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
 # Language Server for the Lua language
@@ -95,8 +71,6 @@ brew "tree-sitter"
 brew "neovim"
 # Port scanning utility for large networks
 brew "nmap"
-# CLI for Postgres with auto-completion and syntax highlighting
-brew "pgcli"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # Code formatter for JavaScript, CSS, JSON, GraphQL, Markdown, YAML
@@ -105,8 +79,6 @@ brew "prettier"
 brew "pstree"
 # Python Language Server for the Language Server Protocol
 brew "python-lsp-server"
-# Tools for and transforming and inspecting PDF files
-brew "qpdf"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Rust toolchain installer
@@ -117,16 +89,8 @@ brew "scc"
 brew "sccache"
 # Autoformat shell script source code
 brew "shfmt"
-# Non-interactive SSH password auth
-brew "sshpass"
-# Tail multiple Kubernetes pods & their containers
-brew "stern"
 # Opinionated Lua code formatter
 brew "stylua"
-# CLI for generating a Software Bill of Materials from container images
-brew "syft"
-# TOML toolkit written in Rust
-brew "taplo"
 # User interface to the TELNET protocol
 brew "telnet"
 # Terminal multiplexer
@@ -135,10 +99,6 @@ brew "tmux"
 brew "tree-sitter-cli"
 # Language Server Protocol implementation for TypeScript wrapping tsserver
 brew "typescript-language-server"
-# Markup-based typesetting system
-brew "typst"
-# Command-line unarchiving tools supporting multiple formats
-brew "unar"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
 # Your CLI home video recorder
@@ -149,48 +109,30 @@ brew "vscode-langservers-extracted"
 brew "watch"
 # Internet file retriever
 brew "wget"
-# Generate your Xcode project from a spec file and your folder structure
-brew "xcodegen"
 # Language Server for Yaml Files
 brew "yaml-language-server"
-# Feature-rich command-line audio/video downloader
-brew "yt-dlp"
 # Programming language designed for robustness, optimality, and clarity
 brew "zig"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
 # Application uninstaller
 cask "appcleaner"
-# Utility that prevents the system from going to sleep
-cask "caffeine"
 # Screen capturing tool
 cask "cleanshot"
 # Brings the power of Copilot coding agent directly to your terminal
 cask "copilot-cli@prerelease"
-# Presentations from Markdown
-cask "deckset"
-# Voice and text chat software
-cask "discord"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty@tip"
-# Free and open-source image editor
-cask "gimp"
 # Web browser
 cask "google-chrome"
-# Release engineering, simplified.
-cask "goreleaser/tap/goreleaser-pro"
 # Desktop automation application
 cask "hammerspoon"
-# CLI for managing Hevy routines via the public Hevy API
-cask "caarlos0/tap/hevy", trusted: true
 # Tool to optimise images to a smaller size
 cask "imageoptim"
 # Controller for Insta360 webcams
 cask "insta360-link-controller"
-# GoReleaser MCP server
-cask "goreleaser/tap/mcp"
 # Meet, chat, call, and collaborate in just one place
 cask "microsoft-teams"
 # Tool to control external monitor brightness & volume
@@ -199,8 +141,6 @@ cask "monitorcontrol"
 cask "monodraw"
 # Replacement for Docker Desktop
 cask "orbstack"
-# GitHub Actions pinner.
-cask "caarlos0/tap/pinata"
 # A tiny terminal radar for your GitHub pull requests.
 cask "caarlos0/tap/prowl", trusted: true
 # Quick Look generator for Markdown files
@@ -211,29 +151,19 @@ cask "rio"
 cask "slack"
 # Notepad with a built-in calculator
 cask "soulver"
-# Semantic Version Utility
-cask "caarlos0/tap/svu"
-# Messaging app with a focus on speed and security
-cask "telegram"
 # A tiny TUI that lists, filters and kills the processes running in every tmux pane.
 cask "caarlos0/tap/ttop", trusted: true
-# Virtual machines UI using QEMU
-cask "utm"
-# Multimedia player
-cask "vlc"
-# Native desktop client for WhatsApp
-cask "whatsapp"
 # Connect to Windows
 cask "windows-app"
 mas "Azure VPN Client", id: 1553936137
-mas "Control Panel for Twitter", id: 1668516167
-mas "Control Panel for YouTube", id: 6478456678
-mas "Debit & Credit", id: 882637653
 mas "HEIC Converter", id: 1294126402
-mas "Infuse", id: 1136220934
 mas "Lungo", id: 1263070803
+mas "Microsoft Excel", id: 462058435
+mas "Microsoft OneNote", id: 784801555
+mas "Microsoft Outlook", id: 985367838
+mas "Microsoft PowerPoint", id: 462062816
+mas "Microsoft Word", id: 462054704
+mas "OneDrive", id: 823766827
 mas "Okta Extension App", id: 1439967473
 mas "Okta Verify", id: 490179405
-mas "Parcel", id: 375589283
-mas "Reeder", id: 1529448980
 mas "Tailscale", id: 1475387142

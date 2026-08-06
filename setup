@@ -19,6 +19,9 @@ link() {
 
 info "Setting caarlos0/dotfiles up"
 
+host="$(hostname -s)"
+info "Setting up for $host"
+
 # bins
 link "$PWD"/bin ~/.bin
 
@@ -56,7 +59,7 @@ if which copilot &>/dev/null; then
   curl -fsSL -o ~/.copilot/agents/caarlos0.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/caarlos0.md
   curl -fsSL -o ~/.copilot/agents/merencia.agent.md https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/merencia.md
   mkdir -p ~/.copilot/skills/i-have-adhd
-  curl -fsSL -o ~/.copilot/skills/i-have-adhd/SKILL.md hhttps://raw.githubusercontent.com/ayghri/i-have-adhd/refs/heads/main/skills/i-have-adhd/SKILL.md
+  curl -fsSL -o ~/.copilot/skills/i-have-adhd/SKILL.md https://raw.githubusercontent.com/ayghri/i-have-adhd/refs/heads/main/skills/i-have-adhd/SKILL.md
   for agent in "$PWD"/agents/*; do
     [ -f "$agent" ] || continue
     link "$agent" ~/.copilot/agents/"$(basename "$agent")"
@@ -70,6 +73,11 @@ fi
 # other apps
 link "$PWD"/.editorconfig ~/.editorconfig
 link "$PWD"/hammerspoon/init.lua ~/.hammerspoon/init.lua
+if [ -f "$PWD"/hammerspoon/apps."$host".lua ]; then
+  link "$PWD"/hammerspoon/apps."$host".lua ~/.hammerspoon/apps.lua
+else
+  warn "No hammerspoon/apps.$host.lua, skipping app hotkeys."
+fi
 link "$PWD"/git/config ~/.config/git/config
 link "$PWD"/git/gitignore ~/.config/git/ignore
 link "$PWD"/gh/config.yml ~/.config/gh/config.yml
@@ -81,7 +89,11 @@ link "$PWD"/copilot/lsp-config.json ~/.copilot/lsp-config.json
 link "$PWD"/copilot/mcp-config.json ~/.copilot/mcp-config.json
 
 if [[ $OSTYPE == 'darwin'* ]]; then
-  brew bundle &>/dev/null
+  if [ -f "$PWD"/Brewfile."$host" ]; then
+    brew bundle --file="$PWD"/Brewfile."$host" &>/dev/null
+  else
+    warn "No Brewfile.$host, skipping brew bundle."
+  fi
 fi
 
 # Rust components are managed by rustup so they match the active toolchain.
