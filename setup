@@ -90,6 +90,7 @@ link "$PWD"/copilot/mcp-config.json ~/.copilot/mcp-config.json
 
 if [[ $OSTYPE == 'darwin'* ]]; then
   if [ -f "$PWD"/Brewfile."$host" ]; then
+    brew cleanup --scrub --prune 0
     info "Installing packages from Brewfile.$host - may ask for your password"
     # Keep brew's "Installing X" lines (they explain any password prompt), but
     # drop already-installed entries and mas' Spotlight indexing noise. awk

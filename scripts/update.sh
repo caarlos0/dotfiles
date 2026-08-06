@@ -11,7 +11,7 @@ echo "Updating Homebrew..."
 brew update
 brew upgrade --yes
 brew autoremove
-brew cleanup
+brew cleanup --scrub --prune 0
 
 echo "Updating Brewfile.$host..."
 brew bundle dump --file Brewfile."$host" --no-go --no-uv --no-cargo --no-npm --force
