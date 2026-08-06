@@ -73,9 +73,16 @@ hotkey.bind(hyper, "'", function()
 end)
 
 hotkey.bind(hyper, "Y", launchOrFocus("Music"))
-hotkey.bind(hyper, "U", appCycler({ "Mail" }))
-hotkey.bind(hyper, "I", appCycler({ "Calendar" }))
-hotkey.bind(hyper, "P", appCycler({ "Slack", "Microsoft Teams" }))
 hotkey.bind(hyper, "J", launchOrFocus("Rio"))
 hotkey.bind(hyper, "K", launchOrFocus("Safari"))
 hotkey.bind(hyper, "H", appCycler({ "Notes", "Reminders" }))
+
+-- machine-specific apps, linked to ~/.hammerspoon/apps.lua by ./setup
+local ok, apps = pcall(require, "apps")
+if ok then
+  for _, entry in ipairs(apps) do
+    hotkey.bind(hyper, entry.key, appCycler(entry.apps))
+  end
+else
+  hs.alert.show("No apps.lua, run ./setup")
+end

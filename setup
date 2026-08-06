@@ -19,6 +19,9 @@ link() {
 
 info "Setting caarlos0/dotfiles up"
 
+host="$(hostname -s)"
+info "Setting up for $host"
+
 # bins
 link "$PWD"/bin ~/.bin
 
@@ -70,6 +73,11 @@ fi
 # other apps
 link "$PWD"/.editorconfig ~/.editorconfig
 link "$PWD"/hammerspoon/init.lua ~/.hammerspoon/init.lua
+if [ -f "$PWD"/hammerspoon/apps."$host".lua ]; then
+  link "$PWD"/hammerspoon/apps."$host".lua ~/.hammerspoon/apps.lua
+else
+  warn "No hammerspoon/apps.$host.lua, skipping app hotkeys."
+fi
 link "$PWD"/git/config ~/.config/git/config
 link "$PWD"/git/gitignore ~/.config/git/ignore
 link "$PWD"/gh/config.yml ~/.config/gh/config.yml
@@ -81,8 +89,17 @@ link "$PWD"/copilot/lsp-config.json ~/.copilot/lsp-config.json
 link "$PWD"/copilot/mcp-config.json ~/.copilot/mcp-config.json
 
 if [[ $OSTYPE == 'darwin'* ]]; then
-  brew bundle &>/dev/null
-  brew cleanup --scrub --prune 0
+  if [ -f "$PWD"/Brewfile."$host" ]; then
+    brew cleanup --scrub --prune 0
+    info "Installing packages from Brewfile.$host - may ask for your password"
+    # Keep brew's "Installing X" lines (they explain any password prompt), but
+    # drop already-installed entries and mas' Spotlight indexing noise. awk
+    # always exits 0, so pipefail still reports brew's own failures.
+    brew bundle --file="$PWD"/Brewfile."$host" 2>&1 |
+      awk 'NF && !/^Using / && !/indexed in Spotlight|Indexing now|MAS_NO_AUTO_INDEX/'
+  else
+    warn "No Brewfile.$host, skipping brew bundle."
+  fi
 fi
 
 # Rust components are managed by rustup so they match the active toolchain.
@@ -92,7 +109,7 @@ rustup component add rust-analyzer rust-src rustfmt clippy &>/dev/null ||
 # Fish setup
 if ! grep -q fish /etc/shells; then
   info "Adding $(which fish) to /etc/shells - will ask sudo password"
-  which fish | sudo tee -a /etc/shells
+  which fish | sudo -p "Password for %u (needed to write to /etc/shells): " tee -a /etc/shells
 fi
 if ! finger "$USER" | grep -q 'Shell: .*fish'; then
   info "Setting $(which fish) as the default shell - will ask user password"
