@@ -13,6 +13,8 @@ brew "sqlite"
 brew "ansible"
 # Record and share terminal sessions
 brew "asciinema"
+# Microsoft Azure CLI 2.0
+brew "azure-cli"
 # Language Server for Bash
 brew "bash-language-server"
 # Incredibly fast JavaScript runtime, bundler, test runner, and package manager
@@ -139,6 +141,8 @@ brew "typst"
 brew "unar"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
+# Your CLI home video recorder
+brew "vhs"
 # Language servers for HTML, CSS, JavaScript, and JSON extracted from vscode
 brew "vscode-langservers-extracted"
 # Executes a program periodically, showing output fullscreen
@@ -183,6 +187,8 @@ cask "hammerspoon"
 cask "caarlos0/tap/hevy", trusted: true
 # Tool to optimise images to a smaller size
 cask "imageoptim"
+# Controller for Insta360 webcams
+cask "insta360-link-controller"
 # GoReleaser MCP server
 cask "goreleaser/tap/mcp"
 # Meet, chat, call, and collaborate in just one place
@@ -225,13 +231,9 @@ mas "Control Panel for YouTube", id: 6478456678
 mas "Debit & Credit", id: 882637653
 mas "HEIC Converter", id: 1294126402
 mas "Infuse", id: 1136220934
-mas "Keynote", id: 361285480
 mas "Lungo", id: 1263070803
-mas "Microsoft Excel", id: 462058435
-mas "Numbers", id: 361304891
 mas "Okta Extension App", id: 1439967473
 mas "Okta Verify", id: 490179405
-mas "Pages", id: 361309726
 mas "Parcel", id: 375589283
 mas "Reeder", id: 1529448980
 mas "Tailscale", id: 1475387142
