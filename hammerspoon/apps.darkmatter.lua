@@ -5,4 +5,5 @@ return {
   { key = "I", apps = { "Calendar" } },
   { key = "O", apps = { "WhatsApp", "Telegram", "Messages" } },
   { key = "P", apps = { "Discord" } },
+  { key = "K", apps = { "Safari" } },
 }

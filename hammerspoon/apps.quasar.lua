@@ -5,4 +5,5 @@ return {
   { key = "I", apps = { "Microsoft Outlook" } },
   { key = "O", apps = { "Messages" } },
   { key = "P", apps = { "Slack", "Microsoft Teams" } },
+  { key = "K", apps = { "Microsoft Edge" } },
 }
