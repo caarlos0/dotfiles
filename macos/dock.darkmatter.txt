@@ -9,6 +9,7 @@
 /Applications/Canario.app
 /System/Applications/Mail.app
 /System/Applications/Messages.app
+/Applications/WhatsApp.app
+/Applications/Telegram.app
 /Applications/Slack.app
-/Applications/Microsoft Teams.app
 /System/Applications/Music.app
