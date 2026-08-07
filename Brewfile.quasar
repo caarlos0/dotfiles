@@ -123,7 +123,7 @@ cask "copilot-cli@prerelease"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
-cask "ghostty@tip"
+cask "ghostty"
 # Web browser
 cask "google-chrome"
 # Desktop automation application
