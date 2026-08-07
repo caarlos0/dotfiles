@@ -6,10 +6,10 @@ brew "shellcheck"
 brew "actionlint"
 # Command-line tool for formatting Nix Code
 brew "alejandra"
-# Command-line interface for SQLite
-brew "sqlite"
 # Record and share terminal sessions
 brew "asciinema"
+# Command-line interface for SQLite
+brew "sqlite"
 # Microsoft Azure CLI 2.0
 brew "azure-cli"
 # Language Server for Bash
@@ -132,6 +132,8 @@ cask "hammerspoon"
 cask "imageoptim"
 # Controller for Insta360 webcams
 cask "insta360-link-controller"
+# Email client
+cask "microsoft-outlook"
 # Meet, chat, call, and collaborate in just one place
 cask "microsoft-teams"
 # Tool to control external monitor brightness & volume
@@ -154,3 +156,13 @@ cask "soulver"
 cask "caarlos0/tap/ttop", trusted: true
 # Connect to Windows
 cask "windows-app"
+mas "Azure VPN Client", id: 1553936137
+mas "HEIC Converter", id: 1294126402
+mas "iMovie", id: 408981434
+mas "Keynote", id: 361285480
+mas "Lungo", id: 1263070803
+mas "Microsoft Excel", id: 462058435
+mas "Microsoft Outlook", id: 985367838
+mas "Numbers", id: 361304891
+mas "Okta Verify", id: 490179405
+mas "Pages", id: 361309726
