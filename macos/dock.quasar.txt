@@ -4,10 +4,9 @@
 /System/Applications/Reminders.app
 /System/Applications/Notes.app
 /System/Applications/Calendar.app
-/Applications/Safari.app
+/Applications/Microsoft Edge.app
 /Applications/rio.app
-/Applications/Canario.app
-/System/Applications/Mail.app
+/Applications/Microsoft Outlook.app
 /System/Applications/Messages.app
 /Applications/Slack.app
 /Applications/Microsoft Teams.app

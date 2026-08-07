@@ -144,22 +144,6 @@ defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
 echo "  › Hide desktop icons until the wallpaper is clicked"
 defaults write com.apple.WindowManager HideDesktop -bool true
 
-# CleanShot handles screenshots, so the built-in shortcuts are freed up:
-# 28/29 = whole screen (file/clipboard), 30/31 = selection (file/clipboard),
-# 184 = the screenshot & recording UI (shift-cmd-5). 164 is the Quick Note
-# hot corner, which fires by accident far too often.
-echo "  › Disable the built-in screenshot shortcuts and the Quick Note hot corner"
-disable_hotkey() {
-  defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$1" \
-    "<dict><key>enabled</key><false/><key>value</key><dict><key>type</key><string>standard</string><key>parameters</key><array><integer>$2</integer><integer>$3</integer><integer>$4</integer></array></dict></dict>"
-}
-disable_hotkey 28 51 20 1179648
-disable_hotkey 29 51 20 1441792
-disable_hotkey 30 52 21 1179648
-disable_hotkey 31 52 21 1441792
-disable_hotkey 184 53 23 1179648
-disable_hotkey 164 65535 65535 0
-
 # The whole array is replaced, so every replacement has to be listed here.
 echo "  › Set up text replacements"
 defaults delete -g NSUserDictionaryReplacementItems >/dev/null 2>&1
