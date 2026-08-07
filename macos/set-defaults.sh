@@ -14,6 +14,8 @@ set +e
 
 sudo -v
 
+host="$(hostname -s)"
+
 echo ""
 echo "› System:"
 echo "  › Disable press-and-hold for keys in favor of key repeat"
@@ -23,11 +25,17 @@ echo "  › Use AirDrop over every interface"
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 echo "  › Set a really fast key repeat"
-defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
-echo "  › Always show scrollbars"
-defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+echo "  › Show scrollbars automatically"
+defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
+
+echo "  › Clicking the scrollbar jumps to the spot that was clicked"
+defaults write NSGlobalDomain AppleScrollerPagingBehavior -bool true
+
+echo "  › Double-clicking a title bar fills the window"
+defaults write NSGlobalDomain AppleActionOnDoubleClick -string "Fill"
 
 echo "  › Tint window background with wallpaper color"
 defaults write NSGlobalDomain AppleReduceDesktopTinting -bool false
@@ -48,8 +56,9 @@ defaults write -g WebAutomaticSpellingCorrectionEnabled -bool false
 echo "  › Set dark interface style"
 defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
-echo "  › Set accent color to graphite"
-defaults write -g AppleAccentColor -int 0
+echo "  › Set accent color to blue"
+defaults write -g AppleAccentColor -int 4
+defaults write -g AppleAquaColorVariant -int 1
 
 echo "  › Save to disk by default, instead of iCloud"
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
@@ -64,8 +73,22 @@ echo "  › Set springing delay to 0"
 defaults write -g "com.apple.springing.delay" -float 0.0
 
 echo "  › Set up trackpad & mouse speed"
-defaults write -g com.apple.trackpad.scaling -int 2
+defaults write -g com.apple.trackpad.scaling -float 1.5
 defaults write -g com.apple.mouse.scaling -float 2.5
+defaults write -g com.apple.trackpad.forceClick -bool true
+
+echo "  › Trackpad: no tap-to-click, no three-finger drag, two-finger right click"
+for domain in com.apple.AppleMultitouchTrackpad \
+  com.apple.driver.AppleBluetoothMultitouch.trackpad; do
+  defaults write "$domain" Clicking -bool false
+  defaults write "$domain" Dragging -bool false
+  defaults write "$domain" DragLock -bool false
+  defaults write "$domain" TrackpadThreeFingerDrag -bool false
+  defaults write "$domain" TrackpadThreeFingerTapGesture -int 0
+  defaults write "$domain" TrackpadRightClick -bool true
+  defaults write "$domain" TrackpadCornerSecondaryClick -int 0
+  defaults write "$domain" TrackpadHandResting -bool true
+done
 
 echo "  › Require password immediately after sleep or screen saver begins"
 defaults write com.apple.screensaver askForPassword -bool true
@@ -87,11 +110,90 @@ defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
 echo "  › Enable WebKit developer extras"
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
-echo "  › Reduce motion"
-defaults write com.apple.universalaccess reduceMotion -bool true
+echo "  › Don't reduce motion"
+defaults write com.apple.universalaccess reduceMotion -bool false
 
-echo "  › Disable transparency"
-defaults write com.apple.universalaccess reduceTransparency -bool true
+echo "  › Don't reduce transparency"
+defaults write com.apple.universalaccess reduceTransparency -bool false
+
+echo "  › Globe/fn key switches input source"
+defaults write com.apple.HIToolbox AppleFnUsageType -int 1
+
+echo "  › Enable U.S. and U.S. International - PC keyboard layouts"
+defaults write com.apple.HIToolbox AppleEnabledInputSources -array \
+  "<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>0</integer><key>KeyboardLayout Name</key><string>U.S.</string></dict>" \
+  "<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>15000</integer><key>KeyboardLayout Name</key><string>USInternational-PC</string></dict>" \
+  "<dict><key>Bundle ID</key><string>com.apple.CharacterPaletteIM</string><key>InputSourceKind</key><string>Non Keyboard Input Method</string></dict>" \
+  "<dict><key>Bundle ID</key><string>com.apple.PressAndHold</string><key>InputSourceKind</key><string>Non Keyboard Input Method</string></dict>"
+
+echo "  › Show AM/PM and day of week in the menu bar clock, but not the date"
+defaults write com.apple.menuextra.clock ShowAMPM -bool true
+defaults write com.apple.menuextra.clock ShowDate -int 0
+defaults write com.apple.menuextra.clock ShowDayOfWeek -bool true
+
+echo "  › Show battery, clock, wi-fi and focus modes in the menu bar"
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC Battery" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC Clock" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC WiFi" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC FocusModes" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC BentoBox-0" -bool true
+
+echo "  › No margins around tiled windows"
+defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
+
+echo "  › Hide desktop icons until the wallpaper is clicked"
+defaults write com.apple.WindowManager HideDesktop -bool true
+
+# CleanShot handles screenshots, so the built-in shortcuts are freed up:
+# 28/29 = whole screen (file/clipboard), 30/31 = selection (file/clipboard),
+# 184 = the screenshot & recording UI (shift-cmd-5). 164 is the Quick Note
+# hot corner, which fires by accident far too often.
+echo "  › Disable the built-in screenshot shortcuts and the Quick Note hot corner"
+disable_hotkey() {
+  defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$1" \
+    "<dict><key>enabled</key><false/><key>value</key><dict><key>type</key><string>standard</string><key>parameters</key><array><integer>$2</integer><integer>$3</integer><integer>$4</integer></array></dict></dict>"
+}
+disable_hotkey 28 51 20 1179648
+disable_hotkey 29 51 20 1441792
+disable_hotkey 30 52 21 1179648
+disable_hotkey 31 52 21 1441792
+disable_hotkey 184 53 23 1179648
+disable_hotkey 164 65535 65535 0
+
+# The whole array is replaced, so every replacement has to be listed here.
+echo "  › Set up text replacements"
+defaults delete -g NSUserDictionaryReplacementItems >/dev/null 2>&1
+add_replacement() {
+  defaults write -g NSUserDictionaryReplacementItems -array-add \
+    "<dict><key>on</key><integer>1</integer><key>replace</key><string>$1</string><key>with</key><string>$2</string></dict>"
+}
+add_replacement "hmm" "🤔"
+add_replacement "lol:" "🤣"
+add_replacement "/shit" "💩"
+add_replacement "/dufi" "🗑🔥"
+add_replacement "/dafuq" "ಠ_ಠ"
+add_replacement "/fuck" "❨╯°□°❩╯︵┻━┻"
+add_replacement "/rs" "( ͡° ͜ʖ ͡°)"
+add_replacement "/shrug" "¯\\_(ツ)_/¯"
+add_replacement "/blog" "https://carlosbecker.com"
+add_replacement "/contacts" "https://caarlos0.dev"
+add_replacement "/email" "carlos@becker.software"
+add_replacement "/gorel" "https://github.com/goreleaser/goreleaser"
+add_replacement "omw" "On my way!"
+add_replacement "eac" "Estou a caminho!"
+add_replacement "lmk" "let me know"
+add_replacement "np" "no problem"
+add_replacement "blz" "beleza"
+add_replacement "msm" "mesmo"
+add_replacement "msma" "mesma"
+add_replacement "nao" "não"
+add_replacement "nd" "nada"
+add_replacement "tbm" "também"
+add_replacement "vc" "você"
+add_replacement "voce" "você "
+# These two expand to themselves, purely to stop autocorrect mangling them.
+add_replacement "bosta" "bosta"
+add_replacement "mais" "mais"
 
 echo "  › Set solid black wallpaper"
 osascript -e 'tell application "System Events" to tell every desktop to set picture to "/System/Library/Desktop Pictures/Solid Colors/Black.png"'
@@ -100,8 +202,17 @@ osascript -e 'tell application "System Events" to tell every desktop to set pict
 
 echo ""
 echo "› Finder:"
-echo "  › Always open everything in Finder's list view"
-defaults write com.apple.Finder FXPreferredViewStyle -string "Nlsv"
+echo "  › Always open everything in Finder's icon view"
+defaults write com.apple.finder FXPreferredViewStyle -string "icnv"
+
+echo "  › Sort folders before files"
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
+echo "  › New windows open in the home folder"
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
+
+echo "  › Search the current folder by default"
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
 echo "  › Display full POSIX path as Finder window title"
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
@@ -118,14 +229,20 @@ defaults write com.apple.finder ShowStatusBar -bool true
 echo "  › Show path bar"
 defaults write com.apple.finder ShowPathbar -bool true
 
+echo "  › Don't show hard drives on desktop"
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+
 echo "  › Don't show external hard drives on desktop"
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
 
 echo "  › Don't show removable media on desktop"
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 
-echo "  › Disable the warning before emptying the Trash"
-defaults write com.apple.finder WarnOnEmptyTrash -bool false
+echo "  › Don't keep the desktop and documents in iCloud Drive"
+defaults write com.apple.finder FXICloudDriveDesktop -bool false
+
+echo "  › Keep the warning before emptying the Trash"
+defaults write com.apple.finder WarnOnEmptyTrash -bool true
 
 #############################
 
@@ -172,8 +289,8 @@ defaults write com.apple.dock tilesize -int 42
 echo "  › Show hidden apps in the Dock"
 defaults write com.apple.dock showhidden -bool true
 
-echo "  › Show recent applications in Dock"
-defaults write com.apple.dock show-recents -bool true
+echo "  › Don't show recent applications in Dock"
+defaults write com.apple.dock show-recents -bool false
 
 echo "  › Show process indicators in Dock"
 defaults write com.apple.dock show-process-indicators -bool true
@@ -194,6 +311,31 @@ defaults write com.apple.dock mru-spaces -bool false
 echo "  › Make Dock size immutable"
 defaults write com.apple.dock size-immutable -bool true
 
+# The app list lives in macos/dock.<host>.txt because the personal and work
+# machines don't dock the same apps. Missing apps are skipped rather than
+# leaving a "?" tile behind.
+dock_list="$(dirname "$0")/dock.$host.txt"
+if [ -f "$dock_list" ]; then
+  echo "  › Set Dock apps from dock.$host.txt"
+  defaults delete com.apple.dock persistent-apps >/dev/null 2>&1
+  while IFS= read -r app; do
+    case "$app" in '' | '#'*) continue ;; esac
+    if [ ! -e "$app" ]; then
+      echo "    › Skipping $app, not installed"
+      continue
+    fi
+    defaults write com.apple.dock persistent-apps -array-add \
+      "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+  done <"$dock_list"
+
+  echo "  › Keep only Downloads in the Dock's folder section"
+  defaults delete com.apple.dock persistent-others >/dev/null 2>&1
+  defaults write com.apple.dock persistent-others -array-add \
+    "<dict><key>tile-type</key><string>directory-tile</string><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$HOME/Downloads/</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+else
+  echo "  › No dock.$host.txt, leaving Dock apps alone"
+fi
+
 #############################
 
 echo ""
@@ -207,6 +349,8 @@ defaults write com.raphaelamorim.rio NSUserKeyEquivalents -dict-add "Hide rio" "
 
 echo ""
 echo "› Safari:"
+# Safari's prefs live in its sandbox container, so these writes silently do
+# nothing unless the terminal running this script has Full Disk Access.
 echo "  › Set up Safari for development"
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
@@ -244,10 +388,10 @@ defaults write com.apple.Safari ShowRecentlyClosedTabsPreferenceKey -int 1
 echo ""
 echo "› Restart related apps"
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-  "Dock" "Finder" "Ghostty" "Mail" "Messages" "Safari" "SystemUIServer" \
-  "Terminal" "Photos" "Image Capture"; do
+  "ControlCenter" "Dock" "Finder" "Ghostty" "Mail" "Messages" "Safari" \
+  "SystemUIServer" "Terminal" "Photos" "Image Capture"; do
   killall "$app" >/dev/null 2>&1
 done
 set -e
 
-echo "Done. Some changes need a restart to take effect."
+echo "Done. Some changes (keyboard shortcuts, input sources) need a log out to take effect."

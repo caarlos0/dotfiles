@@ -13,6 +13,9 @@ avoid GNU-only/BSD-only flags.
 ## Layout
 
 - `setup` — main install script (symlinks configs, installs tools).
+- `macos/set-defaults.sh` — macOS `defaults` writes. Run by hand, **not** by
+  `setup`. The Mail and Safari sections need Full Disk Access to have any
+  effect, since those prefs live in sandbox containers.
 - `bin/` — personal scripts on `$PATH`. Keep portable.
 - `scripts/` — maintenance (`update.sh`, `release.sh`).
 - `Brewfile.<host>` — per-machine package lists (`darkmatter` is personal,
@@ -34,6 +37,10 @@ and an unknown host silently gets the shared setup only:
 - `hammerspoon/apps.<host>.lua` — the app hotkey table, linked to
   `~/.hammerspoon/apps.lua`. `init.lua` is shared and binds whatever the table
   lists (`launchOrFocus` for one app, `appCycler` for several).
+- `macos/dock.<host>.txt` — the Dock app list, one path per line. Read by
+  `macos/set-defaults.sh`, which **replaces** the whole Dock with it; apps that
+  aren't installed are skipped. Without a file for the host, the Dock is left
+  alone.
 
 Everything else is shared. Neither `setup` nor `brew bundle` uninstalls
 anything: removing an app from a `Brewfile` doesn't remove it from the machine.
