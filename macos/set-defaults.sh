@@ -370,6 +370,55 @@ defaults write com.apple.Safari ShowRecentlyClosedTabsPreferenceKey -int 1
 #############################
 
 echo ""
+echo "› Time Machine:"
+# Package manager caches and build artifacts are all re-downloadable and churn
+# constantly, so backing them up only burns backup space and time. -p makes the
+# exclusion sticky to the path instead of to the directory's xattrs, so it
+# survives the cache being wiped and recreated by its tool.
+#
+# ~/Library/Caches is already excluded by macOS, so anything living there
+# (go-build, sccache, bun, deno, uv, Homebrew, …) needs no entry here — the
+# isexcluded check below skips those automatically. Paths that don't exist yet
+# are skipped too; re-run this script after installing a new toolchain.
+tm_exclude() {
+  for path in "$@"; do
+    [ -d "$path" ] || continue
+    case "$(tmutil isexcluded "$path")" in
+    *"[Excluded]"*) continue ;;
+    esac
+    echo "  › Excluding $path"
+    sudo tmutil addexclusion -p "$path"
+  done
+}
+
+tm_exclude \
+  "$HOME/go/pkg/mod" \
+  "$HOME/Developer/Go/pkg" \
+  "$(go env GOMODCACHE 2>/dev/null)" \
+  "$(go env GOCACHE 2>/dev/null)" \
+  "$HOME/.cargo/registry" \
+  "$HOME/.cargo/git" \
+  "$HOME/.rustup" \
+  "$HOME/.cache" \
+  "$HOME/.npm/_cacache" \
+  "$HOME/.bun/install/cache" \
+  "$HOME/.yarn/berry/cache" \
+  "$HOME/.deno" \
+  "$HOME/.pub-cache" \
+  "$HOME/.gradle/caches" \
+  "$HOME/.m2/repository" \
+  "$HOME/.local/share/uv" \
+  "$HOME/.swiftpm" \
+  "$HOME/Library/pnpm/store" \
+  "$HOME/Library/Developer/Xcode/DerivedData" \
+  "$HOME/Library/Developer/Xcode/Archives" \
+  "$HOME/Library/Developer/CoreSimulator" \
+  "$HOME/OrbStack" \
+  "$HOME/.orbstack"
+
+#############################
+
+echo ""
 echo "› Restart related apps"
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
   "ControlCenter" "Dock" "Finder" "Ghostty" "Mail" "Messages" "Safari" \
