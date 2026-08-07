@@ -1,6 +1,5 @@
 tap "caarlos0/tap", trusted: true
 tap "goreleaser/tap", trusted: true
-tap "homebrew/bundle"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Static checker for GitHub Actions workflow files
@@ -155,15 +154,3 @@ cask "soulver"
 cask "caarlos0/tap/ttop", trusted: true
 # Connect to Windows
 cask "windows-app"
-mas "Azure VPN Client", id: 1553936137
-mas "HEIC Converter", id: 1294126402
-mas "Lungo", id: 1263070803
-mas "Microsoft Excel", id: 462058435
-mas "Microsoft OneNote", id: 784801555
-mas "Microsoft Outlook", id: 985367838
-mas "Microsoft PowerPoint", id: 462062816
-mas "Microsoft Word", id: 462054704
-mas "OneDrive", id: 823766827
-mas "Okta Extension App", id: 1439967473
-mas "Okta Verify", id: 490179405
-mas "Tailscale", id: 1475387142
