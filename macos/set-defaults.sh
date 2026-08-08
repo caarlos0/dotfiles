@@ -396,6 +396,7 @@ tm_exclude \
   "$HOME/Developer/Go/pkg" \
   "$(go env GOMODCACHE 2>/dev/null)" \
   "$(go env GOCACHE 2>/dev/null)" \
+  "$(go env GOPATH 2>/dev/null)" \
   "$HOME/.cargo/registry" \
   "$HOME/.cargo/git" \
   "$HOME/.rustup" \
@@ -414,7 +415,45 @@ tm_exclude \
   "$HOME/Library/Developer/Xcode/Archives" \
   "$HOME/Library/Developer/CoreSimulator" \
   "$HOME/OrbStack" \
-  "$HOME/.orbstack"
+  "$HOME/.orbstack" \
+  "$HOME/Library/Group Containers/HUAQ24HBR6.dev.orbstack/data" \
+  "$HOME/.local/share/nvim/site" \
+  "$HOME/Library/Containers/com.apple.AMPArtworkAgent" \
+  "$HOME/Library/Application Support/Slack/Cache" \
+  "$HOME/Library/Application Support/Slack/Code Cache" \
+  "$HOME/Library/Application Support/Slack/Service Worker" \
+  "$HOME/Library/Application Support/discord/Cache" \
+  "$HOME/Library/Application Support/discord/Code Cache" \
+  "$HOME/Library/Application Support/BraveSoftware/BraveUpdater" \
+  "$HOME/Library/Application Support/BraveSoftware/Brave-Origin-Nightly/component_crx_cache" \
+  "$HOME/Library/Application Support/BraveSoftware/Brave-Origin-Nightly/screen_ai" \
+  "$HOME/Library/Application Support/BraveSoftware/Brave-Origin-Nightly/Default/Service Worker" \
+  "$HOME/Library/Application Support/Google/Chrome/optimization_guide_model_store" \
+  "$HOME/Library/Application Support/Google/Chrome/WasmTtsEngine" \
+  "$HOME/Library/Application Support/Google/Chrome/component_crx_cache" \
+  "$HOME/Library/Application Support/Google/Chrome/Safe Browsing"
+
+# Per-project build output can't be listed as fixed paths, so find it instead.
+# These use the plain (xattr) exclusion: it needs no sudo and travels with the
+# directory, but a *newly created* node_modules won't be excluded until this
+# script runs again. .git is pruned because it dominates the walk time.
+projects="${PROJECTS:-$HOME/Developer}"
+if [ -d "$projects" ]; then
+  echo "  › Excluding build output under $projects"
+  find "$projects" -name .git -prune -o \
+    \( -name node_modules -o -name target -o -name .next -o -name dist \
+    -o -name .venv \) -type d -prune -print 2>/dev/null |
+    while IFS= read -r dir; do
+      # Name matching alone isn't safe: goreleaser has a real
+      # internal/pipe/dist package. Only exclude what git already treats as
+      # disposable, which also skips anything outside a repo.
+      git -C "${dir%/*}" check-ignore -q "$dir" 2>/dev/null || continue
+      case "$(tmutil isexcluded "$dir")" in
+      *"[Excluded]"*) continue ;;
+      esac
+      tmutil addexclusion "$dir"
+    done
+fi
 
 #############################
 
