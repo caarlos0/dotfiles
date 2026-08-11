@@ -87,8 +87,6 @@ brew "tree-sitter"
 brew "neovim"
 # Port scanning utility for large networks
 brew "nmap"
-# CLI for Postgres with auto-completion and syntax highlighting
-brew "pgcli"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # Code formatter for JavaScript, CSS, JSON, GraphQL, Markdown, YAML
