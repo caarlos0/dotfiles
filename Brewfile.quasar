@@ -1,5 +1,6 @@
 tap "caarlos0/tap", trusted: true
 tap "goreleaser/tap", trusted: true
+tap "lzhgus/tap"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Static checker for GitHub Actions workflow files
@@ -22,6 +23,8 @@ brew "curl"
 brew "direnv"
 # Run arbitrary commands when files change
 brew "entr"
+# Like neofetch, but much faster because written mostly in C
+brew "fastfetch"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
 # Play, record, convert, and stream select audio and video codecs
@@ -70,6 +73,8 @@ brew "tree-sitter"
 brew "neovim"
 # Port scanning utility for large networks
 brew "nmap"
+# Command-line Git information tool
+brew "onefetch"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # Code formatter for JavaScript, CSS, JSON, GraphQL, Markdown, YAML
@@ -116,6 +121,8 @@ brew "zig"
 brew "zoxide"
 # Application uninstaller
 cask "appcleaner"
+# Open-source screenshot and screen recording for macOS
+cask "lzhgus/tap/capso", trusted: true
 # Screen capturing tool
 cask "cleanshot"
 # Brings the power of Copilot coding agent directly to your terminal
