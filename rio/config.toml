@@ -41,12 +41,17 @@ symbol-map = [
 
 [window]
 mode = "Maximized"
-decorations = "Enabled"
+decorations = "Disabled"
+margin = [5, 5, 5, 5]
 macos-use-shadow = true
 colorspace = "rec2020"
 
 [navigation]
+mode = "Plain"
 use-split = false
+
+[platform.macos.navigation]
+mode = "NativeTab"
 
 [bindings]
 keys = [
