@@ -55,17 +55,7 @@ fi
 
 # copilot
 if which copilot &>/dev/null; then
-  # upstream agents use claude code's model names in their frontmatter
-  fetch_agent() {
-    curl -fsSL "$1" |
-      sed 's/^model: .*$/model: claude-opus-5/' >~/.copilot/agents/"$2"
-  }
-
   mkdir -p ~/.copilot/{agents,skills}/
-  fetch_agent https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/caarlos0.md caarlos0.agent.md
-  fetch_agent https://raw.githubusercontent.com/merencia/pairwith/refs/heads/main/profiles/merencia.md merencia.agent.md
-  mkdir -p ~/.copilot/skills/i-have-adhd
-  curl -fsSL -o ~/.copilot/skills/i-have-adhd/SKILL.md https://raw.githubusercontent.com/ayghri/i-have-adhd/refs/heads/main/skills/i-have-adhd/SKILL.md
   for agent in "$PWD"/agents/*; do
     [ -f "$agent" ] || continue
     link "$agent" ~/.copilot/agents/"$(basename "$agent")"

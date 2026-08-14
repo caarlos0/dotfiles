@@ -1,67 +1,47 @@
 ---
 name: code-simplifier
-description: Simplify recently-changed code without changing behavior. Use by default whenever implementing anything, and when explicitly invoked (e.g. "simplify", "clean up", "refactor").
+description: Final simplification pass over recently changed code without changing behavior. Use after implementation or when explicitly asked to simplify, clean up, or refactor.
 ---
 
-Scope: only files changed in the current session or `git diff` against the base branch. Do not wander into unrelated code. The exceptions, both tied to your change: code it leaves unused (see "Unused code") and stale references to behavior it removed (see "Stale references") may be cleaned up even when they live outside the diff.
+# Code Simplifier
 
-Before:
+Run after the behavior is correct. Repository instructions and correctness or
+language specialists take precedence; output-style skills affect presentation
+only.
 
-- If the worktree is clean before the task, assume tests pass and skip the baseline run. If it is already dirty, run only the smallest targeted test needed to distinguish pre-existing failures from regressions; never default to the full suite.
-- Read AGENTS.md / CONTRIBUTING.md / nearby code. Match existing conventions, don't import outside ones.
-- For each language present in the changed files, read the matching guide in `languages/` and apply it on top of the rules below. Map by extension:
-  - `.ts`, `.tsx`, `.mts`, `.cts` → `languages/typescript.md`
-  - `.js`, `.jsx`, `.mjs`, `.cjs` → `languages/javascript.md`
-  - `.go` → `languages/go.md`
-  - `.rs` → `languages/rust.md`
-  - `.py`, `.pyi` → `languages/python.md`
-  - `.css`, `.scss`, `.sass` → `languages/css.md`
-  - Any other language: apply the general rules below only.
-  - The guide is loaded relative to this SKILL.md. If a guide is missing, proceed with the general rules.
+## Scope
 
-Rules:
+Inspect only the current change against its base. Follow references outside the
+diff only to remove code orphaned by this change or text made false by it.
 
-- Preserve behavior exactly. No API, signature, or output changes.
-- Apply YAGNI: don't build for hypothetical future needs. Solve the problem in front of you, nothing more.
-- Prefer a clear one-liner over multiple lines when it stays readable. Don't sacrifice clarity for brevity.
-- One concern per pass (rename OR extract OR flatten — not all three).
-- Don't touch tests unless the user asked.
-- Don't reorder imports.
-- Don't add abstractions. Remove them when they have one caller.
-- Delete code your changes leave unused (see "Unused code" below).
-- Prefer statements over nested expressions (no nested ternaries, no clever chains).
-- Delete comments that restate the code. Comments should explain _why_, not _what_. This includes comments that just paraphrase the signature or make tautological claims.
-- Update or delete comments, docs, and names that describe behavior the change removed (see "Stale references" below).
-- Stdlib over a dependency. Don't add a `require`/`import` of a new package to save three lines.
-- Don't expose things that don't need to be exposed, default should be private.
-- Clear up repeated code if possible.
-- Use DRY when it makes sense, even if it means touch code that was already there
+Read repository instructions and the matching guide under `languages/`:
 
-Unused code:
+- TypeScript: `languages/typescript.md`
+- JavaScript: `languages/javascript.md`
+- Go: `languages/go.md`
+- Rust: `languages/rust.md`
+- Python: `languages/python.md`
+- CSS: `languages/css.md`
 
-Simplifying orphans code — inlining a one-call helper, dropping an abstraction, or DRYing duplication leaves the old definition with no callers. Stale code also accumulates on its own: something added and used once, then left behind by an earlier refactor. After the edits, hunt both down and delete them.
+## Pass
 
-- Look for now-unreferenced functions, methods, types, constants, variables, imports, and whole files.
-- Two sources are in scope:
-  - Code your change orphaned — follow the chain, even when it leads outside the changed files.
-  - Code already stale in the files you're touching — delete it regardless of when it went unused.
-- Stay surgical: don't audit the whole repo for unrelated dead code. Stick to the files you're editing and the chain your change reaches.
-- Confirm it's dead before deleting. Search the whole repo, not just the diff: references, tests, and indirect uses (reflection, string-keyed dispatch, DI, plugin/config registration, templates). Lean on the compiler or a linter — they beat eyeballing.
-- Never delete anything reachable through the public/exported API a consumer could call; that's an API change, forbidden above. When you can't tell, leave it and say so.
-- Loop: deleting code orphans its own callees and imports. Repeat until nothing new is dead.
+- Preserve APIs, signatures, outputs, and behavior.
+- Remove unnecessary indirection, one-use abstractions, repeated branches, and
+  comments that restate code.
+- Prefer clear statements over clever expressions.
+- Keep small intentional duplication when extraction would obscure behavior.
+- Use the standard library instead of adding a dependency.
+- Keep visibility private unless callers require otherwise.
+- Update comments, docs, errors, and names made false by the change.
+- Search the repository before deleting apparently unused code; account for
+  tests, registration, reflection, configuration keys, and public consumers.
+- Update tests only when needed to preserve coverage after a legitimate
+  refactor. Do not weaken assertions or alter expected behavior.
 
-Stale references:
+Do not reorder imports, mix unrelated cleanup into the diff, or redesign a
+working API. If simplification materially expands the diff, leave the code
+alone and explain why.
 
-A change outdates more than code. Comments, docstrings, and names that explain a reason, workaround, or behavior the change removed now lie — and a wrong comment is worse than none.
-
-- In the files you touch, update or delete comments, docstrings, and local names that describe the removed reason, the old workaround, or the gone behavior ("we do X because Y" when Y no longer holds).
-- When the change retires a specific named reason, workaround, or concept, grep the repo for lingering mentions and fix the ones that are now false — target that one thing, don't audit all prose.
-- Don't rename exported/public identifiers to chase this; that's an API change, forbidden above.
-- Don't invent a new rationale. Delete what's false; only rewrite a comment when you're sure of the new "why."
-
-After:
-
-- Don't rerun tests already completed successfully for the current task. Run the smallest targeted test only when this simplification needs validation that existing test results do not cover; never default to the full suite.
-- If the diff grew past ~50 lines or crossed unrelated files, stop and surface it before continuing.
-- Never commit. Leave staging and the commit message to the human.
-- Make sure any repository linters pass — including no new unused-code warnings.
+Use validation already run for the implementation. Run an additional targeted
+check only when this pass changes something not covered by it. Never stage or
+commit.

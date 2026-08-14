@@ -1,208 +1,77 @@
 ---
 name: maintainer-briefing
-description: Generate a daily maintainer briefing for a GitHub repository. Fetches open PRs, issues, CI status, and produces a prioritized attention-allocation report. Use when user says "/maintainer-briefing" or asks for a maintainer report. Examples - "/maintainer-briefing external-secrets/external-secrets", "/maintainer-briefing", "give me a maintainer briefing".
+description: Generate a prioritized maintainer briefing from current GitHub repository state, including issue/PR dependencies, CI, review blockers, regressions, and drift.
 user_invocable: true
 ---
 
-# Maintainer Daily Briefing
+# Maintainer Briefing
 
-You are a maintainer copilot and attention allocator — NOT a code reviewer.
-Do NOT perform detailed code review. Do NOT suggest merge decisions.
+Allocate maintainer attention; do not perform detailed code review or invent
+merge recommendations.
 
-## Arguments
-
-The user may provide a repo in `owner/repo` format. If not provided, detect from the current git remote:
+Resolve the repository argument or use:
 
 ```bash
 gh repo view --json nameWithOwner -q '.nameWithOwner'
 ```
 
-Store the resolved repo as `$REPO` for all subsequent commands.
+Fetch open pull requests and issues with `gh`, including review decisions,
+unresolved threads, labels, checks, timestamps, authors, and size. Fetch details
+only for candidates likely to appear in the report.
 
-## Grounding Rules
+## Dependency map
 
-- Do NOT invent events or states. If data is missing, state that briefly.
-- Prefer concrete references (PR #, issue #, file paths, labels, CI job names).
-- If uncertain about a signal (e.g., security relevance), say so explicitly.
-- All summaries must be concise and derived from fetched data or stored memory.
+Build an issue/PR map from closing references, linked issues, comments, commit
+messages, and overlapping symbols when available. Detect:
 
-## Step 1 — Fetch Repository State
+- issues with open, merged, or superseded fixes;
+- PRs whose premise changed because another PR merged first;
+- reopened regressions or partial fixes;
+- stale file and line references after ports or large insertions;
+- contradictory issues or PRs touching the same behavior;
+- base-branch failures affecting multiple pull requests.
 
-Use the Bash tool to run `gh` CLI commands. Run independent queries in parallel:
+Do not infer a dependency from similar titles alone.
 
-```bash
-gh pr list --repo $REPO --state open --json number,title,author,labels,createdAt,updatedAt,additions,deletions,changedFiles,reviewDecision,statusCheckRollup,isDraft,url --limit 100
-```
+## Prioritization
 
-```bash
-gh issue list --repo $REPO --state open --json number,title,author,labels,createdAt,updatedAt,comments,url --limit 50
-```
+Rank by:
 
-For each open PR that looks relevant, fetch review and comment details:
+1. security or data-loss risk;
+2. contributor blocked on a maintainer decision;
+3. regression or broken release/CI;
+4. user already engaged and context still warm;
+5. small, passing goodwill wins;
+6. stale cleanup.
 
-```bash
-gh pr view $PR_NUMBER --repo $REPO --json reviews,comments,latestReviews
-```
+Estimate effort from actual scope and decision complexity, not line count alone.
+Deduplicate items across sections.
 
-To detect CI status per PR, use the `statusCheckRollup` field from the PR list.
+## Report
 
-To detect maintainer involvement, check if the repo owner or known maintainer handles appear in reviews/comments.
+Keep the report compact:
 
-## Step 2 — Update Memory
+### Critical
+At most three security, regression, release, or contributor-blocking items.
 
-Memory files live at: `~/.agents/projects/$PROJECT_KEY/memory/maintainer/`
+### Decisions Needed
+Items requiring maintainer product/API direction rather than code review.
 
-Create this directory if it doesn't exist. Use the project key derived from the repo name.
+### Easy Wins
+Small, passing, low-risk work with the exact next action and effort estimate.
 
-Maintain these files:
+### Deep Focus
+At most three high-leverage reviews or investigations, each under 30 minutes
+unless unavoidable.
 
-- `last-briefing.json` — timestamp and summary of last briefing
-- `pr-state.json` — per-PR tracked state (last seen status, your involvement, contributor responsiveness, staleness)
+### Dependency and Drift
+Superseded fixes, reopened issues, stale citations, contradictory premises, and
+safe close/ping candidates.
 
-Incrementally update (do NOT regenerate from scratch each time):
+### Snapshot
+Open PR/issue counts, items waiting on the maintainer, CI failures, and backlog
+distribution.
 
-- Detect if the user previously reviewed or commented on each PR
-- Detect if the user is currently the blocker
-- Detect responsive contributors waiting for maintainer input
-- Detect security-relevant discussions (labels, keywords in titles/comments)
-- Detect CI failures requiring maintainer attention
-- Detect inactivity drift (>7 days no maintainer response)
-- Classify PR review difficulty (Small / Medium / Large) based on changedFiles, additions, deletions
-- Estimate review effort in minutes
-- Identify PRs likely reviewable primarily by an LLM (extensive but low-risk mechanical changes)
-
-Compare current state against `pr-state.json` to detect what's new since last briefing.
-
-## Step 3 — Generate Report
-
-Output the following sections. If a section has no items, state that clearly and move on. Keep signal high — limit surfaced items, minimize context switching.
-
----
-
-### Critical Risk (Max 3)
-
-Only include if: security-relevant, escalating discussion, active contributor blocked by maintainer, or CI failures blocking release.
-
-For each:
-
-- PR/Issue #
-- Why this is critical
-- 2-3 sentence context summary
-- Type of thinking required: decision / direction / clarification / coordination
-- Estimated effort
-
----
-
-### New PRs Since Last Briefing
-
-For each new PR:
-
-- PR # and title
-- Author
-- Size signal (files changed / additions)
-- Difficulty estimate (Small / Medium / Large)
-- One-line suggested focus area
-
----
-
-### Easy Wins — Small, Easy-to-Review PRs (Prioritized)
-
-Include PRs classified as Small AND not high-risk. Order by:
-
-1. Responsive contributor waiting
-2. User previously engaged
-3. CI passing
-4. Recently updated
-
-For each:
-
-- PR #
-- Why it's small/easy (concrete signal)
-- What to focus on during review (1-2 bullets)
-- Estimated effort (prefer <=15 min)
-- Contributor responsiveness status
-- Context freshness: HOT / WARM / COLD
-
----
-
-### Deep Focus Stack (Max 3, <=30 min each)
-
-Prioritize: security > responsive contributor waiting > user already engaged > waiting on maintainer > CI failures.
-
-For each:
-
-- PR #
-- 2-3 sentence context summary
-- Why it's high leverage
-- Suggested next maintainer action (not code-level review)
-- Estimated effort
-- Context freshness: HOT / WARM / COLD
-
-Avoid cold-context large items unless high priority.
-
----
-
-### LLM-Review Candidates
-
-Large PRs that are not security-sensitive, not urgently blocking, and involve mechanical changes (refactors, renames, docs, tests).
-
-For each:
-
-- PR #
-- Why suitable for LLM-assisted review
-- Risk level (Low / Medium)
-- Suggested LLM task framing
-- Estimated human oversight time
-
----
-
-### Side Mode Stack (<=15 min each)
-
-Quick replies, triage new issues, labeling, small unblockers, inactivity pings.
-
-For each:
-
-- PR/Issue #
-- One-line description
-- Suggested action
-- Estimated effort
-
----
-
-### Drift & Cleanup
-
-PRs stalled >7 days, issues approaching abandonment, threads safe to close.
-
-For each:
-
-- Reference #
-- Staleness duration
-- Suggested action (ping / close / defer)
-- Short suggested ping message (<=2 sentences)
-
----
-
-### Maintainer Health Snapshot
-
-- Total open PRs
-- PRs waiting on maintainer
-- PRs user previously engaged in
-- Issues needing triage
-- Threads where user is the blocker
-- CI failure count
-- Backlog trend (growing / stable / shrinking) if detectable from memory
-
----
-
-### Close With
-
-- Best single high-leverage action today
-- Fastest contributor goodwill win
-- Safe to ignore today
-
-## Output Style
-
-- Use markdown headers and bullet points
-- Keep total output focused — no filler
-- Reference PRs with `#number` format consistently
-- Do not repeat items across sections — deduplicate
+Close with the single best action today, fastest contributor goodwill win, and
+what is safe to ignore. Ground every item in fetched data and use `#number`
+references consistently.
