@@ -29,8 +29,8 @@ alias vimdiff 'nvim -d'
 alias ta 'tmux new -A -s default'
 alias freeze 'freeze -c full'
 alias t task
-alias cop 'copilot --yolo'
-alias review "copilot --yolo --autopilot --model 'gpt-5.6-sol' --agent anvil --no-sandbox -i 'review all changes in this branch. assume build, lint, and fmt is all OK'"
+alias cop 'copilot --yolo --agent caarlos0 --effort high --context long_context'
+alias review "copilot --yolo --autopilot --agent anvil --effort high --context long_context --sandbox -i 'review all changes in this branch. assume build, lint, and fmt is all OK'"
 
 # go
 alias gmt 'go mod tidy'
