@@ -1,0 +1,19 @@
+#!/usr/bin/env fish
+# Counts lines added and removed.
+# Args are passed to git diff as-is: --staged, a range, or a ref all work.
+# --main compares the whole branch (committed + staged + unstaged) to the main branch.
+set -l added 0
+set -l removed 0
+
+if test "$argv[1]" = --main
+	set argv[1] (git merge-base (git main-branch) HEAD)
+end
+
+git diff --numstat $argv | while read -l a r file
+	if string match -qr '^\d+$' -- $a
+		set added (math $added + $a)
+		set removed (math $removed + $r)
+	end
+end
+
+echo (set_color green)"+$added"(set_color normal) (set_color red)"-$removed"(set_color normal) (set_color --bold)"="(math $added - $removed)(set_color normal)
