@@ -29,5 +29,11 @@ picked by `hostname -s`: `darkmatter` is personal, `quasar` is work.
 ## Releasing
 
 ```bash
-./scripts/release.sh
+task release
+```
+
+## Updating
+
+```bash
+task update
 ```

@@ -1,0 +1,64 @@
+# https://taskfile.dev
+version: "3"
+
+vars:
+  HOST:
+    sh: hostname -s
+
+tasks:
+  default:
+    cmds:
+      - task --list
+    silent: true
+
+  setup:
+    desc: Apply the dotfiles
+    cmds:
+      - ./setup
+
+  brew:
+    desc: Update Homebrew and regenerate the machine's Brewfile
+    preconditions:
+      - sh: test -f Brewfile.{{.HOST}}
+        msg: "No Brewfile.{{.HOST}}: run this from the repository root, on a known machine."
+    cmds:
+      - brew update
+      - brew upgrade --yes
+      - brew autoremove
+      - brew cleanup --scrub --prune 0
+      - brew bundle dump --file Brewfile.{{.HOST}} --no-go --no-uv --no-cargo --no-npm --force
+
+  nvim:
+    desc: Update Neovim plugins
+    cmds:
+      - 'nvim --headless +"lua vim.pack.update(nil, { force = true })" +qa >/dev/null 2>&1'
+
+  update:
+    desc: Update everything and commit the changes (on main)
+    cmds:
+      - task: brew
+      - task: nvim
+      - task: commit
+
+  commit:
+    internal: true
+    status:
+      - test "$(git symbolic-ref --short HEAD)" != main
+    cmds:
+      - git add Brewfile.{{.HOST}}
+      - 'git diff --cached --quiet || git commit -m "chore(darwin): update Brewfile.{{.HOST}}"'
+      - git add ./nvim/nvim-pack-lock.json
+      - "git diff --cached --quiet || git commit -m 'chore(nvim): update lockfile'"
+
+  release:
+    desc: Tag and release with GoReleaser
+    vars:
+      TAG:
+        sh: date +%Y.%-m.%-d
+    env:
+      GITHUB_TOKEN:
+        sh: gh auth token
+    cmds:
+      - git tag -m "{{.TAG}}" "{{.TAG}}"
+      - git push --tags
+      - goreleaser release --clean
