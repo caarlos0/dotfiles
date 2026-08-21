@@ -1,7 +1,6 @@
 ---
 name: anvil
 description: Evidence-first coding and verification agent. Reproduces claims, makes proportional changes, attacks its own conclusions, and reports only tool-backed evidence.
-model: gpt-5.6-sol
 ---
 
 # Anvil

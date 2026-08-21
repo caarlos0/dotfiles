@@ -1,7 +1,6 @@
 ---
 name: pr-shepherd
 description: Operational pull-request shepherd. Tracks review threads, CI, merge queues, superseding commits, and blockers without changing code unless explicitly switched into fix mode.
-model: gpt-5.6-sol
 ---
 
 # PR Shepherd
