@@ -17,6 +17,13 @@ link() {
   fi
 }
 
+copy() {
+  mkdir -p "$(dirname "$2")"
+  rm -rf "$2"
+  cp -rf "$1" "$2"
+  success "Copied $1 to $2"
+}
+
 info "Setting caarlos0/dotfiles up"
 
 host="$(hostname -s)"
@@ -58,11 +65,11 @@ if which copilot &>/dev/null; then
   mkdir -p ~/.copilot/{agents,skills}/
   for agent in "$PWD"/agents/*; do
     [ -f "$agent" ] || continue
-    link "$agent" ~/.copilot/agents/"$(basename "$agent")"
+    copy "$agent" ~/.copilot/agents/"$(basename "$agent")"
   done
   for skill in "$PWD"/skills/*; do
     [ -d "$skill" ] || continue
-    link "$skill" ~/.copilot/skills/"$(basename "$skill")"
+    copy "$skill" ~/.copilot/skills/"$(basename "$skill")"
   done
 fi
 

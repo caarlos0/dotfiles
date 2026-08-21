@@ -19,7 +19,7 @@ avoid GNU-only/BSD-only flags.
 - `bin/` — personal scripts on `$PATH`. Keep portable.
 - `Taskfile.yml` — maintenance tasks (`task update`, `task release`), run with
   [Task](https://taskfile.dev).
-- `agents/`, `skills/` — Copilot agents and reusable workflows, linked into
+- `agents/`, `skills/` — Copilot agents and reusable workflows, copied into
   `~/.copilot` by `setup`. Keep agent roles distinct and put reusable procedures
   in skills.
 - `Brewfile.<host>` — per-machine package lists (`darkmatter` is personal,
