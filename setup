@@ -71,6 +71,9 @@ if which copilot &>/dev/null; then
     [ -d "$skill" ] || continue
     copy "$skill" ~/.copilot/skills/"$(basename "$skill")"
   done
+  if which gh &>/dev/null; then
+    gh skill install github/gh-stack --agent github-copilot --all --scope user --force
+  fi
 fi
 
 # other apps
