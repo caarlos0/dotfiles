@@ -95,6 +95,8 @@ brew "sccache"
 brew "shfmt"
 # Opinionated Lua code formatter
 brew "stylua"
+# Semantic version utility
+brew "svu"
 # User interface to the TELNET protocol
 brew "telnet"
 # Terminal multiplexer
@@ -170,6 +172,7 @@ mas "Keynote", id: 361285480
 mas "Lungo", id: 1263070803
 mas "Microsoft Excel", id: 462058435
 mas "Microsoft Outlook", id: 985367838
+mas "Microsoft Word", id: 462054704
 mas "Numbers", id: 361304891
 mas "Okta Verify", id: 490179405
 mas "Pages", id: 361309726
