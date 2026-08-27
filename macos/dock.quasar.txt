@@ -4,7 +4,7 @@
 /System/Applications/Reminders.app
 /System/Applications/Notes.app
 /System/Applications/Calendar.app
-/Applications/Microsoft Edge.app
+/Applications/Safari.app
 /Applications/rio.app
 /Applications/Microsoft Outlook.app
 /System/Applications/Messages.app
