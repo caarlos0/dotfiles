@@ -167,12 +167,8 @@ cask "caarlos0/tap/ttop", trusted: true
 cask "windows-app"
 mas "Azure VPN Client", id: 1553936137
 mas "HEIC Converter", id: 1294126402
-mas "iMovie", id: 408981434
-mas "Keynote", id: 361285480
 mas "Lungo", id: 1263070803
 mas "Microsoft Excel", id: 462058435
 mas "Microsoft Outlook", id: 985367838
 mas "Microsoft Word", id: 462054704
-mas "Numbers", id: 361304891
 mas "Okta Verify", id: 490179405
-mas "Pages", id: 361309726
