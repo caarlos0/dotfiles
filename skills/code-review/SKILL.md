@@ -104,6 +104,7 @@ focused test can cover it.
 - `change-impact-auditor`: configuration, policy, protocol, or shared models.
 - `runtime-process-debugging`: process, shell, pipe, lifecycle, or race behavior.
 - `issue-validator`: a claimed issue fix or stale report.
+- `writing-tests`: regression coverage, test isolation, or flake diagnosis.
 - `go-conventions` or `rust-specialist`: matching language changes.
 - `go-doc`: unfamiliar Go APIs, without `go get` or module changes in review.
 - `go-performance`, `rust-performance`, `typescript-performance`, or
