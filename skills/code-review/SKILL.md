@@ -6,8 +6,8 @@ user_invocable: true
 
 # Code Review
 
-Review read-only by default. Do not edit files or mutate GitHub state unless the
-user explicitly asks. Follow repository instructions before this skill.
+Do not edit files. The only GitHub mutation allowed is posting the review itself.
+Follow repository instructions before this skill.
 
 ## Scope
 
@@ -120,6 +120,30 @@ List findings by severity with file/line, trigger, impact, smallest fix, and
 needed test. Do not add praise, summaries of correct code, or low-confidence
 possibilities. State material verification gaps separately.
 
-If there are no findings, say so plainly. Do not post a review unless asked. If
-asked to act on a pull request with no findings, approve it and disclose that
-the reviewer is a bot.
+If there are no findings, say so plainly.
+
+## Posting a review
+
+When the target is a pull request, always post the review. Do not ask first and
+do not stop at reporting findings in chat.
+
+Anchor every finding to the code it concerns. Submit one review whose `comments`
+array carries an inline comment per finding, each with `path` and `line`, plus
+`start_line` for a range. Never collect findings in the review body, and do not
+split them into separate top-level comments. `gh pr review` cannot attach inline
+comments, so post through the reviews API, for example
+`gh api repos/OWNER/REPO/pulls/N/reviews --method POST --input -`.
+
+- Keep the body for the verdict and for anything with no single site:
+  cross-cutting scope, missing tests, and disclosed verification gaps.
+- Anchor to a line the diff touches. When a finding concerns unchanged code,
+  anchor to the changed line that reaches it and say why in the comment.
+- Make each comment stand alone: trigger, impact, smallest fix, needed test.
+  Reference sibling findings by file and line rather than repeating them.
+- After posting, read the comments back and confirm every anchor resolved to the
+  intended line instead of silently detaching.
+- When a later review replaces an earlier one, dismiss the earlier one and name
+  the review that supersedes it.
+
+With no findings, approve the pull request and disclose that the reviewer is a
+bot. Local diffs, branches, and commits have nowhere to post: report in chat.
