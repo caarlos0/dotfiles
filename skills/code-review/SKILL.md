@@ -106,7 +106,8 @@ focused test can cover it.
 - `issue-validator`: a claimed issue fix or stale report.
 - `go-conventions` or `rust-specialist`: matching language changes.
 - `go-doc`: unfamiliar Go APIs, without `go get` or module changes in review.
-- `go-performance`: Go performance changes, regressions, or claims.
+- `go-performance`, `rust-performance`, `typescript-performance`, or
+  `python-performance`: matching language performance work.
 
 Invoke only relevant skills.
 
