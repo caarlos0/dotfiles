@@ -1,5 +1,5 @@
 ---
-name: doc-author
+name: gh-doc-author
 description: Author and revise clear GitHub internal documentation, including design docs, proposals, decision records, runbooks, status updates, and handoffs. Use when writing or editing internal docs for technical or enterprise audiences.
 user-invocable: true
 ---
