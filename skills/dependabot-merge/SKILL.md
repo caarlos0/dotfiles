@@ -1,6 +1,6 @@
 ---
 name: dependabot-merge
-description: Review and merge open Dependabot pull requests across an organization or user. Use for dependency update triage, supply-chain checks on bumps, or bulk dependency merges.
+description: Review and merge open dependency pull requests from Dependabot, Renovate and similar bots, across one or more organizations or users. Use for dependency update triage, supply-chain checks on bumps, or bulk dependency merges.
 user_invocable: true
 ---
 
@@ -9,11 +9,27 @@ user_invocable: true
 Merge safe dependency updates. Stop and report the unsafe ones. Never merge a
 pull request that you did not check in this run.
 
-Resolve the owner from the argument, or use the current user:
+The checks are the same for every dependency bot. Only the discovery query and
+the place that holds the update metadata change. See "Which bots".
+
+## Scope
+
+The argument can name more than one owner, and can mix them, for example
+`org goreleaser and user caarlos0`. Without an argument, use the current user:
 
 ```bash
 gh api user -q .login
 ```
+
+**Never widen the scope on your own.** A user belongs to many organizations
+that they do not maintain. Merging there affects other people. List them:
+
+```bash
+gh api user/orgs --jq '.[].login'
+```
+
+Then ask which ones to process, and default to the owners the user clearly
+controls. Do not merge in a shared community organization without a clear yes.
 
 ## Ledger
 
@@ -24,6 +40,7 @@ Create it once per run with the `sql` tool:
 CREATE TABLE IF NOT EXISTS dependabot_prs (
   url TEXT PRIMARY KEY,
   repo TEXT, number INTEGER, title TEXT,
+  bot TEXT,       -- dependabot | renovate | pre-commit-ci | ...
   state TEXT,     -- pending | merged | skipped | blocked | failed
   reason TEXT,
   checked_at TEXT
@@ -35,27 +52,77 @@ immediately after each decision. Read the ledger before each step and process
 only `pending` rows. Report the terminal rows again at the end, but do not
 check them again.
 
-## Collect
+## Which bots
+
+Handle every dependency bot, not only Dependabot. They differ in three ways:
+the author login, where the update metadata lives, and the branch prefix.
+
+| Bot         | Author login        | Metadata lives in            | Branch prefix |
+| ----------- | ------------------- | ---------------------------- | ------------- |
+| Dependabot  | `dependabot[bot]`   | `updated-dependencies:` block in the commit body | `dependabot/` |
+| Renovate    | `renovate[bot]`     | a table in the **pull request body** | `renovate/`   |
+| Mend/self-hosted Renovate | a custom account, often `renovate-bot` | same as Renovate | `renovate/` |
+| pre-commit.ci | `pre-commit-ci[bot]` | the pull request body; edits `.pre-commit-config.yaml` | `pre-commit-ci-update-config` |
+
+**Renovate has no commit metadata block.** Its versions live in a markdown
+table in the pull request body, next to a `<!--renovate-debug:...-->` comment:
 
 ```bash
-gh search prs --owner OWNER --author app/dependabot --state open \
-  --limit 100 --json number,repository,title,url,createdAt
+gh pr view NUMBER -R REPO --json body -q .body
 ```
 
-Add `--draft=false` to skip drafts. Insert the results into the ledger.
+That table is generated at the same time as the diff, but it is still a
+summary. The rule below does not change: **read the diff.**
+
+Two Renovate-only things to watch:
+
+- A pull request that edits `renovate.json`, `.github/renovate.json` or
+  `.renovate.json` is a **configuration** change, not a dependency bump. It is
+  outside the manifest/lockfile/workflow allowlist, so it is `blocked` for a
+  human.
+- Renovate can run `postUpgradeTasks` and custom managers, so it can touch
+  files a version bump does not explain. Treat any such file as a block.
+
+## Collect
+
+`gh search prs` takes only one `--author`, and a second flag silently replaces
+the first. To cover several bots in one query, use the search API, where a
+repeated `author:` qualifier means OR:
+
+```bash
+gh api -X GET search/issues -f per_page=100 \
+  -f q='is:pr is:open draft:false org:OWNER author:app/dependabot author:app/renovate' \
+  --jq '.items[] | "\(.user.login)\t\(.html_url)\t\(.title)"'
+```
+
+Keep the `q` value on one line. A newline inside it makes the search API reject
+the whole query with `422 Validation Failed`.
+
+Use `user:OWNER` instead of `org:OWNER` for a personal account, and repeat the
+qualifier to cover both. Add any self-hosted bot with a plain
+`author:renovate-bot` (no `app/` prefix, because it is a normal account).
+
+**Do not trust `is_bot`.** In `gh search prs` output, `dependabot[bot]` reports
+`is_bot: false`. Match on the login instead.
+
+Insert the results into the ledger, recording which bot opened each one.
 
 Use single quotes for every SQL string. SQLite rejects a double-quoted literal
 that does not name a column, and the whole insert fails.
 
 Fetch the facts for all of them in parallel, then triage from one table
-instead of one round trip per pull request:
+instead of one round trip per pull request. Write the worker to a file: on
+macOS, `xargs -I` combined with `-n 1` and a long inline `sh -c` fails with
+`command line cannot be assembled, too long`.
 
 ```bash
-gh search prs --owner OWNER --author app/dependabot --state open \
-  --draft=false --limit 100 --json url --jq '.[].url' > urls.txt
-xargs -P 8 -n 1 -I URL sh -c 'gh pr view "$1" --json \
-  number,url,author,mergeable,mergeStateStatus,files,commits,statusCheckRollup \
-  > "out/$(echo "$1" | tr "/:" "__").json"' _ URL < urls.txt
+cat > fetch.sh <<'EOF'
+#!/bin/sh
+gh pr view "$1" --json number,url,author,isDraft,mergeable,mergeStateStatus,\
+files,commits,statusCheckRollup > "out/$(echo "$1" | tr '/:' '__').json" 2>&1
+EOF
+chmod +x fetch.sh
+xargs -P 8 -I{} ./fetch.sh {} < urls.txt
 ```
 
 ## Check each pull request
@@ -69,26 +136,38 @@ reviewDecision,files,commits,statusCheckRollup
 
 The commit body holds the metadata in the `updated-dependencies:` block:
 `dependency-name`, `dependency-version`, `dependency-type`, and `update-type`.
-A grouped update lists many entries. Check every entry.
+A grouped update lists many entries. Check every entry. Renovate puts the same
+information in the pull request body instead — see "Which bots".
 
-**The metadata can disagree with the diff. The diff wins.** Dependabot rebases
-and the block goes stale. One pull request declared
+**The metadata can disagree with the diff. The diff wins.** The bot rebases and
+the summary goes stale. One pull request declared
 `dependency-version: 5.24.0` and `update-type: version-update:semver-minor`
-while `gh pr diff` showed `5.22.0` to `6.0.0`. Read the diff before you call a
-bump minor:
+while `gh pr diff` showed `5.22.0` to `6.0.0`. Another declared
+`dependency-version: 10.0.1` while the workflow comment still read `# v6.6.1`
+and the real old pin was `v8.2.0` — three different answers, and only the diff
+was right. Read the diff before you call a bump minor:
 
 ```bash
 gh pr diff NUMBER -R REPO -- package.json go.mod
 ```
 
+For a pinned action, the comment after the SHA is decoration and can be stale.
+Resolve the SHA itself:
+
+```bash
+gh api repos/OWNER/REPO/tags --paginate \
+  --jq '.[] | select(.commit.sha=="NEWSHA") | .name'
+```
+
 Set `state='blocked'` and continue to the next pull request if any of these is
 true:
 
-- the author is not the `dependabot` bot, or a commit has a different author;
+- the author is not the expected bot, or a commit has a different author;
 - `mergeable` is `CONFLICTING`;
 - **a _required_ check failed** — see "Which checks matter";
 - the diff changes a file that is not a manifest, a lockfile, or a workflow
-  (lockfiles include `uv.lock`, `flake.lock`, `Cargo.lock`, `pnpm-lock.yaml`);
+  (lockfiles include `uv.lock`, `flake.lock`, `Cargo.lock`, `pnpm-lock.yaml`),
+  or it changes the bot's own configuration;
 - the new version is less than 3 days old, or the release notes and the tag do
   not exist upstream;
 - the package repository, the homepage, or the maintainer set changed;
@@ -193,7 +272,7 @@ compile error that also failed on `master` — unrelated, so the bump merged. A
 
 `HTTP 410` means the log expired. That is `unknown`, so it is `blocked`.
 
-Query the advisory database for each new version:
+Query the advisory database for **both** versions, not only the new one:
 
 ```bash
 gh api '/advisories?ecosystem=ECOSYSTEM&affects=NAME@VERSION&per_page=5' \
@@ -201,7 +280,32 @@ gh api '/advisories?ecosystem=ECOSYSTEM&affects=NAME@VERSION&per_page=5' \
 ```
 
 An open advisory that affects the new version blocks the merge. An advisory
-that the bump repairs is a reason to merge.
+that the bump repairs is a reason to merge — name the GHSA in the report,
+because it tells the maintainer which merges are urgent.
+
+**An upgrade is not automatically a fix.** Check that the new version is
+outside the vulnerable range, not merely newer. `golang.org/x/image` 0.20.0 to
+0.38.0 looked like a big catch-up, but GHSA-q675-qj96-32m9 is patched only in
+0.41.0, so the bump landed still vulnerable. Block, and say which version
+would actually close it.
+
+### A check that fails everywhere is one broken tool
+
+Before blaming any bump, ask whether the same check fails in unrelated
+repositories. If it does, it is a broken tool, and it is one problem rather
+than many. A `ruleguard / scan` job failed on seven pull requests across four
+repositories with `internal error: package "context" without types`, because
+the workflow installs it with `go install ...@latest` against a newer Go. It
+even failed on a pull request that only edited YAML, which the linter never
+reads — proof on its own that no bump caused it.
+
+Two signals that a red check is not the bump's fault:
+
+- the same failure appears on the base branch;
+- the failing job cannot read any file the diff touched.
+
+Ask the user whether a recurring failure is known-broken, and once they say it
+is, stop re-deriving it in later runs.
 
 ## Deep check
 
@@ -244,6 +348,35 @@ because the tag does not match the release.
 One `suspicious` entry blocks the whole grouped pull request, even when the
 other entries are clean.
 
+## Comment on the pull request
+
+When a pull request is blocked for anything a reader would call suspicious,
+**post the evidence as a comment on that pull request**, then leave it open.
+The finding belongs where the next person will look, not only in the report.
+
+Comment for a supply-chain finding: a maintainer set that shrank, a repository
+that moved, a bundle that does not match its source, an unexplained file in a
+release tag, an advisory the bump fails to close, or a version published inside
+the cool-down. A plain red test or a merge conflict does not need a comment.
+
+Write the comment so it stands on its own:
+
+- name the finding in the first line, and say the pull request was not merged;
+- show the evidence, with the exact numbers or the two version strings;
+- **say what is _not_ wrong**, so nobody re-does the work — for example that
+  the maintainer who remains is the long-standing lead, or that a large bundle
+  diff is explained by an ESM migration in the same commit;
+- give the smallest action that unblocks it, such as splitting one dependency
+  out of a group or targeting a later patch version;
+- if the blocked bump also fixes advisories, say so, so it is not left to rot.
+
+Markdown bodies with backticks break shell heredocs. Write the body to a file
+first, then:
+
+```bash
+gh pr comment NUMBER -R REPO --body-file comment.md
+```
+
 ## Merge
 
 Merge only a pull request that passed every check above. A red check is
@@ -259,6 +392,9 @@ gh pr merge NUMBER -R REPO --squash --delete-branch
 
 Prefer squash. Use `--merge` when squash is not permitted. Never rebase.
 
+`--delete-branch` fails with `Cannot use -d or --delete-branch when merge queue
+enabled`. Drop the flag for those repositories.
+
 `--auto` is only useful when the repository has `allow_auto_merge`. Otherwise
 it merges at once:
 
@@ -273,10 +409,11 @@ loop. Always verify:**
 gh pr view NUMBER -R REPO --json state,mergedAt
 ```
 
-`Base branch was modified` means Dependabot replaced the pull request while you
-worked. It closes the old one with "Looks like these dependencies are updatable
-in another way". Find the replacement, record the old row as `skipped`, and
-check the new pull request from the start:
+`Base branch was modified` means the bot replaced the pull request while you
+worked. Dependabot closes the old one with "Looks like these dependencies are
+updatable in another way"; Renovate silently force-pushes the same branch
+instead. Find the replacement, record the old row as `skipped`, and check the
+new pull request from the start:
 
 ```bash
 gh pr list -R REPO --author app/dependabot --state open --json number,title
@@ -285,11 +422,25 @@ gh pr list -R REPO --author app/dependabot --state open --json number,title
 Update the ledger after every merge. A failed merge is `state='failed'` with
 the error text as the reason.
 
+**Watch what your own merges did.** A merged bump can break the default branch
+even when the pull request was green, because a workflow may not run on pull
+requests at all. After a batch, check the default branch, and establish whether
+a red run predates the merge before claiming either way:
+
+```bash
+gh run list -R REPO --branch "$(gh api repos/REPO --jq .default_branch)" \
+  --limit 6 --json conclusion,workflowName,createdAt
+```
+
+A run with `0` jobs and "workflow file issue" is a broken workflow file or an
+unreachable reusable workflow, not a dependency problem.
+
 ## Report
 
 One line for each pull request, grouped by result:
 
-- **Merged** — repository, dependency, and version change.
+- **Merged** — repository, dependency, and version change. Mark the ones that
+  close an advisory, and name the GHSA.
 - **Blocked** — the single reason, and the evidence for it.
 - **Skipped** — an archived repository, or a superseded pull request.
 - **Failed** — the error.
@@ -299,4 +450,21 @@ ten bad dependencies. Four pull requests that all fail `ruleguard / scan` are
 one problem.
 
 Close with the count for each group, and the pull requests that need a human.
-Name the suspicious dependency first.
+Name the suspicious dependency first, and call out any blocked pull request
+that is holding back a security fix, because those must not sit forever.
+
+Expect to be asked "what is left?" — every blocked row needs a reason a person
+can act on, not just a status.
+
+## Gotchas
+
+- `gh repo view --json defaultBranch` is not a field. Use `defaultBranchRef`,
+  or `gh api repos/REPO --jq .default_branch`.
+- A `403` from the rules API means a private repository on a plan that hides
+  them. Trust `mergeStateStatus` instead.
+- On a private repository the only pull-request check may be a linter while the
+  real build never runs there. Weak signal — say so rather than implying the
+  bump was proven safe.
+- `HTTP 410` on a job log means it expired. That is `unknown`, so `blocked`.
+- Merging one pull request can make a sibling in the same repository conflict.
+  Merge, then re-poll the rest instead of trusting the earlier snapshot.
