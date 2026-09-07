@@ -5,8 +5,6 @@ tap "homebrew/bundle"
 brew "shellcheck"
 # Static checker for GitHub Actions workflow files
 brew "actionlint"
-# Command-line tool for formatting Nix Code
-brew "alejandra"
 # Command-line interface for SQLite
 brew "sqlite"
 # Automate deployment, configuration, and upgrading
@@ -23,6 +21,8 @@ brew "coreutils"
 brew "cosign"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
+# TIFF library and utilities
+brew "libtiff"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Run arbitrary commands when files change
@@ -87,6 +87,8 @@ brew "tree-sitter"
 brew "neovim"
 # Port scanning utility for large networks
 brew "nmap"
+# OpenSSL based Authenticode signing for PE/MSI/Java CAB files
+brew "osslsigncode"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # Code formatter for JavaScript, CSS, JSON, GraphQL, Markdown, YAML
