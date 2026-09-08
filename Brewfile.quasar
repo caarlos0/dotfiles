@@ -83,6 +83,8 @@ brew "prettier"
 brew "pstree"
 # Python Language Server for the Language Server Protocol
 brew "python-lsp-server"
+# Hardware-accelerated GPU terminal emulator powered by WebGPU
+brew "rio-terminal", link: false
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Rust toolchain installer
