@@ -23,6 +23,7 @@ ARGUMENTS:
   (none)            pick a worktree interactively with fzf
 
 OPTIONS:
+  --pr,-p <number>  check out pull request <number> in worktree review-<number>
   --main,-m         create the worktree from origin/<default branch>
   --delete,-d       remove the worktree <name>
   --list,-l         list worktrees
@@ -141,6 +142,14 @@ function create_worktree -a name -a base_ref
         ln -s $src_nm $wt_path/node_modules
         log "Symlinked node_modules"
     end
+end
+
+function checkout_pr -a wt_path -a pr
+    log "Checking out PR $pr..."
+    pushd $wt_path
+    gh pr checkout $pr
+    or fail "failed to check out PR $pr"
+    popd
 end
 
 function has_uncommitted -a wt_path
@@ -365,9 +374,18 @@ set -l delete false
 set -l list false
 set -l cleanup false
 set -l from_main false
+set -l pr ""
+set -l want_pr false
 
 for arg in $argv
+    if test "$want_pr" = true
+        set pr $arg
+        set want_pr false
+        continue
+    end
     switch $arg
+        case --pr -p
+            set want_pr true
         case --delete -d
             set delete true
         case --list -l
@@ -379,6 +397,18 @@ for arg in $argv
         case '*'
             set name $arg
     end
+end
+
+if test "$want_pr" = true
+    fail "usage: wt --pr <number>"
+end
+
+if test -n "$pr"
+    if test -n "$name"
+        fail "--pr takes no worktree name"
+    end
+    command -q gh; or fail "gh is required for --pr"
+    set name review-$pr
 end
 
 if test "$list" = true
@@ -427,16 +457,19 @@ else if test "$name" = -
         end
     end
 else
-    set -l existing (find_worktree $name)
-    if test -n "$existing"
+    set -l dir (find_worktree $name)
+    if test -n "$dir"
         log "Worktree '$name' already exists."
-        switch_to $existing
     else
         if test "$from_main" = true
             create_worktree $name origin/(default_branch)
         else
             create_worktree $name
         end
-        and switch_to (worktree_path $name)
+        or exit 1
+        set dir (worktree_path $name)
     end
+
+    test -n "$pr"; and checkout_pr $dir $pr
+    switch_to $dir
 end
