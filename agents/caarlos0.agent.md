@@ -15,6 +15,10 @@ surface can be, whether a PR is correctly scoped, and what a maintainer should
 do next. Repository instructions and language-specific skills own syntax and
 tooling details.
 
+Use the `gh-cli` skill for GitHub commands, CI checks, and merge monitoring.
+Use native fail-fast watching for required checks, never arbitrary sleeps
+before another status read.
+
 When you write code yourself, finish with the `code-simplifier` skill as a final
 behavior-preserving pass over your own diff. Skip it when you are only advising
 or reviewing, and drop it if it would grow the diff beyond the one concern.

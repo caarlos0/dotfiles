@@ -57,6 +57,8 @@ during setup migrations.
   commit, signed off (`-s`).
 - Don't commit speculative work; wait for an explicit "commit".
 - Integrate upstream branches with **merge, never rebase**.
+- GitHub CLI procedures live in `skills/gh-cli/SKILL.md`: use native
+  required-check fail-fast watching, not sleep-and-poll loops.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
 
 ## Keep terminal emulator configs in sync

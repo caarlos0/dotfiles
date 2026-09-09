@@ -9,6 +9,9 @@ user_invocable: true
 Merge safe dependency updates. Stop and report the unsafe ones. Never merge a
 pull request that you did not check in this run.
 
+Use the `gh-cli` skill for queries, required-check watching, and failure logs.
+In a batch, process other ready pull requests instead of waiting on one.
+
 The checks are the same for every dependency bot. Only the discovery query and
 the place that holds the update metadata change. See "Which bots".
 
@@ -191,8 +194,8 @@ on one account.
 
 ## Which checks matter
 
-Do not block on a red check until you know it is required. `mergeStateStatus`
-already answers this:
+Separate required failures from advisory ones. `mergeStateStatus` is an
+initial signal, not a complete check result:
 
 | Value      | Meaning                                                        |
 | ---------- | -------------------------------------------------------------- |
@@ -200,21 +203,23 @@ already answers this:
 | `UNSTABLE` | mergeable; **only non-required checks are red** — not a blocker |
 | `BEHIND`   | strict protection, branch out of date                           |
 | `BLOCKED`  | required check, missing review, **or an archived repository**   |
-| `UNKNOWN`  | GitHub is still computing — poll again, do not judge            |
+| `UNKNOWN`  | GitHub is still computing — recheck once, then report unknown   |
 
-Confirm with the branch protection and the rulesets:
+Use `gh pr checks NUMBER -R REPO --required` to identify required checks.
+If the required set is unclear, confirm with protection and rulesets for the
+pull request's actual base branch, not necessarily the default branch:
 
 ```bash
-db=$(gh api repos/REPO --jq .default_branch)
-gh api "repos/REPO/branches/$db/protection" --jq '.required_status_checks.contexts'
-gh api "repos/REPO/rules/branches/$db" \
+base=$(gh pr view NUMBER -R REPO --json baseRefName --jq '.baseRefName | @uri')
+gh api "repos/REPO/branches/$base/protection" --jq '.required_status_checks.contexts'
+gh api "repos/REPO/rules/branches/$base" \
   --jq '[.[]|select(.type=="required_status_checks")
         |.parameters.required_status_checks[].context]'
 ```
 
 `404 Branch not protected` and an empty ruleset list mean nothing is required.
-A `403` on a private repository means you cannot read it — trust
-`mergeStateStatus` instead.
+A `403` means you cannot read the rules. If the required set cannot be
+established, report it as unknown and block rather than infer passing CI.
 
 **Check `isArchived` first.** You cannot merge into an archived repository, and
 GitHub reports it as `BLOCKED` with no protection and no rules, which looks
@@ -460,8 +465,8 @@ can act on, not just a status.
 
 - `gh repo view --json defaultBranch` is not a field. Use `defaultBranchRef`,
   or `gh api repos/REPO --jq .default_branch`.
-- A `403` from the rules API means a private repository on a plan that hides
-  them. Trust `mergeStateStatus` instead.
+- A `403` from the rules API does not prove there are no required checks.
+  See "Which checks matter" before making a merge decision.
 - On a private repository the only pull-request check may be a linter while the
   real build never runs there. Weak signal — say so rather than implying the
   bump was proven safe.
