@@ -23,7 +23,8 @@ ARGUMENTS:
   (none)            pick a worktree interactively with fzf
 
 OPTIONS:
-  --pr,-p <number>  check out pull request <number> in worktree review-<number>
+  --pr,-p <number>  check out pull request <number> in a worktree named after
+                    its head branch
   --main,-m         create the worktree from origin/<default branch>
   --delete,-d       remove the worktree <name>
   --list,-l         list worktrees
@@ -123,6 +124,14 @@ function branch_exists -a name
     git show-ref --verify --quiet refs/heads/$name
 end
 
+function link_node_modules -a wt_path
+    set -l root (git rev-parse --show-toplevel)
+    if test -d $root/node_modules; and not test -f $root/pnpm-lock.yaml
+        ln -s $root/node_modules $wt_path/node_modules
+        log "Symlinked node_modules"
+    end
+end
+
 function create_worktree -a name -a base_ref
     set -l wt_path (worktree_path $name)
     if branch_exists $name
@@ -137,11 +146,16 @@ function create_worktree -a name -a base_ref
     end
     or fail "failed to create worktree '$name'"
 
-    set -l src_nm (git rev-parse --show-toplevel)/node_modules
-    if test -d $src_nm; and not test -f (git rev-parse --show-toplevel)/pnpm-lock.yaml
-        ln -s $src_nm $wt_path/node_modules
-        log "Symlinked node_modules"
-    end
+    link_node_modules $wt_path
+end
+
+function create_pr_worktree -a name -a pr
+    set -l wt_path (worktree_path $name)
+    log "Creating worktree at $wt_path for PR $pr..."
+    git worktree add --detach $wt_path
+    or fail "failed to create worktree '$name'"
+
+    link_node_modules $wt_path
 end
 
 function checkout_pr -a wt_path -a pr
@@ -408,7 +422,8 @@ if test -n "$pr"
         fail "--pr takes no worktree name"
     end
     command -q gh; or fail "gh is required for --pr"
-    set name review-$pr
+    set name (gh pr view $pr --json headRefName --jq .headRefName)
+    test -n "$name"; or fail "failed to look up PR $pr"
 end
 
 if test "$list" = true
@@ -461,7 +476,9 @@ else
     if test -n "$dir"
         log "Worktree '$name' already exists."
     else
-        if test "$from_main" = true
+        if test -n "$pr"
+            create_pr_worktree $name $pr
+        else if test "$from_main" = true
             create_worktree $name origin/(default_branch)
         else
             create_worktree $name
