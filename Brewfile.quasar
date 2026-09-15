@@ -1,6 +1,4 @@
 tap "caarlos0/tap", trusted: true
-tap "goreleaser/tap", trusted: true
-tap "lzhgus/tap"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Static checker for GitHub Actions workflow files
@@ -127,8 +125,6 @@ brew "zoxide"
 cask "appcleaner"
 # Screen capturing and editing tool
 cask "bettershot"
-# Open-source screenshot and screen recording for macOS
-cask "lzhgus/tap/capso", trusted: true
 # Screen capturing tool
 cask "cleanshot"
 # Brings the power of Copilot coding agent directly to your terminal
@@ -141,8 +137,6 @@ cask "ghostty"
 cask "google-chrome"
 # Desktop automation application
 cask "hammerspoon"
-# Tool to optimise images to a smaller size
-cask "imageoptim"
 # Controller for Insta360 webcams
 cask "insta360-link-controller"
 # Email client
@@ -163,8 +157,6 @@ cask "qlmarkdown"
 cask "rio"
 # Team communication and collaboration software
 cask "slack"
-# Notepad with a built-in calculator
-cask "soulver"
 # A tiny TUI that lists, filters and kills the processes running in every tmux pane.
 cask "caarlos0/tap/ttop", trusted: true
 # Connect to Windows
