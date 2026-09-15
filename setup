@@ -73,6 +73,7 @@ if which copilot &>/dev/null; then
   done
   if which gh &>/dev/null; then
     gh skill install github/gh-stack --agent github-copilot --all --scope user --force
+    gh skill install ayghri/i-have-adhd i-have-adhd --agent github-copilot --scope user --force
   fi
 fi
 
