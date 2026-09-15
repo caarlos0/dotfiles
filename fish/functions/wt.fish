@@ -15,7 +15,18 @@ function __wt_complete
     end
 end
 
+function __wt_complete_prs
+    command -q gh
+    or return
+    git rev-parse --git-dir >/dev/null 2>&1
+    or return
+    gh pr list --limit 50 --json number,title,headRefName \
+        --jq '.[] | "\(.number)\t\(.headRefName): \(.title)"' 2>/dev/null
+end
+
 complete --command wt --no-files
+complete --command wt --long pr --short p --require-parameter --no-files \
+    --arguments '(__wt_complete_prs)' --description "Check out a pull request"
 complete --command wt --long delete --short d --description "Remove a worktree"
 complete --command wt --long list --short l --description "List worktrees"
 complete --command wt --long cleanup --short c --description "Remove all merged worktrees"
