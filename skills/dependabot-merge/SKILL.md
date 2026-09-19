@@ -1,6 +1,6 @@
 ---
 name: dependabot-merge
-description: Review and merge open dependency pull requests from Dependabot, Renovate and similar bots, across one or more organizations or users. Use for dependency update triage, supply-chain checks on bumps, or bulk dependency merges.
+description: Review and merge open dependency pull requests from Dependabot, Renovate and similar bots across the goreleaser organization and the caarlos0 user. Use for dependency update triage, supply-chain checks on bumps, or bulk dependency merges.
 user_invocable: true
 ---
 
@@ -17,22 +17,13 @@ the place that holds the update metadata change. See "Which bots".
 
 ## Scope
 
-The argument can name more than one owner, and can mix them, for example
-`org goreleaser and user caarlos0`. Without an argument, use the current user:
+The scope is fixed: the **`goreleaser` organization** and the **`caarlos0`
+user**. Do not ask which owners to process. Start the run immediately.
 
-```bash
-gh api user -q .login
-```
-
-**Never widen the scope on your own.** A user belongs to many organizations
-that they do not maintain. Merging there affects other people. List them:
-
-```bash
-gh api user/orgs --jq '.[].login'
-```
-
-Then ask which ones to process, and default to the owners the user clearly
-controls. Do not merge in a shared community organization without a clear yes.
+**Never widen the scope on your own.** The user belongs to many organizations
+that they do not maintain. Merging there affects other people. Process another
+owner only when the user names it in the argument, and process only that owner
+in addition to the two above.
 
 ## Ledger
 
@@ -89,21 +80,43 @@ Two Renovate-only things to watch:
 ## Collect
 
 `gh search prs` takes only one `--author`, and a second flag silently replaces
-the first. To cover several bots in one query, use the search API, where a
-repeated `author:` qualifier means OR:
+the first. Use the search API instead, where a repeated `author:` qualifier
+means OR.
+
+**Run one query for each owner.** `org:` covers an organization and `user:`
+covers a personal account; they are not interchangeable, and a separate query
+keeps the 100-item page limit and any error for each owner separate. These are
+the discovery commands for this skill — run them as-is:
 
 ```bash
+BOTS='is:pr is:open draft:false author:app/dependabot author:app/renovate author:app/pre-commit-ci'
+
 gh api -X GET search/issues -f per_page=100 \
-  -f q='is:pr is:open draft:false org:OWNER author:app/dependabot author:app/renovate' \
+  -f q="org:goreleaser $BOTS" \
+  --jq '.items[] | "\(.user.login)\t\(.html_url)\t\(.title)"'
+
+gh api -X GET search/issues -f per_page=100 \
+  -f q="user:caarlos0 $BOTS" \
   --jq '.items[] | "\(.user.login)\t\(.html_url)\t\(.title)"'
 ```
+
+Collect both into `urls.txt` for the parallel fetch below:
+
+```bash
+for owner in org:goreleaser user:caarlos0; do
+  gh api -X GET search/issues -f per_page=100 \
+    -f q="$owner $BOTS" --jq '.items[].html_url'
+done > urls.txt
+```
+
+Each query returns at most 100 items for each page. Compare the line count
+with `total_count` and paginate with `-f page=2` when it is larger.
 
 Keep the `q` value on one line. A newline inside it makes the search API reject
 the whole query with `422 Validation Failed`.
 
-Use `user:OWNER` instead of `org:OWNER` for a personal account, and repeat the
-qualifier to cover both. Add any self-hosted bot with a plain
-`author:renovate-bot` (no `app/` prefix, because it is a normal account).
+Add a self-hosted bot with a plain `author:renovate-bot` (no `app/` prefix,
+because it is a normal account).
 
 **Do not trust `is_bot`.** In `gh search prs` output, `dependabot[bot]` reports
 `is_bot: false`. Match on the login instead.
