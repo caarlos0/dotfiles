@@ -149,6 +149,8 @@ brew "zig"
 brew "zoxide"
 # Application uninstaller
 cask "appcleaner"
+# Screen capturing and editing tool
+cask "bettershot"
 # Utility that prevents the system from going to sleep
 cask "caffeine"
 # Screen capturing tool
