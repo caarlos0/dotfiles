@@ -153,8 +153,6 @@ cask "appcleaner"
 cask "bettershot"
 # Utility that prevents the system from going to sleep
 cask "caffeine"
-# Screen capturing tool
-cask "cleanshot"
 # Brings the power of Copilot coding agent directly to your terminal
 cask "copilot-cli@prerelease"
 # Presentations from Markdown
