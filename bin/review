@@ -16,10 +16,12 @@ exec copilot --yolo \
     --effort high \
     --context long_context \
     --sandbox \
-    -i '/code-review /code-simplifier /writing-tests
+    -i 'Let\'s review these changes.
 
 Do not build locally, assume build is green, and suggest the improvements.
 
 If you are reviewing a pull request, create review threads for each finding, and approve the PR if there\'s nothing critical.
 
-If it\'s a local branch, output a review.md file with your findings.'
+If it\'s a local branch, output a review.md file with your findings.
+
+Skills to use: code-review code-simplifier writing-tests'
