@@ -4,6 +4,6 @@ return {
   { key = "U", apps = { "Mail" } },
   { key = "I", apps = { "Calendar" } },
   { key = "O", apps = { "WhatsApp", "Telegram", "Messages" } },
-  { key = "P", apps = { "Discord" } },
+  { key = "P", apps = { "WhatsApp" } },
   { key = "K", apps = { "Safari" } },
 }
