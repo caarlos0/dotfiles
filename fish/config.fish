@@ -30,7 +30,7 @@ alias vimdiff 'nvim -d'
 alias ta 'tmux new -A -s default'
 alias freeze 'freeze -c full'
 alias t task
-alias cop 'copilot --yolo --agent caarlos0 --model claude-opus-5 --effort high --context long_context'
+alias cop 'copilot --yolo --agent caarlos0 --model claude-opus-5.5 --effort high --context long_context'
 
 # go
 alias gmt 'go mod tidy'
