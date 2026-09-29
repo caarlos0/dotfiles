@@ -15,12 +15,14 @@ function usage
   wt - manage git worktrees under $worktree_base/<project>/<name>
 
 USAGE:
-  wt [<name>] [options]
+  wt [<name>] [options] [-- <command>...]
 
 ARGUMENTS:
   <name>            switch to worktree <name>, creating it if it doesn't exist
   -                 switch back to the previous worktree or the main repository
   (none)            pick a worktree interactively with fzf
+  -- <command>...   run <command> in the worktree after switching to it,
+                    e.g. wt foo -- cop
 
 OPTIONS:
   --pr,-p <number>  check out pull request <number> in a worktree named after
@@ -116,6 +118,9 @@ function switch_to -a dir
         log "Switching to $dir"
         set -gx WT_PREVIOUS (git rev-parse --show-toplevel 2>/dev/null)
         cd $dir
+        if set -q run_cmd[1]
+            exec fish -C (string escape -- $run_cmd | string join ' ')
+        end
         exec fish
     end
 end
@@ -376,6 +381,16 @@ end
 
 # ---
 
+# everything after -- is a command to run in the worktree
+set -g run_cmd
+set -l sep (contains -i -- -- $argv)
+if test -n "$sep"
+    set run_cmd $argv[$sep..-1]
+    set -e run_cmd[1]
+    set -e argv[$sep..-1]
+    set -q run_cmd[1]; or fail "usage: wt <name> -- <command>..."
+end
+
 if contains -- --help $argv; or contains -- -h $argv
     usage
     exit 0
@@ -415,6 +430,10 @@ end
 
 if test "$want_pr" = true
     fail "usage: wt --pr <number>"
+end
+
+if set -q run_cmd[1]; and test "$list" = true -o "$delete" = true -o "$cleanup" = true
+    fail "-- <command> can't be used with --list, --delete or --cleanup"
 end
 
 if test -n "$pr"
