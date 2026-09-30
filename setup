@@ -91,6 +91,9 @@ fi
 link "$PWD"/git/config ~/.config/git/config
 link "$PWD"/git/gitignore ~/.config/git/ignore
 link "$PWD"/gh/config.yml ~/.config/gh/config.yml
+for ext in "$PWD"/gh/extensions/*; do
+  link "$ext" ~/.local/share/gh/extensions/"$(basename "$ext")"
+done
 link "$PWD"/gh-dash/config.yml ~/.config/gh-dash/config.yml
 link "$PWD"/fd/ignore ~/.config/fd/ignore
 link "$PWD"/direnv ~/.config/direnv

@@ -17,6 +17,8 @@ avoid GNU-only/BSD-only flags.
   `setup`. The Mail and Safari sections need Full Disk Access to have any
   effect, since those prefs live in sandbox containers.
 - `bin/` — personal scripts on `$PATH`. Keep portable.
+- `gh/extensions/gh-<name>/gh-<name>` — local `gh` extensions (`gh <name>`),
+  linked into `~/.local/share/gh/extensions` by `setup`.
 - `Taskfile.yml` — maintenance tasks (`task update`, `task release`), run with
   [Task](https://taskfile.dev).
 - `agents/`, `skills/` — Copilot agents and reusable workflows, copied into
