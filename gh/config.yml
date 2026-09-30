@@ -1,5 +1,5 @@
 version: 1
-git_protocol: ssh
+git_protocol: https
 editor: nvim
 aliases:
   clone: repo clone
