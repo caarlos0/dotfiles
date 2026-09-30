@@ -14,24 +14,24 @@ pr="${1:-$(gh pr view --json number --jq .number)}"
 sha="${2:-$(git rev-parse HEAD)}"
 
 pr_state() {
-	gh pr view "$pr" --json state,headRefOid --jq '.state + " " + .headRefOid'
+  gh pr view "$pr" --json state,headRefOid --jq '.state + " " + .headRefOid'
 }
 
 # fail fast on a bad PR, but ignore transient errors while waiting
 out=$(pr_state)
 while :; do
-	if [ -n "$out" ]; then
-		state="${out% *}"
-		head="${out#* }"
-		if [ "$state" != OPEN ]; then
-			echo "pull request #$pr is $(echo "$state" | tr '[:upper:]' '[:lower:]')" >&2
-			exit 1
-		fi
-		if [ "$head" != "$sha" ]; then
-			echo "new push on #$pr: $sha..$head"
-			exit 0
-		fi
-	fi
-	sleep 30
-	out=$(pr_state 2>/dev/null) || out=
+  if [ -n "$out" ]; then
+    state="${out% *}"
+    head="${out#* }"
+    if [ "$state" != OPEN ]; then
+      echo "pull request #$pr is $(echo "$state" | tr '[:upper:]' '[:lower:]')" >&2
+      exit 1
+    fi
+    if [ "$head" != "$sha" ]; then
+      echo "new push on #$pr: $sha..$head"
+      exit 0
+    fi
+  fi
+  sleep 30
+  out=$(pr_state 2>/dev/null) || out=
 done
