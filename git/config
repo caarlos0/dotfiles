@@ -37,9 +37,11 @@
 	whitespace = "trailing-space,space-before-tab"
 
 [credential "https://gist.github.com"]
+	helper =
 	helper = "!gh auth git-credential"
 
 [credential "https://github.com"]
+	helper =
 	helper = "!gh auth git-credential"
 
 [diff]
