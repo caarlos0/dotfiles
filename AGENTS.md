@@ -60,7 +60,8 @@ during setup migrations.
 - Don't commit speculative work; wait for an explicit "commit".
 - Integrate upstream branches with **merge, never rebase**.
 - GitHub CLI procedures live in `skills/gh-cli/SKILL.md`: use native
-  required-check fail-fast watching, not sleep-and-poll loops.
+  required-check fail-fast watching for CI, and `gh wait-push` / `gh wait-review`
+  for pushes and reviews, not ad hoc sleep-and-poll loops.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
 
 ## Keep terminal emulator configs in sync

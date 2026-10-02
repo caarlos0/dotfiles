@@ -1,6 +1,6 @@
 ---
 name: gh-cli
-description: Use GitHub CLI efficiently for pull requests, CI checks, workflow runs, logs, and merge status. Use when running gh, waiting for CI, diagnosing a failed check, or monitoring a pull request.
+description: Use GitHub CLI efficiently for pull requests, CI checks, workflow runs, logs, and merge status. Use when running gh, waiting for CI, pushes or reviews, diagnosing a failed check, or monitoring a pull request.
 user_invocable: true
 ---
 
@@ -84,10 +84,64 @@ gh pr checks NUMBER -R OWNER/REPO --required \
   Do not silently drop `--required` after an error.
 - An auth, permission, API, or network error is not a CI result. Report it.
   Do not hide it in a retry loop or infer success from missing data.
-- Native watching covers reported checks, not every review or merge-queue
-  transition. For a state with no native watcher, make one focused read per
+- Native watching covers reported checks, not every push, review, or
+  merge-queue transition. Use the local extensions below for pushes and
+  reviews. For other states with no watcher, make one focused read per
   scheduled pass if a schedule is already authorized. Stop it when the goal
   is met or the PR is closed. Do not invent an endless polling loop.
+
+## Wait for a push or review
+
+`./setup` links the local extensions from `gh/extensions/`. Use these commands
+instead of writing a polling loop or repeatedly reading PR status. Run one
+watcher per target in an attached async shell, or wait on the same synchronous
+process. Reuse its shell ID and completion notification, as with CI watchers.
+Both check immediately, then every 30 seconds, and print nothing while waiting.
+
+### New push
+
+```bash
+gh wait-push NUMBER LAST_REVIEWED_SHA
+```
+
+Both arguments are optional: the PR defaults to the current branch's PR, and
+the SHA defaults to local `HEAD`. Pass the last reviewed SHA explicitly when
+reviewing a PR from another checkout. For another repository, use
+`GH_REPO=OWNER/REPO gh wait-push NUMBER SHA`; this command has no `-R` option.
+
+It exits 0 when the open PR's head differs from the supplied SHA and prints
+`new push on #NUMBER: OLD_SHA..NEW_SHA`. An already different head counts; it
+does not require a push after the command starts. Review the new head, then
+start the next wait with that SHA.
+
+It exits 1 if the PR is closed or merged. Initial lookup/API errors stop the
+command. **Later API errors are currently hidden and retried**, so silence is
+not proof that the watcher can still reach GitHub.
+
+### Submitted review
+
+```bash
+gh wait-review NUMBER
+gh wait-review https://github.com/OWNER/REPO/pull/NUMBER
+```
+
+The PR defaults to the current branch's PR. A number, URL, or branch is accepted.
+Use a full URL or `GH_REPO=OWNER/REPO` for another repository; there is no `-R`
+option. `gh wait-review --help` shows usage without contacting GitHub.
+
+It exits 0 when it finds any submitted review on the current remote PR head,
+including one posted before the command started. It follows head changes while
+waiting and reads all review pages. Approvals, comments, requested changes, and
+dismissed reviews count; pending draft reviews, issue comments, and reviews of
+older commits do not. It prints matching review URLs, one per line.
+
+It exits 1 if the PR is closed or merged, and 2 for invalid usage. API, auth,
+permission, and network errors stop the command with their diagnostics and a
+nonzero status, including errors after waiting has started.
+
+Read the returned reviews and act on the feedback. A review is not necessarily
+an approval, does not mean all requested reviewers have finished, and does not
+establish merge readiness. Neither extension replaces required-check watching.
 
 ## Read the failing job now
 
