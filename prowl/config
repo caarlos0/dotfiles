@@ -1,5 +1,7 @@
-bell true
-branch true
-link-format {title} {url}
-review-scope direct
-interval 30s
+bell          true
+branch        true
+required      true
+link-format   {title} {url}
+review-scope  direct
+interval      30s
+sort-open     created
