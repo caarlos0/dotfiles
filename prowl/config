@@ -1,0 +1,5 @@
+bell true
+branch true
+link-format {title} {url}
+review-scope direct
+interval 30s
