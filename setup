@@ -62,6 +62,80 @@ fi
 
 # copilot
 if which copilot &>/dev/null; then
+  info "Setting up Copilot CLI"
+  copilot_config=$(copilot config --list)
+  cfg() {
+    if grep -Fxq -- "$1=$2" <<<"$copilot_config"; then
+      return
+    fi
+    copilot config "$@" >/dev/null
+    success "Set Copilot $1"
+  }
+
+  cfg theme default
+  cfg mergeStrategy rebase
+  cfg showTimestamps true
+  # shellcheck disable=SC2088 # Keep the path template literal.
+  cfg worktreePathTemplate '~/Developer/worktrees/{repo}/{branch}'
+  cfg terminalProgress true
+  cfg editorMode vim
+  cfg beep true
+  cfg updateTerminalTitle false
+  cfg experimental true
+
+  # footer
+  cfg footer.showModelEffort false
+  cfg footer.showDirectory false
+  cfg footer.showBranch true
+  cfg footer.showContextWindow false
+  cfg footer.showQuota false
+  cfg footer.showAiUsed false
+  cfg footer.showAgent true
+  cfg footer.showCodeChanges true
+  cfg footer.showUsername false
+  cfg footer.showSandbox true
+  cfg footer.showYolo true
+  cfg footer.showCiStatus true
+  cfg footer.showSchedules true
+  cfg footer.showPullRequest true
+  cfg footer.showCustom false
+
+  # sandbox
+  cfg sandbox.enabled true
+  cfg sandbox.sandboxMcpServers true
+  cfg sandbox.sandboxLspServers true
+  cfg sandbox.allowBypass true
+  cfg sandbox.auth.git true
+  cfg sandbox.auth.gh true
+  cfg sandbox.allowDevToolAccess true
+  cfg sandbox.addCurrentWorkingDirectory true
+  cfg sandbox.userPolicy.filesystem.readonlyPaths "$PWD"
+  cfg sandbox.userPolicy.network.allowOutbound true
+  cfg sandbox.userPolicy.network.allowLocalNetwork true
+
+  # model
+  cfg model gpt-6-astra
+  cfg planModel gpt-6-astra
+  cfg effortLevel high
+  cfg planEffortLevel xhigh
+  cfg contextTier long_context
+  cfg planContextTier long_context
+  success "Copilot configuration is up to date"
+
+  info "Checking Copilot plugin marketplace"
+  copilot_marketplaces=$(copilot plugin marketplace list)
+  if ! grep -Fwq andyfeller/plugins <<<"$copilot_marketplaces"; then
+    info "Installing the infographic Copilot plugin"
+    copilot plugin marketplace add andyfeller/plugins >/dev/null
+    copilot plugin install infographic@andyfeller >/dev/null
+    cfg sandbox.userPolicy.filesystem.readonlyPaths ~/.copilot/installed-plugins/andyfeller/infographic
+    success "Installed the infographic Copilot plugin"
+  fi
+  info "Updating Copilot plugins"
+  copilot plugin update --all >/dev/null
+  success "Updated Copilot plugins"
+
+  info "Copying Copilot agents and skills"
   mkdir -p ~/.copilot/{agents,skills}/
   for agent in "$PWD"/agents/*; do
     [ -f "$agent" ] || continue
@@ -72,12 +146,20 @@ if which copilot &>/dev/null; then
     copy "$skill" ~/.copilot/skills/"$(basename "$skill")"
   done
   if which gh &>/dev/null; then
-    gh skill install github/gh-stack --agent github-copilot --all --scope user --force
-    gh skill install ayghri/i-have-adhd i-have-adhd --agent github-copilot --scope user --force
+    info "Installing shared Copilot skills"
+    gh skill install github/gh-stack --agent github-copilot --all --scope user --force >/dev/null 2>&1
+    gh skill install ayghri/i-have-adhd i-have-adhd --agent github-copilot --scope user --force >/dev/null 2>&1
+    success "Installed shared Copilot skills"
+  else
+    warn "GitHub CLI not found, skipping shared Copilot skills" >&2
   fi
 
+  info "Generating Copilot Fish completions"
   mkdir -p ~/.config/fish/completions/
   copilot completion fish >~/.config/fish/completions/copilot.fish
+  success "Copilot CLI setup complete"
+else
+  warn "Copilot CLI not found, skipping Copilot setup" >&2
 fi
 
 # other apps
