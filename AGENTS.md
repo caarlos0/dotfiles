@@ -12,7 +12,10 @@ avoid GNU-only/BSD-only flags.
 
 ## Layout
 
-- `setup` — main install script (symlinks configs, installs tools).
+- `setup` — main install script (symlinks configs, installs tools, applies
+  Copilot user settings with `copilot config` when available). The Copilot block
+  reads `copilot config --list` once; `cfg` skips exact `key=value` matches,
+  including individual list entries.
 - `macos/set-defaults.sh` — macOS `defaults` writes. Run by hand, **not** by
   `setup`. The Mail and Safari sections need Full Disk Access to have any
   effect, since those prefs live in sandbox containers.
@@ -62,7 +65,14 @@ during setup migrations.
 - GitHub CLI procedures live in `skills/gh-cli/SKILL.md`: use native
   required-check fail-fast watching for CI, and `gh wait-push` / `gh wait-review`
   for pushes and reviews, not ad hoc sleep-and-poll loops.
+- Review policy lives in `skills/code-review/SKILL.md`; `bin/review` only
+  launches Copilot and selects continuous review with `--keep`.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
+- Neovim updates are explicit: `task nvim` updates plugins, then installs missing
+  configured Tree-sitter parsers and updates installed parsers in a fresh Neovim
+  process, waiting for completion. The individual commands are
+  `:lua vim.pack.update()`, `:TSInstallConfigured`, and `:TSUpdate`. Do not install
+  parsers on startup or update plugins in `setup`.
 
 ## Keep terminal emulator configs in sync
 
