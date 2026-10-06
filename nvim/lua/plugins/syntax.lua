@@ -10,7 +10,7 @@ require("treesitter-context").setup({
   multiline_threshold = 1,
 })
 
-require("nvim-treesitter").install({
+local parsers = {
   "arduino",
   "awk",
   "bash",
@@ -58,6 +58,14 @@ require("nvim-treesitter").install({
   "vimdoc",
   "yaml",
   "zig",
+}
+
+local function install_parsers()
+  return require("nvim-treesitter").install(parsers, { summary = true })
+end
+
+vim.api.nvim_create_user_command("TSInstallConfigured", install_parsers, {
+  desc = "Install the configured Tree-sitter parsers",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -105,3 +113,5 @@ vim.keymap.set({ "n", "x", "o" }, "[A", function() ts_move.goto_previous_end("@p
 -- swap
 vim.keymap.set("n", "<leader>a", function() ts_swap.swap_next("@parameter.inner") end)
 vim.keymap.set("n", "<leader>A", function() ts_swap.swap_previous("@parameter.inner") end)
+
+return { install_parsers = install_parsers }

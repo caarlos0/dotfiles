@@ -57,7 +57,6 @@ link "$PWD"/rio ~/.config/rio
 # neovim
 if which nvim &>/dev/null; then
   link "$PWD"/nvim ~/.config/nvim
-  nvim --headless +"lua vim.pack.update(nil, { force = true })" +qa &>/dev/null
 fi
 
 # copilot

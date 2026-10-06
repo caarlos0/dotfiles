@@ -29,9 +29,19 @@ tasks:
       - brew bundle dump --file Brewfile.{{.HOST}} --no-go --no-uv --no-cargo --no-npm --force
 
   nvim:
-    desc: Update Neovim plugins
+    desc: Update Neovim plugins and Tree-sitter parsers
     cmds:
-      - 'nvim --headless +"lua vim.pack.update(nil, { force = true })" +qa >/dev/null 2>&1'
+      - |
+        nvim --headless -u nvim/init.lua -l - <<'LUA'
+        assert(vim.v.errmsg == "", vim.v.errmsg)
+        vim.pack.update(nil, { force = true })
+        LUA
+      - |
+        nvim --headless -u nvim/init.lua -l - <<'LUA'
+        assert(vim.v.errmsg == "", vim.v.errmsg)
+        assert(require("plugins.syntax").install_parsers():wait(), "Tree-sitter parser installation failed")
+        assert(require("nvim-treesitter").update(nil, { summary = true }):wait(), "Tree-sitter parser update failed")
+        LUA
 
   update:
     desc: Update everything and commit the changes (on main)

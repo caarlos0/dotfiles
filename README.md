@@ -37,3 +37,10 @@ task release
 ```bash
 task update
 ```
+
+Run `task nvim` to update Neovim plugins, install missing configured Tree-sitter
+parsers, and update installed parsers. Neither startup nor `./setup` updates
+plugins or installs parsers.
+
+Inside Neovim, these operations are also available separately:
+`:lua vim.pack.update()`, `:TSInstallConfigured`, and `:TSUpdate`.
