@@ -3,36 +3,11 @@
 argparse k/keep -- $argv
 or exit 1
 
-set -l prompt "/review Let's review these changes.
-
-Do not build locally, assume build is green, and suggest the improvements.
-
-If you are reviewing a pull request, create review threads for each finding, and approve the PR if there's nothing critical.
-
-If it's a local branch, output a review.md file with your findings.
-
-Also use an anvil agent to make sure this feature/fix makes sense in the first place, specially if it looks like it was 100% automated without any human interaction.
-
-Skills to use: code-review code-simplifier writing-tests
-
-Whether to approve the PR or not:
-- if I (caarlos0) already made a positive comment, saying that I'll just let my bot run or something along these lines, and you think the PR is good and only found some minor/style suggestions, approve it.
-- if I (caarlos0) already made a positive comment, saying that I'll just let my bot run or something along these lines, but you found bigger issues, approve as a 'tentative approval, pending resolution of feedback' or something along these line.
-- if overall sentiment of commenters in the PR is negative, don't approve it.
-- if I made a negative comment, like especially around the idea of the PR, don't approve it.
-- if the PR was created by me, you can't approve (github won't let you), so just comment the feedback you have.
-
-Use infographics to better explain things.
-"
+set -l prompt "/review Use the code-review skill."
 
 if set -q _flag_keep
     set prompt "$prompt
-Once you are done, keep reviewing every new push until the PR is merged or closed:
-- run `gh wait-push <pr> <sha>` with the PR number and the head commit you just reviewed. It prints nothing and only exits when a new commit is pushed, printing `<old>..<new>`.
-- run it with the longest wait possible. If it moves to the background, wait for its completion notification. Never poll with git, gh, or sleep in between.
-- when it returns, review only what changed since your last review, resolve threads that were addressed, post new findings, then run `gh wait-push` again with the new SHA.
-- stop when it says the PR is merged or closed.
-"
+Keep reviewing every new push until the PR is merged or closed."
 end
 
 set -l cmd copilot --yolo \

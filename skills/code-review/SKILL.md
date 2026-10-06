@@ -6,8 +6,10 @@ user_invocable: true
 
 # Code Review
 
-Do not edit files. The only GitHub mutation allowed is posting the review itself.
-Follow repository instructions before this skill.
+Do not edit files except for the review outputs described below.
+Limit GitHub mutations to posting and superseding reviews and, when continuous
+review is requested, resolving addressed threads. Follow repository instructions
+before this skill.
 
 ## Scope
 
@@ -32,6 +34,8 @@ diff.
   cost.
 - Ask `anvil` in verify-only mode for an adversarial check of correctness, test
   coverage, determinism, performance evidence, and user-visible behavior.
+  Verify that the feature or fix solves a real problem, especially when the
+  change appears fully automated without human input.
 
 These are leaf tasks: agents must not invoke `code-review`, request agents, edit,
 or mutate GitHub. Require exact file/line, reachable scenario, impact, evidence,
@@ -101,27 +105,37 @@ focused test can cover it.
 
 ## Related skills
 
+- `code-simplifier`: assess simpler alternatives without editing files.
+- `writing-tests`: review regression coverage, test isolation, and determinism.
+- `gh-cli`: GitHub operations and waiting for new pushes.
+- `infographic`: explain findings visually when that makes them clearer; follow
+  its publishing boundaries.
 - `change-impact-auditor`: configuration, policy, protocol, or shared models.
 - `runtime-process-debugging`: process, shell, pipe, lifecycle, or race behavior.
 - `issue-validator`: a claimed issue fix or stale report.
-- `writing-tests`: regression coverage, test isolation, or flake diagnosis.
 - `go-conventions` or `rust-specialist`: matching language changes.
 - `go-doc`: unfamiliar Go APIs, without `go get` or module changes in review.
 - `go-performance`, `rust-performance`, `typescript-performance`, or
   `python-performance`: matching language performance work.
 
-Invoke only relevant skills.
+Use `code-simplifier` and `writing-tests` in read-only mode. Invoke the other
+skills only when relevant.
 
 ## Validation and result
 
-Run the smallest command that can confirm or reject a finding. Before local
-builds or tests, check `uptime`; stop when load average exceeds about 12.
+Do not build locally. Assume the build is green for the review, but do not claim
+it was verified. Run the smallest non-build command that can confirm or reject
+a finding. Before local tests, check `uptime`; stop when load average exceeds
+about 12.
 
 List findings by severity with file/line, trigger, impact, smallest fix, and
 needed test. Do not add praise, summaries of correct code, or low-confidence
 possibilities. State material verification gaps separately.
 
 If there are no findings, say so plainly.
+
+For a local branch, write the result to `review.md`. For other local diffs and
+commits, report in chat.
 
 ## Posting a review
 
@@ -143,8 +157,38 @@ comments, so post through the reviews API, for example
   Reference sibling findings by file and line rather than repeating them.
 - After posting, read the comments back and confirm every anchor resolved to the
   intended line instead of silently detaching.
-- When a later review replaces an earlier one, dismiss the earlier one and name
-  the review that supersedes it.
+- When a later review replaces an earlier one, dismiss the earlier one if GitHub
+  permits it; otherwise name the superseded review in the new review body.
 
-With no findings, approve the pull request and disclose that the reviewer is a
-bot. Local diffs, branches, and commits have nowhere to post: report in chat.
+### Approval
+
+Read the PR discussion before choosing the review event:
+
+- For a PR authored by `caarlos0`, post `COMMENT`: GitHub does not permit
+  approving or requesting changes on your own PR.
+- Do not approve if `caarlos0` made a negative comment, especially about the
+  idea, or if the overall discussion is negative.
+- If `caarlos0` already left a positive comment, such as saying only the bot
+  review remains, approve when the PR is good and only minor suggestions remain.
+  If there are bigger issues, label the approval "Tentative approval, pending
+  resolution of feedback" and state the unresolved issues in inline comments.
+- Otherwise, approve if there are no critical problems. Do not invent style
+  findings to accompany an approval.
+
+Disclose that the reviewer is a bot.
+
+## Continuous review
+
+Only when asked to keep reviewing new pushes:
+
+1. After posting, run `gh wait-push <pr> <sha>` with the PR number and the exact
+   head commit just reviewed. Follow `gh-cli` for repository targeting, output,
+   and exit behavior.
+2. Use the longest supported wait. If the command moves to the background, wait
+   for its completion notification. Never poll with Git, `gh`, or sleeps between
+   notifications.
+3. On a new head, review only changes since the last reviewed SHA, with enough
+   surrounding context to verify them. Resolve threads whose findings were
+   addressed, post the new review, and wait again using the new SHA.
+4. Stop when the PR is merged or closed. Report watcher errors rather than
+   treating them as closure.
