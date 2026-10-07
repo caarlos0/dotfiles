@@ -16,6 +16,11 @@ avoid GNU-only/BSD-only flags.
   Copilot user settings with `copilot config` when available). The Copilot block
   reads `copilot config --list` once; `cfg` skips exact `key=value` matches,
   including individual list entries.
+- `copilot/config` — static Copilot settings, one `key value` per line.
+  Values are literal, without shell quoting or expansion; blank lines and
+  full-line `#` comments are ignored. Runtime paths and the conditional plugin
+  grant stay in `setup`. Run setup tests with
+  `python3 -m unittest discover -s gh/tests -p test_setup.py`.
 - `macos/set-defaults.sh` — macOS `defaults` writes. Run by hand, **not** by
   `setup`. The Mail and Safari sections need Full Disk Access to have any
   effect, since those prefs live in sandbox containers.

@@ -1,0 +1,49 @@
+# One key and literal value per line, without shell quoting or expansion.
+
+theme default
+mergeStrategy rebase
+showTimestamps true
+worktreePathTemplate ~/Developer/worktrees/{repo}/{branch}
+terminalProgress true
+editorMode vim
+beep true
+updateTerminalTitle false
+experimental true
+
+# footer
+footer.showModelEffort true
+footer.showDirectory false
+footer.showBranch true
+footer.showContextWindow false
+footer.showQuota false
+footer.showAiUsed false
+footer.showAgent true
+footer.showCodeChanges true
+footer.showUsername false
+footer.showSandbox false
+footer.showYolo true
+footer.showCiStatus true
+footer.showSchedules true
+footer.showPullRequest true
+footer.showCustom false
+
+# sandbox
+sandbox.enabled true
+sandbox.sandboxMcpServers true
+sandbox.sandboxLspServers true
+sandbox.allowBypass true
+sandbox.auth.git true
+sandbox.auth.gh true
+sandbox.allowDevToolAccess true
+sandbox.addCurrentWorkingDirectory true
+sandbox.credentials.envVars.HEVY_API_KEY.injectHosts api.hevyapp.com
+sandbox.userPolicy.network.allowOutbound true
+sandbox.userPolicy.network.allowLocalNetwork true
+
+# model
+model gpt-6.1-sol
+planModel gpt-6-astra
+effortLevel max
+planEffortLevel max
+contextTier long_context
+planContextTier long_context

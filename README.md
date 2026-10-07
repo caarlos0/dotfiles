@@ -26,6 +26,12 @@ version here!
 Machine-specific bits (`Brewfile.<host>`, `hammerspoon/apps.<host>.lua`) are
 picked by `hostname -s`: `darkmatter` is personal, `quasar` is work.
 
+Copilot settings live in [`copilot/config`](copilot/config), one `key value`
+per line. The first field is the key; the rest is the literal value, with
+surrounding whitespace ignored. Do not add shell quotes or variable expansion.
+Blank lines and full-line `#` comments are ignored. `./setup` applies only
+settings that do not already match; runtime paths stay in `setup`.
+
 Copilot agents and skills are symlinked individually into `~/.copilot`. Setup
 leaves existing files and directories alone and configures read-only sandbox
 access to this repository. Remove old copies of repo-managed entries once
