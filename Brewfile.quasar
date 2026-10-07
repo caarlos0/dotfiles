@@ -111,6 +111,8 @@ brew "uv"
 brew "vhs"
 # Language servers for HTML, CSS, JavaScript, and JSON extracted from vscode
 brew "vscode-langservers-extracted"
+# Sends magic packets to wake up network-devices
+brew "wakeonlan"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Internet file retriever
@@ -137,6 +139,8 @@ cask "ghostty"
 cask "google-chrome"
 # Desktop automation application
 cask "hammerspoon"
+# CLI for managing Hevy routines via the public Hevy API
+cask "caarlos0/tap/hevy", trusted: true
 # Controller for Insta360 webcams
 cask "insta360-link-controller"
 # Email client
