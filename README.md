@@ -26,6 +26,11 @@ version here!
 Machine-specific bits (`Brewfile.<host>`, `hammerspoon/apps.<host>.lua`) are
 picked by `hostname -s`: `darkmatter` is personal, `quasar` is work.
 
+Copilot agents and skills are symlinked individually into `~/.copilot`. Setup
+leaves existing files and directories alone and configures read-only sandbox
+access to this repository. Remove old copies of repo-managed entries once
+before running setup.
+
 ## Releasing
 
 ```bash

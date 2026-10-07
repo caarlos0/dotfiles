@@ -17,13 +17,6 @@ link() {
   fi
 }
 
-copy() {
-  mkdir -p "$(dirname "$2")"
-  rm -rf "$2"
-  cp -rf "$1" "$2"
-  success "Copied $1 to $2"
-}
-
 info "Setting caarlos0/dotfiles up"
 
 host="$(hostname -s)"
@@ -108,7 +101,7 @@ if which copilot &>/dev/null; then
   cfg sandbox.auth.gh true
   cfg sandbox.allowDevToolAccess true
   cfg sandbox.addCurrentWorkingDirectory true
-  cfg sandbox.userPolicy.filesystem.readonlyPaths "$PWD"
+  cfg sandbox.userPolicy.filesystem.readwritePaths "$PWD"
   cfg sandbox.userPolicy.network.allowOutbound true
   cfg sandbox.userPolicy.network.allowLocalNetwork true
 
@@ -134,15 +127,15 @@ if which copilot &>/dev/null; then
   copilot plugin update --all >/dev/null
   success "Updated Copilot plugins"
 
-  info "Copying Copilot agents and skills"
+  info "Linking Copilot agents and skills"
   mkdir -p ~/.copilot/{agents,skills}/
   for agent in "$PWD"/agents/*; do
     [ -f "$agent" ] || continue
-    copy "$agent" ~/.copilot/agents/"$(basename "$agent")"
+    link "$agent" ~/.copilot/agents/"$(basename "$agent")"
   done
   for skill in "$PWD"/skills/*; do
     [ -d "$skill" ] || continue
-    copy "$skill" ~/.copilot/skills/"$(basename "$skill")"
+    link "$skill" ~/.copilot/skills/"$(basename "$skill")"
   done
   if which gh &>/dev/null; then
     info "Installing shared Copilot skills"
