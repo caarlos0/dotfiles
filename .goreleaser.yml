@@ -35,7 +35,7 @@ changelog:
       - "^chore.*"
   groups:
     - title: "Coding"
-      regexp: "^.*\\((git|vim|nvim|neovim)\\):+.*$"
+      regexp: "^.*\\((git|gh|vim|nvim|neovim)\\):+.*$"
       order: 240
     - title: "Terminals"
       regexp: "^.*\\((kitty|wezterm|rio|ghostty|tmux|alacritty|terminal|term)\\):+.*$"
