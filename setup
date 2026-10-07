@@ -76,7 +76,7 @@ if which copilot &>/dev/null; then
   cfg experimental true
 
   # footer
-  cfg footer.showModelEffort false
+  cfg footer.showModelEffort true
   cfg footer.showDirectory false
   cfg footer.showBranch true
   cfg footer.showContextWindow false
@@ -85,7 +85,7 @@ if which copilot &>/dev/null; then
   cfg footer.showAgent true
   cfg footer.showCodeChanges true
   cfg footer.showUsername false
-  cfg footer.showSandbox true
+  cfg footer.showSandbox false
   cfg footer.showYolo true
   cfg footer.showCiStatus true
   cfg footer.showSchedules true
@@ -101,15 +101,16 @@ if which copilot &>/dev/null; then
   cfg sandbox.auth.gh true
   cfg sandbox.allowDevToolAccess true
   cfg sandbox.addCurrentWorkingDirectory true
+  cfg sandbox.credentials.envVars.HEVY_API_KEY.injectHosts api.hevyapp.com
   cfg sandbox.userPolicy.filesystem.readwritePaths "$PWD"
   cfg sandbox.userPolicy.network.allowOutbound true
   cfg sandbox.userPolicy.network.allowLocalNetwork true
 
   # model
-  cfg model gpt-6-astra
+  cfg model gpt-6.1-sol
   cfg planModel gpt-6-astra
-  cfg effortLevel high
-  cfg planEffortLevel xhigh
+  cfg effortLevel max
+  cfg planEffortLevel max
   cfg contextTier long_context
   cfg planContextTier long_context
   success "Copilot configuration is up to date"
