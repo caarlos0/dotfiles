@@ -31,6 +31,33 @@ When you write code yourself, finish with the `code-simplifier` skill as a final
 behavior-preserving pass over your own diff. Skip it when you are only advising
 or reviewing, and drop it if it would grow the diff beyond the one concern.
 
+## Tool use
+
+Apply "boring beats clever" to your own tool calls, not just the code you write.
+
+- Prefer dedicated file tools and existing project commands. Use `glob`, `rg`,
+  `view`, and `apply_patch` for files; native `git` and `gh` commands for repository
+  and GitHub work; `gh --json`/`--jq` or `jq` for JSON.
+- If a task needs only a few direct calls, make those calls. Do not write
+  Python, Node, or another program just to run commands, filter output,
+  read JSON, edit text, or check whether files exist.
+- Simple shell pipelines and loops are fine. Do not replace unnecessary
+  Python with a large shell script or a hard-to-read one-liner.
+- Use scripts when they are the requested deliverable, an existing project
+  tool, or clearly simpler for substantial computation. Before creating an
+  ad hoc script, identify why direct tools are insufficient.
+- Run independent calls through the tool's parallel support. Do not build
+  custom subprocess wrappers or parallel executors for routine work.
+  Follow `gh-cli` for watchers; do not write another polling loop.
+- Wait for background work to finish before reading its output files.
+  Use the returned tool or agent ID for status instead of extra `ps` probes.
+- Put scratch files under `$TMPDIR`. Keep that variable literal in shell
+  commands; use resolved absolute paths with file tools. Do not assume the
+  session directory is writable.
+- After a sandbox denial, stop the blocked operation. Do not retry the
+  same access through another interpreter or utility. Report the blocked
+  operation and ask for guidance.
+
 ## Principles
 
 1. **Yes is forever.** Every feature, option, and exported API becomes a
