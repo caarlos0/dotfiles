@@ -1,0 +1,179 @@
+#!/bin/sh
+set -e
+
+usage() {
+  cat <<'EOF'
+Wait for a pull request change, merge, or default-branch commit.
+
+Usage: gh wait [--merge] [<number> | <url> | <branch>]
+
+Examples:
+  gh wait                 # Current branch's PR, or commits on the default branch.
+  gh wait 123             # Next PR change.
+  gh wait --merge 123     # Merge only.
+  GH_REPO=OWNER/REPO gh wait 123
+
+Without a PR, watches the current branch's PR. On the repository's default
+branch, compares its remote head with local HEAD instead. An already different
+remote head counts; no fetch or checkout is performed.
+
+PR changes are compared with a snapshot taken at startup: metadata updates,
+title/body edits, head/base changes, draft status, and review changes.
+Merged or closed PRs return immediately. --merge ignores other changes, succeeds
+if already merged, and fails if closed without merging. With --merge and no PR,
+always uses the current branch's PR, even on the default branch.
+
+Checks immediately, then every 30 seconds. Quiet while waiting. Prints one
+tab-separated line: EVENT<TAB>URL. Events: changed, merged, closed, commits.
+The URL identifies the PR, or the new default-branch commit.
+Exits 0 on an event, 1 on failure (including API errors), and 2 for invalid usage.
+Use native gh pr checks --watch for CI; this command does not watch check runs.
+
+Options (accepted before or after the PR):
+  --merge     Wait specifically for a merge.
+  -h, --help  Show this help without contacting GitHub.
+  --          End options.
+
+Accepts a PR number, URL, or branch. Use a URL or GH_REPO for another repository.
+EOF
+}
+
+merge=false
+pr=
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --merge) merge=true ;;
+    --)
+      shift
+      break
+      ;;
+    -*)
+      printf 'unknown option: %s (see gh wait --help)\n' "$1" >&2
+      exit 2
+      ;;
+    *)
+      if [ -n "$pr" ] || [ -z "$1" ]; then
+        echo "expected one nonempty PR (see gh wait --help)" >&2
+        exit 2
+      fi
+      pr="$1"
+      ;;
+  esac
+  shift
+done
+if [ "$#" -gt 0 ]; then
+  if [ "$#" -ne 1 ] || [ -n "$pr" ] || [ -z "$1" ]; then
+    echo "expected one nonempty PR (see gh wait --help)" >&2
+    exit 2
+  fi
+  pr="$1"
+fi
+
+wait_commits() {
+  baseline=$(git rev-parse HEAD) || exit 1
+  while :; do
+    # shellcheck disable=SC2016
+    head=$(gh api graphql --hostname "$host" -f id="$id" \
+      -f ref="refs/heads/$branch" -f query='
+        query($id: ID!, $ref: String!) {
+          node(id: $id) {
+            ... on Repository { ref(qualifiedName: $ref) { target { oid } } }
+          }
+        }' --jq '
+          .data.node.ref.target.oid // error("default branch no longer exists")
+        ') || exit 1
+    if [ "$head" != "$baseline" ]; then
+      printf 'commits\t%s/commit/%s\n' "$url" "$head"
+      exit 0
+    fi
+    sleep 30
+  done
+}
+
+pr_snapshot() {
+  if [ "$merge" = true ]; then
+    gh pr view "$url" --json state --jq .state
+    return
+  fi
+  # Reviews can change without a new head or PR metadata timestamp.
+  # shellcheck disable=SC2016
+  gh api graphql --hostname "$host" --paginate -f id="$id" -f query='
+    query($id: ID!, $endCursor: String) {
+      node(id: $id) {
+        ... on PullRequest {
+          state updatedAt title body headRefOid baseRefName baseRefOid isDraft
+          reviews(first: 100, after: $endCursor) {
+            nodes { id updatedAt body state submittedAt }
+            pageInfo { hasNextPage endCursor }
+          }
+        }
+      }
+    }' --jq '
+      .data.node |
+      if . == null then
+        error("pull request no longer exists")
+      else
+        .state + " " + (del(.reviews.pageInfo) | tojson)
+      end'
+}
+
+if [ -z "$pr" ] && [ "$merge" = false ]; then
+  branch=$(git symbolic-ref --quiet --short HEAD) || {
+    echo "cannot select a branch; pass a PR number or URL" >&2
+    exit 1
+  }
+  repo=$(gh repo view --json id,url,defaultBranchRef --jq '
+    if .defaultBranchRef == null then
+      error("repository has no default branch")
+    else
+      .id + " " + .url + " " + .defaultBranchRef.name
+    end') || exit 1
+  id="${repo%% *}"
+  repo="${repo#* }"
+  url="${repo%% *}"
+  if [ "$branch" = "${repo#* }" ]; then
+    host="${url#https://}"
+    host="${host%%/*}"
+    wait_commits
+  fi
+fi
+
+set --
+if [ -n "$pr" ]; then
+  set -- "$pr"
+fi
+target=$(gh pr view --json id,url --jq '.id + " " + .url' -- "$@") || exit 1
+id="${target%% *}"
+url="${target#* }"
+host="${url#https://}"
+host="${host%%/*}"
+
+baseline=$(pr_snapshot) || exit 1
+snapshot="$baseline"
+while :; do
+  state="${snapshot%% *}"
+  case "$state" in
+    MERGED)
+      printf 'merged\t%s\n' "$url"
+      exit 0
+      ;;
+    CLOSED)
+      if [ "$merge" = true ]; then
+        printf 'pull request closed without merging: %s\n' "$url" >&2
+        exit 1
+      fi
+      printf 'closed\t%s\n' "$url"
+      exit 0
+      ;;
+  esac
+  if [ "$merge" = false ] && [ "$snapshot" != "$baseline" ]; then
+    printf 'changed\t%s\n' "$url"
+    exit 0
+  fi
+  sleep 30
+  snapshot=$(pr_snapshot) || exit 1
+done

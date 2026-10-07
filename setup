@@ -165,7 +165,16 @@ fi
 link "$PWD"/git/config ~/.config/git/config
 link "$PWD"/git/gitignore ~/.config/git/ignore
 link "$PWD"/gh/config.yml ~/.config/gh/config.yml
+# Remove only links to this checkout's retired extensions.
+for name in gh-wait-push gh-wait-review; do
+  ext="$HOME/.local/share/gh/extensions/$name"
+  if [ -L "$ext" ] && [ "$(readlink "$ext")" = "$PWD/gh/extensions/$name" ]; then
+    rm "$ext"
+    success "Removed retired extension $name"
+  fi
+done
 for ext in "$PWD"/gh/extensions/*; do
+  [ -x "$ext/$(basename "$ext")" ] || continue
   link "$ext" ~/.local/share/gh/extensions/"$(basename "$ext")"
 done
 link "$PWD"/gh-dash/config.yml ~/.config/gh-dash/config.yml

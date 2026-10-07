@@ -181,14 +181,18 @@ Disclose that the reviewer is a bot.
 
 Only when asked to keep reviewing new pushes:
 
-1. After posting, run `gh wait-push <pr> <sha>` with the PR number and the exact
-   head commit just reviewed. Follow `gh-cli` for repository targeting, output,
-   and exit behavior.
+1. After posting, retain the exact head SHA reviewed and check the current PR
+   once for work already pushed. Review a new head immediately. Otherwise run
+   `gh wait <pr>` for the next observed change. It starts a new snapshot, not a
+   comparison against the reviewed SHA; earlier changes do not wake it. Follow
+   `gh-cli` for repository targeting, output, and exit behavior.
 2. Use the longest supported wait. If the command moves to the background, wait
    for its completion notification. Never poll with Git, `gh`, or sleeps between
    notifications.
-3. On a new head, review only changes since the last reviewed SHA, with enough
-   surrounding context to verify them. Resolve threads whose findings were
-   addressed, post the new review, and wait again using the new SHA.
-4. Stop when the PR is merged or closed. Report watcher errors rather than
-   treating them as closure.
+3. On `changed`, read the PR. Edits and reviews also wake the command; do not
+   post a duplicate code review when the head is unchanged. For a new head,
+   review only changes since the last reviewed SHA, with enough surrounding
+   context to verify them. Resolve threads whose findings were addressed, post
+   the new review, retain the new SHA, and wait again.
+4. Stop on `merged` or `closed`, both successful events. Report nonzero watcher
+   exits as errors rather than treating them as closure.

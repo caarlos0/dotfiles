@@ -56,8 +56,8 @@ and an unknown host silently gets the shared setup only:
 
 Everything else is shared. Neither `setup` nor `brew bundle` uninstalls
 anything: removing an app from a `Brewfile` doesn't remove it from the machine.
-The only exceptions are explicitly retired Copilot agents and skills removed
-during setup migrations.
+The only exceptions are explicitly retired Copilot agents, skills, and
+repo-managed local `gh` extension links removed during setup migrations.
 
 ## Conventions
 
@@ -66,8 +66,10 @@ during setup migrations.
 - Don't commit speculative work; wait for an explicit "commit".
 - Integrate upstream branches with **merge, never rebase**.
 - GitHub CLI procedures live in `skills/gh-cli/SKILL.md`: use native
-  required-check fail-fast watching for CI, and `gh wait-push` / `gh wait-review`
-  for pushes and reviews, not ad hoc sleep-and-poll loops.
+  required-check fail-fast watching for CI; `gh wait` for PR changes or
+  default-branch commits; and `gh wait --merge` for completed merges.
+  Do not use ad hoc sleep-and-poll loops. Run extension tests with
+  `python3 -m unittest discover -s gh/tests`.
 - Review policy lives in `skills/code-review/SKILL.md`; `bin/review` only
   launches Copilot and selects continuous review with `--keep`.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.

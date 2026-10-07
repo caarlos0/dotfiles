@@ -1,6 +1,6 @@
 ---
 name: gh-cli
-description: Use GitHub CLI efficiently for pull requests, CI checks, workflow runs, logs, and merge status. Use when running gh, waiting for CI, pushes or reviews, diagnosing a failed check, or monitoring a pull request.
+description: Use GitHub CLI efficiently for pull requests, CI checks, workflow runs, logs, and merge status. Use when running gh, waiting for CI, commits, reviews or merges, diagnosing a failed check, or monitoring a pull request.
 user_invocable: true
 ---
 
@@ -84,64 +84,84 @@ gh pr checks NUMBER -R OWNER/REPO --required \
   Do not silently drop `--required` after an error.
 - An auth, permission, API, or network error is not a CI result. Report it.
   Do not hide it in a retry loop or infer success from missing data.
-- Native watching covers reported checks, not every push, review, or
-  merge-queue transition. Use the local extensions below for pushes and
-  reviews. For other states with no watcher, make one focused read per
-  scheduled pass if a schedule is already authorized. Stop it when the goal
-  is met or the PR is closed. Do not invent an endless polling loop.
+- Native watching covers reported checks, not every push, review, or merge.
+  Use `gh wait` below for those events. For other states with no watcher,
+  make one focused read per scheduled pass if a schedule is already
+  authorized. Stop it when the goal is met or the PR is closed. Do not invent
+  an endless polling loop.
 
-## Wait for a push or review
+## Wait for PR changes, merges, or commits
 
-`./setup` links the local extensions from `gh/extensions/`. Use these commands
-instead of writing a polling loop or repeatedly reading PR status. Run one
-watcher per target in an attached async shell, or wait on the same synchronous
-process. Reuse its shell ID and completion notification, as with CI watchers.
-Both check immediately, then every 30 seconds, and print nothing while waiting.
+`./setup` links `gh wait` from `gh/extensions/` and removes this checkout's
+links to the retired push/review extensions. Use `gh wait` instead of writing
+a polling loop or repeatedly reading PR status. Run one watcher per target
+in an attached async shell, or wait on the same synchronous process. Reuse its
+shell ID and completion notification, as with CI watchers.
+It checks immediately, then every 30 seconds, and prints nothing while waiting.
 
-### New push
-
-```bash
-gh wait-push NUMBER LAST_REVIEWED_SHA
-```
-
-Both arguments are optional: the PR defaults to the current branch's PR, and
-the SHA defaults to local `HEAD`. Pass the last reviewed SHA explicitly when
-reviewing a PR from another checkout. For another repository, use
-`GH_REPO=OWNER/REPO gh wait-push NUMBER SHA`; this command has no `-R` option.
-
-It exits 0 when the open PR's head differs from the supplied SHA and prints
-`new push on #NUMBER: OLD_SHA..NEW_SHA`. An already different head counts; it
-does not require a push after the command starts. Review the new head, then
-start the next wait with that SHA.
-
-It exits 1 if the PR is closed or merged. Initial lookup/API errors stop the
-command. **Later API errors are currently hidden and retried**, so silence is
-not proof that the watcher can still reach GitHub.
-
-### Submitted review
+### Any PR change or default-branch commit
 
 ```bash
-gh wait-review NUMBER
-gh wait-review https://github.com/OWNER/REPO/pull/NUMBER
+gh wait NUMBER
+gh wait https://github.com/OWNER/REPO/pull/NUMBER
+gh wait
 ```
 
-The PR defaults to the current branch's PR. A number, URL, or branch is accepted.
-Use a full URL or `GH_REPO=OWNER/REPO` for another repository; there is no `-R`
-option. `gh wait-review --help` shows usage without contacting GitHub.
+With a PR number, URL, or branch, `gh wait` takes a snapshot and exits on the
+next observed change: PR metadata updates, title/body edits, head/base changes,
+draft status, or review changes. Reviews are read across all pages, so changes
+to older reviews also count. It compares snapshots, not an event stream:
+changes reverted between polls can be missed. It does not watch CI checks or
+guarantee detection of every merge-queue transition.
 
-It exits 0 when it finds any submitted review on the current remote PR head,
-including one posted before the command started. It follows head changes while
-waiting and reads all review pages. Approvals, comments, requested changes, and
-dismissed reviews count; pending draft reviews, issue comments, and reviews of
-older commits do not. It prints matching review URLs, one per line.
+With no argument, it uses the current branch's PR. On the repository's default
+branch (`main`, or its configured name), it instead waits for the remote branch
+head to differ from local `HEAD` at startup. An already different remote head
+counts, even if local `HEAD` is ahead or has diverged. It does not fetch, pull,
+or change the checkout. Update the checkout before starting another wait if you
+want to use the new head as the baseline. Detached HEAD requires an explicit PR.
 
-It exits 1 if the PR is closed or merged, and 2 for invalid usage. API, auth,
-permission, and network errors stop the command with their diagnostics and a
-nonzero status, including errors after waiting has started.
+### Completed merge
 
-Read the returned reviews and act on the feedback. A review is not necessarily
-an approval, does not mean all requested reviewers have finished, and does not
-establish merge readiness. Neither extension replaces required-check watching.
+```bash
+gh wait --merge NUMBER
+gh wait --merge https://github.com/OWNER/REPO/pull/NUMBER
+```
+
+`--merge` ignores other changes and succeeds only when the PR is merged,
+including an already merged PR. It fails if the PR is closed without merging.
+Without a PR argument, it always selects the current branch's PR, even on the
+default branch. Use this after enabling auto-merge when the task requires
+confirmation of the completed merge; auto-merge enabled is not merged.
+
+### Output and failures
+
+`gh wait` prints one tab-separated `EVENT<TAB>URL` line on stdout. Events are
+`changed`, `merged`, `closed`, or `commits`; the URL identifies the PR or the
+new default-branch commit. With no `--merge`, already closed or merged PRs
+return their terminal event immediately. Read the changed PR before acting;
+`changed` does not mean approval or merge readiness.
+
+It exits 0 on an event, 1 on operational failure, and 2 for invalid usage.
+API, auth, permission, and network errors stop it with diagnostics on stderr,
+including errors after waiting has started. Use a full URL or
+`GH_REPO=OWNER/REPO` for another repository; there is no `-R` option.
+`gh wait --help` shows usage without contacting GitHub. Options can appear
+before or after the PR; `--` ends option parsing.
+
+### Act on changes, not a specific event type
+
+Use `gh wait NUMBER` for both pushes and reviews. Check the current PR once
+before waiting and handle work already present. PR mode does not compare with
+a last-reviewed SHA or match an existing review; it only detects changes after
+its initial snapshot. Changes made before that snapshot do not wake it.
+
+On `changed`, read the PR head and relevant discussion. Review a new head
+relative to the last reviewed SHA, or act on new feedback. An unrelated edit
+can wake the command; if there is nothing relevant to do, start a new wait.
+Do not assume every event is a push, a submitted review, or an approval.
+Stop on `merged` or `closed`; those are successful events, not API failures.
+This command does not replace required-check watching.
 
 ## Read the failing job now
 
@@ -191,5 +211,6 @@ gh pr view NUMBER -R OWNER/REPO \
   --json headRefOid,state,mergedAt,mergeStateStatus,reviewDecision,autoMergeRequest
 ```
 
-An enabled auto-merge request is not a completed merge. Report the actual
+An enabled auto-merge request is not a completed merge. Use `gh wait --merge`
+when waiting for that merge, then confirm its final state. Report the actual
 blocker or confirmed merged state, not another unchanged status dump.
