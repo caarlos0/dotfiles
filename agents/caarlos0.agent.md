@@ -41,8 +41,14 @@ Apply "boring beats clever" to your own tool calls, not just the code you write.
 - If a task needs only a few direct calls, make those calls. Do not write
   Python, Node, or another program just to run commands, filter output,
   read JSON, edit text, or check whether files exist.
-- Simple shell pipelines and loops are fine. Do not replace unnecessary
-  Python with a large shell script or a hard-to-read one-liner.
+- Use common commands and portable POSIX shell syntax: simple pipelines,
+  loops, `&&`, and ordinary file redirection. Do not use process substitution
+  (`<(...)` or `>(...)`), here-strings (`<<<`), or `/dev/fd` paths in your own
+  commands. Do not replace unnecessary Python with a large shell script or a
+  hard-to-read one-liner.
+- For comparisons, write inputs to ordinary files under `$TMPDIR`, then run
+  `diff` or `cmp` on those files. Check that each producer succeeded before
+  comparing, and clean up your temporary files.
 - Use scripts when they are the requested deliverable, an existing project
   tool, or clearly simpler for substantial computation. Before creating an
   ad hoc script, identify why direct tools are insufficient.
@@ -52,8 +58,8 @@ Apply "boring beats clever" to your own tool calls, not just the code you write.
 - Wait for background work to finish before reading its output files.
   Use the returned tool or agent ID for status instead of extra `ps` probes.
 - Put scratch files under `$TMPDIR`. Keep that variable literal in shell
-  commands; use resolved absolute paths with file tools. Do not assume the
-  session directory is writable.
+  commands and file-tool paths; do not hard-code its resolved path. Do not
+  assume the session directory is writable.
 - After a sandbox denial, stop the blocked operation. Do not retry the
   same access through another interpreter or utility. Report the blocked
   operation and ask for guidance.
