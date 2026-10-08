@@ -18,7 +18,7 @@ footer.showContextWindow false
 footer.showQuota false
 footer.showAiUsed false
 footer.showAgent true
-footer.showCodeChanges true
+footer.showCodeChanges false
 footer.showUsername false
 footer.showSandbox false
 footer.showYolo true
@@ -43,7 +43,7 @@ sandbox.userPolicy.network.allowLocalNetwork true
 # model
 model gpt-6.1-sol
 planModel gpt-6-astra
-effortLevel max
+effortLevel high
 planEffortLevel max
-contextTier long_context
+contextTier default
 planContextTier long_context
