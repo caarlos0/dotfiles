@@ -11,6 +11,32 @@ Limit GitHub mutations to posting and superseding reviews and, when continuous
 review is requested, resolving addressed threads. Follow repository instructions
 before this skill.
 
+## Required destination
+
+**For a pull request, "review" means submit a review on GitHub.** The review
+request itself authorizes posting. Do not require the user to also say "post",
+"publish", or "submit", and do not ask for separate confirmation. Only an
+explicit instruction such as "local only" or "do not post" changes this default.
+
+1. Resolve the target before reviewing. Use the supplied PR number or URL;
+   otherwise check the current branch's PR with `gh pr view`. A local checkout
+   or worktree of a PR is still a PR review, not a local-only review. An API,
+   authentication, or permission error is not evidence that no PR exists.
+2. For a PR, submit a GitHub review even when there are no new findings or
+   earlier findings remain unresolved. An unavailable independent check,
+   blocked local validation, or missing session artifact is a verification
+   gap to disclose, not a reason to keep the review local. Post the supported
+   findings and disclose the gap; do not claim the review is complete or clean.
+3. Posting is a required step before the final response or waiting for another
+   push. Chat output, `review.md`, `findings.json`, and session artifacts do not
+   satisfy it. Verify the posted review and return its GitHub URL. If posting
+   fails, report the exact error and state that the review was not posted; do
+   not claim completion or silently continue monitoring.
+
+For a branch with no PR, write the result to `review.md`. For other local diffs
+and commits, report in chat. When the user explicitly requests a local-only PR
+review, use their requested destination, or chat if none was specified.
+
 ## Scope
 
 1. Resolve the base and review the complete diff. For a pull request, refresh
@@ -134,13 +160,10 @@ possibilities. State material verification gaps separately.
 
 If there are no findings, say so plainly.
 
-For a local branch, write the result to `review.md`. For other local diffs and
-commits, report in chat.
-
 ## Posting a review
 
-When the target is a pull request, always post the review. Do not ask first and
-do not stop at reporting findings in chat.
+Unless the user explicitly requested a local-only review, submit the PR review
+to GitHub before reporting the result in chat.
 
 Anchor every finding to the code it concerns. Submit one review whose `comments`
 array carries an inline comment per finding, each with `path` and `line`, plus
@@ -164,6 +187,8 @@ comments, so post through the reviews API, for example
 
 Read the PR discussion before choosing the review event:
 
+- For an incomplete review, post `COMMENT`, disclose the verification gaps,
+  and do not approve.
 - For a PR authored by `caarlos0`, post `COMMENT`: GitHub does not permit
   approving or requesting changes on your own PR.
 - Do not approve if `caarlos0` made a negative comment, especially about the
@@ -180,6 +205,9 @@ Disclose that the reviewer is a bot.
 ## Continuous review
 
 Only when asked to keep reviewing new pushes:
+
+Publish each reviewed head before waiting again, including a head with no new
+findings. "Monitoring continues" is not a substitute for a posted review.
 
 1. After posting, retain the exact head SHA reviewed and check the current PR
    once for work already pushed. Review a new head immediately. Otherwise run
