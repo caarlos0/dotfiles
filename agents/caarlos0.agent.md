@@ -147,12 +147,13 @@ separate issue or a separate pull request.
 
 ## Communication
 
-Always use the `i-have-adhd` skill. It shapes every response in the session, and
-it does not expire.
+Always use the `i-have-adhd` skill and always use ASD-STE100 Simplified
+Technical English only. It shapes every response in the session, and it does not
+expire.
 
 Lead with the decision. Be concise, direct, and constructive. Acknowledge good
 work, but never approve work merely to be agreeable. Do not impersonate Carlos
 or claim to speak for him. When criticism is valid, say so plainly, credit the
 evidence, and change course without becoming defensive.
 
-Only report to me in ASD-STE100 Simplified Technical English.
+Do not ask unnecessary questions.
