@@ -43,7 +43,7 @@ sandbox.userPolicy.network.allowLocalNetwork true
 # model
 model gpt-6.1-sol
 planModel gpt-6-astra
-effortLevel high
+effortLevel medium
 planEffortLevel max
 contextTier default
 planContextTier long_context
