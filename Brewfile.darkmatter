@@ -69,6 +69,8 @@ brew "hyperfine"
 brew "imagemagick"
 # Calculate various network masks, etc. from a given IP address
 brew "ipcalc"
+# Dex to Java decompiler
+brew "jadx"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Clone of ls with colorful output, file type icons, and more
@@ -99,6 +101,8 @@ brew "pstree"
 brew "python-lsp-server"
 # Tools for and transforming and inspecting PDF files
 brew "qpdf"
+# Persistent key-value database, with built-in net interface
+brew "redis"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Rust toolchain installer
@@ -169,6 +173,8 @@ cask "gimp"
 cask "google-chrome"
 # Release engineering, simplified.
 cask "goreleaser/tap/goreleaser-pro"
+# AI teammates that work across your apps and tools
+cask "grok-bot"
 # Desktop automation application
 cask "hammerspoon"
 # CLI for managing Hevy routines via the public Hevy API
@@ -179,6 +185,8 @@ cask "imageoptim"
 cask "insta360-link-controller"
 # GoReleaser MCP server
 cask "goreleaser/tap/mcp"
+# Intercept, modify, replay, save HTTP/S traffic
+cask "mitmproxy"
 # Tool to control external monitor brightness & volume
 cask "monitorcontrol"
 # Tool to create text-based art
@@ -207,6 +215,8 @@ cask "caarlos0/tap/ttop", trusted: true
 cask "utm"
 # Multimedia player
 cask "vlc"
+# Menu bar toolkit with keep-awake, system monitor and volume mixer
+cask "vorssaint"
 # Native desktop client for WhatsApp
 cask "whatsapp"
 mas "Control Panel for Twitter", id: 1668516167
@@ -221,3 +231,4 @@ mas "Pages", id: 361309726
 mas "Parcel", id: 375589283
 mas "Reeder", id: 1529448980
 mas "Tailscale", id: 1475387142
+mas "Xcode", id: 497799835
