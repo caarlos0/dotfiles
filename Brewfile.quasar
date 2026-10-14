@@ -51,6 +51,8 @@ brew "golangci-lint"
 brew "gopls"
 # Improved top (interactive process viewer)
 brew "htop"
+# Configurable static site generator
+brew "hugo"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
 # Lightweight and flexible command-line JSON processor
@@ -117,6 +119,8 @@ brew "wakeonlan"
 brew "watch"
 # Internet file retriever
 brew "wget"
+# Generate your Xcode project from a spec file and your folder structure
+brew "xcodegen"
 # Language Server for Yaml Files
 brew "yaml-language-server"
 # Programming language designed for robustness, optimality, and clarity
@@ -166,6 +170,7 @@ cask "caarlos0/tap/ttop", trusted: true
 # Connect to Windows
 cask "windows-app"
 mas "Azure VPN Client", id: 1553936137
+mas "Biblia", id: 0
 mas "Control Panel for Twitter", id: 1668516167
 mas "Control Panel for YouTube", id: 6478456678
 mas "HEIC Converter", id: 1294126402
@@ -176,3 +181,5 @@ mas "Microsoft Word", id: 462054704
 mas "Okta Extension App", id: 1439967473
 mas "Okta Verify", id: 490179405
 mas "StopTheMadness", id: 1376402589
+mas "TestFlight", id: 899247664
+mas "Xcode", id: 497799835
