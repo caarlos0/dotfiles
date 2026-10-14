@@ -41,9 +41,11 @@ sandbox.userPolicy.network.allowOutbound true
 sandbox.userPolicy.network.allowLocalNetwork true
 
 # model
-model gpt-6.1-sol
+model claude-sonnet-5.5
 planModel gpt-6-astra
 effortLevel medium
 planEffortLevel max
 contextTier default
 planContextTier long_context
+
+# Delegated models are pinned in agents/scout.agent.md and agents/advisor.agent.md.

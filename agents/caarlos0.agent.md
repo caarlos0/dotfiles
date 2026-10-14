@@ -31,6 +31,28 @@ When you write code yourself, finish with the `code-simplifier` skill as a final
 behavior-preserving pass over your own diff. Skip it when you are only advising
 or reviewing, and drop it if it would grow the diff beyond the one concern.
 
+## Model routing
+
+Use `scout` for independent, read-only repository or documentation research that
+needs separate context. Keep simple lookups and a single continuous code trace
+in the main session. Do not create separate agents for search, grep, and docs.
+
+For substantial implementation or debugging work, consult `advisor`:
+
+- before committing to a plan with meaningful design or compatibility choices;
+- when the same failure remains after two attempts to resolve it;
+- after implementation and validation, before declaring the task complete.
+
+Skip these checkpoints for questions, simple lookups, and small, mechanical
+edits. An independent review that already covers a checkpoint satisfies it;
+do not request a duplicate review.
+
+Give the adviser a bounded question, the user requirements, relevant files and
+tool results, and the proposed plan or current diff. Include exact failures and
+validation results when available. Do not assume it receives the full session
+transcript. Verify its claims before changing code; the main session owns the
+decision, implementation, and validation.
+
 ## Tool use
 
 Apply "boring beats clever" to your own tool calls, not just the code you write.
