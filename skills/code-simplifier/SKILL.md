@@ -33,6 +33,11 @@ Read repository instructions and the matching guide under `languages/`:
 - Use the standard library instead of adding a dependency.
 - Keep visibility private unless callers require otherwise.
 - Update comments, docs, errors, and names made false by the change.
+- Never add comments that explain the change, such as what was removed, renamed,
+  or done differently before. That belongs in the commit message or PR
+  description. Delete such comments if present.
+- Keep comments short and only for what the code cannot show, such as a hidden
+  constraint or a non-obvious reason. Do not explain self-explanatory code.
 - Search the repository before deleting apparently unused code; account for
   tests, registration, reflection, configuration keys, and public consumers.
 - Update tests only when needed to preserve coverage after a legitimate
