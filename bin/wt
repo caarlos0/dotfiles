@@ -28,6 +28,8 @@ OPTIONS:
   --pr,-p <number>  check out pull request <number> in a worktree named after
                     its head branch
   --main,-m         create the worktree from origin/<default branch>
+  --tab,-t          do the work in a new tmux tab
+  --split,-s        do the work in a new vertical tmux split
   --delete,-d       remove the worktree <name>
   --list,-l         list worktrees
   --cleanup,-c      interactively remove merged/closed worktrees
@@ -112,7 +114,19 @@ function find_worktree -a name
 end
 
 function switch_to -a dir
-    if test -n "$WT_POST_CMD"
+    if test -n "$open_in"
+        set -l previous (git rev-parse --show-toplevel 2>/dev/null)
+        set -l tmux_args -c $dir -e WT_PREVIOUS=$previous
+        if set -q run_cmd[1]
+            set -a tmux_args fish -C (string escape -- $run_cmd | string join ' ')
+        end
+        log "Opening $dir in a new tmux $open_in"
+        if test "$open_in" = tab
+            tmux new-window $tmux_args
+        else
+            tmux split-window -h $tmux_args
+        end
+    else if test -n "$WT_POST_CMD"
         echo "$dir"
     else
         log "Switching to $dir"
@@ -405,6 +419,7 @@ set -l cleanup false
 set -l from_main false
 set -l pr ""
 set -l want_pr false
+set -g open_in
 
 for arg in $argv
     if test "$want_pr" = true
@@ -423,6 +438,12 @@ for arg in $argv
             set cleanup true
         case --main -m
             set from_main true
+        case --tab -t
+            test -z "$open_in"; or fail "--tab and --split are mutually exclusive"
+            set open_in tab
+        case --split -s
+            test -z "$open_in"; or fail "--tab and --split are mutually exclusive"
+            set open_in split
         case '*'
             set name $arg
     end
@@ -434,6 +455,13 @@ end
 
 if set -q run_cmd[1]; and test "$list" = true -o "$delete" = true -o "$cleanup" = true
     fail "-- <command> can't be used with --list, --delete or --cleanup"
+end
+
+if test -n "$open_in"
+    set -q TMUX; or fail "--tab and --split require tmux"
+    if test "$list" = true -o "$delete" = true -o "$cleanup" = true
+        fail "--tab and --split can't be used with --list, --delete or --cleanup"
+    end
 end
 
 if test -n "$pr"
