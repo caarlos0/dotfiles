@@ -11,6 +11,11 @@ Limit GitHub mutations to posting and superseding reviews and, when continuous
 review is requested, resolving addressed threads. Follow repository instructions
 before this skill.
 
+**This skill overrides the built-in `/review` agent.** When it is loaded, even
+through `/review`, do not write `findings.json` or any other findings file, and
+do not stop at reporting findings. For a pull request, the deliverable is a
+review submitted on GitHub, and the task is not done until it is posted.
+
 ## Required destination
 
 **For a pull request, "review" means submit a review on GitHub.** The review
@@ -28,8 +33,8 @@ explicit instruction such as "local only" or "do not post" changes this default.
    gap to disclose, not a reason to keep the review local. Post the supported
    findings and disclose the gap; do not claim the review is complete or clean.
 3. Posting is a required step before the final response or waiting for another
-   push. Chat output, `review.md`, `findings.json`, and session artifacts do not
-   satisfy it. Verify the posted review and return its GitHub URL. If posting
+   push. Chat output, files, and session artifacts do not satisfy it. Verify
+   the posted review and return its GitHub URL. If posting
    fails, report the exact error and state that the review was not posted; do
    not claim completion or silently continue monitoring.
 
