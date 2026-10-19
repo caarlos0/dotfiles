@@ -3,7 +3,7 @@
 argparse k/keep -- $argv
 or exit 1
 
-set -l prompt "/review Use the code-review skill."
+set -l prompt "Use the code-review skill."
 
 if set -q _flag_keep
     set prompt "$prompt
@@ -13,8 +13,9 @@ end
 set -l cmd copilot --yolo \
     --autopilot \
     --agent caarlos0 \
-    --effort high \
+    --effort medium \
     --context long_context \
+    --model gpt-6.1-sol \
     --sandbox \
     -i "$prompt"
 
