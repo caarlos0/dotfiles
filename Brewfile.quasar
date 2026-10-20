@@ -57,6 +57,8 @@ brew "hugo"
 brew "imagemagick"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Library to render SVG files using Cairo
+brew "librsvg"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
 # Language Server for the Lua language
@@ -173,7 +175,9 @@ mas "Azure VPN Client", id: 1553936137
 mas "Biblia", id: 0
 mas "Control Panel for Twitter", id: 1668516167
 mas "Control Panel for YouTube", id: 6478456678
+mas "episodeshelf", id: 0
 mas "HEIC Converter", id: 1294126402
+mas "HyperList", id: 0
 mas "Lungo", id: 1263070803
 mas "Microsoft Excel", id: 462058435
 mas "Microsoft Outlook", id: 985367838
