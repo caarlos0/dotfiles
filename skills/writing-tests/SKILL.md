@@ -159,8 +159,8 @@ make CI green.
 
 ## Related skills
 
-- `code-review`: coverage and determinism review. When invoked from
-  `code-review`, do not invoke it again.
+- `my-code-review`: coverage and determinism review. When invoked from
+  `my-code-review`, do not invoke it again.
 - `runtime-process-debugging`: process, pipe, lifecycle, shutdown, and ordering
   mechanisms. When invoked from it, do not invoke it again.
 - `go-conventions` and `rust-specialist`: language-specific production changes.

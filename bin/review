@@ -3,7 +3,7 @@
 argparse k/keep -- $argv
 or exit 1
 
-set -l prompt "/code-review this branch."
+set -l prompt "/my-code-review this branch."
 
 if set -q _flag_keep
     set prompt "$prompt

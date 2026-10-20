@@ -27,4 +27,4 @@ state—EOF, process exit, handle ownership, channel closure—over timing.
 
 - `writing-tests`: deterministic lifecycle regression tests. When invoked from
   `writing-tests`, do not invoke it again.
-- `code-review`: review a completed lifecycle fix and its regression test.
+- `my-code-review`: review a completed lifecycle fix and its regression test.

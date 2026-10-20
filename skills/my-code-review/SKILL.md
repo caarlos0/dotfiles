@@ -1,5 +1,5 @@
 ---
-name: code-review
+name: my-code-review
 description: Review code, diffs, branches, commits, and pull requests for correctness, tests, simplicity, performance, and usability.
 user_invocable: true
 ---
@@ -62,7 +62,7 @@ diff.
   Verify that the feature or fix solves a real problem, especially when the
   change appears fully automated without human input.
 
-These are leaf tasks: agents must not invoke `code-review`, request agents, edit,
+These are leaf tasks: agents must not invoke `my-code-review`, request agents, edit,
 or mutate GitHub. Require exact file/line, reachable scenario, impact, evidence,
 smallest fix, and test. If either check cannot run, disclose it.
 

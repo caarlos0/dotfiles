@@ -226,5 +226,5 @@ not take that cost without a reason.
 ## Related skills
 
 - `writing-tests` for deterministic tests, including the TUI cases above.
-- `code-review` when reviewing someone else's terminal interface.
+- `my-code-review` when reviewing someone else's terminal interface.
 - `go-conventions` when the implementation is Go.

@@ -107,7 +107,7 @@ when compiler code generation affects the comparison.
 ## Related skills
 
 - `rust-specialist` takes precedence for correctness, safety, and API design.
-- `code-review` checks a completed diff. When invoked from `code-review`, do not
+- `my-code-review` checks a completed diff. When invoked from `my-code-review`, do not
   invoke it again.
 - `code-simplifier` runs after the gain is proven and preserves measured
   behavior.

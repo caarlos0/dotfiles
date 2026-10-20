@@ -125,7 +125,7 @@ compare runs with different GC modes, profilers, hooks, or calibration.
 
 ## Related skills
 
-- `code-review` checks a completed diff. When invoked from `code-review`, do not
+- `my-code-review` checks a completed diff. When invoked from `my-code-review`, do not
   invoke it again.
 - `code-simplifier` runs after the gain is proven.
 - `change-impact-auditor` traces environment, serialization, imports, logging,

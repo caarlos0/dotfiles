@@ -81,7 +81,7 @@ repo-managed local `gh` extension links removed during setup migrations.
   `python3 -m unittest discover -s gh/tests`.
 - `bin/wt --tab/--split` opens the pane first (without taking focus) and runs
   `wt` there, so fetch/checkout happen in the new pane.
-- Review policy lives in `skills/code-review/SKILL.md`; `bin/review` only
+- Review policy lives in `skills/my-code-review/SKILL.md`; `bin/review` only
   launches Copilot and selects continuous review with `--keep`. It takes any
   number of PRs: one opens a split, several open one tab each.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
