@@ -114,19 +114,7 @@ function find_worktree -a name
 end
 
 function switch_to -a dir
-    if test -n "$open_in"
-        set -l previous (git rev-parse --show-toplevel 2>/dev/null)
-        set -l tmux_args -c $dir -e WT_PREVIOUS=$previous
-        if set -q run_cmd[1]
-            set -a tmux_args fish -C (string escape -- $run_cmd | string join ' ')
-        end
-        log "Opening $dir in a new tmux $open_in"
-        if test "$open_in" = tab
-            tmux new-window $tmux_args
-        else
-            tmux split-window -h $tmux_args
-        end
-    else if test -n "$WT_POST_CMD"
+    if test -n "$WT_POST_CMD"
         echo "$dir"
     else
         log "Switching to $dir"
@@ -136,6 +124,23 @@ function switch_to -a dir
             exec fish -C (string escape -- $run_cmd | string join ' ')
         end
         exec fish
+    end
+end
+
+# Re-runs wt inside a new tmux tab/split so everything (fetch, checkout, ...)
+# happens there.
+function open_in_tmux
+    set -l tmux_args -c $PWD
+    set -q WT_PREVIOUS; and set -a tmux_args -e WT_PREVIOUS=$WT_PREVIOUS
+    set -l wt_args $forward_args
+    set -q run_cmd[1]; and set -a wt_args -- $run_cmd
+    # keep the pane open when wt fails, so the error can be read
+    set -l script 'command wt $argv; or read -P "press enter to close "'
+    log "Opening in a new tmux $open_in"
+    if test "$open_in" = tab
+        tmux new-window $tmux_args fish -c $script -- $wt_args
+    else
+        tmux split-window -h $tmux_args fish -c $script -- $wt_args
     end
 end
 
@@ -425,12 +430,17 @@ set -l from_main false
 set -l pr ""
 set -l want_pr false
 set -g open_in
+set -g forward_args
 
 for arg in $argv
     if test "$want_pr" = true
+        set -a forward_args $arg
         set pr $arg
         set want_pr false
         continue
+    end
+    if not contains -- $arg --tab -t --split -s
+        set -a forward_args $arg
     end
     switch $arg
         case --pr -p
@@ -467,6 +477,11 @@ if test -n "$open_in"
     if test "$list" = true -o "$delete" = true -o "$cleanup" = true
         fail "--tab and --split can't be used with --list, --delete or --cleanup"
     end
+end
+
+if test -n "$open_in"
+    open_in_tmux
+    exit
 end
 
 if test -n "$pr"

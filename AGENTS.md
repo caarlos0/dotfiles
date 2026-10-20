@@ -79,6 +79,8 @@ repo-managed local `gh` extension links removed during setup migrations.
   default-branch commits; and `gh wait --merge` for completed merges.
   Do not use ad hoc sleep-and-poll loops. Run extension tests with
   `python3 -m unittest discover -s gh/tests`.
+- `bin/wt --tab/--split` opens the pane and runs `wt` there, so
+  fetch/checkout happen in the new pane.
 - Review policy lives in `skills/code-review/SKILL.md`; `bin/review` only
   launches Copilot and selects continuous review with `--keep`.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
