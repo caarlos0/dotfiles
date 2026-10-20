@@ -116,3 +116,5 @@
 	email = "caarlos0@users.noreply.github.com"
 	name = "Carlos Alexandro Becker"
 	signingKey = "~/.ssh/id_ed25519"
+[maintenance]
+	repo = /Users/carlos/Developer/github/copilot-agent-runtime
