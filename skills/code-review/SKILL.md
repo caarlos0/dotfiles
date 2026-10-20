@@ -11,11 +11,6 @@ Limit GitHub mutations to posting and superseding reviews and, when continuous
 review is requested, resolving addressed threads. Follow repository instructions
 before this skill.
 
-**This skill overrides the built-in `/review` agent.** When it is loaded, even
-through `/review`, do not write `findings.json` or any other findings file, and
-do not stop at reporting findings. For a pull request, the deliverable is a
-review submitted on GitHub, and the task is not done until it is posted.
-
 ## Required destination
 
 **For a pull request, "review" means submit a review on GitHub.** The review
@@ -167,8 +162,7 @@ If there are no findings, say so plainly.
 
 ## Posting a review
 
-Unless the user explicitly requested a local-only review, submit the PR review
-to GitHub before reporting the result in chat.
+Always submit the PR review to GitHub before reporting the result in chat.
 
 Anchor every finding to the code it concerns. Submit one review whose `comments`
 array carries an inline comment per finding, each with `path` and `line`, plus
