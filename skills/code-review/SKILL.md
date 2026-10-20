@@ -13,15 +13,14 @@ before this skill.
 
 ## Required destination
 
-**For a pull request, "review" means submit a review on GitHub.** The review
-request itself authorizes posting. Do not require the user to also say "post",
-"publish", or "submit", and do not ask for separate confirmation. Only an
-explicit instruction such as "local only" or "do not post" changes this default.
+**ALWAYS submit the review to GitHub.**
+The review request itself authorizes posting.
 
 1. Resolve the target before reviewing. Use the supplied PR number or URL;
    otherwise check the current branch's PR with `gh pr view`. A local checkout
    or worktree of a PR is still a PR review, not a local-only review. An API,
    authentication, or permission error is not evidence that no PR exists.
+   Always fetch to make sure the branch is up to date before reviewing.
 2. For a PR, submit a GitHub review even when there are no new findings or
    earlier findings remain unresolved. An unavailable independent check,
    blocked local validation, or missing session artifact is a verification
@@ -162,7 +161,7 @@ If there are no findings, say so plainly.
 
 ## Posting a review
 
-Always submit the PR review to GitHub before reporting the result in chat.
+ALWAYS SUBMIT THE PR REVIEW TO GITHUB BEFORE REPORTING THE RESULT IN CHAT.
 
 Anchor every finding to the code it concerns. Submit one review whose `comments`
 array carries an inline comment per finding, each with `path` and `line`, plus
@@ -199,7 +198,7 @@ Read the PR discussion before choosing the review event:
 - Otherwise, approve if there are no critical problems. Do not invent style
   findings to accompany an approval.
 
-Disclose that the reviewer is a bot.
+Disclose that the reviewer is a bot: `Copilot, on behalf of Carlos`.
 
 ## Continuous review
 
