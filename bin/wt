@@ -7,6 +7,8 @@ end
 
 function fail
     echo (set_color --bold red) "error: $argv" (set_color normal)
+    # keep the pane open when wt fails, so the error can be read
+    set -q WT_PANE; and read -P "press enter to close "
     exit 1
 end
 
@@ -120,6 +122,7 @@ function switch_to -a dir
     else
         log "Switching to $dir"
         set -gx WT_PREVIOUS (git rev-parse --show-toplevel 2>/dev/null)
+        set -e WT_PANE
         cd $dir
         if set -q run_cmd[1]
             exec fish -C (string escape -- $run_cmd | string join ' ')
@@ -131,12 +134,13 @@ end
 # Re-runs wt inside a new tmux tab/split so everything (fetch, checkout, ...)
 # happens there. The origin pane keeps the focus.
 function open_in_tmux
-    set -l tmux_args -d -c $PWD
+    set -l tmux_args -d -c $PWD -e WT_PANE=1
     set -q WT_PREVIOUS; and set -a tmux_args -e WT_PREVIOUS=$WT_PREVIOUS
     set -l wt_args $forward_args
     set -q run_cmd[1]; and set -a wt_args -- $run_cmd
-    # keep the pane open when wt fails, so the error can be read
-    set -l script 'command wt $argv; or read -P "press enter to close "'
+    # exec, so the pane's own process ends up in the worktree directory and
+    # splitting from it inherits that directory
+    set -l script 'set -l wt (command -s wt); exec $wt $argv'
     log "Opening in a new tmux $open_in"
     if test "$open_in" = tab
         tmux new-window $tmux_args fish -c $script -- $wt_args
