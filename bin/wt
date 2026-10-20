@@ -28,8 +28,9 @@ OPTIONS:
   --pr,-p <number>  check out pull request <number> in a worktree named after
                     its head branch
   --main,-m         create the worktree from origin/<default branch>
-  --tab,-t          do the work in a new tmux tab
-  --split,-s        do the work in a new vertical tmux split
+  --tab,-t          do the work in a new tmux tab, without switching to it
+  --split,-s        do the work in a new vertical tmux split, without
+                    focusing it
   --delete,-d       remove the worktree <name>
   --list,-l         list worktrees
   --cleanup,-c      interactively remove merged/closed worktrees
@@ -128,9 +129,9 @@ function switch_to -a dir
 end
 
 # Re-runs wt inside a new tmux tab/split so everything (fetch, checkout, ...)
-# happens there.
+# happens there. The origin pane keeps the focus.
 function open_in_tmux
-    set -l tmux_args -c $PWD
+    set -l tmux_args -d -c $PWD
     set -q WT_PREVIOUS; and set -a tmux_args -e WT_PREVIOUS=$WT_PREVIOUS
     set -l wt_args $forward_args
     set -q run_cmd[1]; and set -a wt_args -- $run_cmd
