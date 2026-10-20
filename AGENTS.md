@@ -82,7 +82,8 @@ repo-managed local `gh` extension links removed during setup migrations.
 - `bin/wt --tab/--split` opens the pane first (without taking focus) and runs
   `wt` there, so fetch/checkout happen in the new pane.
 - Review policy lives in `skills/code-review/SKILL.md`; `bin/review` only
-  launches Copilot and selects continuous review with `--keep`.
+  launches Copilot and selects continuous review with `--keep`. It takes any
+  number of PRs: one opens a split, several open one tab each.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
 - Neovim updates are explicit: `task nvim` updates plugins, then installs missing
   configured Tree-sitter parsers and updates installed parsers in a fresh Neovim

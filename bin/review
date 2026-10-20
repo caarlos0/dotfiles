@@ -19,7 +19,14 @@ set -l cmd copilot --yolo \
     --sandbox \
     -i "$prompt"
 
-if set -q argv[1]
-    exec wt --split --pr $argv[1] -- $cmd
+if not set -q argv[1]
+    exec $cmd
 end
-exec $cmd
+
+# one split for a single PR; tabs for a list so the origin pane isn't squeezed
+set -l mode --split
+test (count $argv) -gt 1; and set mode --tab
+for pr in $argv
+    wt $mode --pr $pr -- $cmd
+    or exit 1
+end
