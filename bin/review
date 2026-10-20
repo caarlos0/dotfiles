@@ -3,7 +3,7 @@
 argparse k/keep -- $argv
 or exit 1
 
-set -l prompt "Use the code-review skill."
+set -l prompt "/code-review this branch."
 
 if set -q _flag_keep
     set prompt "$prompt
@@ -20,6 +20,6 @@ set -l cmd copilot --yolo \
     -i "$prompt"
 
 if set -q argv[1]
-    exec wt --pr $argv[1] -- $cmd
+    exec wt --split --pr $argv[1] -- $cmd
 end
 exec $cmd
