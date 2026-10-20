@@ -180,6 +180,11 @@ end
 function checkout_pr -a wt_path -a pr
     log "Checking out PR $pr..."
     pushd $wt_path
+    # gh sets tracking with `git checkout --track origin/<branch>`, which fails
+    # when origin's fetch refspec is narrowed (e.g. only main)
+    if test (gh pr view $pr --json isCrossRepository --jq .isCrossRepository) = false
+        git remote set-branches --add origin (gh pr view $pr --json headRefName --jq .headRefName)
+    end
     gh pr checkout $pr
     or fail "failed to check out PR $pr"
     popd
