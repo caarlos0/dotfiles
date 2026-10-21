@@ -26,7 +26,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "copilot.lua": {
-      "rev": "3f1f8cc30783ca905224eadebaa6ddfd73c28828",
+      "rev": "9d23575513f1d934c28b9f933b9dd680c0dcd9e3",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
     "dressing.nvim": {
