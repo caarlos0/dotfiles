@@ -418,6 +418,7 @@ tm_exclude \
   "$HOME/.orbstack" \
   "$HOME/Library/Group Containers/HUAQ24HBR6.dev.orbstack/data" \
   "$HOME/.local/share/nvim/site" \
+  "$HOME/.copilot" \
   "$HOME/Library/Containers/com.apple.AMPArtworkAgent" \
   "$HOME/Library/Application Support/Slack/Cache" \
   "$HOME/Library/Application Support/Slack/Code Cache" \
