@@ -211,24 +211,25 @@ cask "caarlos0/tap/svu"
 cask "telegram"
 # A tiny TUI that lists, filters and kills the processes running in every tmux pane.
 cask "caarlos0/tap/ttop", trusted: true
-# Virtual machines UI using QEMU
-cask "utm"
 # Multimedia player
 cask "vlc"
-# Menu bar toolkit with keep-awake, system monitor and volume mixer
-cask "vorssaint"
 # Native desktop client for WhatsApp
 cask "whatsapp"
+mas "Biblia", id: 0
 mas "Control Panel for Twitter", id: 1668516167
 mas "Control Panel for YouTube", id: 6478456678
 mas "Debit & Credit", id: 882637653
+mas "episodeshelf", id: 0
 mas "HEIC Converter", id: 1294126402
+mas "HyperList", id: 0
 mas "Infuse", id: 1136220934
 mas "Keynote", id: 361285480
 mas "Lungo", id: 1263070803
+mas "MusicDrift", id: 0
 mas "Numbers", id: 361304891
 mas "Pages", id: 361309726
 mas "Parcel", id: 375589283
 mas "Reeder", id: 1529448980
 mas "Tailscale", id: 1475387142
+mas "TestFlight", id: 899247664
 mas "Xcode", id: 497799835
