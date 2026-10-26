@@ -85,7 +85,8 @@ repo-managed local `gh` extension links removed during setup migrations.
   inherit that directory; `WT_PANE` makes `fail` hold the pane open.
 - Review policy lives in `skills/my-code-review/SKILL.md`; `bin/review` only
   launches Copilot and selects continuous review with `--keep`. It takes any
-  number of PRs: one opens a split, several open one tab each.
+  number of PRs: one runs in the current pane unless `--tab`/`-t` or
+  `--split`/`-s` is given; several require one of those flags.
   Reviews first assess whether the change is needed and belongs in the proposed
   layer, then compare alternative approaches before implementation details.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.

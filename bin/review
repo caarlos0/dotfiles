@@ -1,7 +1,12 @@
 #!/usr/bin/env fish
 
-argparse k/keep -- $argv
+argparse k/keep t/tab s/split -- $argv
 or exit 1
+
+if set -q _flag_tab; and set -q _flag_split
+    echo "review: --tab and --split are mutually exclusive" >&2
+    exit 1
+end
 
 set -l prompt "/my-code-review this branch."
 
@@ -23,9 +28,15 @@ if not set -q argv[1]
     exec $cmd
 end
 
-# one split for a single PR; tabs for a list so the origin pane isn't squeezed
-set -l mode --split
-test (count $argv) -gt 1; and set mode --tab
+set -l mode
+set -q _flag_tab; and set mode --tab
+set -q _flag_split; and set mode --split
+
+if test (count $argv) -gt 1; and test -z "$mode"
+    echo "review: several PRs need --tab or --split" >&2
+    exit 1
+end
+
 for pr in $argv
     wt $mode --pr $pr -- $cmd
     or exit 1
