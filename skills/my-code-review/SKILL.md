@@ -1,6 +1,6 @@
 ---
 name: my-code-review
-description: Review code, diffs, branches, commits, and pull requests for correctness, tests, simplicity, performance, and usability.
+description: Review code, diffs, branches, commits, and pull requests for necessity, solution placement, alternatives, correctness, tests, simplicity, performance, and usability.
 user_invocable: true
 ---
 
@@ -45,8 +45,39 @@ review, use their requested destination, or chat if none was specified.
 3. Identify the intended behavior and review only introduced behavior, except
    pre-existing code made newly reachable or incorrect.
 
-Report only high-confidence problems that a user can trigger and observe. Ignore
+Report only high-confidence problems backed by evidence. For correctness, require
+a trigger and observable impact. For necessity, placement, or approach, show the
+unsupported premise, duplication, wrong ownership, or concrete maintenance cost. Ignore
 style, naming, formatting, generic advice, and unrelated cleanup.
+
+## Necessity and placement
+
+First decide whether the change should exist and whether it belongs here.
+A correct implementation does not by itself justify the change.
+
+- Identify the concrete user problem and evidence that it exists. Distinguish
+  the requested outcome from the proposed solution.
+- Check whether existing behavior, configuration, or another supported workflow
+  already meets the need.
+- Trace the cause and ownership. Determine whether the fix belongs in this
+  component, a caller, a dependency, or another layer instead of a local workaround.
+- Weigh the user benefit against added scope, public surface, compatibility
+  obligations, and maintenance cost. Challenge unsupported premises with evidence,
+  not personal preference.
+
+## Alternative approaches
+
+Next compare ways to meet the same need before reviewing implementation details.
+Do not assume the submitted approach is the right starting point.
+
+- Look for existing helpers, patterns, APIs, and extension points before proposing
+  new machinery. Consider removing or changing existing logic rather than adding
+  another path.
+- Compare the proposed solution with the simplest complete alternative. Consider
+  correctness, compatibility, usability, performance, and long-term maintenance.
+- Recommend a different approach only when a concrete benefit outweighs its
+  costs. Explain the tradeoff and the smallest viable change; do not demand a
+  speculative redesign or expand the goal.
 
 ## Required independent checks
 
@@ -54,17 +85,19 @@ Before the verdict, request both checks in parallel. Give each the full target,
 base, intent, repository instructions, and known validation; do not split the
 diff.
 
-- Ask the `caarlos0` agent for a read-only maintainer check of correctness,
-  scope, simplicity, usability, compatibility, public surface, and maintenance
-  cost.
+- Ask the `caarlos0` agent for a read-only maintainer check of necessity,
+  solution placement, alternative approaches, correctness, scope, simplicity,
+  usability, compatibility, public surface, and maintenance cost.
 - Ask `anvil` in verify-only mode for an adversarial check of correctness, test
   coverage, determinism, performance evidence, and user-visible behavior.
   Verify that the feature or fix solves a real problem, especially when the
   change appears fully automated without human input.
 
 These are leaf tasks: agents must not invoke `my-code-review`, request agents, edit,
-or mutate GitHub. Require exact file/line, reachable scenario, impact, evidence,
-smallest fix, and test. If either check cannot run, disclose it.
+or mutate GitHub. For code findings, require exact file/line, reachable scenario,
+impact, evidence, smallest fix, and test. For design objections, require evidence,
+the concrete cost or limitation, and a better alternative, including no change.
+If either check cannot run, disclose it.
 
 Agent reports are leads. Independently trace or reproduce each claim and resolve
 disagreements with code, tests, logs, history, or specification.
@@ -153,9 +186,10 @@ it was verified. Run the smallest non-build command that can confirm or reject
 a finding. Before local tests, check `uptime`; stop when load average exceeds
 about 12.
 
-List findings by severity with file/line, trigger, impact, smallest fix, and
-needed test. Do not add praise, summaries of correct code, or low-confidence
-possibilities. State material verification gaps separately.
+List findings by severity with evidence, impact, and smallest fix or alternative.
+Include file/line, trigger, and needed test where applicable. Do not add praise,
+summaries of correct code, or low-confidence possibilities. State material
+verification gaps separately.
 
 If there are no findings, say so plainly.
 
@@ -195,8 +229,9 @@ Read the PR discussion before choosing the review event:
   review remains, approve when the PR is good and only minor suggestions remain.
   If there are bigger issues, label the approval "Tentative approval, pending
   resolution of feedback" and state the unresolved issues in inline comments.
-- Otherwise, approve if there are no critical problems. Do not invent style
-  findings to accompany an approval.
+- Otherwise, approve if there are no critical problems or unresolved objections
+  to the change's necessity, placement, or approach. Do not invent style findings
+  to accompany an approval.
 
 Disclose that the reviewer is a bot: `Copilot, on behalf of Carlos`.
 
