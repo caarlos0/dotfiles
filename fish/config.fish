@@ -13,16 +13,16 @@ set -x FZF_DEFAULT_OPTS '--color bg:#000000,bg+:#1e1e2e,fg:#cdd6f4,fg+:#cdd6f4,h
 
 set -x COPILOT_TASK_WAIT_TIMEOUT_SECONDS 2147484
 
-fish_add_path -p ~/Developer/Go/bin
-fish_add_path -p ~/.cargo/bin/
-fish_add_path -p ~/.local/bin/
-fish_add_path -p ~/.bin/
-fish_add_path -a /opt/homebrew/bin/
-fish_add_path -a /opt/homebrew/sbin
-fish_add_path -p /opt/homebrew/opt/rustup/bin/
-fish_add_path -a /Applications/Postgres.app/Contents/Versions/latest/bin/
-fish_add_path -a ~/Applications/Ghostty.app/Contents/MacOS/
-fish_add_path -a ~/.orbstack/bin
+fish_add_path -P -p ~/Developer/Go/bin
+fish_add_path -P -p ~/.cargo/bin/
+fish_add_path -P -p ~/.local/bin/
+fish_add_path -P -p ~/.bin/
+fish_add_path -P -a /opt/homebrew/bin/
+fish_add_path -P -a /opt/homebrew/sbin
+fish_add_path -P -p /opt/homebrew/opt/rustup/bin/
+fish_add_path -P -a /Applications/Postgres.app/Contents/Versions/latest/bin/
+fish_add_path -P -a ~/Applications/Ghostty.app/Contents/MacOS/
+fish_add_path -P -a ~/.orbstack/bin
 
 # apps et al
 alias d docker
@@ -126,6 +126,6 @@ status is-interactive; and begin
     direnv hook fish | source
 end
 
-if test -f ~/.localrc.fish
+if test -f ~/.localrc.fish; and test -r ~/.localrc.fish
     source ~/.localrc.fish
 end
