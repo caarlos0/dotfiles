@@ -41,10 +41,10 @@ sandbox.userPolicy.network.allowOutbound true
 sandbox.userPolicy.network.allowLocalNetwork true
 
 # model
-model claude-sonnet-5.5
+model gpt-6.1-terra
 planModel gpt-6-astra
 effortLevel medium
-planEffortLevel max
+planEffortLevel high
 contextTier default
 planContextTier long_context
 
