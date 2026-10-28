@@ -229,11 +229,12 @@ Read the PR discussion before choosing the review event:
   review remains, approve when the PR is good and only minor suggestions remain.
   If there are bigger issues, label the approval "Tentative approval, pending
   resolution of feedback" and state the unresolved issues in inline comments.
+- If the PR only change tests (unit, integration, e2e), approve.
 - Otherwise, approve if there are no critical problems or unresolved objections
   to the change's necessity, placement, or approach. Do not invent style findings
   to accompany an approval.
 
-Disclose that the reviewer is a bot: `Copilot, on behalf of Carlos`.
+Disclose that the reviewer is a bot, at the end of your comment: `– Copilot, on behalf of Carlos`.
 
 ## Continuous review
 
