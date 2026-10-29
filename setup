@@ -55,6 +55,7 @@ fi
 # copilot
 if which copilot &>/dev/null; then
   info "Setting up Copilot CLI"
+  mkdir -p -m 700 ~/.local/state/copilot-coordinator
   copilot_config=$(copilot config --list)
   cfg() {
     if grep -Fxq -- "$1=$2" <<<"$copilot_config"; then

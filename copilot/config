@@ -39,6 +39,12 @@ sandbox.addCurrentWorkingDirectory true
 sandbox.credentials.envVars.HEVY_API_KEY.injectHosts api.hevyapp.com
 sandbox.userPolicy.network.allowOutbound true
 sandbox.userPolicy.network.allowLocalNetwork true
+sandbox.userPolicy.filesystem.readwritePaths /tmp
+sandbox.userPolicy.filesystem.readwritePaths ~/.local/state/copilot-coordinator/
+sandbox.userPolicy.filesystem.readonlyPaths ~/Downloads/
+sandbox.userPolicy.filesystem.readonlyPaths ~/.config/direnv
+sandbox.userPolicy.filesystem.readonlyPaths ~/.bin
+
 
 # model
 model gpt-6.1-terra
