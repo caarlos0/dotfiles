@@ -87,6 +87,17 @@ if which copilot &>/dev/null; then
     cfg sandbox.userPolicy.filesystem.readonlyPaths ~/.copilot/installed-plugins/andyfeller/infographic
     success "Installed the infographic Copilot plugin"
   fi
+  if ! grep -Fwq github/lever <<<"$copilot_marketplaces"; then
+    info "Installing the lever Copilot plugin"
+    copilot plugin marketplace add github/lever >/dev/null
+    copilot plugin install lever@lever >/dev/null
+    cfg sandbox.userPolicy.filesystem.readonlyPaths ~/.copilot/installed-plugins/lever/lever
+    cfg sandbox.userPolicy.filesystem.readwritePaths ~/.copilot/lever.yml
+    mkdir -p ~/.copilot/prompt-mirror
+    cfg sandbox.userPolicy.filesystem.readwritePaths ~/.copilot/prompt-mirror
+    success "Installed the lever Copilot plugin"
+  fi
+
   info "Updating Copilot plugins"
   copilot plugin update --all >/dev/null
   success "Updated Copilot plugins"
