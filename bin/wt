@@ -187,13 +187,15 @@ function create_pr_worktree -a name -a pr
     link_node_modules $wt_path
 end
 
-function checkout_pr -a wt_path -a pr
+function checkout_pr -a wt_path -a pr -a name
     log "Checking out PR $pr..."
     pushd $wt_path
-    # gh sets tracking with `git checkout --track origin/<branch>`, which fails
-    # when origin's fetch refspec is narrowed (e.g. only main)
     if test (gh pr view $pr --json isCrossRepository --jq .isCrossRepository) = false
-        git remote set-branches --add origin (gh pr view $pr --json headRefName --jq .headRefName)
+        set -l n 0
+        set -q GIT_CONFIG_COUNT; and set n $GIT_CONFIG_COUNT
+        set -fx "GIT_CONFIG_KEY_$n" remote.origin.fetch
+        set -fx "GIT_CONFIG_VALUE_$n" "+refs/heads/$name:refs/remotes/origin/$name"
+        set -fx GIT_CONFIG_COUNT (math $n + 1)
     end
     gh pr checkout $pr
     or fail "failed to check out PR $pr"
