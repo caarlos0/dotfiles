@@ -5,10 +5,6 @@ set -x GOPATH ~/Developer/Go
 set -x HOMEBREW_NO_AUTO_UPDATE 1
 set -x HOMEBREW_NO_ENV_HINTS 1
 
-set -x RUSTC_WRAPPER sccache
-set -x CARGO_INCREMENTAL 0
-set -x SCCACHE_CACHE_SIZE 20G
-
 set -x FZF_DEFAULT_OPTS '--color bg:#000000,bg+:#1e1e2e,fg:#cdd6f4,fg+:#cdd6f4,header:#f38ba8,hl:#f38ba8,hl+:#f38ba8,info:#cba6f7,marker:#f5e0dc,pointer:#f5e0dc,prompt:#cba6f7,spinner:#f5e0dc'
 
 set -x COPILOT_TASK_WAIT_TIMEOUT_SECONDS 2147484

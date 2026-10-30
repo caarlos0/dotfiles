@@ -109,8 +109,6 @@ brew "ripgrep"
 brew "rustup"
 # Fast and accurate code counter with complexity and COCOMO estimates
 brew "scc"
-# Used as a compiler wrapper and avoids compilation when possible
-brew "sccache"
 # Autoformat shell script source code
 brew "shfmt"
 # Non-interactive SSH password auth

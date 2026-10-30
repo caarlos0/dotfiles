@@ -377,7 +377,7 @@ echo "› Time Machine:"
 # survives the cache being wiped and recreated by its tool.
 #
 # ~/Library/Caches is already excluded by macOS, so anything living there
-# (go-build, sccache, bun, deno, uv, Homebrew, …) needs no entry here — the
+# (go-build, bun, deno, uv, Homebrew, …) needs no entry here — the
 # isexcluded check below skips those automatically. Paths that don't exist yet
 # are skipped too; re-run this script after installing a new toolchain.
 tm_exclude() {
