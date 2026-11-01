@@ -73,7 +73,7 @@ hotkey.bind(hyper, "'", function()
 end)
 
 hotkey.bind(hyper, "Y", launchOrFocus("Music"))
-hotkey.bind(hyper, "J", launchOrFocus("Rio"))
+hotkey.bind(hyper, "J", launchOrFocus("Rex Beta"))
 hotkey.bind(hyper, "H", appCycler({ "Notes", "Reminders" }))
 
 -- machine-specific apps, linked to ~/.hammerspoon/apps.lua by ./setup
