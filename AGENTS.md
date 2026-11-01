@@ -82,8 +82,7 @@ repo-managed local `gh` extension links removed during setup migrations.
 - `bin/wt --tab/--split` and `bin/review` use Rex when `REX_SESSION` is set
   and Rex is installed, otherwise tmux. `bin/lib/pane.fish` shares the pane
   launch logic. `wt` runs in the new pane so fetch/checkout happen there;
-  `WT_PANE` makes `fail` hold the pane open. Run pane tests with
-  `python3 -m unittest discover -s tests -p test_panes.py`.
+  `WT_PANE` makes `fail` hold the pane open.
 - Review policy lives in `skills/my-code-review/SKILL.md`; `bin/review` only
   launches Copilot and selects continuous review with `--keep`. It takes any
   number of PRs: zero or one runs in the current pane unless `--tab`/`-t` or
