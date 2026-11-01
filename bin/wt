@@ -30,8 +30,8 @@ OPTIONS:
   --pr,-p <number>  check out pull request <number> in a worktree named after
                     its head branch
   --main,-m         create the worktree from origin/<default branch>
-  --tab,-t          do the work in a new tmux tab, without switching to it
-  --split,-s        do the work in a new vertical tmux split, without
+  --tab,-t          do the work in a new Rex or tmux tab, without switching to it
+  --split,-s        do the work in a new vertical Rex or tmux split, without
                     focusing it
   --delete,-d       remove the worktree <name>
   --list,-l         list worktrees
@@ -131,22 +131,14 @@ function switch_to -a dir
     end
 end
 
-# Re-runs wt inside a new tmux tab/split so everything (fetch, checkout, ...)
-# happens there. The origin pane keeps the focus.
-function open_in_tmux
-    set -l tmux_args -d -c $PWD -e WT_PANE=1
-    set -q WT_PREVIOUS; and set -a tmux_args -e WT_PREVIOUS=$WT_PREVIOUS
+function open_in_pane
     set -l wt_args $forward_args
     set -q run_cmd[1]; and set -a wt_args -- $run_cmd
-    # exec, so the pane's own process ends up in the worktree directory and
-    # splitting from it inherits that directory
-    set -l script 'set -l wt (command -s wt); exec $wt $argv'
-    log "Opening in a new tmux $open_in"
-    if test "$open_in" = tab
-        tmux new-window $tmux_args fish -c $script -- $wt_args
-    else
-        tmux split-window -h $tmux_args fish -c $script -- $wt_args
-    end
+    set -l env_args WT_PANE=1
+    set -q WT_PREVIOUS; and set -a env_args WT_PREVIOUS=$WT_PREVIOUS
+    source (dirname (status filename))/lib/pane.fish
+    log "Opening in a new $open_in"
+    open_pane $open_in env $env_args (status filename) $wt_args
 end
 
 function branch_exists -a name
@@ -480,15 +472,14 @@ if set -q run_cmd[1]; and test "$list" = true -o "$delete" = true -o "$cleanup" 
 end
 
 if test -n "$open_in"
-    set -q TMUX; or fail "--tab and --split require tmux"
     if test "$list" = true -o "$delete" = true -o "$cleanup" = true
         fail "--tab and --split can't be used with --list, --delete or --cleanup"
     end
 end
 
 if test -n "$open_in"
-    open_in_tmux
-    exit
+    open_in_pane
+    exit $status
 end
 
 if test -n "$pr"
