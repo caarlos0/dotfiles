@@ -1,7 +1,28 @@
 #!/usr/bin/env fish
 
-argparse k/keep t/tab s/split -- $argv
+argparse h/help k/keep t/tab s/split -- $argv
 or exit 1
+
+if set -q _flag_help
+    echo "NAME:
+  review - review the current branch or pull requests with Copilot
+
+USAGE:
+  review [options] [<pr>...]
+
+ARGUMENTS:
+  <pr>          pull request number; several require --tab or --split
+
+OPTIONS:
+  --keep,-k     keep reviewing new pushes until the PR is merged or closed
+  --tab,-t      open each review in a new Rex or tmux tab without focusing it
+  --split,-s    open each review in a new Rex or tmux split without focusing it
+  --help,-h     show help
+
+Without a PR, reviews the current branch. Without --tab or --split,
+the review runs in the current pane."
+    exit 0
+end
 
 if set -q _flag_tab; and set -q _flag_split
     echo "review: --tab and --split are mutually exclusive" >&2
