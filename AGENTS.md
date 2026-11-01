@@ -44,7 +44,7 @@ avoid GNU-only/BSD-only flags.
   `brew bundle dump`; hand-edits don't persist unless the package is actually
   installed/removed. `dump` also silently drops App Store apps `mas` can't index
   (e.g. apps renamed on disk), so check the diff before committing.
-- Per-tool config dirs: `ghostty/`, `rio/`, `fish/`, `nvim/`, `tmux/`, `git/`, …
+- Per-tool config dirs: `ghostty/`, `rio/`, `rex/`, `fish/`, `nvim/`, `tmux/`, `git/`, …
 
 ## Per-machine files
 
@@ -79,17 +79,24 @@ repo-managed local `gh` extension links removed during setup migrations.
   default-branch commits; and `gh wait --merge` for completed merges.
   Do not use ad hoc sleep-and-poll loops. Run extension tests with
   `python3 -m unittest discover -s gh/tests`.
-- `bin/wt --tab/--split` opens the pane first (without taking focus) and runs
-  `wt` there, so fetch/checkout happen in the new pane. The pane `exec`s `wt`
-  (no wrapper shell), so its process lives in the worktree and splits from it
-  inherit that directory; `WT_PANE` makes `fail` hold the pane open.
+- `bin/wt --tab/--split` and `bin/review` use Rex when `REX_SESSION` is set
+  and Rex is installed, otherwise tmux. `bin/lib/pane.fish` shares the pane
+  launch logic. `wt` runs in the new pane so fetch/checkout happen there;
+  `WT_PANE` makes `fail` hold the pane open. Run pane tests with
+  `python3 -m unittest discover -s tests -p test_panes.py`.
 - Review policy lives in `skills/my-code-review/SKILL.md`; `bin/review` only
   launches Copilot and selects continuous review with `--keep`. It takes any
-  number of PRs: one runs in the current pane unless `--tab`/`-t` or
+  number of PRs: zero or one runs in the current pane unless `--tab`/`-t` or
   `--split`/`-s` is given; several require one of those flags.
   Reviews first assess whether the change is needed and belongs in the proposed
   layer, then compare alternative approaches before implementation details.
+- `agents/coordinator.agent.md` delegates pane operations to the `rex` and
+  `tmux` skills. It prefers Rex when a session is available, and falls back to
+  tmux when Rex or a Rex session is unavailable.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
+- Rex Beta is the preferred macOS terminal in the Hyper+J shortcut and Dock.
+  `setup` links `rex/themes`; import the theme and select Berkeley Mono 13 in
+  Rex settings on each Mac. Rex manages its own app settings separately.
 - Neovim updates are explicit: `task nvim` updates plugins, then installs missing
   configured Tree-sitter parsers and updates installed parsers in a fresh Neovim
   process, waiting for completion. The individual commands are
@@ -98,9 +105,11 @@ repo-managed local `gh` extension links removed during setup migrations.
 
 ## Keep terminal emulator configs in sync
 
-`ghostty/config` and `rio/config.toml` configure two terminal emulators that I
-use interchangeably. **They must stay behavior-equivalent.** Whenever you change
-one, mirror the change in the other in the same commit:
+`ghostty/config` and `rio/config.toml` configure fallback terminal emulators
+that must stay behavior-equivalent. Whenever you change one, mirror the change
+in the other in the same commit. Rex uses its own pane controls and app-managed
+font settings; keep its imported theme in `rex/themes` in sync with Ghostty's
+Catppuccin Mocha palette and black background.
 
 - **tmux keybindings** must match exactly. Both send the same control sequences
   (tmux prefix is `C-b` = `\x02` / `\u0002`). Ghostty `keybind = cmd+X=text:\x02Y`
