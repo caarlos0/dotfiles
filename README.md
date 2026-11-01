@@ -37,6 +37,12 @@ leaves existing files and directories alone and configures read-only sandbox
 access to this repository. Remove old copies of repo-managed entries once
 before running setup.
 
+Rex Beta is the preferred terminal for the Hyper+J shortcut and Dock. Install
+it separately on each Mac. In Rex settings, import
+`~/.config/rex/themes/Catppuccin Mocha Black` under Themes, then choose
+Berkeley Mono at 13 pt under Terminal. Rex stores these settings in the app;
+`./setup` links the theme file but does not import it or set the font.
+
 ## Releasing
 
 ```bash

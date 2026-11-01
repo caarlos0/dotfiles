@@ -46,6 +46,7 @@ fi
 # terms
 link "$PWD"/ghostty/config ~/.config/ghostty/config
 link "$PWD"/rio ~/.config/rio
+link "$PWD"/rex/themes ~/.config/rex/themes
 
 # neovim
 if which nvim &>/dev/null; then
