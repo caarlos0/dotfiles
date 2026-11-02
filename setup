@@ -47,6 +47,11 @@ fi
 link "$PWD"/ghostty/config ~/.config/ghostty/config
 link "$PWD"/rio ~/.config/rio
 link "$PWD"/rex/themes ~/.config/rex/themes
+if which rex &>/dev/null; then
+  info "Generating Rex Fish completions"
+  mkdir -p ~/.config/fish/completions/
+  rex completion fish >~/.config/fish/completions/rex.fish
+fi
 
 # neovim
 if which nvim &>/dev/null; then
