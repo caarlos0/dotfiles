@@ -15,23 +15,8 @@ function increase
 end
 
 function search
-    # One `zoxide` dump instead of one query per org folder: 4 processes
-    # instead of ~20, which measures 4-25x faster depending on machine load.
-    # zoxide also drops entries whose directory is gone, so `find` is redundant.
-    zoxide query -l -s |
-        awk -v prefix="$PROJECTS/" '
-            {
-                path = $0
-                sub(/^ *[0-9.]+ +/, "", path) # strip the score off the path
-                if (index(path, prefix) != 1) next # keep only ~/Developer/*
-                rel = substr(path, length(prefix) + 1)
-                slash = index(rel, "/")
-                # keep only org/name: drop the bare org and deeper subfolders
-                if (slash == 0 || index(substr(rel, slash + 1), "/")) next
-                print $1 "\t" rel
-            }' |
-        sort -rnk1 | # sort by score
-        cut -f2 | # do not actually print the score
+    __project_list |
+        cut -f2 |
         fzf-tmux -p --no-sort --prompt "  "
 end
 
