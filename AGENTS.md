@@ -20,8 +20,7 @@ avoid GNU-only/BSD-only flags.
 - `copilot/config` — static Copilot settings, one `key value` per line.
   Values are literal, without shell quoting or expansion; blank lines and
   full-line `#` comments are ignored. Runtime paths and the conditional plugin
-  grant stay in `setup`. Run setup tests with
-  `python3 -m unittest discover -s gh/tests -p test_setup.py`.
+  grant stay in `setup`.
 - `macos/set-defaults.sh` — macOS `defaults` writes. Run by hand, **not** by
   `setup`. The Mail and Safari sections need Full Disk Access to have any
   effect, since those prefs live in sandbox containers.
@@ -78,8 +77,7 @@ repo-managed local `gh` extension links removed during setup migrations.
 - GitHub CLI procedures live in `skills/gh-cli/SKILL.md`: use native
   required-check fail-fast watching for CI; `gh wait` for PR changes or
   default-branch commits; and `gh wait --merge` for completed merges.
-  Do not use ad hoc sleep-and-poll loops. Run extension tests with
-  `python3 -m unittest discover -s gh/tests`.
+  Do not use ad hoc sleep-and-poll loops.
 - `bin/wt --tab/--split` and `bin/review` use Rex when `REX_SESSION` is set
   and Rex is installed, otherwise tmux. `bin/lib/pane.fish` shares the pane
   launch logic. `wt` runs in the new pane so fetch/checkout happen there;
