@@ -552,6 +552,6 @@ else
         set dir (worktree_path $name)
     end
 
-    test -n "$pr"; and checkout_pr $dir $pr
+    test -n "$pr"; and checkout_pr $dir $pr $name
     switch_to $dir
 end
