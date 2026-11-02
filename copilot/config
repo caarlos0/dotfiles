@@ -7,7 +7,7 @@ worktreePathTemplate ~/Developer/worktrees/{repo}/{branch}
 terminalProgress true
 editorMode vim
 beep true
-updateTerminalTitle false
+updateTerminalTitle true
 experimental true
 
 # footer
