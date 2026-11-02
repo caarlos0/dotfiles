@@ -92,9 +92,14 @@ repo-managed local `gh` extension links removed during setup migrations.
   `tmux` skills. It prefers Rex when a session is available, and falls back to
   tmux when Rex or a Rex session is unavailable.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
+- `p`, the Rex project picker, and `tmux-sessionizer` share the frecency-sorted
+  project list in `fish/functions/__project_list.fish`.
 - Rex Beta is the preferred macOS terminal in the Hyper+J shortcut and Dock.
-  `setup` links `rex/themes`; import the theme and select Berkeley Mono 13 in
-  Rex settings on each Mac. Rex manages its own app settings separately.
+  `setup` links `rex/themes` and `rex/init.lua`; import the theme and select
+  Berkeley Mono 13 in Rex settings on each Mac. Cmd+P opens the project picker;
+  it finds Rex sessions by their `org/name` label and needs Remote Control
+  enabled in the app. Reload config with `rex config reload` after changes.
+  Rex manages its other app settings separately.
 - Neovim updates are explicit: `task nvim` updates plugins, then installs missing
   configured Tree-sitter parsers and updates installed parsers in a fresh Neovim
   process, waiting for completion. The individual commands are
