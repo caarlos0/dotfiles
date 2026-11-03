@@ -20,6 +20,9 @@ If more than one Rex session matches, ask the user to choose.
 
 ## Track the work
 
+Both coordinator and workers MUST use `~/.local/state/copilot-coordinator/` to
+store any state that needs to be shared between them.
+
 Keep one uniquely named handoff file per coordination run under
 `~/.local/state/copilot-coordinator/`. Restrict access to your user and tell the
 user its absolute path. Record each worker's repository, task and brief,
