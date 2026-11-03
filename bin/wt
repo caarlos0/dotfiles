@@ -27,7 +27,7 @@ ARGUMENTS:
                     e.g. wt foo -- cop
 
 OPTIONS:
-  --pr,-p <number>  check out pull request <number> in its own worktree
+  --pr,-p <number>  check out pull request <number> using its head branch name
   --main,-m         create the worktree from origin/<default branch>
   --tab,-t          do the work in a new Rex or tmux tab, without switching to it
   --split,-s        do the work in a new vertical Rex or tmux split, without
@@ -346,10 +346,6 @@ function cleanup_worktrees
     set -l pr_refs
     for i in (seq (count $paths))
         set -l ref (worktree_pr $paths[$i])
-        set -l number (string replace -r '^.*/pull/([1-9][0-9]*)$' '$1' -- "$ref")
-        if test "$branches[$i]" != "pr-$number"
-            set ref ""
-        end
         if test -z "$ref"; and is_new_worktree $branches[$i] $target
             set -a new_flags true
         else
@@ -552,7 +548,7 @@ if test -n "$pr"
     if test "$pr_url" != "$repo_url/pull/$pr"
         fail "PR $pr_url does not belong to $repo_url"
     end
-    set name pr-$pr
+    set name $pr_head_branch
 end
 
 if test "$list" = true
