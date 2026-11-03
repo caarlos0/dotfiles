@@ -38,6 +38,7 @@ end
 
 set -l cmd copilot --yolo \
     --autopilot \
+    --max-autopilot-continues -1 \
     --agent caarlos0 \
     --effort medium \
     --context long_context \

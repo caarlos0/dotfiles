@@ -29,7 +29,7 @@ alias ta 'tmux new -A -s default'
 alias freeze 'freeze -c full'
 alias t task
 alias cop 'copilot --yolo --agent caarlos0 --sandbox'
-alias coop 'copilot --yolo --agent coordinator --autopilot --no-sandbox'
+alias coop 'copilot --yolo --agent coordinator --autopilot --max-autopilot-continues -1 --no-sandbox'
 
 # go
 alias gmt 'go mod tidy'
