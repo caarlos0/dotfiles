@@ -8,6 +8,7 @@ terminalProgress true
 editorMode vim
 beep true
 updateTerminalTitle true
+pinnedPrompts true
 experimental true
 
 # footer
@@ -20,7 +21,7 @@ footer.showAiUsed false
 footer.showAgent true
 footer.showCodeChanges false
 footer.showUsername false
-footer.showSandbox false
+footer.showSandbox true
 footer.showYolo true
 footer.showCiStatus true
 footer.showSchedules true
