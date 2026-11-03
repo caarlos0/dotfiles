@@ -126,7 +126,26 @@ function switch_to -a dir
         # tell the terminal the new cwd, so new splits open here
         printf '\e]7;file://%s\a' $PWD
         if set -q run_cmd[1]
-            exec fish -C (string escape -- $run_cmd | string join ' ')
+            exec fish \
+                -C '
+                    if status is-interactive; and status is-interactive-job-control
+                        status job-control full
+                        set -g __wt_restore_job_control 1
+                    end
+                ' \
+                -C (string escape -- $run_cmd | string join ' ') \
+                -C '
+                    set -l result $status
+                    if set -q __wt_restore_job_control
+                        status job-control interactive
+                        set -e __wt_restore_job_control
+                    end
+                    function __wt_return_status
+                        functions -e __wt_return_status
+                        return $argv[1]
+                    end
+                    __wt_return_status $result
+                '
         end
         exec fish
     end

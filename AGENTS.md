@@ -86,7 +86,9 @@ repo-managed local `gh` extension links removed during setup migrations.
   launch logic. `wt` runs in the new pane so fetch/checkout happen there;
   `WT_PANE` makes `fail` hold the pane open. `wt --pr` uses `pr-<number>` for
   the worktree and branch, and reuses only worktrees marked with that PR's URL.
-  Unmarked older worktrees are not reused automatically.
+  Unmarked older worktrees are not reused automatically. For `wt -- <command>`,
+  Fish temporarily enables full job control so Rex and tmux see the foreground
+  command, then restores its prior job-control mode.
 - Review policy lives in `skills/my-code-review/SKILL.md`; `bin/review` only
   launches Copilot and selects continuous review with `--keep`. It takes any
   number of PRs: zero or one runs in the current pane unless `--tab`/`-t` or
