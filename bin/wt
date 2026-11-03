@@ -123,6 +123,8 @@ function switch_to -a dir
         set -gx WT_PREVIOUS (git rev-parse --show-toplevel 2>/dev/null)
         set -e WT_PANE
         cd $dir
+        # tell the terminal the new cwd, so new splits open here
+        printf '\e]7;file://%s\a' $PWD
         if set -q run_cmd[1]
             exec fish -C (string escape -- $run_cmd | string join ' ')
         end
