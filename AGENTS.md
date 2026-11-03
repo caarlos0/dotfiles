@@ -25,6 +25,9 @@ avoid GNU-only/BSD-only flags.
   `setup`. The Mail and Safari sections need Full Disk Access to have any
   effect, since those prefs live in sandbox containers.
 - `bin/` — personal scripts on `$PATH`. Keep portable.
+- `bin/bazel-cleanup` removes Bazel output bases with missing recorded
+  workspaces across projects. It skips unknown workspaces and server PID files;
+  use `--dry-run` to preview and `--output-user-root` for a non-default root.
 - `gh/extensions/gh-<name>/gh-<name>` — local `gh` extensions (`gh <name>`),
   linked into `~/.local/share/gh/extensions` by `setup`.
 - `Taskfile.yml` — maintenance tasks (`task update`, `task release`), run with

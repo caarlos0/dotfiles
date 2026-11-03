@@ -1,0 +1,133 @@
+#!/bin/sh
+
+usage() {
+  cat <<'EOF'
+Usage: bazel-cleanup [--dry-run] [--yes] [--output-user-root PATH]
+
+Remove Bazel output bases whose recorded workspace no longer exists.
+This checks all projects in the selected output user root, not just the
+current project. Caches with an unknown workspace or server PID are skipped.
+
+  --dry-run                Show candidates without removing them
+  --yes                    Remove candidates without prompting
+  --output-user-root PATH  Use this Bazel output user root
+  -h, --help               Show this help
+
+The default root is ~/Library/Caches/bazel/_bazel_$USER on macOS and
+${XDG_CACHE_HOME:-~/.cache}/bazel/_bazel_$USER on Linux. Stop Bazel and avoid
+creating or removing worktrees while cleanup runs.
+EOF
+}
+
+dry_run=false
+yes=false
+root=
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --dry-run) dry_run=true ;;
+    --yes) yes=true ;;
+    --output-user-root)
+      if [ "$#" -lt 2 ] || [ -z "$2" ]; then
+        echo "bazel-cleanup: --output-user-root requires a path" >&2
+        exit 1
+      fi
+      root=$2
+      shift
+      ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "bazel-cleanup: unknown argument: $1" >&2; exit 1 ;;
+  esac
+  shift
+done
+
+if [ -z "$root" ]; then
+  user=${USER:-$(id -un)} || exit 1
+  case "$(uname -s)" in
+    Darwin) root=$HOME/Library/Caches/bazel/_bazel_$user ;;
+    Linux) root=${XDG_CACHE_HOME:-$HOME/.cache}/bazel/_bazel_$user ;;
+    *) echo "bazel-cleanup: unsupported platform; specify --output-user-root" >&2; exit 1 ;;
+  esac
+fi
+
+if command -v md5sum >/dev/null 2>&1; then
+  hash_path() { printf '%s' "$1" | md5sum | cut -d ' ' -f 1; }
+elif command -v md5 >/dev/null 2>&1; then
+  hash_path() { printf '%s' "$1" | md5 -q; }
+else
+  echo "bazel-cleanup: md5sum or md5 is required" >&2
+  exit 1
+fi
+
+candidate() {
+  dir=$1
+  name=${dir##*/}
+  [ "${#name}" -eq 32 ] || return 1
+  case "$name" in *[!0-9a-f]*) return 1 ;; esac
+  [ -d "$dir" ] && [ ! -L "$dir" ] || return 1
+  marker=$dir/execroot/DO_NOT_BUILD_HERE
+  [ -f "$marker" ] && [ -r "$marker" ] || return 1
+  workspace=$(cat "$marker") || return 1
+  case "$workspace" in
+    /*) ;;
+    *) return 1 ;;
+  esac
+  case "$workspace" in
+    *'
+'*) return 1 ;;
+  esac
+  [ "$(hash_path "$workspace")" = "$name" ] || return 1
+  [ ! -e "$workspace" ] && [ ! -L "$workspace" ] || return 1
+  parent=$workspace
+  while [ ! -e "$parent" ] && [ ! -L "$parent" ]; do
+    parent=$(dirname "$parent")
+  done
+  [ -d "$parent" ] && [ -x "$parent" ] || return 1
+  [ ! -e "$dir/server/server.pid.txt" ] && [ ! -L "$dir/server/server.pid.txt" ] || return 1
+}
+
+if [ ! -d "$root" ]; then
+  echo "bazel-cleanup: output user root not found: $root" >&2
+  exit 1
+fi
+
+echo "Bazel output user root: $root"
+set --
+for dir in "$root"/*; do
+  if candidate "$dir"; then
+    printf '  %s (workspace: %s)\n' "$dir" "$workspace"
+    set -- "$@" "$dir"
+  fi
+done
+
+if [ "$#" -eq 0 ]; then
+  echo "No stale caches found."
+  exit 0
+fi
+printf '%s cache(s) selected.\n' "$#"
+$dry_run && exit 0
+
+if ! $yes; then
+  if [ ! -t 0 ] || [ ! -t 2 ]; then
+    echo "bazel-cleanup: use --yes to remove caches without a terminal" >&2
+    exit 1
+  fi
+  printf 'Remove these caches? [y/N] ' >&2
+  IFS= read -r answer || exit 1
+  case "$answer" in y|Y|yes|YES) ;; *) echo "Cancelled." >&2; exit 1 ;; esac
+fi
+
+status=0
+for dir do
+  if ! candidate "$dir"; then
+    echo "bazel-cleanup: cache changed; skipped: $dir" >&2
+    status=1
+    continue
+  fi
+  if chmod -R u+w "$dir" && rm -rf "$dir"; then
+    echo "Removed $dir"
+  else
+    echo "bazel-cleanup: failed to remove $dir" >&2
+    status=1
+  fi
+done
+exit "$status"
