@@ -52,7 +52,7 @@ repository and record its full pane ID. Run this command inside it, without
 `wt --tab` or `--split`:
 
 ```sh
-wt fix-login -- copilot --agent caarlos0 --yolo --autopilot --max-autopilot-continues -1 --sandbox
+wt fix-login -- copilot --agent caarlos0 --yolo --autopilot --max-autopilot-continues 9007199254740991 --sandbox
 ```
 
 Always use `--sandbox`. `--yolo` skips permission prompts and `--autopilot`
