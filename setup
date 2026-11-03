@@ -84,16 +84,25 @@ if which copilot &>/dev/null; then
   mkdir -p -m 700 ~/.local/state/copilot-coordinator
   copilot_config=$(copilot config --list)
 
-  while read -r key value || [ -n "$key" ]; do
-    case "$key" in
-    "" | \#*) continue ;;
+  while read -r line || [ -n "$line" ]; do
+    case "$line" in
+    "" | \#* | \;*) continue ;;
+    *=*) ;;
+    *)
+      warn "Invalid Copilot setting in copilot/config.ini: $line" >&2
+      exit 1
+      ;;
     esac
-    if [ -z "$value" ]; then
-      warn "Missing value for Copilot setting $key in copilot/config" >&2
+    key=${line%%=*}
+    key=${key%"${key##*[!$' \t']}"}
+    value=${line#*=}
+    value=${value#"${value%%[!$' \t']*}"}
+    if [ -z "$key" ] || [ -z "$value" ]; then
+      warn "Missing key or value in copilot/config.ini: $line" >&2
       exit 1
     fi
     __copilot_config_set "$key" "$value"
-  done <"$PWD"/copilot/config
+  done <"$PWD"/copilot/config.ini
   sandbox_rw "$PWD"
   if [[ $OSTYPE == 'darwin'* ]]; then
     sandbox_rw ~/Library/"Application Support"/rex/server.sock
