@@ -204,7 +204,7 @@ function checkout_pr -a wt_path -a pr -a head_branch -a name
         set -fx "GIT_CONFIG_VALUE_$n" "+refs/heads/$head_branch:refs/remotes/origin/$head_branch"
         set -fx GIT_CONFIG_COUNT (math $n + 1)
     end
-    gh pr checkout $pr --branch $name
+    gh pr checkout $pr --branch $name --force
     or fail "failed to check out PR $pr"
     popd
 end
