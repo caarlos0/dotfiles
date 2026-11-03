@@ -27,8 +27,7 @@ ARGUMENTS:
                     e.g. wt foo -- cop
 
 OPTIONS:
-  --pr,-p <number>  check out pull request <number> in a worktree named after
-                    its head branch
+  --pr,-p <number>  check out pull request <number> in its own worktree
   --main,-m         create the worktree from origin/<default branch>
   --tab,-t          do the work in a new Rex or tmux tab, without switching to it
   --split,-s        do the work in a new vertical Rex or tmux split, without
@@ -172,24 +171,38 @@ end
 
 function create_pr_worktree -a name -a pr
     set -l wt_path (worktree_path $name)
+    if branch_exists $name
+        fail "branch '$name' already exists; refusing to use it for PR $pr"
+    end
+    if test -e $wt_path; or test -L $wt_path
+        fail "worktree path '$wt_path' already exists"
+    end
     log "Creating worktree at $wt_path for PR $pr..."
     git worktree add --detach $wt_path
     or fail "failed to create worktree '$name'"
 
+    set -l git_dir (git -C $wt_path rev-parse --absolute-git-dir)
+    or fail "failed to identify worktree '$name'"
+    echo $pr_url >$git_dir/wt-pr
+    or fail "failed to record ownership of worktree '$name'"
+
     link_node_modules $wt_path
 end
 
-function checkout_pr -a wt_path -a pr -a name
+function checkout_pr -a wt_path -a pr -a head_branch -a name
     log "Checking out PR $pr..."
     pushd $wt_path
-    if test (gh pr view $pr --json isCrossRepository --jq .isCrossRepository) = false
+    or fail "failed to enter worktree '$wt_path'"
+    set -l cross_repo (gh pr view $pr --json isCrossRepository --jq .isCrossRepository)
+    or fail "failed to look up PR $pr"
+    if test "$cross_repo" = false
         set -l n 0
         set -q GIT_CONFIG_COUNT; and set n $GIT_CONFIG_COUNT
         set -fx "GIT_CONFIG_KEY_$n" remote.origin.fetch
-        set -fx "GIT_CONFIG_VALUE_$n" "+refs/heads/$name:refs/remotes/origin/$name"
+        set -fx "GIT_CONFIG_VALUE_$n" "+refs/heads/$head_branch:refs/remotes/origin/$head_branch"
         set -fx GIT_CONFIG_COUNT (math $n + 1)
     end
-    gh pr checkout $pr
+    gh pr checkout $pr --branch $name
     or fail "failed to check out PR $pr"
     popd
 end
@@ -267,6 +280,12 @@ function fetch_pr_states -a dir
     wait
 end
 
+function worktree_pr -a wt_path
+    set -l git_dir (git -C $wt_path rev-parse --absolute-git-dir)
+    or return 1
+    test -f $git_dir/wt-pr; and string trim <$git_dir/wt-pr
+end
+
 function pr_state -a dir -a branch
     set -l out (pr_state_file $dir $branch)
     test -f $out; and string trim <$out
@@ -303,13 +322,22 @@ function cleanup_worktrees
 
     set -l new_flags
     set -l pr_branches
+    set -l pr_refs
     for i in (seq (count $paths))
-        if is_new_worktree $branches[$i] $target
+        set -l ref (worktree_pr $paths[$i])
+        set -l number (string replace -r '^.*/pull/([1-9][0-9]*)$' '$1' -- "$ref")
+        if test "$branches[$i]" != "pr-$number"
+            set ref ""
+        end
+        if test -z "$ref"; and is_new_worktree $branches[$i] $target
             set -a new_flags true
         else
             set -a new_flags false
-            set -a pr_branches $branches[$i]
+            test -n "$ref"; or set ref $branches[$i]
+            set -a pr_branches $ref
         end
+        test -n "$ref"; or set ref $branches[$i]
+        set -a pr_refs $ref
     end
 
     set -l tmpdir (mktemp -d)
@@ -328,7 +356,7 @@ function cleanup_worktrees
             set -a markers new
             set color yellow
         else
-            switch (pr_state $tmpdir $branch)
+            switch (pr_state $tmpdir $pr_refs[$i])
                 case MERGED
                     set removable true
                     set -a markers "PR merged"
@@ -486,9 +514,24 @@ if test -n "$pr"
     if test -n "$name"
         fail "--pr takes no worktree name"
     end
+    if test "$list" = true -o "$delete" = true -o "$cleanup" = true
+        fail "--pr can't be used with --list, --delete or --cleanup"
+    end
     command -q gh; or fail "gh is required for --pr"
-    set name (gh pr view $pr --json headRefName --jq .headRefName)
-    test -n "$name"; or fail "failed to look up PR $pr"
+    set -l pr_info (gh pr view $pr --json number,headRefName,url --jq '.number, .headRefName, .url')
+    or fail "failed to look up PR $pr"
+    if test (count $pr_info) -ne 3; or not string match -qr '^[1-9][0-9]*$' -- $pr_info[1]
+        fail "failed to look up PR $pr"
+    end
+    set pr $pr_info[1]
+    set -g pr_head_branch $pr_info[2]
+    set -g pr_url $pr_info[3]
+    set -l repo_url (gh repo view --json url --jq .url)
+    or fail "failed to look up the current repository"
+    if test "$pr_url" != "$repo_url/pull/$pr"
+        fail "PR $pr_url does not belong to $repo_url"
+    end
+    set name pr-$pr
 end
 
 if test "$list" = true
@@ -537,7 +580,27 @@ else if test "$name" = -
         end
     end
 else
-    set -l dir (find_worktree $name)
+    set -l dir
+    if test -n "$pr"
+        set -l expected (worktree_path $name)
+        if contains -- "worktree $expected" (git worktree list --porcelain)
+            set -l owner (worktree_pr $expected)
+            if test "$owner" != "$pr_url"
+                fail "worktree '$expected' is not owned by PR $pr"
+            end
+            set -l branch (git -C $expected branch --show-current)
+            or fail "failed to identify branch in worktree '$expected'"
+            if test -n "$branch"; and test "$branch" != "$name"
+                fail "worktree '$expected' is on branch '$branch', not '$name'"
+            end
+            if test -z "$branch"; and branch_exists $name
+                fail "branch '$name' exists outside its PR worktree"
+            end
+            set dir $expected
+        end
+    else
+        set dir (find_worktree $name)
+    end
     if test -n "$dir"
         log "Worktree '$name' already exists."
     else
@@ -552,6 +615,6 @@ else
         set dir (worktree_path $name)
     end
 
-    test -n "$pr"; and checkout_pr $dir $pr $name
+    test -n "$pr"; and checkout_pr $dir $pr $pr_head_branch $name
     switch_to $dir
 end
