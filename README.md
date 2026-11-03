@@ -33,7 +33,7 @@ Blank lines and full-line `#` comments are ignored. `./setup` applies only
 settings that do not already match; runtime paths stay in `setup`.
 
 Copilot agents and skills are symlinked individually into `~/.copilot`. Setup
-leaves existing files and directories alone and configures read-only sandbox
+leaves existing files and directories alone and configures read-write sandbox
 access to this repository. Remove old copies of repo-managed entries once
 before running setup.
 

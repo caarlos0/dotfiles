@@ -33,7 +33,7 @@ avoid GNU-only/BSD-only flags.
 - `agents/`, `skills/` — Copilot agents and reusable workflows, symlinked
   individually into `~/.copilot` by `setup`. Existing copies of repo-managed
   entries must be removed manually once; unrelated entries are left alone.
-  Setup configures read-only sandbox access to this repository so the links can
+  Setup configures read-write sandbox access to this repository so the links can
   be read.
   Keep agent roles distinct and put reusable procedures in skills.
   Copilot uses Sonnet for the main session and Astra for plan mode. The
