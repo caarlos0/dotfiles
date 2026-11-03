@@ -15,8 +15,9 @@ avoid GNU-only/BSD-only flags.
 - `setup` — main install script (symlinks configs, installs tools, applies
   Copilot user settings with `copilot config` when available). The Copilot block
   reads `copilot config --list` once; `cfg` skips exact `key=value` matches,
-  including individual list entries. Generates Fish completions for Rex and
-  Copilot when each command is available.
+  including individual list entries. On macOS, it grants read-write sandbox
+  access to the Rex server socket. Generates Fish completions for Rex and Copilot
+  when each command is available.
 - `copilot/config` — static Copilot settings, one `key value` per line.
   Values are literal, without shell quoting or expansion; blank lines and
   full-line `#` comments are ignored. Runtime paths and the conditional plugin

@@ -83,6 +83,9 @@ if which copilot &>/dev/null; then
     cfg "$key" "$value"
   done <"$PWD"/copilot/config
   cfg sandbox.userPolicy.filesystem.readwritePaths "$PWD"
+  if [[ $OSTYPE == 'darwin'* ]]; then
+    cfg sandbox.userPolicy.filesystem.readwritePaths "$HOME/Library/Application Support/rex/server.sock"
+  fi
   success "Copilot configuration is up to date"
 
   info "Checking Copilot plugin marketplace"
