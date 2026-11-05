@@ -20,6 +20,7 @@ while IFS= read -r app || [ -n "$app" ]; do
     echo "  Skipping $app, not installed"
     continue
   fi
+  app="$(cd "$app" && pwd -P)"
   defaults write com.apple.dock persistent-apps -array-add \
     "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
 done <"$dock_list"

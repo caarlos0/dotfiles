@@ -25,7 +25,8 @@ avoid GNU-only/BSD-only flags.
   `setup`. The Mail and Safari sections need Full Disk Access to have any
   effect, since those prefs live in sandbox containers.
 - `macos/set-dock.sh` — applies the host's Dock list and restarts only the Dock.
-  Run it separately to update icons without applying other macOS defaults.
+  Resolves app symlinks before writing Dock entries. Run it separately to
+  update icons without applying other macOS defaults.
 - `macos/rex-settings.sh export|import` — saves or applies selected Rex app
   preferences from `rex/settings.plist`. The plist's keys are the export
   allowlist; never export the whole preference domain into the repository.
