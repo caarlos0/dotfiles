@@ -105,6 +105,8 @@ repo-managed local `gh` extension links removed during setup migrations.
   One-shot workers do not start watchers or schedules. The coordinator alone
   writes the run handoff; workers write separate result files under
   `~/.local/state/copilot-coordinator/`.
+  New worker Copilot sessions use `--name` with the exact issue title for
+  implementation or PR title for review, passed as one literal quoted argument.
   Idle review panes can close without a push or merge; worktree removal is
   separate and preserves reused worktrees and unfinished work.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.

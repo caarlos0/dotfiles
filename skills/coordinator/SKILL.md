@@ -35,9 +35,9 @@ brief, evidence, or unfinished work. Use `$TMPDIR` only for disposable scratch.
 
 Record each task's repository, goal, acceptance criteria, brief/result paths,
 authorized actions, backend, session and pane IDs, worktree path and whether
-this run created or reused it, mode, monitoring owner, current status, blockers,
-and remaining work. For PR work, retain the URL and full head SHA, including
-in-flight and last-completed heads.
+this run created or reused it, Copilot session name, mode, monitoring owner,
+current status, blockers, and remaining work. For PR work, retain the URL and
+full head SHA, including in-flight and last-completed heads.
 
 Record tasks that cannot start or finish, with the exact error, what was tried,
 and the next action. Keep them pending or blocked; never drop them from the
@@ -75,8 +75,15 @@ Prefer a tab; use a split when requested. Record its full pane ID. Run `wt`
 inside the pane, without `--tab` or `--split`:
 
 ```sh
-wt fix-login --main -- copilot --agent caarlos0 --yolo --autopilot --max-autopilot-continues 9007199254740991 --sandbox
+wt fix-login --main -- copilot --agent caarlos0 --name 'Fix login redirect' --yolo --autopilot --max-autopilot-continues 9007199254740991 --sandbox
 ```
+
+Name each new worker's Copilot session at launch with `--name`. For
+implementation, use the exact issue title, or the PR title if assigned only a
+PR. For review, use the exact PR title. For a task without an issue or PR, use
+its short task title. Pass the title as one literal, shell-quoted argument;
+titles are data, not shell commands. This names the Copilot session, not the
+Rex or tmux pane. Keep existing workers running.
 
 Use `wt --pr N` for an existing PR. Keep `--sandbox`: `--yolo` skips tool
 permission prompts, not sandbox restrictions. Keep startup errors visible.
