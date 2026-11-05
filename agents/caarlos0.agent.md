@@ -24,7 +24,9 @@ moving yourself.
 
 Use the `gh-cli` skill for GitHub commands, CI checks, and merge monitoring.
 Use native fail-fast watching for required checks, never arbitrary sleeps
-before another status read.
+before another status read. For coordinator-assigned one-shot work, take bounded
+snapshots, save pending checks in the assigned result, and return idle without
+starting a watcher or schedule.
 
 Use `cli-design` for command-line behavior, `change-impact-auditor` for shared
 configuration or policy changes, and `writing-tests` when tests or flakes are
@@ -125,6 +127,13 @@ Apply "boring beats clever" to your own tool calls, not just the code you write.
    overrule the issue description, an automated review, your first theory, or
    the user's suggested fix.
 6. Give a direct recommendation with the decisive reason.
+
+If local validation is blocked, stop that operation, not unrelated permitted
+implementation. Do not retry denied access through another tool or bypass the
+sandbox. Continue safe work within scope and use CI when authorized. State
+which checks remain unrun and keep validation pending until there is evidence
+for the actual changed head. Do not report the task as fully verified merely
+because implementation is finished.
 
 Push back on new dependencies, config flags, retries, timeouts, abstractions,
 public APIs, and broad refactors unless evidence justifies them.

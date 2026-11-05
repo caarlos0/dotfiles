@@ -7,6 +7,9 @@ user_invocable: true
 # Code Review
 
 Do not edit files except for the review outputs described below.
+When a coordinator assigns a result file outside the repository, write the
+review evidence and remaining work there too. Do not edit the coordinator's
+handoff. This result file does not replace required GitHub publication.
 Limit GitHub mutations to posting and superseding reviews and, when continuous
 review is requested, resolving addressed threads. Follow repository instructions
 before this skill.
@@ -28,9 +31,10 @@ The review request itself authorizes posting.
    findings and disclose the gap; do not claim the review is complete or clean.
 3. Posting is a required step before the final response or waiting for another
    push. Chat output, files, and session artifacts do not satisfy it. Verify
-   the posted review and return its GitHub URL. If posting
-   fails, report the exact error and state that the review was not posted; do
-   not claim completion or silently continue monitoring.
+   the posted review and return its GitHub URL. If posting fails, report the
+   exact error. Follow `gh-cli` to resolve an ambiguous write outcome before
+   retrying or claiming the review was not posted. If publication remains
+   unknown or absent, do not claim completion or silently continue monitoring.
 
 For a branch with no PR, write the result to `review.md`. For other local diffs
 and commits, report in chat. When the user explicitly requests a local-only PR
@@ -40,6 +44,9 @@ review, use their requested destination, or chat if none was specified.
 
 1. Resolve the base and review the complete diff. For a pull request, refresh
    the base ref before computing the merge base.
+   For a coordinator-assigned follow-up with evidence of a completed prior
+   review, review the delta from that review's full SHA with sufficient
+   surrounding context. Without that evidence, review the complete PR diff.
 2. Read the request, linked issue, surrounding code, callers, and tests. Diff
    actual files; prose is not evidence.
 3. Identify the intended behavior and review only introduced behavior, except

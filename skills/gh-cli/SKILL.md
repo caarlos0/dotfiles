@@ -24,9 +24,32 @@ time on the first actionable failure, not on repeated status reads.
   with query fields; adding `-f` or `-F` otherwise changes the method to POST.
   Paginate when the task needs the full set, not just a recent sample.
 
+## Keep failed work visible
+
+For a failed request, retain the exact command or endpoint, repository and
+issue/PR, head SHA when relevant, HTTP status or exit code, concrete error,
+and unfinished action. Do not include credentials. Keep the affected item
+pending or blocked; a failed fetch is not an empty result or completed work.
+
+- Distinguish authentication/permission errors, rate limits, and server/network
+  failures using the actual response. A 403 alone does not prove a permission
+  problem; retain rate-limit headers or `Retry-After` when present. A 504 does
+  not establish its cause.
+- Do not retry blindly or create a recovery polling loop. With an authorized
+  schedule, retain the failed item for a bounded attempt on a later pass,
+  respecting any retry time. Without one, report the unfinished action.
+- A timeout or server error on a write can leave its outcome unknown. Before
+  retrying, make a focused read to check whether the intended review, comment,
+  or other mutation already exists. If that read fails, retain the unknown
+  outcome; do not claim success or confirmed failure, or repeat the write.
+
 ## Wait for checks, not a timer
 
-For PR merge readiness, start this immediately:
+Watch only when this session owns continuous monitoring. Coordinator-assigned
+one-shot workers and finite scheduled passes use bounded snapshots and report
+pending checks; they do not start watchers or additional schedules.
+
+For PR merge readiness when this session owns monitoring, start this immediately:
 
 ```bash
 gh pr checks NUMBER -R OWNER/REPO --required --watch --fail-fast
