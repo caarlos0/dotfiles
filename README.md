@@ -26,6 +26,9 @@ version here!
 Machine-specific bits (`Brewfile.<host>`, `hammerspoon/apps.<host>.lua`) are
 picked by `hostname -s`: `darkmatter` is personal, `quasar` is work.
 
+Run `./macos/set-dock.sh` to apply `macos/dock.<host>.txt` and refresh the Dock
+without changing other macOS settings. Both lists use Rex as the terminal.
+
 Copilot settings live in [`copilot/config.ini`](copilot/config.ini), one
 `key=value` per line. Values are literal; repeat keys for list settings.
 `./setup` applies only settings that do not already match; runtime paths stay

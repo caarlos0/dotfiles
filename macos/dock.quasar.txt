@@ -1,5 +1,5 @@
 # Dock apps for quasar, in order, one path per line.
-# Read by macos/set-defaults.sh, which replaces the whole Dock with this list.
+# Read by macos/set-dock.sh, which replaces the whole Dock with this list.
 # Lines starting with # and blank lines are ignored.
 /System/Applications/Reminders.app
 /System/Applications/Notes.app

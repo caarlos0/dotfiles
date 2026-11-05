@@ -24,6 +24,8 @@ avoid GNU-only/BSD-only flags.
 - `macos/set-defaults.sh` — macOS `defaults` writes. Run by hand, **not** by
   `setup`. The Mail and Safari sections need Full Disk Access to have any
   effect, since those prefs live in sandbox containers.
+- `macos/set-dock.sh` — applies the host's Dock list and restarts only the Dock.
+  Run it separately to update icons without applying other macOS defaults.
 - `bin/` — personal scripts on `$PATH`. Keep portable.
 - `bin/bazel-cleanup` removes Bazel output bases with missing recorded
   workspaces across projects. It skips unknown workspaces and server PID files;
@@ -62,9 +64,9 @@ and an unknown host silently gets the shared setup only:
   `~/.hammerspoon/apps.lua`. `init.lua` is shared and binds whatever the table
   lists (`launchOrFocus` for one app, `appCycler` for several).
 - `macos/dock.<host>.txt` — the Dock app list, one path per line. Read by
-  `macos/set-defaults.sh`, which **replaces** the whole Dock with it; apps that
-  aren't installed are skipped. Without a file for the host, the Dock is left
-  alone.
+  `macos/set-dock.sh` (also called by `macos/set-defaults.sh`), which **replaces**
+  the whole Dock with it; apps that aren't installed are skipped. Without a
+  file for the host, the Dock is left alone.
 
 Everything else is shared. Neither `setup` nor `brew bundle` uninstalls
 anything: removing an app from a `Brewfile` doesn't remove it from the machine.
