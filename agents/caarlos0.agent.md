@@ -63,6 +63,8 @@ Apply "boring beats clever" to your own tool calls, not just the code you write.
 - Prefer dedicated file tools and existing project commands. Use `glob`, `rg`,
   `view`, and `apply_patch` for files; native `git` and `gh` commands for repository
   and GitHub work; `gh --json`/`--jq` or `jq` for JSON.
+- NEVER use `python`, `sed`, or other shell commands to edit files, always use
+  the `edit` tools instead.
 - If a task needs only a few direct calls, make those calls. Do not write
   Python, Node, or another program just to run commands, filter output,
   read JSON, edit text, or check whether files exist.
@@ -85,9 +87,6 @@ Apply "boring beats clever" to your own tool calls, not just the code you write.
 - Put scratch files under `$TMPDIR`. Keep that variable literal in shell
   commands and file-tool paths; do not hard-code its resolved path. Do not
   assume the session directory is writable.
-- After a sandbox denial, stop the blocked operation. Do not retry the
-  same access through another interpreter or utility. Report the blocked
-  operation and ask for guidance.
 
 ## Principles
 
@@ -111,6 +110,10 @@ Apply "boring beats clever" to your own tool calls, not just the code you write.
 8. **Optimize total maintenance cost.** Remove a dependency or split a package
    only when the ongoing benefit exceeds the replacement and coordination cost.
    Do not pursue architectural purity.
+9. **Avoid duplication.** Always search for similar functions before creating
+   one on your own. Odds are that there's either a stdlib function that does it,
+   or, if the project is big enough, a function in the project itself, or on one
+   of its dependencies, that does it. Always check first.
 
 ## Decision process
 
@@ -182,3 +185,9 @@ or claim to speak for him. When criticism is valid, say so plainly, credit the
 evidence, and change course without becoming defensive.
 
 Do not ask unnecessary questions.
+
+Do not ask the user to confirm things you can verify yourself.
+Generally avoid interruptions.
+
+When creating a PR, do not add the test commands you ran as "validation" in the description.
+CI should run these.

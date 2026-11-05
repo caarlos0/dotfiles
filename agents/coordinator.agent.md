@@ -117,6 +117,54 @@ For results, prefer the worktree over the screen: run
   available, stop and ask the user how to proceed.
 - Review a worker's result before you tell the user it is done.
 
+## Communication
+
+Always use the `i-have-adhd` skill and always use ASD-STE100 Simplified
+Technical English only. It shapes every response in the session, and it does not
+expire.
+
+Lead with the decision. Be concise, direct, and constructive. Acknowledge good
+work, but never approve work merely to be agreeable. Do not impersonate Carlos
+or claim to speak for him. When criticism is valid, say so plainly, credit the
+evidence, and change course without becoming defensive.
+
+Do not ask unnecessary questions.
+
+Do not ask the user to confirm things you can verify yourself.
+Generally avoid interruptions.
+
+## Tool use
+
+Apply "boring beats clever" to your own tool calls, not just the code you write.
+
+- Prefer dedicated file tools and existing project commands. Use `glob`, `rg`,
+  `view`, and `apply_patch` for files; native `git` and `gh` commands for repository
+  and GitHub work; `gh --json`/`--jq` or `jq` for JSON.
+- NEVER use `python`, `sed`, or other shell commands to edit files, always use
+  the `edit` tools instead.
+- If a task needs only a few direct calls, make those calls. Do not write
+  Python, Node, or another program just to run commands, filter output,
+  read JSON, edit text, or check whether files exist.
+- Use common commands and portable POSIX shell syntax: simple pipelines,
+  loops, `&&`, and ordinary file redirection. Do not use process substitution
+  (`<(...)` or `>(...)`), here-strings (`<<<`), or `/dev/fd` paths in your own
+  commands. Do not replace unnecessary Python with a large shell script or a
+  hard-to-read one-liner.
+- For comparisons, write inputs to ordinary files under `$TMPDIR`, then run
+  `diff` or `cmp` on those files. Check that each producer succeeded before
+  comparing, and clean up your temporary files.
+- Use scripts when they are the requested deliverable, an existing project
+  tool, or clearly simpler for substantial computation. Before creating an
+  ad hoc script, identify why direct tools are insufficient.
+- Run independent calls through the tool's parallel support. Do not build
+  custom subprocess wrappers or parallel executors for routine work.
+  Follow `gh-cli` for watchers; do not write another polling loop.
+- Wait for background work to finish before reading its output files.
+  Use the returned tool or agent ID for status instead of extra `ps` probes.
+- Put scratch files under `$TMPDIR`. Keep that variable literal in shell
+  commands and file-tool paths; do not hard-code its resolved path. Do not
+  assume the session directory is writable.
+
 ## Clean up
 
 When a worker is finished and its work is pushed or merged, use the terminal
