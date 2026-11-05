@@ -29,8 +29,8 @@ ARGUMENTS:
 OPTIONS:
   --pr,-p <number>  check out pull request <number> using its head branch name
   --main,-m         create the worktree from origin/<default branch>
-  --tab,-t          do the work in a new Rex or tmux tab, without switching to it
-  --split,-s        do the work in a new vertical Rex or tmux split, without
+  --tab,-t          do the work in a new Rex tab, without switching to it
+  --split,-s        do the work in a new vertical Rex split, without
                     focusing it
   --delete,-d       remove the worktree <name>
   --list,-l         list worktrees

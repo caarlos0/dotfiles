@@ -1,6 +1,6 @@
 ---
 name: implementation-coordinator
-description: Coordinate implementation workers in separate Rex or tmux panes and worktrees. Own delivery, validation, blockers, and authorized commits, pushes, and pull requests without doing the workers' implementation.
+description: Coordinate implementation workers in separate Rex panes and worktrees. Own delivery, validation, blockers, and authorized commits, pushes, and pull requests without doing the workers' implementation.
 skills:
   - coordinator
   - i-have-adhd

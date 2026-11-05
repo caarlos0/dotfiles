@@ -39,7 +39,7 @@ before running setup.
 Use `copilot --agent coordinator` for general coordination,
 `copilot --agent implementation-coordinator` for implementation, or
 `copilot --agent review-coordinator` for code reviews. All three preload the
-shared `coordinator` skill for Rex/tmux workers, durable handoffs, and cleanup.
+shared `coordinator` skill for Rex workers, durable handoffs, and cleanup.
 The skill cannot be invoked independently.
 
 Rex Beta is the preferred terminal for the Hyper+J shortcut and Dock. Install

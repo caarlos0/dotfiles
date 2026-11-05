@@ -17,6 +17,13 @@ link() {
   fi
 }
 
+unlink_managed() {
+  if [ -L "$2" ] && [ "$(readlink "$2")" = "$1" ]; then
+    rm "$2"
+    success "Removed retired link $2"
+  fi
+}
+
 info "Setting caarlos0/dotfiles up"
 
 host="$(hostname -s)"
@@ -25,10 +32,8 @@ info "Setting up for $host"
 # bins
 link "$PWD"/bin ~/.bin
 
-if which tmux &>/dev/null; then
-  link "$PWD"/tmux/tmux.conf ~/.config/tmux/tmux.conf
-  tmux source ~/.config/tmux/tmux.conf 2>/dev/null || true
-fi
+unlink_managed "$PWD"/tmux/tmux.conf ~/.config/tmux/tmux.conf
+unlink_managed "$PWD"/skills/tmux ~/.copilot/skills/tmux
 
 # shell
 link "$PWD"/fish/functions ~/.config/fish/functions

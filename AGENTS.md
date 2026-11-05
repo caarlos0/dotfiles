@@ -47,7 +47,7 @@ avoid GNU-only/BSD-only flags.
   `brew bundle dump`; hand-edits don't persist unless the package is actually
   installed/removed. `dump` also silently drops App Store apps `mas` can't index
   (e.g. apps renamed on disk), so check the diff before committing.
-- Per-tool config dirs: `ghostty/`, `rio/`, `rex/`, `fish/`, `nvim/`, `tmux/`, `git/`, …
+- Per-tool config dirs: `ghostty/`, `rio/`, `rex/`, `fish/`, `nvim/`, `git/`, …
 
 ## Per-machine files
 
@@ -68,8 +68,8 @@ and an unknown host silently gets the shared setup only:
 
 Everything else is shared. Neither `setup` nor `brew bundle` uninstalls
 anything: removing an app from a `Brewfile` doesn't remove it from the machine.
-The only exceptions are explicitly retired Copilot agents, skills, and
-repo-managed local `gh` extension links removed during setup migrations.
+The only exceptions are explicitly retired repo-managed configuration, Copilot
+agent/skill, and local `gh` extension links removed during setup migrations.
 
 ## Conventions
 
@@ -81,14 +81,14 @@ repo-managed local `gh` extension links removed during setup migrations.
   required-check fail-fast watching for CI; `gh wait` for PR changes or
   default-branch commits; and `gh wait --merge` for completed merges.
   Do not use ad hoc sleep-and-poll loops.
-- `bin/wt --tab/--split` and `bin/review` use Rex when `REX_SESSION` is set
-  and Rex is installed, otherwise tmux. `bin/lib/pane.fish` shares the pane
+- `bin/wt --tab/--split` and `bin/review` require Rex and `REX_SESSION`.
+  `bin/lib/pane.fish` shares the pane
   launch logic. `wt` runs in the new pane so fetch/checkout happen there;
   `WT_PANE` makes `fail` hold the pane open. `wt --pr` uses the PR's head branch
   name for the worktree and local branch, and reuses only worktrees marked with
   that PR's URL.
   Unmarked older worktrees are not reused automatically. For `wt -- <command>`,
-  Fish temporarily enables full job control so Rex and tmux see the foreground
+  Fish temporarily enables full job control so Rex sees the foreground
   command, then restores its prior job-control mode.
 - Review policy lives in `skills/my-code-review/SKILL.md`; `bin/review` only
   launches Copilot and selects continuous review with `--keep`. It takes any
@@ -99,8 +99,8 @@ repo-managed local `gh` extension links removed during setup migrations.
 - `coordinator`, `implementation-coordinator`, and `review-coordinator` are thin
   agents over `skills/coordinator/SKILL.md`, which owns pane operations, durable
   briefs and results, monitoring ownership, recovery, and cleanup. The generic
-  agent adds no role-specific policy. The skill prefers Rex when a session is
-  available, otherwise tmux. The skill disables model and user
+  agent adds no role-specific policy. The skill requires Rex and an available
+  session. The skill disables model and user
   invocation; coordinator agents preload it through `skills:` frontmatter.
   One-shot workers do not start watchers or schedules. The coordinator alone
   writes the run handoff; workers write separate result files under
@@ -108,7 +108,7 @@ repo-managed local `gh` extension links removed during setup migrations.
   Idle review panes can close without a push or merge; worktree removal is
   separate and preserves reused worktrees and unfinished work.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
-- `p`, the Rex project picker, and `tmux-sessionizer` share the frecency-sorted
+- `p` and the Rex project picker share the frecency-sorted
   project list in `fish/functions/__project_list.fish`.
 - Rex Beta is the preferred macOS terminal in the Hyper+J shortcut and Dock.
   `setup` links `rex/themes` and `rex/init.lua`; import the theme and select

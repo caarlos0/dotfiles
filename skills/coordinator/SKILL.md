@@ -15,12 +15,10 @@ and user request define scope; this skill grants no additional authority.
 
 ## Choose the backend
 
-Use the `rex` skill when Rex is installed and a session is available. Otherwise,
-use `tmux` when `$TMUX` is set. Load only the chosen terminal skill. If neither
-is available, record the tasks that cannot start and report the blocker.
-If Rex fails to connect or access is denied, report the error rather than
-silently switching backends. Ask only if multiple sessions cannot be resolved
-from the user's request.
+Use the `rex` skill. Rex must be installed and a session must be available.
+If either is missing, record the tasks that cannot start and report the blocker.
+If Rex fails to connect or access is denied, report the error. Ask only if
+multiple sessions cannot be resolved from the user's request.
 
 ## Save the handoff
 

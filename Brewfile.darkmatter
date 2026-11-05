@@ -119,8 +119,6 @@ brew "stylua"
 brew "syft"
 # User interface to the TELNET protocol
 brew "telnet"
-# Terminal multiplexer
-brew "tmux"
 # Parser generator tool
 brew "tree-sitter-cli"
 # Language Server Protocol implementation for TypeScript wrapping tsserver
@@ -207,8 +205,6 @@ cask "soulver"
 cask "caarlos0/tap/svu"
 # Messaging app with a focus on speed and security
 cask "telegram"
-# A tiny TUI that lists, filters and kills the processes running in every tmux pane.
-cask "caarlos0/tap/ttop", trusted: true
 # Multimedia player
 cask "vlc"
 # Native desktop client for WhatsApp

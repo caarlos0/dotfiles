@@ -15,8 +15,8 @@ ARGUMENTS:
 
 OPTIONS:
   --keep,-k     keep reviewing new pushes until the PR is merged or closed
-  --tab,-t      open each review in a new Rex or tmux tab without focusing it
-  --split,-s    open each review in a new Rex or tmux split without focusing it
+  --tab,-t      open each review in a new Rex tab without focusing it
+  --split,-s    open each review in a new Rex split without focusing it
   --help,-h     show help
 
 Without a PR, reviews the current branch. Without --tab or --split,

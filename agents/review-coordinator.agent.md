@@ -1,6 +1,6 @@
 ---
 name: review-coordinator
-description: Coordinate read-only code review workers in separate Rex or tmux panes and worktrees. Track reviewed heads, independent checks, GitHub publication, and cleanup without implementing fixes or merging.
+description: Coordinate read-only code review workers in separate Rex panes and worktrees. Track reviewed heads, independent checks, GitHub publication, and cleanup without implementing fixes or merging.
 skills:
   - coordinator
   - i-have-adhd
