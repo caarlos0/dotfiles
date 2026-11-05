@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Workspace.animationStyle</key>
+	<string>snappy</string>
+	<key>Workspace.inactivePaneFadeMode</key>
+	<string>both</string>
+	<key>Workspace.interfaceStyle</key>
+	<string>useTheme</string>
+	<key>Workspace.lightThemeID</key>
+	<string>merino-light</string>
+	<key>Workspace.notificationPosition</key>
+	<string>top-right</string>
+	<key>Workspace.paneDensity</key>
+	<string>compact</string>
+	<key>Workspace.showsActivePaneBorder</key>
+	<false/>
+	<key>Workspace.showsPaneHeaders</key>
+	<false/>
+	<key>Workspace.sidebarPosition</key>
+	<string>left</string>
+	<key>Workspace.sidebarShowsActivity</key>
+	<false/>
+	<key>Workspace.sidebarWidth</key>
+	<real>326</real>
+	<key>Workspace.tabIconTintMode</key>
+	<string>off</string>
+	<key>Workspace.tabStyle</key>
+	<string>vertical</string>
+	<key>Workspace.terminalCopyOnSelect</key>
+	<true/>
+	<key>Workspace.terminalFontName</key>
+	<string>Berkeley Mono</string>
+	<key>Workspace.terminalFontPointSize</key>
+	<real>12</real>
+	<key>Workspace.terminalFontSmoothing</key>
+	<true/>
+	<key>Workspace.terminalPaddingX</key>
+	<real>5</real>
+	<key>Workspace.terminalPaddingY</key>
+	<real>5</real>
+	<key>Workspace.tintsPanesWithProgramBackground</key>
+	<true/>
+	<key>Workspace.usesStandardInactiveWindowPaneStyles</key>
+	<true/>
+</dict>
+</plist>

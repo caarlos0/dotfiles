@@ -46,10 +46,21 @@ shared `coordinator` skill for Rex workers, durable handoffs, and cleanup.
 The skill cannot be invoked independently.
 
 Rex Beta is the only terminal, used by the Hyper+J shortcut and Dock. Install
-it separately on each Mac. In Rex settings, import
-`~/.config/rex/themes/Catppuccin Mocha Black` under Themes, then choose
-Berkeley Mono at 13 pt under Terminal. Rex stores these settings in the app;
-`./setup` links the theme file but does not import it or set the font.
+it separately on each Mac. `./setup` links its Lua config and theme files.
+
+Rex has no full-settings export command. Reuse its saved macOS preferences:
+
+1. Run `./macos/rex-settings.sh export` to update `rex/settings.plist`.
+2. On the other Mac, quit Rex and run `./macos/rex-settings.sh import`.
+3. Reopen Rex and import `~/.config/rex/themes/Catppuccin Mocha Black` in
+   Settings > Themes. Enable Remote Control in Settings > Server > Client Info
+   for the project picker and CLI client actions.
+
+The plist contains only selected appearance and terminal preferences, including
+Berkeley Mono at 12 pt. Export uses its keys as the allowlist. It excludes custom
+theme IDs, server addresses, access grants, and session/window state. Import
+preserves unrelated preferences. The theme is imported separately because Rex
+assigns custom themes machine-local IDs.
 
 ## Releasing
 

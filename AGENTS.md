@@ -26,6 +26,11 @@ avoid GNU-only/BSD-only flags.
   effect, since those prefs live in sandbox containers.
 - `macos/set-dock.sh` — applies the host's Dock list and restarts only the Dock.
   Run it separately to update icons without applying other macOS defaults.
+- `macos/rex-settings.sh export|import` — saves or applies selected Rex app
+  preferences from `rex/settings.plist`. The plist's keys are the export
+  allowlist; never export the whole preference domain into the repository.
+  Import merges preferences and requires Rex to be closed. `setup` does not
+  apply app preferences.
 - `bin/` — personal scripts on `$PATH`. Keep portable.
 - `bin/bazel-cleanup` removes Bazel output bases with missing recorded
   workspaces across projects. It skips unknown workspaces and server PID files;
@@ -113,8 +118,10 @@ agent/skill, and local `gh` extension links removed during setup migrations.
 - `p` and the Rex project picker share the frecency-sorted
   project list in `fish/functions/__project_list.fish`.
 - Rex Beta is the only macOS terminal, used by the Hyper+J shortcut and Dock.
-  `setup` links `rex/themes` and `rex/init.lua`; import the theme and select
-  Berkeley Mono 13 in Rex settings on each Mac. Cmd+P opens the project picker;
+  `setup` links `rex/themes` and `rex/init.lua`; import the theme separately
+  because custom theme IDs are machine-local. `rex/settings.plist` preserves
+  Berkeley Mono 12 and selected appearance preferences, but no server addresses,
+  permissions, or session state. Cmd+P opens the project picker;
   it finds Rex sessions by their `org/name` label and needs Remote Control
   enabled in the app. Reload config with `rex config reload` after changes.
   Rex manages its other app settings separately.
