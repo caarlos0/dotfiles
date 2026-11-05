@@ -21,6 +21,7 @@ USAGE:
 
 ARGUMENTS:
   <name>            switch to worktree <name>, creating it if it doesn't exist
+  .                 use the current directory without selecting a worktree
   -                 switch back to the previous worktree or the main repository
   (none)            pick a worktree interactively with fzf
   -- <command>...   run <command> in the worktree after switching to it,
@@ -156,9 +157,20 @@ function open_in_pane
     set -q run_cmd[1]; and set -a wt_args -- $run_cmd
     set -l env_args WT_PANE=1
     set -q WT_PREVIOUS; and set -a env_args WT_PREVIOUS=$WT_PREVIOUS
-    source (dirname (status filename))/lib/pane.fish
     log "Opening in a new $open_in"
-    open_pane $open_in env $env_args (status filename) $wt_args
+    if test -z "$REX_SESSION"; or not command -q rex
+        echo "error: --tab and --split require Rex and an active Rex session" >&2
+        return 1
+    end
+
+    set -l args run -s "$REX_SESSION" -c "$PWD" --focus=false --shell=none
+    if test "$open_in" = split
+        set -a args --split=right
+        if test -n "$REX_BLOCK"
+            set -a args -b "$REX_BLOCK"
+        end
+    end
+    rex $args -- env $env_args (status filename) $wt_args
 end
 
 function branch_exists -a name
@@ -577,6 +589,8 @@ else if test "$delete" = true
     remove_worktree $name
 else if test "$cleanup" = true -o "$name" = cleanup
     cleanup_worktrees
+else if test "$name" = .
+    switch_to "$PWD"
 else if test -z "$name"
     # no args: interactive picker
     set -l selected (list_worktrees)

@@ -90,8 +90,9 @@ agent/skill, and local `gh` extension links removed during setup migrations.
   default-branch commits; and `gh wait --merge` for completed merges.
   Do not use ad hoc sleep-and-poll loops.
 - `bin/wt --tab/--split` and `bin/review` require Rex and `REX_SESSION`.
-  `bin/lib/pane.fish` shares the pane
-  launch logic. `wt` runs in the new pane so fetch/checkout happen there;
+  `wt` owns Rex pane launching; `review` delegates to it. `wt .` uses the
+  current directory without opening the worktree picker.
+  `wt` runs in the new pane so fetch/checkout happen there;
   `WT_PANE` makes `fail` hold the pane open. `wt --pr` uses the PR's head branch
   name for the worktree and local branch, and reuses only worktrees marked with
   that PR's URL.

@@ -52,8 +52,7 @@ set -q _flag_split; and set mode split
 
 if not set -q argv[1]
     if test -n "$mode"
-        source (dirname (status filename))/lib/pane.fish
-        open_pane $mode $cmd
+        wt --$mode . -- $cmd
         exit $status
     end
     exec $cmd
