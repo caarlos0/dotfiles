@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coordinator task board</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: system-ui, sans-serif;
+        background: #11111b;
+        color: #cdd6f4;
+        line-height: 1.5;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 24px; }
+      header { margin-bottom: 24px; }
+      h1 { margin: 0 0 8px; font-size: 24px; }
+      h2, h3 { margin: 0; font-size: 16px; }
+      p { margin: 8px 0; }
+      a { color: #89b4fa; }
+      button, select { padding: 8px 16px; font: inherit; }
+      button { cursor: pointer; }
+      select { width: 640px; max-width: 100%; }
+      .controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+      a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid #89b4fa; outline-offset: 4px; }
+      .muted { color: #bac2de; font-size: 14px; }
+      #error, #discovery-error { padding: 16px; border: 2px solid #fab387; color: #fab387; }
+      #board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+      .column { min-width: 0; }
+      .column > h2 { padding-bottom: 8px; border-bottom: 2px solid #585b70; }
+      .column[data-status="blocked"] > h2 { border-color: #fab387; }
+      .card { margin-top: 16px; padding: 16px; background: #1e1e2e; border-radius: 8px; overflow-wrap: anywhere; }
+      .blocker { border-left: 3px solid #fab387; padding-left: 8px; }
+      .links { display: flex; flex-wrap: wrap; gap: 12px; }
+      summary { cursor: pointer; }
+      pre { white-space: pre-wrap; font-size: 13px; }
+      @media (max-width: 1000px) { #board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 600px) {
+        body { padding: 16px; }
+        #board { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 id="goal">Coordinator task board</h1>
+      <p id="transport-note" class="muted">Run <code>node ~/.copilot/skills/coordinator/serve.mjs</code> and open its HTTP URL.</p>
+      <label for="coordinator">Coordinator</label>
+      <div class="controls">
+        <select id="coordinator"><option value="">Choose a coordinator...</option></select>
+        <button id="refresh" type="button">Refresh now</button>
+      </div>
+      <p id="run-state">Choose a coordinator to display tasks.</p>
+      <p id="directory" class="muted"></p>
+      <p class="muted">Reads saved coordinator observations every 5 seconds, not live worker telemetry.</p>
+      <p id="freshness" class="muted"></p>
+      <a id="source" hidden>JSON handoff</a>
+      <p id="discovery-error" role="alert" hidden></p>
+      <details id="skipped" hidden>
+        <summary>Some handoffs could not be listed</summary>
+        <ul id="skipped-files"></ul>
+      </details>
+      <p id="error" role="alert" hidden></p>
+    </header>
+    <main id="board" aria-label="Task status board"></main>
+    <noscript>Enable JavaScript to read the JSON handoff.</noscript>
+    <script type="module">
+      import { statuses, artifactName, prURL, validate } from "./board-data.mjs";
+
+      "use strict";
+
+      let selection = new URLSearchParams(location.search).get("file") ?? "";
+      let lastSnapshot = null;
+      let lastRead = null;
+      let lastSource = null;
+      let refreshTimer = null;
+      let refreshing = false;
+      let pendingRefresh = false;
+      let listedChoices = "";
+      document.getElementById("transport-note").hidden = location.protocol !== "file:";
+
+      function element(tag, value, className) {
+        const node = document.createElement(tag);
+        if (value != null) node.textContent = value;
+        if (className) node.className = className;
+        return node;
+      }
+
+      function link(label, href) {
+        const node = element("a", label);
+        node.href = href;
+        return node;
+      }
+
+      function card(task, expanded, file) {
+        const node = element("article", null, "card");
+        node.append(
+          element("p", `${task.id} / ${task.repository}`, "muted"),
+          element("h3", task.goal),
+          element("p", `Worker: ${task.worker ?? "Unknown"}`),
+          element("p", `Observed: ${task.updated_at}`, "muted"),
+        );
+        if (task.blocker) node.append(element("p", `Blocked: ${task.blocker}`, "blocker"));
+        node.append(element("p", `Next: ${task.next_action}`));
+        const links = element("p", null, "links");
+        for (const field of ["brief", "result"]) {
+          if (task[field]) {
+            const query = new URLSearchParams({ file, name: artifactName(task[field], field) });
+            links.append(link(field, `/api/artifact?${query}`));
+          }
+        }
+        if (task.pr) links.append(link("Pull request", prURL(task.pr)));
+        node.append(links);
+        if (task.details != null) {
+          const details = element("details");
+          details.dataset.taskId = task.id;
+          details.open = expanded.has(task.id);
+          details.append(element("summary", "Evidence and task details"),
+            element("pre", JSON.stringify(task.details, null, 2)));
+          node.append(details);
+        }
+        return node;
+      }
+
+      function render(data, file) {
+        const board = document.getElementById("board");
+        const expanded = new Set(
+          file === lastSource
+            ? [...board.querySelectorAll("details[open]")].map((node) => node.dataset.taskId)
+            : [],
+        );
+        const columns = statuses.map((status) => {
+          const tasks = data.tasks.filter((task) => task.status === status);
+          const column = element("section", null, "column");
+          column.dataset.status = status;
+          column.append(element("h2", `${status[0].toUpperCase()}${status.slice(1)} (${tasks.length})`));
+          for (const task of tasks) column.append(card(task, expanded, file));
+          if (!tasks.length) column.append(element("p", "No tasks", "muted"));
+          return column;
+        });
+        board.replaceChildren(...columns);
+        document.getElementById("goal").textContent = data.goal;
+        document.getElementById("run-state").textContent = `${data.id} / ${data.status}`;
+        document.title = `${data.goal} - Coordinator`;
+      }
+
+      async function getJSON(path) {
+        const response = await fetch(path, { cache: "no-store" });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error ?? `HTTP ${response.status}`);
+        return data;
+      }
+
+      async function discover() {
+        const data = await getJSON("/api/boards");
+        document.getElementById("directory").textContent = `State directory: ${data.directory}`;
+        const signature = JSON.stringify([selection, data.boards]);
+        if (signature !== listedChoices) {
+          const selector = document.getElementById("coordinator");
+          const placeholder = element("option", data.boards.length
+            ? "Choose a coordinator..." : "No valid handoffs found");
+          placeholder.value = "";
+          const match = data.boards.find((board) => board.file === selection || board.path === selection);
+          const choices = data.boards.map((board) => {
+            const option = element("option", `${board.goal} / ${board.status} / ${board.task_count} tasks / ${board.file}`);
+            option.value = board === match ? selection : board.file;
+            return option;
+          });
+          if (selection && !match) {
+            const missing = element("option", `Unavailable: ${selection}`);
+            missing.value = selection;
+            choices.unshift(missing);
+          }
+          selector.replaceChildren(placeholder, ...choices);
+          selector.value = selection;
+          listedChoices = signature;
+        }
+        document.getElementById("skipped").hidden = !data.errors.length;
+        document.getElementById("skipped-files").replaceChildren(
+          ...data.errors.map((error) => element("li", `${error.file}: ${error.error}`)),
+        );
+        document.getElementById("discovery-error").hidden = true;
+      }
+
+      function freshness() {
+        const node = document.getElementById("freshness");
+        if (!lastSnapshot) return;
+        const age = Math.max(0, Math.floor((Date.now() - Date.parse(lastSnapshot)) / 1000));
+        node.textContent = `Snapshot: ${lastSnapshot} (${age}s ago). Last successful read: ${lastRead}.`;
+      }
+
+      function showError(cause) {
+        const error = document.getElementById("error");
+        error.textContent = `Read failed: ${cause.message} ${lastSource
+          ? `Showing the last successful snapshot of ${lastSource}; it may be stale.`
+          : "No snapshot loaded."}`;
+        error.hidden = false;
+        if (!lastSnapshot) document.getElementById("run-state").textContent = "Status unavailable";
+      }
+
+      async function refresh() {
+        if (location.protocol === "file:") {
+          showError(new Error("Run node ~/.copilot/skills/coordinator/serve.mjs and open its HTTP URL."));
+          return;
+        }
+        if (refreshing) {
+          pendingRefresh = true;
+          return;
+        }
+        refreshing = true;
+        clearTimeout(refreshTimer);
+        const current = selection;
+        try {
+          try {
+            await discover();
+          } catch (cause) {
+            const error = document.getElementById("discovery-error");
+            error.textContent = `Could not list handoffs: ${cause.message}`;
+            error.hidden = false;
+          }
+          if (current !== selection) return;
+          if (current) {
+            try {
+              const data = await getJSON(`/api/board?${new URLSearchParams({ file: current })}`);
+              validate(data);
+              if (current !== selection) return;
+              render(data, current);
+              lastSnapshot = data.updated_at;
+              lastRead = new Date().toISOString();
+              lastSource = current;
+              const source = document.getElementById("source");
+              source.href = `/api/board?${new URLSearchParams({ file: current })}`;
+              source.textContent = `JSON handoff: ${current}`;
+              source.hidden = false;
+              document.getElementById("error").hidden = true;
+            } catch (cause) {
+              if (current === selection) showError(cause);
+            }
+          } else {
+            document.getElementById("board").replaceChildren();
+            document.getElementById("goal").textContent = "Coordinator task board";
+            document.getElementById("run-state").textContent = "Choose a coordinator to display tasks.";
+            document.getElementById("source").hidden = true;
+            document.getElementById("freshness").textContent = "";
+            document.getElementById("error").hidden = true;
+            document.title = "Coordinator task board";
+            lastSnapshot = lastSource = lastRead = null;
+          }
+        } finally {
+          refreshing = false;
+          freshness();
+          if (pendingRefresh || current !== selection) {
+            pendingRefresh = false;
+            return refresh();
+          }
+          refreshTimer = setTimeout(refresh, 5000);
+        }
+      }
+
+      document.getElementById("coordinator").addEventListener("change", () => {
+        selection = document.getElementById("coordinator").value;
+        const url = new URL(location.href);
+        if (selection) url.searchParams.set("file", selection);
+        else url.searchParams.delete("file");
+        history.replaceState(null, "", url);
+        return refresh();
+      });
+      document.getElementById("refresh").addEventListener("click", refresh);
+      window.addEventListener("popstate", () => {
+        selection = new URLSearchParams(location.search).get("file") ?? "";
+        return refresh();
+      });
+
+      refresh();
+    </script>
+  </body>
+</html>

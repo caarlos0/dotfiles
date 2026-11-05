@@ -26,8 +26,10 @@ from the user's request.
 
 Use `~/.local/state/copilot-coordinator/` for durable shared state, not worker
 worktrees or terminal scrollback. Keep files private and free of credentials.
-Create one uniquely named handoff per run and a separate brief and result file
-per worker, using the run's unique prefix. Tell the user the handoff path.
+Create `<run-prefix>-handoff.json` per run and a separate brief and result file
+per worker, using the run's unique prefix. Use [handoff.example.json](handoff.example.json)
+as the JSON shape, not as real task data. Tell the user the handoff path and
+board URL.
 
 The coordinator alone writes the handoff. Each worker writes only its assigned
 result file. Retain all three after completion so a restart does not lose the
@@ -46,6 +48,71 @@ work list because a request failed.
 After a restart or lost pane, read the handoff and inspect the pane, worktree,
 and linked PR before resuming or replacing a worker. Pane IDs can be reused:
 verify identity before sending input. Do not duplicate possibly running work.
+
+## Keep a task board
+
+Use the ready-made [board.html](board.html); never generate HTML per run.
+It reads the JSON handoff directly, so there is no separate board state.
+The coordinator alone updates the handoff when tasks change, on each monitoring
+pass, and before pausing or ending the run. Write complete JSON to a temporary
+file beside the handoff, then rename it into place so readers never see a
+partial write. Retain the handoff after completion. Keep old non-JSON handoffs
+when resuming a legacy run; transfer their checked state to the JSON shape.
+If a legacy JSON handoff has active consumers, preserve its shape and update a
+board-compatible JSON projection in the same pass. The original remains
+authoritative; the projection retains its actual observation times.
+
+Use `pending`, `running`, `verifying`, `blocked`, or `done` for task status.
+Pending means not started; Running means assigned work is active; Verifying
+means required evidence, checks, or publication remain pending; Blocked means
+progress needs an action or decision; Done means the coordinator verified the
+acceptance criteria. An idle or closed pane does not make a task Done.
+Keep blocked and completed tasks in the array.
+
+Use `active`, `paused`, `blocked`, or `finished` for run status. Set run and task
+`updated_at` to the last coordinator observation, using ISO 8601 with timezone,
+not the browser's read time. Update task timestamps only when observed.
+Use null for unknown optional fields. Artifact links (`brief`, `result`) must
+be filenames in the state directory, not absolute paths; `pr` is an HTTPS
+GitHub PR URL. Put acceptance criteria, authority, pane/worktree identity, full
+SHAs, evidence, and remaining work in `details`. Add fields there as needed;
+the board displays them without changing its HTML. Keep credentials and
+sensitive worker output out of the handoff and linked artifacts.
+
+Use the dependency-free local server to view the board:
+
+```sh
+node ~/.copilot/skills/coordinator/serve.mjs
+```
+
+Bun can run the same script instead of Node. No packages need to be installed.
+The default state directory is `~/.local/state/copilot-coordinator/`; override
+it with `--directory PATH`. The server binds only to `127.0.0.1`, defaults to
+port 8765, and prints its HTTP URL. Use `--port PORT` if that port is occupied;
+do not kill another process to take its port. Use `--help` for usage.
+
+Share the printed HTTP URL, not a `file://` link. The page lists valid JSON
+handoffs in the state directory in a coordinator selector, with goals, status,
+and task counts. It excludes unrelated reports and temporary JSON; failures
+for recognizable handoffs are shown separately. No browser file picker or file
+access grant is needed. A direct link can add `?file=<URL-encoded filename>`;
+absolute JSON paths also work when directly inside the configured directory.
+Do not open the browser for the user.
+
+The browser rereads the list and selected handoff every five seconds, without
+caching, and retains the last valid snapshot with an error on failed reads.
+The server serves only the board assets, validated handoffs, and their
+referenced brief/result files. It does not inspect workers or grant monitoring
+authority. Keep updating JSON through the existing coordination passes;
+do not add a worker watcher or schedule for the board.
+
+Use one shared server for all runs. Before reusing a listener, verify it is this
+server. When asked to keep it available, use the host's supported long-lived
+background process lifecycle and record ownership and its handle. Do not run
+it in a worker pane. For a foreground invocation, Ctrl+C stops it; stop only
+a server this coordinator owns when it is no longer needed. If startup or
+access is denied, report the exact failure, retain the handoff, and provide
+the command rather than bypassing restrictions or claiming it is available.
 
 ## Set mode and authority
 

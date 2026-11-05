@@ -103,8 +103,15 @@ repo-managed local `gh` extension links removed during setup migrations.
   available, otherwise tmux. The skill disables model and user
   invocation; coordinator agents preload it through `skills:` frontmatter.
   One-shot workers do not start watchers or schedules. The coordinator alone
-  writes the run handoff; workers write separate result files under
-  `~/.local/state/copilot-coordinator/`.
+  writes a per-run JSON handoff; workers write separate result files under
+  `~/.local/state/copilot-coordinator/`. The skill ships a reusable `board.html`
+  and `handoff.example.json`. Run `node ~/.copilot/skills/coordinator/serve.mjs`
+  (or Bun) for a dependency-free loopback server. Its HTTP page lists valid JSON
+  handoffs and refreshes the list and selected board every five seconds. It shows
+  Pending, Running, Verifying, Blocked, and Done columns. Use one server for all
+  runs; do not generate HTML per run. Shared JSON validation lives in
+  `skills/coordinator/board-data.mjs`; checks run with
+  `node --test skills/coordinator/board.test.cjs`.
   New worker Copilot sessions use `--name` with the exact issue title for
   implementation or PR title for review, passed as one literal quoted argument.
   Idle review panes can close without a push or merge; worktree removal is
