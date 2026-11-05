@@ -52,7 +52,7 @@ fi
 unlink_managed "$PWD"/ghostty/config ~/.config/ghostty/config
 unlink_managed "$PWD"/rio ~/.config/rio
 link "$PWD"/rex/themes ~/.config/rex/themes
-link "$PWD"/rex/init.lua ~/.config/rex/init.lua
+unlink_managed "$PWD"/rex/init.lua ~/.config/rex/init.lua
 if which rex &>/dev/null; then
   info "Generating Rex Fish completions"
   mkdir -p ~/.config/fish/completions/
