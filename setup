@@ -135,14 +135,6 @@ if which copilot &>/dev/null; then
 
   info "Linking Copilot agents and skills"
   mkdir -p ~/.copilot/{agents,skills}/
-  retired_coordinator=~/.copilot/agents/coordinator.agent.md
-  if [ -L "$retired_coordinator" ] &&
-    [ "$(readlink "$retired_coordinator")" = "$PWD/agents/coordinator.agent.md" ]; then
-    rm "$retired_coordinator"
-    success "Removed retired coordinator agent link"
-  elif [ -e "$retired_coordinator" ] || [ -L "$retired_coordinator" ]; then
-    warn "Keeping $retired_coordinator; use implementation-coordinator or review-coordinator."
-  fi
   for agent in "$PWD"/agents/*; do
     [ -f "$agent" ] || continue
     link "$agent" ~/.copilot/agents/"$(basename "$agent")"

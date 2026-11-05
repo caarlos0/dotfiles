@@ -96,19 +96,17 @@ repo-managed local `gh` extension links removed during setup migrations.
   `--split`/`-s` is given; several require one of those flags.
   Reviews first assess whether the change is needed and belongs in the proposed
   layer, then compare alternative approaches before implementation details.
-- `implementation-coordinator` and `review-coordinator` are thin agents over
-  `skills/coordinator/SKILL.md`, which owns pane operations, durable briefs and
-  results, monitoring ownership, recovery, and cleanup. It prefers Rex when a
-  session is available, otherwise tmux. The skill disables model and user
+- `coordinator`, `implementation-coordinator`, and `review-coordinator` are thin
+  agents over `skills/coordinator/SKILL.md`, which owns pane operations, durable
+  briefs and results, monitoring ownership, recovery, and cleanup. The generic
+  agent adds no role-specific policy. The skill prefers Rex when a session is
+  available, otherwise tmux. The skill disables model and user
   invocation; coordinator agents preload it through `skills:` frontmatter.
   One-shot workers do not start watchers or schedules. The coordinator alone
   writes the run handoff; workers write separate result files under
   `~/.local/state/copilot-coordinator/`.
   Idle review panes can close without a push or merge; worktree removal is
-  separate and preserves reused worktrees and unfinished work. Setup removes
-  only this checkout's legacy `coordinator.agent.md` symlink. Existing commands
-  and schedules using `--agent coordinator` need a replacement role selected
-  manually.
+  separate and preserves reused worktrees and unfinished work.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
 - `p`, the Rex project picker, and `tmux-sessionizer` share the frecency-sorted
   project list in `fish/functions/__project_list.fish`.

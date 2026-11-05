@@ -1,17 +1,17 @@
 ---
 name: coordinator
-description: Shared worker lifecycle for the implementation-coordinator and review-coordinator agents. Preload through their skills frontmatter; do not invoke independently.
+description: Shared worker lifecycle for coordinator agents. Preload through their skills frontmatter; do not invoke independently.
 disable-model-invocation: true
 user-invocable: false
 ---
 
 # Coordinator
 
-Use only when preloaded by `implementation-coordinator` or `review-coordinator`.
-Do not invoke this skill independently or load its file to bypass invocation
-restrictions. Keep the coordinator in its own pane and delegate the workers'
-tasks rather than doing them yourself. The selected agent defines scope; this
-skill grants no additional authority.
+Use only when preloaded by `coordinator`, `implementation-coordinator`, or
+`review-coordinator`. Do not invoke this skill independently or load its file
+to bypass invocation restrictions. Keep the coordinator in its own pane and
+delegate the workers' tasks rather than doing them yourself. The selected agent
+and user request define scope; this skill grants no additional authority.
 
 ## Choose the backend
 

@@ -36,13 +36,11 @@ leaves existing files and directories alone and configures read-write sandbox
 access to this repository. Remove old copies of repo-managed entries once
 before running setup.
 
-Use `copilot --agent implementation-coordinator` to coordinate implementation,
-or `copilot --agent review-coordinator` for code reviews. Both use the shared
-`coordinator` skill for Rex/tmux workers, durable handoffs, and cleanup.
-The skill is preloaded by those agents, not invoked independently.
-Setup removes only this checkout's old `coordinator.agent.md` symlink; it
-preserves other links and real copies. Update saved commands and schedules
-that use `--agent coordinator` to select the appropriate replacement.
+Use `copilot --agent coordinator` for general coordination,
+`copilot --agent implementation-coordinator` for implementation, or
+`copilot --agent review-coordinator` for code reviews. All three preload the
+shared `coordinator` skill for Rex/tmux workers, durable handoffs, and cleanup.
+The skill cannot be invoked independently.
 
 Rex Beta is the preferred terminal for the Hyper+J shortcut and Dock. Install
 it separately on each Mac. In Rex settings, import
