@@ -19,10 +19,9 @@ dockers_v2:
       - fish
       - gh
       - gh-dash
-      - ghostty
       - git
       - hammerspoon
-      - rio
+      - rex
       - nvim
       - skills
       - ssh

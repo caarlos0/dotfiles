@@ -47,7 +47,7 @@ avoid GNU-only/BSD-only flags.
   `brew bundle dump`; hand-edits don't persist unless the package is actually
   installed/removed. `dump` also silently drops App Store apps `mas` can't index
   (e.g. apps renamed on disk), so check the diff before committing.
-- Per-tool config dirs: `ghostty/`, `rio/`, `rex/`, `fish/`, `nvim/`, `git/`, …
+- Per-tool config dirs: `rex/`, `fish/`, `nvim/`, `git/`, …
 
 ## Per-machine files
 
@@ -73,7 +73,7 @@ agent/skill, and local `gh` extension links removed during setup migrations.
 
 ## Conventions
 
-- Conventional Commits with scope (e.g. `fix(rio): …`), one logical change per
+- Conventional Commits with scope (e.g. `fix(rex): …`), one logical change per
   commit, signed off (`-s`).
 - Don't commit speculative work; wait for an explicit "commit".
 - Integrate upstream branches with **merge, never rebase**.
@@ -110,7 +110,7 @@ agent/skill, and local `gh` extension links removed during setup migrations.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
 - `p` and the Rex project picker share the frecency-sorted
   project list in `fish/functions/__project_list.fish`.
-- Rex Beta is the preferred macOS terminal in the Hyper+J shortcut and Dock.
+- Rex Beta is the only macOS terminal, used by the Hyper+J shortcut and Dock.
   `setup` links `rex/themes` and `rex/init.lua`; import the theme and select
   Berkeley Mono 13 in Rex settings on each Mac. Cmd+P opens the project picker;
   it finds Rex sessions by their `org/name` label and needs Remote Control
@@ -121,22 +121,3 @@ agent/skill, and local `gh` extension links removed during setup migrations.
   process, waiting for completion. The individual commands are
   `:lua vim.pack.update()`, `:TSInstallConfigured`, and `:TSUpdate`. Do not install
   parsers on startup or update plugins in `setup`.
-
-## Keep terminal emulator configs in sync
-
-`ghostty/config` and `rio/config.toml` configure fallback terminal emulators
-that must stay behavior-equivalent. Whenever you change one, mirror the change
-in the other in the same commit. Rex uses its own pane controls and app-managed
-font settings; keep its imported theme in `rex/themes` in sync with Ghostty's
-Catppuccin Mocha palette and black background.
-
-- **tmux keybindings** must match exactly. Both send the same control sequences
-  (tmux prefix is `C-b` = `\x02` / `\u0002`). Ghostty `keybind = cmd+X=text:\x02Y`
-  corresponds to rio `{ key = "X", with = "super", esc = "\u0002Y" }`.
-- **Fonts**: same family (Berkeley Mono), size, features
-  (`zero`, `calt`, `liga`), and Nerd Font symbol/codepoint maps.
-- **Theme/appearance**: Catppuccin Mocha, black background, maximized window.
-
-When only one emulator supports a given option, document why in a comment rather
-than silently diverging. Before finishing any change to one of these files,
-diff the two and confirm the shared settings still match.

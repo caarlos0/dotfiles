@@ -323,15 +323,6 @@ fi
 #############################
 
 echo ""
-echo "› Terminals:"
-echo "  › Remap 'Hide Ghostty' to F11 (so Super+H can be used for split navigation)"
-defaults write com.mitchellh.ghostty NSUserKeyEquivalents -dict-add "Hide Ghostty" "\\UF70E"
-echo "  › Remap 'Hide rio' to F11 (so Super+H can be used for split navigation)"
-defaults write com.raphaelamorim.rio NSUserKeyEquivalents -dict-add "Hide rio" "\\UF70E"
-
-#############################
-
-echo ""
 echo "› Safari:"
 # Safari's prefs live in its sandbox container, so these writes silently do
 # nothing unless the terminal running this script has Full Disk Access.
@@ -461,7 +452,7 @@ fi
 echo ""
 echo "› Restart related apps"
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-  "ControlCenter" "Dock" "Finder" "Ghostty" "Mail" "Messages" "Safari" \
+  "ControlCenter" "Dock" "Finder" "Mail" "Messages" "Safari" \
   "SystemUIServer" "Terminal" "Photos" "Image Capture"; do
   killall "$app" >/dev/null 2>&1
 done

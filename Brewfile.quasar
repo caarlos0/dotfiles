@@ -85,8 +85,6 @@ brew "prettier"
 brew "pstree"
 # Python Language Server for the Language Server Protocol
 brew "python-lsp-server"
-# Hardware-accelerated GPU terminal emulator powered by WebGPU
-brew "rio-terminal", link: false
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Rust toolchain installer
@@ -135,8 +133,6 @@ cask "cleanshot"
 cask "copilot-cli@prerelease"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
-# Terminal emulator that uses platform-native UI and GPU acceleration
-cask "ghostty"
 # Web browser
 cask "google-chrome"
 # Desktop automation application
@@ -159,8 +155,6 @@ cask "orbstack"
 cask "caarlos0/tap/prowl", trusted: true
 # Quick Look generator for Markdown files
 cask "qlmarkdown"
-# Hardware-accelerated GPU terminal emulator
-cask "rio"
 # Team communication and collaboration software
 cask "slack"
 # Connect to Windows

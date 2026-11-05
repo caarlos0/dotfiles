@@ -48,9 +48,9 @@ if [[ $OSTYPE == 'darwin'* ]] && [ -f ~/.ssh/id_ed25519 ]; then
     warn "Could not add SSH key to keychain, skipping"
 fi
 
-# terms
-link "$PWD"/ghostty/config ~/.config/ghostty/config
-link "$PWD"/rio ~/.config/rio
+# terminal
+unlink_managed "$PWD"/ghostty/config ~/.config/ghostty/config
+unlink_managed "$PWD"/rio ~/.config/rio
 link "$PWD"/rex/themes ~/.config/rex/themes
 link "$PWD"/rex/init.lua ~/.config/rex/init.lua
 if which rex &>/dev/null; then

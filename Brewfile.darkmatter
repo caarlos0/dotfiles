@@ -161,8 +161,6 @@ cask "deckset"
 cask "discord"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
-# Terminal emulator that uses platform-native UI and GPU acceleration
-cask "ghostty"
 # Free and open-source image editor
 cask "gimp"
 # Web browser
@@ -195,8 +193,6 @@ cask "caarlos0/tap/pinata"
 cask "caarlos0/tap/prowl", trusted: true
 # Quick Look generator for Markdown files
 cask "qlmarkdown"
-# Hardware-accelerated GPU terminal emulator
-cask "rio"
 # Team communication and collaboration software
 cask "slack"
 # Notepad with a built-in calculator
