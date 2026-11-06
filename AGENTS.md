@@ -24,6 +24,14 @@ avoid GNU-only/BSD-only flags.
 - `macos/set-defaults.sh` — macOS `defaults` writes. Run by hand, **not** by
   `setup`. The Mail and Safari sections need Full Disk Access to have any
   effect, since those prefs live in sandbox containers.
+- `macos/set-dock.sh` — applies the host's Dock list and restarts only the Dock.
+  Resolves app symlinks before writing Dock entries. Run it separately to
+  update icons without applying other macOS defaults.
+- `macos/rex-settings.sh export|import` — saves or applies selected Rex app
+  preferences from `rex/settings.plist`. The plist's keys are the export
+  allowlist; never export the whole preference domain into the repository.
+  Import merges preferences and requires Rex to be closed. `setup` does not
+  apply app preferences.
 - `bin/` — personal scripts on `$PATH`. Keep portable.
 - `bin/bazel-cleanup` removes Bazel output bases with missing recorded
   workspaces across projects. It skips unknown workspaces and server PID files;
@@ -47,7 +55,7 @@ avoid GNU-only/BSD-only flags.
   `brew bundle dump`; hand-edits don't persist unless the package is actually
   installed/removed. `dump` also silently drops App Store apps `mas` can't index
   (e.g. apps renamed on disk), so check the diff before committing.
-- Per-tool config dirs: `ghostty/`, `rio/`, `rex/`, `fish/`, `nvim/`, `tmux/`, `git/`, …
+- Per-tool config dirs: `rex/`, `fish/`, `nvim/`, `git/`, …
 
 ## Per-machine files
 
@@ -62,18 +70,18 @@ and an unknown host silently gets the shared setup only:
   `~/.hammerspoon/apps.lua`. `init.lua` is shared and binds whatever the table
   lists (`launchOrFocus` for one app, `appCycler` for several).
 - `macos/dock.<host>.txt` — the Dock app list, one path per line. Read by
-  `macos/set-defaults.sh`, which **replaces** the whole Dock with it; apps that
-  aren't installed are skipped. Without a file for the host, the Dock is left
-  alone.
+  `macos/set-dock.sh` (also called by `macos/set-defaults.sh`), which **replaces**
+  the whole Dock with it; apps that aren't installed are skipped. Without a
+  file for the host, the Dock is left alone.
 
 Everything else is shared. Neither `setup` nor `brew bundle` uninstalls
 anything: removing an app from a `Brewfile` doesn't remove it from the machine.
-The only exceptions are explicitly retired Copilot agents, skills, and
-repo-managed local `gh` extension links removed during setup migrations.
+The only exceptions are explicitly retired repo-managed configuration, Copilot
+agent/skill, and local `gh` extension links removed during setup migrations.
 
 ## Conventions
 
-- Conventional Commits with scope (e.g. `fix(rio): …`), one logical change per
+- Conventional Commits with scope (e.g. `fix(rex): …`), one logical change per
   commit, signed off (`-s`).
 - Don't commit speculative work; wait for an explicit "commit".
 - Integrate upstream branches with **merge, never rebase**.
@@ -81,14 +89,15 @@ repo-managed local `gh` extension links removed during setup migrations.
   required-check fail-fast watching for CI; `gh wait` for PR changes or
   default-branch commits; and `gh wait --merge` for completed merges.
   Do not use ad hoc sleep-and-poll loops.
-- `bin/wt --tab/--split` and `bin/review` use Rex when `REX_SESSION` is set
-  and Rex is installed, otherwise tmux. `bin/lib/pane.fish` shares the pane
-  launch logic. `wt` runs in the new pane so fetch/checkout happen there;
+- `bin/wt --tab/--split` and `bin/review` require Rex and `REX_SESSION`.
+  `wt` owns Rex pane launching; `review` delegates to it. `wt .` uses the
+  current directory without opening the worktree picker.
+  `wt` runs in the new pane so fetch/checkout happen there;
   `WT_PANE` makes `fail` hold the pane open. `wt --pr` uses the PR's head branch
   name for the worktree and local branch. If the branch exists, it reuses its
   worktree (or creates one) and pulls without rebasing. Worktrees marked for a
   different PR are not reused. For `wt -- <command>`,
-  Fish temporarily enables full job control so Rex and tmux see the foreground
+  Fish temporarily enables full job control so Rex sees the foreground
   command, then restores its prior job-control mode.
 - Review policy lives in `skills/my-code-review/SKILL.md`; `bin/review` only
   launches Copilot and selects continuous review with `--keep`. It takes any
@@ -100,7 +109,8 @@ repo-managed local `gh` extension links removed during setup migrations.
   agents over `skills/coordinator/SKILL.md`, which owns pane operations, durable
   briefs and results, monitoring ownership, recovery, and cleanup. The generic
   agent adds no role-specific policy. Reviews use Rex session `reviews`;
-  implementations use `work`. The generic agent can fall back to tmux.
+  implementations use `work`. All coordinators require Rex and an available
+  session.
   The skill disables model/user invocation; agents preload it through `skills:`.
   Each project has one writer per role and a persistent `<project>-reviewer.json`,
   `<project>-implementer.json`, or `<project>-coordinator.json` under
@@ -119,35 +129,15 @@ repo-managed local `gh` extension links removed during setup migrations.
   Idle review panes can close without a push or merge; worktree removal is
   separate and preserves reused worktrees and unfinished work.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
-- `p`, the Rex project picker, and `tmux-sessionizer` share the frecency-sorted
-  project list in `fish/functions/__project_list.fish`.
-- Rex Beta is the preferred macOS terminal in the Hyper+J shortcut and Dock.
-  `setup` links `rex/themes` and `rex/init.lua`; import the theme and select
-  Berkeley Mono 13 in Rex settings on each Mac. Cmd+P opens the project picker;
-  it finds Rex sessions by their `org/name` label and needs Remote Control
-  enabled in the app. Reload config with `rex config reload` after changes.
-  Rex manages its other app settings separately.
+- `p` uses the frecency-sorted project list in
+  `fish/functions/__project_list.fish`.
+- Rex Beta is the only macOS terminal, used by the Hyper+J shortcut and Dock.
+  `setup` links `rex/themes`; import the theme separately because custom theme
+  IDs are machine-local. `rex/settings.plist` preserves Berkeley Mono 12 and
+  selected appearance preferences, but no server addresses, permissions, or
+  session state. CLI client actions require Remote Control enabled in the app.
 - Neovim updates are explicit: `task nvim` updates plugins, then installs missing
   configured Tree-sitter parsers and updates installed parsers in a fresh Neovim
   process, waiting for completion. The individual commands are
   `:lua vim.pack.update()`, `:TSInstallConfigured`, and `:TSUpdate`. Do not install
   parsers on startup or update plugins in `setup`.
-
-## Keep terminal emulator configs in sync
-
-`ghostty/config` and `rio/config.toml` configure fallback terminal emulators
-that must stay behavior-equivalent. Whenever you change one, mirror the change
-in the other in the same commit. Rex uses its own pane controls and app-managed
-font settings; keep its imported theme in `rex/themes` in sync with Ghostty's
-Catppuccin Mocha palette and black background.
-
-- **tmux keybindings** must match exactly. Both send the same control sequences
-  (tmux prefix is `C-b` = `\x02` / `\u0002`). Ghostty `keybind = cmd+X=text:\x02Y`
-  corresponds to rio `{ key = "X", with = "super", esc = "\u0002Y" }`.
-- **Fonts**: same family (Berkeley Mono), size, features
-  (`zero`, `calt`, `liga`), and Nerd Font symbol/codepoint maps.
-- **Theme/appearance**: Catppuccin Mocha, black background, maximized window.
-
-When only one emulator supports a given option, document why in a comment rather
-than silently diverging. Before finishing any change to one of these files,
-diff the two and confirm the shared settings still match.

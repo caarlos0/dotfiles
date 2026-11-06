@@ -1,10 +1,10 @@
 # Dock apps for darkmatter, in order, one path per line.
-# Read by macos/set-defaults.sh, which replaces the whole Dock with this list.
+# Read by macos/set-dock.sh, which replaces the whole Dock with this list.
 # Lines starting with # and blank lines are ignored.
 /System/Applications/Reminders.app
 /System/Applications/Notes.app
 /System/Applications/Calendar.app
-/Applications/Safari.app
+/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app
 /Applications/Rex Beta.app
 /Applications/Canario.app
 /System/Applications/Mail.app

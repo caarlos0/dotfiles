@@ -14,8 +14,6 @@ set +e
 
 sudo -v
 
-host="$(hostname -s)"
-
 echo ""
 echo "› System:"
 echo "  › Disable press-and-hold for keys in favor of key repeat"
@@ -295,39 +293,7 @@ defaults write com.apple.dock mru-spaces -bool false
 echo "  › Make Dock size immutable"
 defaults write com.apple.dock size-immutable -bool true
 
-# The app list lives in macos/dock.<host>.txt because the personal and work
-# machines don't dock the same apps. Missing apps are skipped rather than
-# leaving a "?" tile behind.
-dock_list="$(dirname "$0")/dock.$host.txt"
-if [ -f "$dock_list" ]; then
-  echo "  › Set Dock apps from dock.$host.txt"
-  defaults delete com.apple.dock persistent-apps >/dev/null 2>&1
-  while IFS= read -r app; do
-    case "$app" in '' | '#'*) continue ;; esac
-    if [ ! -e "$app" ]; then
-      echo "    › Skipping $app, not installed"
-      continue
-    fi
-    defaults write com.apple.dock persistent-apps -array-add \
-      "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
-  done <"$dock_list"
-
-  echo "  › Keep only Downloads in the Dock's folder section"
-  defaults delete com.apple.dock persistent-others >/dev/null 2>&1
-  defaults write com.apple.dock persistent-others -array-add \
-    "<dict><key>tile-type</key><string>directory-tile</string><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$HOME/Downloads/</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
-else
-  echo "  › No dock.$host.txt, leaving Dock apps alone"
-fi
-
-#############################
-
-echo ""
-echo "› Terminals:"
-echo "  › Remap 'Hide Ghostty' to F11 (so Super+H can be used for split navigation)"
-defaults write com.mitchellh.ghostty NSUserKeyEquivalents -dict-add "Hide Ghostty" "\\UF70E"
-echo "  › Remap 'Hide rio' to F11 (so Super+H can be used for split navigation)"
-defaults write com.raphaelamorim.rio NSUserKeyEquivalents -dict-add "Hide rio" "\\UF70E"
+"$(dirname "$0")/set-dock.sh" || exit 1
 
 #############################
 
@@ -461,7 +427,7 @@ fi
 echo ""
 echo "› Restart related apps"
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-  "ControlCenter" "Dock" "Finder" "Ghostty" "Mail" "Messages" "Safari" \
+  "ControlCenter" "Dock" "Finder" "Mail" "Messages" "Safari" \
   "SystemUIServer" "Terminal" "Photos" "Image Capture"; do
   killall "$app" >/dev/null 2>&1
 done

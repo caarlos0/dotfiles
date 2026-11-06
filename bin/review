@@ -15,8 +15,8 @@ ARGUMENTS:
 
 OPTIONS:
   --keep,-k     keep reviewing new pushes until the PR is merged or closed
-  --tab,-t      open each review in a new Rex or tmux tab without focusing it
-  --split,-s    open each review in a new Rex or tmux split without focusing it
+  --tab,-t      open each review in a new Rex tab without focusing it
+  --split,-s    open each review in a new Rex split without focusing it
   --help,-h     show help
 
 Without a PR, reviews the current branch. Without --tab or --split,
@@ -52,8 +52,7 @@ set -q _flag_split; and set mode split
 
 if not set -q argv[1]
     if test -n "$mode"
-        source (dirname (status filename))/lib/pane.fish
-        open_pane $mode $cmd
+        wt --$mode . -- $cmd
         exit $status
     end
     exec $cmd

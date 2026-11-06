@@ -26,6 +26,9 @@ version here!
 Machine-specific bits (`Brewfile.<host>`, `hammerspoon/apps.<host>.lua`) are
 picked by `hostname -s`: `darkmatter` is personal, `quasar` is work.
 
+Run `./macos/set-dock.sh` to apply `macos/dock.<host>.txt` and refresh the Dock
+without changing other macOS settings. Both lists use Rex as the terminal.
+
 Copilot settings live in [`copilot/config.ini`](copilot/config.ini), one
 `key=value` per line. Values are literal; repeat keys for list settings.
 `./setup` applies only settings that do not already match; runtime paths stay
@@ -39,14 +42,25 @@ before running setup.
 Use `copilot --agent coordinator` for general coordination,
 `copilot --agent implementation-coordinator` for implementation, or
 `copilot --agent review-coordinator` for code reviews. All three preload the
-shared `coordinator` skill for Rex/tmux workers, durable handoffs, and cleanup.
+shared `coordinator` skill for Rex workers, durable handoffs, and cleanup.
 The skill cannot be invoked independently.
 
-Rex Beta is the preferred terminal for the Hyper+J shortcut and Dock. Install
-it separately on each Mac. In Rex settings, import
-`~/.config/rex/themes/Catppuccin Mocha Black` under Themes, then choose
-Berkeley Mono at 13 pt under Terminal. Rex stores these settings in the app;
-`./setup` links the theme file but does not import it or set the font.
+Rex Beta is the only terminal, used by the Hyper+J shortcut and Dock. Install
+it separately on each Mac. `./setup` links its theme files.
+
+Rex has no full-settings export command. Reuse its saved macOS preferences:
+
+1. Run `./macos/rex-settings.sh export` to update `rex/settings.plist`.
+2. On the other Mac, quit Rex and run `./macos/rex-settings.sh import`.
+3. Reopen Rex and import `~/.config/rex/themes/Catppuccin Mocha Black` in
+   Settings > Themes. Enable Remote Control in Settings > Server > Client Info
+   for CLI client actions.
+
+The plist contains only selected appearance and terminal preferences, including
+Berkeley Mono at 12 pt. Export uses its keys as the allowlist. It excludes custom
+theme IDs, server addresses, access grants, and session/window state. Import
+preserves unrelated preferences. The theme is imported separately because Rex
+assigns custom themes machine-local IDs.
 
 ## Releasing
 

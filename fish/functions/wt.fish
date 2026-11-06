@@ -32,4 +32,5 @@ complete --command wt --long list --short l --description "List worktrees"
 complete --command wt --long cleanup --short c --description "Remove all merged worktrees"
 complete --command wt --long main --short m --description "Create the worktree from the default branch"
 complete --command wt --long help --short h --description "Show help"
-complete --command wt --arguments '(__wt_complete)' --description "Worktree"
+complete --command wt --arguments . --description "Use the current directory"
+complete --command wt --arguments '(__wt_complete)' --description Worktree

@@ -119,8 +119,6 @@ brew "stylua"
 brew "syft"
 # User interface to the TELNET protocol
 brew "telnet"
-# Terminal multiplexer
-brew "tmux"
 # Parser generator tool
 brew "tree-sitter-cli"
 # Language Server Protocol implementation for TypeScript wrapping tsserver
@@ -163,8 +161,6 @@ cask "deckset"
 cask "discord"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
-# Terminal emulator that uses platform-native UI and GPU acceleration
-cask "ghostty"
 # Free and open-source image editor
 cask "gimp"
 # Web browser
@@ -197,8 +193,6 @@ cask "caarlos0/tap/pinata"
 cask "caarlos0/tap/prowl", trusted: true
 # Quick Look generator for Markdown files
 cask "qlmarkdown"
-# Hardware-accelerated GPU terminal emulator
-cask "rio"
 # Team communication and collaboration software
 cask "slack"
 # Notepad with a built-in calculator
@@ -207,8 +201,6 @@ cask "soulver"
 cask "caarlos0/tap/svu"
 # Messaging app with a focus on speed and security
 cask "telegram"
-# A tiny TUI that lists, filters and kills the processes running in every tmux pane.
-cask "caarlos0/tap/ttop", trusted: true
 # Multimedia player
 cask "vlc"
 # Native desktop client for WhatsApp

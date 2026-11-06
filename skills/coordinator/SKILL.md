@@ -15,13 +15,10 @@ and user request define scope; this skill grants no additional authority.
 
 ## Choose the backend
 
-If the selected agent requires a named Rex session, use the `rex` skill.
-Otherwise, use it when Rex is installed and a session is available, or use
-`tmux` when `$TMUX` is set. Load only the chosen terminal skill. If the required
-backend is unavailable, record tasks that cannot start and report the blocker.
-If Rex fails to connect or access is denied, report the error rather than
-silently switching backends. Ask only if multiple sessions cannot be resolved
-from the user's request.
+Use the `rex` skill. Rex must be installed and a session must be available.
+If either is missing, record the tasks that cannot start and report the blocker.
+If Rex fails to connect or access is denied, report the error. Ask only if
+multiple sessions cannot be resolved from the user's request.
 
 For a named Rex session, find its exact label with `rex ls --json`. Reuse its
 full session ID, or create it with `rex new NAME --json` if absent. Record the

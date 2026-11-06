@@ -17,7 +17,6 @@ fish_add_path -P -a /opt/homebrew/bin/
 fish_add_path -P -a /opt/homebrew/sbin
 fish_add_path -P -p /opt/homebrew/opt/rustup/bin/
 fish_add_path -P -a /Applications/Postgres.app/Contents/Versions/latest/bin/
-fish_add_path -P -a ~/Applications/Ghostty.app/Contents/MacOS/
 fish_add_path -P -a ~/.orbstack/bin
 
 # apps et al
@@ -25,7 +24,6 @@ alias d docker
 alias e nvim
 alias v nvim
 alias vimdiff 'nvim -d'
-alias ta 'tmux new -A -s default'
 alias freeze 'freeze -c full'
 alias t task
 alias cop 'copilot --yolo --agent caarlos0 --sandbox'
@@ -105,18 +103,6 @@ status is-interactive; and begin
     # insert a new line after the output of a command:
     function postexec_test --on-event fish_postexec
         echo
-    end
-
-    # traps the shell quit and switch to the last session if it's the last pane
-    # if last session is not available anymore, switch to default
-    function __trap_exit_tmux
-        test (tmux list-windows | count) = 1 || exit
-        test (tmux list-panes | count) = 1 || exit
-        tmux switch-client -l || tmux switch-client -t default
-    end
-
-    if set -q TMUX
-        trap __trap_exit_tmux EXIT
     end
 
     zoxide init fish | source
