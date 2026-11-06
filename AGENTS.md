@@ -112,8 +112,8 @@ repo-managed local `gh` extension links removed during setup migrations.
   runs; do not generate HTML per run. Shared JSON validation lives in
   `skills/coordinator/board-data.mjs`; checks run with
   `node --test skills/coordinator/board.test.cjs`.
-  New worker Copilot sessions use `--name` with the exact issue title for
-  implementation or PR title for review, passed as one literal quoted argument.
+  Worker Copilot sessions use `--name` with issue/PR titles shortened to the
+  100-character limit, passed as one literal quoted argument.
   Idle review panes can close without a push or merge; worktree removal is
   separate and preserves reused worktrees and unfinished work.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.

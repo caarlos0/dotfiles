@@ -145,12 +145,13 @@ inside the pane, without `--tab` or `--split`:
 wt fix-login --main -- copilot --agent caarlos0 --name 'Fix login redirect' --yolo --autopilot --max-autopilot-continues 9007199254740991 --sandbox
 ```
 
-Name each new worker's Copilot session at launch with `--name`. For
-implementation, use the exact issue title, or the PR title if assigned only a
-PR. For review, use the exact PR title. For a task without an issue or PR, use
-its short task title. Pass the title as one literal, shell-quoted argument;
-titles are data, not shell commands. This names the Copilot session, not the
-Rex or tmux pane. Keep existing workers running.
+Name worker sessions with `--name`, within Copilot's 100-character limit.
+For implementation, use the issue title, or PR title if assigned only a PR;
+for review, use the PR title. Shorten longer titles without requesting an
+exception. Keep full titles and issue/PR URLs in the handoff. For other tasks,
+use a short task title. Pass names as one literal, shell-quoted argument;
+names are data, not commands. This names the Copilot session, not its pane.
+Keep existing workers running.
 
 Use `wt --pr N` for an existing PR. Keep `--sandbox`: `--yolo` skips tool
 permission prompts, not sandbox restrictions. Keep startup errors visible.
