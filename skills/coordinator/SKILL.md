@@ -36,14 +36,51 @@ the required label before using its panes.
 
 Use `~/.local/state/copilot-coordinator/` for durable shared state, not worker
 worktrees or terminal scrollback. Keep files private and free of credentials.
-Create `<run-prefix>-handoff.json` per run and a separate brief and result file
-per worker, using the run's unique prefix. Use [handoff.example.json](handoff.example.json)
-as the JSON shape, not as real task data. Tell the user the handoff path and
-board URL.
+Keep one persistent handoff per project and role. Use `owner.repo` as the
+project key for a GitHub repository, including from its worktrees; for other
+projects, choose one stable, unique filename-safe key. Use these filenames:
+
+- `<project>-reviewer.json` for `review-coordinator`.
+- `<project>-implementer.json` for `implementation-coordinator`.
+- `<project>-coordinator.json` for the generic `coordinator`.
+
+Do not add dates, run IDs, or Copilot session IDs to these names. Split
+multi-project assignments between their project files. Use
+[handoff.example.json](handoff.example.json) as the JSON shape, not real data.
+Tell the user the persistent handoff path and board URL.
+
+Allow only one coordinator writer per project and role. Claim ownership with
+an atomic `mkdir` of `<project>-<role>.lock` in the state directory and record
+the owner's Copilot session and terminal pane IDs inside it. If already
+claimed, verify the owner and send new work to that coordinator; do not start
+a second writer. Reclaim a lock only after verifying the previous owner has
+stopped, never just because the lock is old. If ownership is uncertain, stop
+and report the blocker. Release only your own lock when coordination stops.
+Before publishing a staged update, verify ownership and reread the canonical
+file. If it appeared or changed since the update was prepared, merge into its
+current state first. Never replace an existing queue with an empty startup
+handoff. After a pause or migration, discard stale staged updates.
 
 The coordinator alone writes the handoff. Each worker writes only its assigned
-result file. Retain all three after completion so a restart does not lose the
-brief, evidence, or unfinished work. Use `$TMPDIR` only for disposable scratch.
+result file. Read and resume the existing handoff before adding work. Merge
+tasks by project, role, and issue/PR URL, or a stable local task ID; distinguish
+issues from PRs. Keep separate heads and worker attempts in task history,
+including publication and validation evidence. Do not hide concurrent live
+assignments in history or replace unresolved work with an older completed
+record. Use stable task-specific brief/result filenames; never overwrite a
+file still used by a worker. Use `$TMPDIR` only for disposable scratch.
+
+For legacy handoffs, first stop their coordinator writers and schedules, not
+their workers. Merge verified state into the project files, preserving source
+names, timestamps, authority, pending work, and conflicting evidence. Validate
+the merged handoffs and check that sources did not change before cutover.
+Archive superseded handoffs and board projections under `archive/` only after
+their consumers use the canonical files. Do not keep updating both versions.
+Do not move a live worker's brief/result paths. After a worker is idle and its
+result is verified, save its evidence in task history before archiving its
+artifacts. Clear archived `brief`/`result` links and retain archive paths in
+`details`. Check other tasks and workers first; leave artifacts with unknown
+users in place. Do not delete saved evidence.
 
 Record each task's repository, goal, acceptance criteria, brief/result paths,
 authorized actions, backend, session and pane IDs, worktree path and whether
@@ -66,11 +103,10 @@ It reads the JSON handoff directly, so there is no separate board state.
 The coordinator alone updates the handoff when tasks change, on each monitoring
 pass, and before pausing or ending the run. Write complete JSON to a temporary
 file beside the handoff, then rename it into place so readers never see a
-partial write. Retain the handoff after completion. Keep old non-JSON handoffs
-when resuming a legacy run; transfer their checked state to the JSON shape.
-If a legacy JSON handoff has active consumers, preserve its shape and update a
-board-compatible JSON projection in the same pass. The original remains
-authoritative; the projection retains its actual observation times.
+partial write. Reuse this same file after completion and on later requests.
+The board reads the canonical handoff; do not create a separate board JSON,
+per-run copy, or projection. Keep historical records in task history or the
+archive, not as additional active handoffs.
 
 Use `pending`, `running`, `verifying`, `blocked`, or `done` for task status.
 Pending means not started; Running means assigned work is active; Verifying
@@ -101,10 +137,10 @@ it with `--directory PATH`. The server binds only to `127.0.0.1`, defaults to
 port 8765, and prints its HTTP URL. Use `--port PORT` if that port is occupied;
 do not kill another process to take its port. Use `--help` for usage.
 
-Share the printed HTTP URL, not a `file://` link. The page lists valid JSON
-handoffs in the state directory in a coordinator selector, with goals, status,
-and task counts. It excludes unrelated reports and temporary JSON; failures
-for recognizable handoffs are shown separately. No browser file picker or file
+Share the printed HTTP URL, not a `file://` link. The selector lists project/role
+handoffs and legacy `*-handoff.json` files, with goals, status, and task counts.
+It excludes board projections, worker outputs, snapshots, and temporary JSON;
+invalid handoffs are shown separately. No browser file picker or file
 access grant is needed. A direct link can add `?file=<URL-encoded filename>`;
 absolute JSON paths also work when directly inside the configured directory.
 Do not open the browser for the user.

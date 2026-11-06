@@ -355,6 +355,22 @@ test("HTTP discovery lists valid handoffs rather than unrelated reports", { time
   assert.deepEqual(data.errors, []);
 });
 
+test("HTTP discovery lists role handoffs but excludes board copies and worker JSON", async (t) => {
+  const server = await serverFixture(t);
+  for (const role of ["reviewer", "implementer", "coordinator"]) {
+    await server.write(`project-${role}.json`, { ...example, id: `project-${role}` });
+  }
+  await server.write("old-board.json", example);
+  await server.write("worker-result.json", example);
+  await server.write("pass-snapshot.json", example);
+  const data = await (await fetch(new URL("api/boards", server.url))).json();
+  assert.deepEqual(data.boards.map((board) => board.file), [
+    "example-handoff.json", "project-coordinator.json",
+    "project-implementer.json", "project-reviewer.json",
+  ]);
+  assert.deepEqual(data.errors, []);
+});
+
 test("HTTP discovery reports invalid handoffs but excludes temporary JSON", async (t) => {
   const server = await serverFixture(t);
   await server.raw("broken-handoff.json", "incomplete JSON");

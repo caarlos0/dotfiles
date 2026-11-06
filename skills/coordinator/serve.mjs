@@ -80,11 +80,11 @@ No packages are required. Invalid arguments exit 2; startup failures exit 1.`);
     const errors = [];
     for (const entry of await readdir(directory, { withFileTypes: true })) {
       const file = entry.name;
-      if ((!entry.isFile() && !entry.isSymbolicLink()) || !/\.json$/i.test(file) ||
-          file.startsWith(".") || /\.(next|tmp)\.json$/i.test(file)) continue;
-      let data;
+      if ((!entry.isFile() && !entry.isSymbolicLink()) ||
+          !/-(handoff|reviewer|implementer|coordinator)\.json$/i.test(file) ||
+          file.startsWith(".")) continue;
       try {
-        data = JSON.parse(await readFile(await localFile(file), "utf8"));
+        const data = JSON.parse(await readFile(await localFile(file), "utf8"));
         validate(data);
         boards.push({
           file,
@@ -96,11 +96,7 @@ No packages are required. Invalid arguments exit 2; startup failures exit 1.`);
           task_count: data.tasks.length,
         });
       } catch (error) {
-        const looksLikeBoard = /-(board|handoff)\.json$/i.test(file) ||
-          (data && Array.isArray(data.tasks) && typeof data.goal === "string");
-        if (looksLikeBoard || (error.code && error.code !== "ENOENT")) {
-          errors.push({ file, error: error.message });
-        }
+        errors.push({ file, error: error.message });
       }
     }
     boards.sort((a, b) => Date.parse(b.updated_at) - Date.parse(a.updated_at) ||

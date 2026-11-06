@@ -1,6 +1,8 @@
 {
-  "id": "example",
-  "goal": "Describe the run's goal",
+  "id": "owner.repository-coordinator",
+  "project": "owner/repository",
+  "role": "coordinator",
+  "goal": "Coordinate work for owner/repository",
   "status": "active",
   "updated_at": "2026-11-05T05:00:00Z",
   "tasks": [

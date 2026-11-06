@@ -102,9 +102,10 @@ repo-managed local `gh` extension links removed during setup migrations.
   agent adds no role-specific policy. Reviews use Rex session `reviews`;
   implementations use `work`. The generic agent can fall back to tmux.
   The skill disables model/user invocation; agents preload it through `skills:`.
-  One-shot workers do not start watchers or schedules. The coordinator alone
-  writes a per-run JSON handoff; workers write separate result files under
-  `~/.local/state/copilot-coordinator/`. The skill ships a reusable `board.html`
+  Each project has one writer per role and a persistent `<project>-reviewer.json`,
+  `<project>-implementer.json`, or `<project>-coordinator.json` under
+  `~/.local/state/copilot-coordinator/`; the board reads that same handoff.
+  One-shot workers save results without watchers. The skill ships `board.html`
   and `handoff.example.json`. Run `node ~/.copilot/skills/coordinator/serve.mjs`
   (or Bun) for a dependency-free loopback server. Its HTTP page lists valid JSON
   handoffs and refreshes the list and selected board every five seconds. It shows
