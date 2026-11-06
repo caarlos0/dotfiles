@@ -94,9 +94,9 @@ agent/skill, and local `gh` extension links removed during setup migrations.
   current directory without opening the worktree picker.
   `wt` runs in the new pane so fetch/checkout happen there;
   `WT_PANE` makes `fail` hold the pane open. `wt --pr` uses the PR's head branch
-  name for the worktree and local branch, and reuses only worktrees marked with
-  that PR's URL.
-  Unmarked older worktrees are not reused automatically. For `wt -- <command>`,
+  name for the worktree and local branch. If the branch exists, it reuses its
+  worktree (or creates one) and pulls without rebasing. Worktrees marked for a
+  different PR are not reused. For `wt -- <command>`,
   Fish temporarily enables full job control so Rex sees the foreground
   command, then restores its prior job-control mode.
 - Review policy lives in `skills/my-code-review/SKILL.md`; `bin/review` only
@@ -108,12 +108,24 @@ agent/skill, and local `gh` extension links removed during setup migrations.
 - `coordinator`, `implementation-coordinator`, and `review-coordinator` are thin
   agents over `skills/coordinator/SKILL.md`, which owns pane operations, durable
   briefs and results, monitoring ownership, recovery, and cleanup. The generic
-  agent adds no role-specific policy. The skill requires Rex and an available
-  session. The skill disables model and user
-  invocation; coordinator agents preload it through `skills:` frontmatter.
-  One-shot workers do not start watchers or schedules. The coordinator alone
-  writes the run handoff; workers write separate result files under
-  `~/.local/state/copilot-coordinator/`.
+  agent adds no role-specific policy. Reviews use Rex session `reviews`;
+  implementations use `work`. All coordinators require Rex and an available
+  session.
+  The skill disables model/user invocation; agents preload it through `skills:`.
+  Each project has one writer per role and a persistent `<project>-reviewer.json`,
+  `<project>-implementer.json`, or `<project>-coordinator.json` under
+  `~/.local/state/copilot-coordinator/`; the board reads that same handoff.
+  One-shot workers save results without watchers. The skill ships `board.html`
+  and `handoff.example.json`. Run `node ~/.copilot/skills/coordinator/serve.mjs`
+  (or Bun) for a dependency-free loopback server. Its HTTP page lists valid JSON
+  handoffs and refreshes the list and selected board every five seconds. It shows
+  Pending, Running, Verifying, Blocked, and Done columns. Use one server for all
+  runs; do not generate HTML per run. Shared JSON validation lives in
+  `skills/coordinator/board-data.mjs`; checks run with
+  `node --test skills/coordinator/board.test.cjs`.
+  Worker Copilot sessions and Rex tabs share the issue/PR title, or a descriptive
+  title from the user's prompt when unavailable. Shorten to 100 characters and
+  pass `--name` as one literal quoted argument, never a worktree name or number.
   Idle review panes can close without a push or merge; worktree removal is
   separate and preserves reused worktrees and unfinished work.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.

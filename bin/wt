@@ -28,7 +28,8 @@ ARGUMENTS:
                     e.g. wt foo -- cop
 
 OPTIONS:
-  --pr,-p <number>  check out pull request <number> using its head branch name
+  --pr,-p <number>  check out pull request <number> using its head branch name;
+                    reuse and pull an existing local branch
   --main,-m         create the worktree from origin/<default branch>
   --tab,-t          do the work in a new Rex tab, without switching to it
   --split,-s        do the work in a new vertical Rex split, without
@@ -204,14 +205,15 @@ end
 
 function create_pr_worktree -a name -a pr
     set -l wt_path (worktree_path $name)
-    if branch_exists $name
-        fail "branch '$name' already exists; refusing to use it for PR $pr"
-    end
     if test -e $wt_path; or test -L $wt_path
         fail "worktree path '$wt_path' already exists"
     end
     log "Creating worktree at $wt_path for PR $pr..."
-    git worktree add --detach $wt_path
+    if branch_exists $name
+        git worktree add $wt_path $name
+    else
+        git worktree add --detach $wt_path
+    end
     or fail "failed to create worktree '$name'"
 
     set -l git_dir (git -C $wt_path rev-parse --absolute-git-dir)
@@ -612,22 +614,25 @@ else if test "$name" = -
     end
 else
     set -l dir
+    set -l reuse_pr_branch false
     if test -n "$pr"
-        set -l expected (worktree_path $name)
-        if contains -- "worktree $expected" (git worktree list --porcelain)
-            set -l owner (worktree_pr $expected)
+        branch_exists $name; and set reuse_pr_branch true
+        set dir (find_worktree $name)
+        if test -n "$dir"
+            set -l owner (worktree_pr $dir)
+            set -l branch (git -C $dir branch --show-current)
+            or fail "failed to identify branch in worktree '$dir'"
             if test "$owner" != "$pr_url"
-                fail "worktree '$expected' is not owned by PR $pr"
+                if test -n "$owner"; or test -z "$branch"
+                    fail "worktree '$dir' is not owned by PR $pr"
+                end
             end
-            set -l branch (git -C $expected branch --show-current)
-            or fail "failed to identify branch in worktree '$expected'"
             if test -n "$branch"; and test "$branch" != "$name"
-                fail "worktree '$expected' is on branch '$branch', not '$name'"
+                fail "worktree '$dir' is on branch '$branch', not '$name'"
             end
             if test -z "$branch"; and branch_exists $name
                 fail "branch '$name' exists outside its PR worktree"
             end
-            set dir $expected
         end
     else
         set dir (find_worktree $name)
@@ -646,6 +651,12 @@ else
         set dir (worktree_path $name)
     end
 
-    test -n "$pr"; and checkout_pr $dir $pr $pr_head_branch $name
+    if test "$reuse_pr_branch" = true
+        log "Pulling branch '$name'..."
+        git -C $dir pull --no-rebase
+        or fail "failed to pull branch '$name'"
+    else if test -n "$pr"
+        checkout_pr $dir $pr $pr_head_branch $name
+    end
     switch_to $dir
 end
