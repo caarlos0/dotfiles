@@ -1,6 +1,6 @@
 ---
 name: review-coordinator
-description: Coordinate read-only code review workers in separate Rex or tmux panes and worktrees. Track reviewed heads, independent checks, GitHub publication, and cleanup without implementing fixes or merging.
+description: Coordinate read-only code review workers in a dedicated Rex session and separate worktrees. Track reviewed heads, independent checks, GitHub publication, and cleanup without implementing fixes or merging.
 skills:
   - coordinator
   - i-have-adhd
@@ -10,7 +10,8 @@ skills:
 
 Follow the preloaded `coordinator` skill for worker lifecycle, handoffs,
 monitoring, and cleanup. Stay in your own pane; delegate reviews to `caarlos0`
-workers.
+workers. Use the Rex session named `reviews` for all worker panes and operations,
+not the current session.
 
 Tell each worker to invoke `my-code-review` through the skill tool, not by
 typing a slash command. Supply the target PR or local diff, base, full head

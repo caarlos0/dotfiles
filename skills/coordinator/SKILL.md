@@ -15,12 +15,22 @@ and user request define scope; this skill grants no additional authority.
 
 ## Choose the backend
 
-Use the `rex` skill when Rex is installed and a session is available. Otherwise,
-use `tmux` when `$TMUX` is set. Load only the chosen terminal skill. If neither
-is available, record the tasks that cannot start and report the blocker.
+If the selected agent requires a named Rex session, use the `rex` skill.
+Otherwise, use it when Rex is installed and a session is available, or use
+`tmux` when `$TMUX` is set. Load only the chosen terminal skill. If the required
+backend is unavailable, record tasks that cannot start and report the blocker.
 If Rex fails to connect or access is denied, report the error rather than
 silently switching backends. Ask only if multiple sessions cannot be resolved
 from the user's request.
+
+For a named Rex session, find its exact label with `rex ls --json`. Reuse its
+full session ID, or create it with `rex new NAME --json` if absent. Record the
+resolved ID in the handoff and explicitly target it for all worker tab creation,
+splits, inspection, input, and cleanup. Do not use the inherited `$REX_SESSION`
+as the target or rename the current session. Split only beside a pane in the
+target session, not an inherited `$REX_BLOCK` from another session. Keep new
+tabs in the background. After a restart, verify the recorded session still has
+the required label before using its panes.
 
 ## Save the handoff
 

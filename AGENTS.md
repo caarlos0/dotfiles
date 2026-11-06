@@ -99,9 +99,9 @@ repo-managed local `gh` extension links removed during setup migrations.
 - `coordinator`, `implementation-coordinator`, and `review-coordinator` are thin
   agents over `skills/coordinator/SKILL.md`, which owns pane operations, durable
   briefs and results, monitoring ownership, recovery, and cleanup. The generic
-  agent adds no role-specific policy. The skill prefers Rex when a session is
-  available, otherwise tmux. The skill disables model and user
-  invocation; coordinator agents preload it through `skills:` frontmatter.
+  agent adds no role-specific policy. Reviews use Rex session `reviews`;
+  implementations use `work`. The generic agent can fall back to tmux.
+  The skill disables model/user invocation; agents preload it through `skills:`.
   One-shot workers do not start watchers or schedules. The coordinator alone
   writes a per-run JSON handoff; workers write separate result files under
   `~/.local/state/copilot-coordinator/`. The skill ships a reusable `board.html`
