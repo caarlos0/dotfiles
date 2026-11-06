@@ -85,9 +85,9 @@ repo-managed local `gh` extension links removed during setup migrations.
   and Rex is installed, otherwise tmux. `bin/lib/pane.fish` shares the pane
   launch logic. `wt` runs in the new pane so fetch/checkout happen there;
   `WT_PANE` makes `fail` hold the pane open. `wt --pr` uses the PR's head branch
-  name for the worktree and local branch, and reuses only worktrees marked with
-  that PR's URL.
-  Unmarked older worktrees are not reused automatically. For `wt -- <command>`,
+  name for the worktree and local branch. If the branch exists, it reuses its
+  worktree (or creates one) and pulls without rebasing. Worktrees marked for a
+  different PR are not reused. For `wt -- <command>`,
   Fish temporarily enables full job control so Rex and tmux see the foreground
   command, then restores its prior job-control mode.
 - Review policy lives in `skills/my-code-review/SKILL.md`; `bin/review` only
