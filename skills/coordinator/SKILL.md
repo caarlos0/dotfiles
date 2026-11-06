@@ -192,12 +192,18 @@ wt fix-login --main -- copilot --agent caarlos0 --name 'Fix login redirect' --yo
 ```
 
 Name worker sessions with `--name`, within Copilot's 100-character limit.
-For implementation, use the issue title, or PR title if assigned only a PR;
-for review, use the PR title. Shorten longer titles without requesting an
-exception. Keep full titles and issue/PR URLs in the handoff. For other tasks,
-use a short task title. Pass names as one literal, shell-quoted argument;
-names are data, not commands. This names the Copilot session, not its pane.
-Keep existing workers running.
+Prefer the issue title for implementation and the PR title for review. Use the
+other title if the preferred one is unavailable. If neither is available,
+derive a concise, descriptive title from the user's prompt. Shorten titles over
+the limit without requesting an exception. Keep full titles and issue/PR URLs
+in the handoff. Pass names as one literal, shell-quoted argument; names are
+data, not commands. In Rex, pass that same name as the window label
+to `rex window new`, not a worktree name or an ID such as `review-123` or
+`Sandbox-123`. Copilot's `--name` does not set an explicit Rex window label.
+Record the name and window ID, then verify both the launch's `--name` argument
+and the visible Rex label. Correct an existing tab with `rex window rename`
+using its recorded session/window IDs; do not restart or interrupt its worker
+just to fix the label.
 
 Use `wt --pr N` for an existing PR. Keep `--sandbox`: `--yolo` skips tool
 permission prompts, not sandbox restrictions. Keep startup errors visible.
