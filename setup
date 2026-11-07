@@ -120,17 +120,13 @@ if which copilot &>/dev/null; then
     info "Installing the infographic Copilot plugin"
     copilot plugin marketplace add andyfeller/plugins >/dev/null
     copilot plugin install infographic@andyfeller >/dev/null
-    sandbox_ro ~/.copilot/installed-plugins/andyfeller/infographic
     success "Installed the infographic Copilot plugin"
   fi
   if ! grep -Fwq github/lever <<<"$copilot_marketplaces"; then
     info "Installing the lever Copilot plugin"
     copilot plugin marketplace add github/lever >/dev/null
     copilot plugin install lever@lever >/dev/null
-    sandbox_ro ~/.copilot/installed-plugins/lever/lever
-    sandbox_rw ~/.copilot/lever.yml
     mkdir -p ~/.copilot/prompt-mirror
-    sandbox_rw ~/.copilot/prompt-mirror
     success "Installed the lever Copilot plugin"
   fi
 
@@ -146,7 +142,6 @@ if which copilot &>/dev/null; then
       warn "Personal Copilot plugin $plugin is disabled; run copilot plugin enable $plugin@caarlos0 before migrating." >&2
       exit 1
     fi
-    sandbox_ro ~/.copilot/installed-plugins/caarlos0/"$plugin"
   done
 
   info "Updating Copilot plugins"

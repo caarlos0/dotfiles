@@ -19,8 +19,9 @@ avoid GNU-only/BSD-only flags.
   access to the Rex server socket. Generates Fish completions for Rex and Copilot
   when each command is available.
 - `copilot/config.ini` — static Copilot settings, one `key=value` per line.
-  Values are literal; repeat keys for list settings. Runtime paths and the
-  conditional plugin grant stay in `setup`.
+  Values are literal; repeat keys for list settings. All installed plugin files
+  share one read-only sandbox grant; Lever's data paths have separate write
+  grants. Runtime paths stay in `setup`.
 - `macos/set-defaults.sh` — macOS `defaults` writes. Run by hand, **not** by
   `setup`. The Mail and Safari sections need Full Disk Access to have any
   effect, since those prefs live in sandbox containers.
