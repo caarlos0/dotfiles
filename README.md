@@ -34,16 +34,18 @@ Copilot settings live in [`copilot/config.ini`](copilot/config.ini), one
 `./setup` applies only settings that do not already match; runtime paths stay
 in `setup`.
 
-Copilot agents and skills are symlinked individually into `~/.copilot`. Setup
-leaves existing files and directories alone and configures read-write sandbox
-access to this repository. Remove old copies of repo-managed entries once
-before running setup.
+Copilot agents and skills live in
+[caarlos0/copilot](https://github.com/caarlos0/copilot). Setup installs and
+updates the coding, security, fitness, terminals, coordination, and home plugins
+from its marketplace, then removes only old agent/skill symlinks that point into
+this dotfiles checkout. Other links, files, and directories are left alone.
+Copilot settings and personal instructions stay here.
 
-Use `copilot --agent coordinator` for general coordination,
-`copilot --agent implementation-coordinator` for implementation, or
-`copilot --agent review-coordinator` for code reviews. All three preload the
-shared `coordinator` skill for Rex workers, durable handoffs, and cleanup.
-The skill cannot be invoked independently.
+Use `copilot --agent coordination:general` for general coordination,
+`copilot --agent coordination:implement` for implementation, or
+`copilot --agent coordination:review` for code reviews. All three
+preload the shared `coordinator` skill for Rex workers, durable handoffs, and
+cleanup. The skill cannot be invoked independently.
 
 Rex Beta is the only terminal, used by the Hyper+J shortcut and Dock. Install
 it separately on each Mac. `./setup` links its theme files.

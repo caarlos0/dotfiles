@@ -115,7 +115,7 @@ if which copilot &>/dev/null; then
   success "Copilot configuration is up to date"
 
   info "Checking Copilot plugin marketplace"
-  copilot_marketplaces=$(copilot plugin marketplace list)
+  copilot_marketplaces=$(copilot plugin marketplace list --json)
   if ! grep -Fwq andyfeller/plugins <<<"$copilot_marketplaces"; then
     info "Installing the infographic Copilot plugin"
     copilot plugin marketplace add andyfeller/plugins >/dev/null
@@ -134,19 +134,30 @@ if which copilot &>/dev/null; then
     success "Installed the lever Copilot plugin"
   fi
 
+  info "Checking personal Copilot plugins"
+  if ! jq -e 'any(.[]; .name == "caarlos0")' <<<"$copilot_marketplaces" >/dev/null; then
+    copilot plugin marketplace add caarlos0/copilot >/dev/null
+  fi
+  copilot_plugins=$(copilot plugin list --json)
+  for plugin in coding security fitness terminals coordination home; do
+    if ! jq -e --arg name "$plugin" 'any(.[]; .name == $name and .marketplace == "caarlos0")' <<<"$copilot_plugins" >/dev/null; then
+      copilot plugin install "$plugin@caarlos0" >/dev/null
+    elif ! jq -e --arg name "$plugin" 'any(.[]; .name == $name and .marketplace == "caarlos0" and .enabled)' <<<"$copilot_plugins" >/dev/null; then
+      warn "Personal Copilot plugin $plugin is disabled; run copilot plugin enable $plugin@caarlos0 before migrating." >&2
+      exit 1
+    fi
+    sandbox_ro ~/.copilot/installed-plugins/caarlos0/"$plugin"
+  done
+
   info "Updating Copilot plugins"
   copilot plugin update --all >/dev/null
   success "Updated Copilot plugins"
 
-  info "Linking Copilot agents and skills"
-  mkdir -p ~/.copilot/{agents,skills}/
-  for agent in "$PWD"/agents/*; do
-    [ -f "$agent" ] || continue
-    link "$agent" ~/.copilot/agents/"$(basename "$agent")"
-  done
-  for skill in "$PWD"/skills/*; do
-    [ -d "$skill" ] || continue
-    link "$skill" ~/.copilot/skills/"$(basename "$skill")"
+  info "Removing retired Copilot agent and skill links"
+  for kind in agents skills; do
+    for entry in ~/.copilot/"$kind"/*; do
+      unlink_managed "$PWD/$kind/$(basename "$entry")" "$entry"
+    done
   done
   if which gh &>/dev/null; then
     info "Installing shared Copilot skills"
