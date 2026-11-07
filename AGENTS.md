@@ -22,6 +22,9 @@ avoid GNU-only/BSD-only flags.
   Values are literal; repeat keys for list settings. All installed plugin files
   share one read-only sandbox grant; Lever's data paths have separate write
   grants. Runtime paths stay in `setup`.
+- `copilot/hooks/*.json` — global hooks, linked individually into
+  `~/.copilot/hooks/` by `setup`. The Rex session-start hook supplies terminal
+  context on start and resume. Hooks cannot be set with `copilot config`.
 - `macos/set-defaults.sh` — macOS `defaults` writes. Run by hand, **not** by
   `setup`. The Mail and Safari sections need Full Disk Access to have any
   effect, since those prefs live in sandbox containers.

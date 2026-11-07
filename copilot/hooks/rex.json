@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "bash": "context=$(rex __internal session-start --agent copilot) && jq -n --arg context \"$context\" '{additionalContext: $context}'",
+        "timeoutSec": 5
+      }
+    ]
+  }
+}

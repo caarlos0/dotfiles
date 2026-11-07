@@ -194,6 +194,10 @@ link "$PWD"/prowl ~/.config/prowl
 link "$PWD"/copilot/copilot-instructions.md ~/.copilot/copilot-instructions.md
 link "$PWD"/copilot/lsp-config.json ~/.copilot/lsp-config.json
 link "$PWD"/copilot/mcp-config.json ~/.copilot/mcp-config.json
+for hook in "$PWD"/copilot/hooks/*.json; do
+  [ -f "$hook" ] || continue
+  link "$hook" ~/.copilot/hooks/"$(basename "$hook")"
+done
 
 if [[ $OSTYPE == 'darwin'* ]]; then
   if [ -f "$PWD"/Brewfile."$host" ]; then
