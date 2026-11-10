@@ -29,7 +29,7 @@ if set -q _flag_tab; and set -q _flag_split
     exit 1
 end
 
-set -l prompt "/my-code-review this branch."
+set -l prompt "use /coding:my-code-review and /lever review on this branch."
 
 if set -q _flag_keep
     set prompt "$prompt

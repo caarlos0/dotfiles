@@ -27,9 +27,9 @@ alias vimdiff 'nvim -d'
 alias freeze 'freeze -c full'
 alias t task
 alias cop 'copilot --yolo --agent coding:caarlos0 --sandbox'
-alias coop 'copilot --yolo --agent coordination:general --autopilot --max-autopilot-continues 9007199254740991 --no-sandbox'
-alias implementer 'coop --agent coordination:implement'
-alias reviewer 'coop --agent coordination:review'
+alias coop 'copilot --yolo --agent coordination:general --no-sandbox --name coordinator'
+alias implementer 'coop --agent coordination:implement --name implementer'
+alias reviewer 'coop --agent coordination:review --name reviewer'
 
 # go
 alias gmt 'go mod tidy'
