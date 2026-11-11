@@ -103,7 +103,7 @@ agent/skill, and local `gh` extension links removed during setup migrations.
   different PR are not reused. For `wt -- <command>`,
   Fish temporarily enables full job control so Rex sees the foreground
   command, then restores its prior job-control mode.
-- Review policy lives in the coding plugin's `my-code-review` skill.
+- Review policy lives in the coding plugin's `review` skill.
   `bin/review` only launches Copilot and selects continuous review with `--keep`. It takes any
   number of PRs: zero or one runs in the current pane unless `--tab`/`-t` or
   `--split`/`-s` is given; several require one of those flags.
