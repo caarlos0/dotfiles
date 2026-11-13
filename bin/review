@@ -40,9 +40,6 @@ set -l cmd copilot --yolo \
     --autopilot \
     --max-autopilot-continues 9007199254740991 \
     --agent coding:caarlos0 \
-    --effort medium \
-    --context long_context \
-    --model gpt-6.1-sol \
     --sandbox \
     -i "$prompt"
 

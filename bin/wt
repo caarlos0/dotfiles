@@ -37,6 +37,10 @@ OPTIONS:
   --delete,-d       remove the worktree <name>
   --list,-l         list worktrees
   --cleanup,-c      interactively remove merged/closed worktrees
+  --auto-cleanup    force-remove worktrees without a Copilot process in them;
+                    keep the main/current worktrees and local branches
+                    WARNING: discards uncommitted changes, even for open PRs
+  --dry-run         preview --auto-cleanup without removing anything
   --help,-h         show help"
 end
 
@@ -461,6 +465,72 @@ function cleanup_worktrees
     log "Removed $removed worktree(s)."
 end
 
+function copilot_directories
+    set -l pids (command pgrep -x copilot)
+    switch $status
+        case 1
+            return 0
+        case 0
+        case '*'
+            echo "error: failed to list Copilot processes; stopping cleanup" >&2
+            return 1
+    end
+
+    for pid in $pids
+        set -l files (command lsof -a -p $pid -d cwd -Fn)
+        or begin
+            echo "error: failed to read cwd for Copilot process $pid" >&2
+            return 1
+        end
+        set -l cwd (string match -rg '^n(/.*)' -- $files)
+        if test (count $cwd) -ne 1
+            echo "error: could not identify cwd for Copilot process $pid" >&2
+            return 1
+        end
+        path resolve -- $cwd
+        or return 1
+    end
+end
+
+function auto_cleanup_worktrees -a dry_run
+    command -q pgrep; or fail "pgrep is required for --auto-cleanup"
+    command -q lsof; or fail "lsof is required for --auto-cleanup"
+
+    set -l current_wt (path resolve -- (git rev-parse --show-toplevel))
+    or return 1
+    set -l worktrees (git worktree list --porcelain)
+    or return 1
+    set -l paths (string match -rg '^worktree (.*)' -- $worktrees)
+    set -e paths[1]
+    set -l removed 0
+    for wt_path in $paths
+        set -l resolved (path resolve -- $wt_path)
+        or return 1
+        test "$resolved" = "$current_wt"; and continue
+
+        set -l active_dirs (copilot_directories)
+        or return 1
+        if set -q active_dirs[1]; and string match -qr -- '^'(string escape --style=regex -- "$resolved")'(/|$)' $active_dirs
+            log "Keeping active worktree $wt_path."
+            continue
+        end
+
+        if test "$dry_run" = true
+            log "Would remove worktree $wt_path."
+        else
+            log "Removing worktree $wt_path..."
+            git worktree remove --force -- $wt_path
+            or return 1
+        end
+        set removed (math $removed + 1)
+    end
+    if test "$dry_run" = true
+        log "Would remove $removed worktree(s)."
+    else
+        log "Removed $removed worktree(s)."
+    end
+end
+
 # ---
 
 # everything after -- is a command to run in the worktree
@@ -484,6 +554,8 @@ set -l name ""
 set -l delete false
 set -l list false
 set -l cleanup false
+set -l auto_cleanup false
+set -l dry_run false
 set -l from_main false
 set -l pr ""
 set -l want_pr false
@@ -509,6 +581,10 @@ for arg in $argv
             set list true
         case --cleanup -c
             set cleanup true
+        case --auto-cleanup
+            set auto_cleanup true
+        case --dry-run
+            set dry_run true
         case --main -m
             set from_main true
         case --tab -t
@@ -524,6 +600,16 @@ end
 
 if test "$want_pr" = true
     fail "usage: wt --pr <number>"
+end
+
+if test "$auto_cleanup" = true
+    if test -n "$name" -o -n "$pr" -o -n "$open_in"; or test "$list" = true -o "$delete" = true -o "$cleanup" = true -o "$from_main" = true; or set -q run_cmd[1]
+        fail "--auto-cleanup can only be combined with --dry-run"
+    end
+    auto_cleanup_worktrees $dry_run
+    exit $status
+else if test "$dry_run" = true
+    fail "--dry-run requires --auto-cleanup"
 end
 
 if set -q run_cmd[1]; and test "$list" = true -o "$delete" = true -o "$cleanup" = true

@@ -30,6 +30,8 @@ complete --command wt --long pr --short p --require-parameter --no-files \
 complete --command wt --long delete --short d --description "Remove a worktree"
 complete --command wt --long list --short l --description "List worktrees"
 complete --command wt --long cleanup --short c --description "Remove all merged worktrees"
+complete --command wt --long auto-cleanup --description "Force-remove worktrees without a Copilot process"
+complete --command wt --long dry-run --description "Preview automatic cleanup"
 complete --command wt --long main --short m --description "Create the worktree from the default branch"
 complete --command wt --long help --short h --description "Show help"
 complete --command wt --arguments . --description "Use the current directory"
