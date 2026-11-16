@@ -158,6 +158,7 @@ if which copilot &>/dev/null; then
     info "Installing shared Copilot skills"
     gh skill install github/gh-stack --agent github-copilot --all --scope user --force >/dev/null 2>&1
     gh skill install ayghri/i-have-adhd i-have-adhd --agent github-copilot --scope user --force >/dev/null 2>&1
+    gh skill install dmtrKovalenko/fframes fframes-video --agent github-copilot --scope user --force >/dev/null 2>&1
     success "Installed shared Copilot skills"
   else
     warn "GitHub CLI not found, skipping shared Copilot skills" >&2
