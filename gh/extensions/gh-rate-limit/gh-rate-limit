@@ -1,43 +1,64 @@
 #!/bin/sh
 set -e
 
-case "$1" in
-  -h | --help)
-    cat <<'EOF'
+usage() {
+  cat <<'EOF'
 Show the current user's GitHub API rate limits.
 
-Usage: gh rate-limit
+Usage: gh rate-limit [-w | --watch]
+
+Rows are sorted by usage, highest first. Reset times are rounded to the
+nearest minute.
 
 Usage percentages are green below 50%, yellow below 80%, and red otherwise.
 Reset times are dimmed. A zero limit is shown as n/a.
 Styles are disabled when stdout is not a terminal, NO_COLOR is nonempty,
 or TERM is dumb.
-EOF
-    exit 0
-    ;;
-  "") ;;
-  *)
-    printf 'unknown argument: %s (see gh rate-limit --help)\n' "$1" >&2
-    exit 2
-    ;;
-esac
 
+Options:
+  -w, --watch  Redraw the table every 15 seconds until interrupted.
+  -h, --help   Show this help.
+EOF
+}
+
+watch=0
+for arg in "$@"; do
+  case "$arg" in
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -w | --watch) watch=1 ;;
+    *)
+      printf 'unknown argument: %s (see gh rate-limit --help)\n' "$arg" >&2
+      exit 2
+      ;;
+  esac
+done
+
+tty=0
+if [ -t 1 ] && [ "$TERM" != dumb ]; then
+  tty=1
+fi
 color=0
-if [ -t 1 ] && [ -z "$NO_COLOR" ] && [ "$TERM" != dumb ]; then
+if [ "$tty" = 1 ] && [ -z "$NO_COLOR" ]; then
   color=1
 fi
 
-data=$(gh api rate_limit --jq '
-  .resources | to_entries[] |
-  [.key, .value.used, .value.limit, ([.value.reset - now, 0] | max | floor)] |
-  @tsv')
-
-printf '%s\n' "$data" |
-  awk -F '\t' -v color="$color" '
-    function dur(s) {
-      if (s >= 3600) return sprintf("%dh %dm", s / 3600, s % 3600 / 60)
-      if (s >= 60) return sprintf("%dm %ds", s / 60, s % 60)
-      return sprintf("%ds", s)
+table() {
+  data=$(gh api rate_limit --jq '
+    .resources | to_entries |
+    sort_by([
+      (if .value.limit > 0 then -(.value.used / .value.limit) else 1 end),
+      .key
+    ])[] |
+    [.key, .value.used, .value.limit, ([.value.reset - now, 0] | max | floor)] |
+    @tsv') || return
+  printf '%s\n' "$data" | awk -F '\t' -v color="$color" '
+    function dur(s, m) {
+      m = int((s + 30) / 60)
+      if (m >= 60) return sprintf("%dh %dm", m / 60, m % 60)
+      return sprintf("%dm", m)
     }
     {
       n++
@@ -65,3 +86,24 @@ printf '%s\n' "$data" |
         printf "%" w "s  %s  %s\n", subject[i], usage, remaining
       }
     }'
+}
+
+if [ "$watch" = 0 ]; then
+  table
+  exit
+fi
+
+if [ "$tty" = 1 ]; then
+  printf '\033[?25l'
+  trap 'printf "\033[?25h"' EXIT
+  trap 'exit 130' INT TERM
+fi
+
+while :; do
+  out=$(table)
+  if [ "$tty" = 1 ]; then
+    printf '\033[H\033[2J'
+  fi
+  printf '%s\n' "$out"
+  sleep 15
+done
