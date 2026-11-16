@@ -57,6 +57,7 @@ table() {
   printf '%s\n' "$data" | awk -F '\t' -v color="$color" '
     function dur(s, m) {
       m = int((s + 30) / 60)
+      if (m >= 60 && m % 60 == 0) return sprintf("%dh", m / 60)
       if (m >= 60) return sprintf("%dh %dm", m / 60, m % 60)
       return sprintf("%dm", m)
     }
