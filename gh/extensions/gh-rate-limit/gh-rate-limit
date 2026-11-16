@@ -8,7 +8,8 @@ Show the current user's GitHub API rate limits.
 Usage: gh rate-limit [-w | --watch]
 
 Rows are sorted by usage, highest first. Reset times are rounded to the
-nearest minute.
+nearest minute. The GraphQL row comes from the GraphQL API, and each check
+costs at least 1 GraphQL point.
 
 Usage percentages are green below 50%, yellow below 80%, and red otherwise.
 Reset times are dimmed. A zero limit is shown as n/a.
@@ -46,7 +47,14 @@ if [ "$tty" = 1 ] && [ -z "$NO_COLOR" ]; then
 fi
 
 table() {
+  # /rate_limit can report a different GraphQL window than GraphQL enforces.
+  RATE_LIMIT_GRAPHQL=$(gh api graphql -f query='
+    { rateLimit { used limit resetAt } }' --jq '
+    .data.rateLimit | {used, limit, reset: (.resetAt | fromdateiso8601)}') || return
+  export RATE_LIMIT_GRAPHQL
+  # shellcheck disable=SC2016
   data=$(gh api rate_limit --jq '
+    .resources.graphql = ($ENV.RATE_LIMIT_GRAPHQL | fromjson) |
     .resources | to_entries |
     sort_by([
       (if .value.limit > 0 then -(.value.used / .value.limit) else 1 end),
