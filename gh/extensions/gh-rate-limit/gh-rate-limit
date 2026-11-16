@@ -17,7 +17,7 @@ Styles are disabled when stdout is not a terminal, NO_COLOR is nonempty,
 or TERM is dumb.
 
 Options:
-  -w, --watch  Redraw the table every 15 seconds until interrupted.
+  -w, --watch  Redraw the table every 5 minutes until interrupted.
   -h, --help   Show this help.
 EOF
 }
@@ -114,5 +114,5 @@ while :; do
     printf '\033[H\033[2J'
   fi
   printf '%s\n' "$out"
-  sleep 15
+  sleep 300
 done
