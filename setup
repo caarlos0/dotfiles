@@ -135,7 +135,7 @@ if which copilot &>/dev/null; then
     copilot plugin marketplace add caarlos0/copilot >/dev/null
   fi
   copilot_plugins=$(copilot plugin list --json)
-  for plugin in coding security fitness terminals coordination home; do
+  for plugin in coding security fitness terminals coordination factory home; do
     if ! jq -e --arg name "$plugin" 'any(.[]; .name == $name and .marketplace == "caarlos0")' <<<"$copilot_plugins" >/dev/null; then
       copilot plugin install "$plugin@caarlos0" >/dev/null
     elif ! jq -e --arg name "$plugin" 'any(.[]; .name == $name and .marketplace == "caarlos0" and .enabled)' <<<"$copilot_plugins" >/dev/null; then
