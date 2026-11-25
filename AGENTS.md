@@ -119,7 +119,8 @@ agent/skill, and local `gh` extension links removed during setup migrations.
   `work`. Durable handoffs remain in `~/.local/state/copilot-coordinator/`.
 - Terminal theming: Catppuccin Mocha + Nerd Font glyphs.
 - `p` uses the frecency-sorted project list in
-  `fish/functions/__project_list.fish`.
+  `fish/functions/__project_list.fish`. In Rex, it renames the current session
+  to the selected project's directory name after switching directories.
 - Rex Beta is the only macOS terminal, used by the Hyper+J shortcut and Dock.
   `setup` links `rex/themes`; import the theme separately because custom theme
   IDs are machine-local. `rex/settings.plist` preserves Berkeley Mono 12 and

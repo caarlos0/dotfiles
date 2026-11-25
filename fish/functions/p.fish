@@ -24,5 +24,8 @@ function p --description "Switch to a project directory"
 
     test -z "$selected" && return 0
     zoxide add "$PROJECTS/$selected"
-    cd "$PROJECTS/$selected"
+    cd "$PROJECTS/$selected"; or return
+    if test -n "$REX_SESSION"; and command -q rex
+        rex session rename "$REX_SESSION" (path basename "$selected")
+    end
 end
