@@ -47,7 +47,7 @@ Use `copilot --agent coordination:general` for general coordination,
 preload the shared `coordinator` skill for Rex workers, durable handoffs, and
 cleanup. The skill cannot be invoked independently.
 
-Rex Beta is the only terminal, used by the Hyper+J shortcut and Dock. Install
+Rex is the only terminal, used by the Hyper+J shortcut and Dock. Install
 it separately on each Mac. `./setup` links its theme files.
 
 Rex has no full-settings export command. Reuse its saved macOS preferences:
