@@ -109,6 +109,8 @@ brew "ripgrep"
 brew "rustup"
 # Fast and accurate code counter with complexity and COCOMO estimates
 brew "scc"
+# Used as a compiler wrapper and avoids compilation when possible
+brew "sccache"
 # Autoformat shell script source code
 brew "shfmt"
 # Non-interactive SSH password auth
@@ -193,8 +195,6 @@ cask "caarlos0/tap/pinata"
 cask "caarlos0/tap/prowl", trusted: true
 # Quick Look generator for Markdown files
 cask "qlmarkdown"
-# Team communication and collaboration software
-cask "slack"
 # Notepad with a built-in calculator
 cask "soulver"
 # Semantic Version Utility
