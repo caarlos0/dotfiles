@@ -87,6 +87,7 @@ sandbox_rw() {
 if which copilot &>/dev/null; then
   info "Setting up Copilot CLI"
   mkdir -p -m 700 ~/.local/state/copilot-coordinator
+  mkdir -p -m 700 ~/.local/state/copilot-factory
   copilot_config=$(copilot config --list)
 
   while read -r line || [ -n "$line" ]; do
@@ -135,7 +136,7 @@ if which copilot &>/dev/null; then
     copilot plugin marketplace add caarlos0/copilot >/dev/null
   fi
   copilot_plugins=$(copilot plugin list --json)
-  for plugin in coding security fitness terminals coordination factory home; do
+  for plugin in coding security fitness terminals coordination factory home database; do
     if ! jq -e --arg name "$plugin" 'any(.[]; .name == $name and .marketplace == "caarlos0")' <<<"$copilot_plugins" >/dev/null; then
       copilot plugin install "$plugin@caarlos0" >/dev/null
     elif ! jq -e --arg name "$plugin" 'any(.[]; .name == $name and .marketplace == "caarlos0" and .enabled)' <<<"$copilot_plugins" >/dev/null; then
@@ -154,15 +155,6 @@ if which copilot &>/dev/null; then
       unlink_managed "$PWD/$kind/$(basename "$entry")" "$entry"
     done
   done
-  if which gh &>/dev/null; then
-    info "Installing shared Copilot skills"
-    gh skill install github/gh-stack --agent github-copilot --all --scope user --force >/dev/null 2>&1
-    gh skill install ayghri/i-have-adhd i-have-adhd --agent github-copilot --scope user --force >/dev/null 2>&1
-    gh skill install dmtrKovalenko/fframes fframes-video --agent github-copilot --scope user --force >/dev/null 2>&1
-    success "Installed shared Copilot skills"
-  else
-    warn "GitHub CLI not found, skipping shared Copilot skills" >&2
-  fi
 
   info "Generating Copilot Fish completions"
   mkdir -p ~/.config/fish/completions/
